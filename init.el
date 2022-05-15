@@ -843,18 +843,11 @@
 
 (use-package gdscript-mode)
 
-(use-package omnisharp
-  :after csharp-mode
-  :preface
-  (progn
-    (defun my/configure-omnisharp ()
-      (omnisharp-mode)
-      (add-to-list 'company-backends #'company-omnisharp)
-      (company-mode)
-      (local-set-key (kbd "C-c C-c") #'recompile)))
-  :init
-  (progn
-    (add-hook 'csharp-mode-hook #'my/configure-omnisharp))
-  :config
-  (progn
-    (bind-key "C-c r r" #'omnisharp-run-code-action-refactoring omnisharp-mode-map)))
+;; (use-package avy
+;; :ensure t
+;; :bind ("M-s" . avy-goto-char))
+
+(use-package avy
+:ensure t
+:config
+(avy-setup-default))
