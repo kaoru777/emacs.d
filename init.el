@@ -36,6 +36,7 @@
 (setq-default line-spacing 0.3)
 (set-frame-font "Monaco 12" nil t)
 (set-face-attribute 'default nil :height 120)
+(save-place-mode t)
 
 (setq-default
   indent-tabs-mode nil ;; use space instead of tabs
@@ -62,7 +63,7 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(beacon-color "#cc6666")
  '(custom-safe-themes
-   '("0feb7052df6cfc1733c1087d3876c26c66410e5f1337b039be44cb406b6187c6" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "7675ffd2f5cb01a7aab53bcdd702fa019b56c764900f2eea0f74ccfc8e854386" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358"))
+   '("a53f00556ab4c81a0618ab6589053d9e351312d37d9c9cf544e0c8edac2b63ab" "0feb7052df6cfc1733c1087d3876c26c66410e5f1337b039be44cb406b6187c6" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "7675ffd2f5cb01a7aab53bcdd702fa019b56c764900f2eea0f74ccfc8e854386" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358"))
  '(fci-rule-color "#373b41")
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
  '(frame-background-mode 'dark)
@@ -87,7 +88,7 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(moe-theme rust-mode counsel ivy helm lua-mode which-key web-mode web-beautify vterm use-package-ensure-system-package tide slime ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters python-pytest py-autopep8 prettier-js pipenv phpunit perspective paradox org-plus-contrib omnisharp ob-sql-mode ob-restclient magit latex-preview-pane indent-guide hl-todo helm-swoop helm-projectile helm-ag gruvbox-theme graphql-mode gnu-elpa-keyring-update gdscript-mode fzf flycheck-rust flycheck-pycheckers flycheck-pos-tip flycheck-phpstan flycheck-elixir flycheck-checkbashisms flycheck-cask flx expand-region exec-path-from-shell ess elpy dockerfile-mode docker-compose-mode docker csv-mode counsel-projectile cargo ansible amx alchemist ag ace-window))
+   '(paredit moe-theme rust-mode counsel ivy helm lua-mode which-key web-mode web-beautify vterm use-package-ensure-system-package tide slime ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters python-pytest py-autopep8 prettier-js pipenv phpunit perspective paradox org-plus-contrib omnisharp ob-sql-mode ob-restclient magit latex-preview-pane indent-guide hl-todo helm-swoop helm-projectile helm-ag gruvbox-theme graphql-mode gnu-elpa-keyring-update gdscript-mode fzf flycheck-rust flycheck-pycheckers flycheck-pos-tip flycheck-phpstan flycheck-elixir flycheck-checkbashisms flycheck-cask flx expand-region exec-path-from-shell ess elpy dockerfile-mode docker-compose-mode docker csv-mode counsel-projectile cargo ansible amx alchemist ag ace-window))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
@@ -851,3 +852,24 @@
 :ensure t
 :config
 (avy-setup-default))
+
+(use-package paredit
+  :ensure t)
+
+(defun bjm/kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-buffer (current-buffer))
+  (delete-window))
+
+(global-set-key (kbd "C-x k") 'bjm/kill-this-buffer)
+
+(use-package ace-window
+  :ensure t
+  :init (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+              aw-char-position 'left
+              aw-ignore-current nil
+              aw-leading-char-style 'char
+              aw-scope 'frame)
+  :bind (("M-o" . ace-window)
+         ("M-O" . ace-swap-window)))
