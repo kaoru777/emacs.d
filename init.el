@@ -2,8 +2,7 @@
 
 (setq package-archives (append package-archives
        '(("melpa" . "http://melpa.org/packages/")
-       ("gnu" . "http://elpa.gnu.org/packages/")
-       ("org" . "http://orgmode.org/elpa/"))))
+       ("gnu" . "http://elpa.gnu.org/packages/"))))
 
 (package-initialize)
 (package-refresh-contents) ;; updates all packages
@@ -88,7 +87,7 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(paredit moe-theme rust-mode counsel ivy helm lua-mode which-key web-mode web-beautify vterm use-package-ensure-system-package tide slime ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters python-pytest py-autopep8 prettier-js pipenv phpunit perspective paradox org-plus-contrib omnisharp ob-sql-mode ob-restclient magit latex-preview-pane indent-guide hl-todo helm-swoop helm-projectile helm-ag gruvbox-theme graphql-mode gnu-elpa-keyring-update gdscript-mode fzf flycheck-rust flycheck-pycheckers flycheck-pos-tip flycheck-phpstan flycheck-elixir flycheck-checkbashisms flycheck-cask flx expand-region exec-path-from-shell ess elpy dockerfile-mode docker-compose-mode docker csv-mode counsel-projectile cargo ansible amx alchemist ag ace-window))
+   '(paredit moe-theme rust-mode counsel ivy helm lua-mode which-key web-mode web-beautify vterm use-package-ensure-system-package tide slime ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters python-pytest py-autopep8 prettier-js pipenv phpunit perspective paradox org-contrib omnisharp ob-sql-mode ob-restclient magit latex-preview-pane indent-guide hl-todo helm-swoop helm-projectile helm-ag gruvbox-theme graphql-mode gnu-elpa-keyring-update gdscript-mode fzf flycheck-rust flycheck-pycheckers flycheck-pos-tip flycheck-phpstan flycheck-elixir flycheck-checkbashisms flycheck-cask flx expand-region exec-path-from-shell ess elpy dockerfile-mode docker-compose-mode docker csv-mode counsel-projectile cargo ansible amx alchemist ag ace-window))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
@@ -704,7 +703,7 @@
 ;;   :hook (TeX-mode . latex-electric-env-pair-mode))
 
 (use-package org
-  :ensure org-plus-contrib)
+  :ensure org-contrib)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
