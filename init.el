@@ -115,6 +115,7 @@
      (340 . "#f0c674")
      (360 . "#b5bd68")))
  '(vc-annotate-very-old-color nil)
+ '(warning-suppress-types '((perspective) (perspective)))
  '(window-divider-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -872,3 +873,20 @@
               aw-scope 'frame)
   :bind (("M-o" . ace-window)
          ("M-O" . ace-swap-window)))
+
+(defun my-kill-this-buffer ()
+  (interactive)
+  (catch 'quit
+    (save-window-excursion
+      (let (done)
+        (when (and buffer-file-name (buffer-modified-p))
+          (while (not done)
+            (let ((response (read-char-choice
+                             (format "Save file %s? (y, n, d, q) " (buffer-file-name))
+                             '(?y ?n ?d ?q))))
+              (setq done (cond
+                          ((eq response ?q) (throw 'quit nil))
+                          ((eq response ?y) (save-buffer) t)
+                          ((eq response ?n) (set-buffer-modified-p nil) t)
+                          ((eq response ?d) (diff-buffer-with-file) nil))))))
+        (kill-buffer (current-buffer))))))
