@@ -890,3 +890,11 @@
                           ((eq response ?n) (set-buffer-modified-p nil) t)
                           ((eq response ?d) (diff-buffer-with-file) nil))))))
         (kill-buffer (current-buffer))))))
+
+
+(use-package sqlformat
+  :ensure t
+  :custom (sqlformat-command 'sqlformat)
+  ;;:custom (sqlformat-command 'pgformatter)
+  (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat)
+  )
