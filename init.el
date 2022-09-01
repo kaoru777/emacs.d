@@ -891,10 +891,15 @@
                           ((eq response ?d) (diff-buffer-with-file) nil))))))
         (kill-buffer (current-buffer))))))
 
-
 (use-package sqlformat
-  :ensure t
-  :custom (sqlformat-command 'sqlformat)
-  ;;:custom (sqlformat-command 'pgformatter)
-  (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat)
-  )
+    :ensure t
+    :defer t
+    :config
+    (setq sqlformat-command 'pgformatter)
+    ;; (setq sqlformat-args '("-s4" "-g")))
+    ;; (setq sqlformat-command 'sqlfluff)    
+    :commands (sqlformat sqlformat-buffer sqlformat-region)
+    :hook (sql-mode . sqlformat-on-save-mode)
+    :bind
+    (:map sql-mode-map ("C-c b" . sqlformat-buffer)))
+
