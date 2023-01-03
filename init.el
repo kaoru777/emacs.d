@@ -33,7 +33,7 @@
 (setq mouse-wheel-follow-mouse 't)
 (setq scroll-step 1)
 (setq-default line-spacing 0.3)
-(set-frame-font "Monaco 12" nil t)
+(set-frame-font "Comic Code 12" nil t)
 (set-face-attribute 'default nil :height 120)
 (save-place-mode t)
 
@@ -87,7 +87,7 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(paredit moe-theme rust-mode counsel ivy helm lua-mode which-key web-mode web-beautify vterm use-package-ensure-system-package tide slime ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters python-pytest py-autopep8 prettier-js pipenv phpunit perspective paradox org-contrib omnisharp ob-sql-mode ob-restclient magit latex-preview-pane indent-guide hl-todo helm-swoop helm-projectile helm-ag gruvbox-theme graphql-mode gnu-elpa-keyring-update gdscript-mode fzf flycheck-rust flycheck-pycheckers flycheck-pos-tip flycheck-phpstan flycheck-elixir flycheck-checkbashisms flycheck-cask flx expand-region exec-path-from-shell ess elpy dockerfile-mode docker-compose-mode docker csv-mode counsel-projectile cargo ansible amx alchemist ag ace-window))
+   '(lsp-tailwindcss dap-mode lsp-treemacs lsp-ivy helm-lsp lsp-ui lsp-mode paredit moe-theme rust-mode counsel ivy helm lua-mode which-key web-mode web-beautify vterm use-package-ensure-system-package tide slime ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters python-pytest py-autopep8 prettier-js pipenv phpunit perspective paradox org-contrib omnisharp ob-sql-mode ob-restclient magit latex-preview-pane indent-guide hl-todo helm-swoop helm-projectile helm-ag gruvbox-theme graphql-mode gnu-elpa-keyring-update gdscript-mode fzf flycheck-rust flycheck-pycheckers flycheck-pos-tip flycheck-phpstan flycheck-elixir flycheck-checkbashisms flycheck-cask flx expand-region exec-path-from-shell ess elpy dockerfile-mode docker-compose-mode docker csv-mode counsel-projectile cargo ansible amx alchemist ag ace-window))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
@@ -287,6 +287,8 @@
 ;; https://github.com/flycheck/flycheck
 (use-package flycheck
   :defer t
+  :custom
+  (flycheck-check-syntax-automatically '(save mode-enabled))
   :init (global-flycheck-mode))
 
 (use-package flycheck-rust
@@ -903,3 +905,29 @@
     :bind
     (:map sql-mode-map ("C-c b" . sqlformat-buffer)))
 
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (python-mode . lsp)
+         (ruby-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+;; if you are helm user
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+;; if you are ivy user
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+;; optionally if you want to use debugger
+(use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+(use-package lsp-tailwindcss
+  :init
+  (setq lsp-tailwindcss-add-on-mode t))
