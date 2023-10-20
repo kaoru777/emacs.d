@@ -1,0 +1,17 @@
+<h1>2.1. Introduction</h1>    <p>This chapter provides an overview of how to use SQL to perform simple operations. This tutorial is only intended to give you an introduction and is in no way a complete tutorial on SQL. Numerous books have been written on SQL, including <a class="xref" href="https://www.postgresql.org/docs/13/biblio.html#MELT93" title="Understanding the New SQL">[melt93]</a> and <a class="xref" href="https://www.postgresql.org/docs/13/biblio.html#DATE97" title="A Guide to the SQL Standard">[date97]</a>. You should be aware that some PostgreSQL language features are extensions to the standard.</p> <p>In the examples that follow, we assume that you have created a database named <code class="literal">mydb</code>, as described in the previous chapter, and have been able to start psql.</p> <p>Examples in this manual can also be found in the PostgreSQL source distribution in the directory <code class="filename">src/tutorial/</code>. (Binary distributions of PostgreSQL might not provide those files.) To use those files, first change to that directory and run make:</p> <pre>
+$ <strong class="userinput">cd .../src/tutorial</strong>
+$ <strong class="userinput">make</strong>
+</pre> <p>This creates the scripts and compiles the C files containing user-defined functions and types. Then, to start the tutorial, do the following:</p> <pre>
+$ <strong class="userinput">psql -s mydb</strong>
+
+...
+
+mydb=&gt; <strong class="userinput">\i basics.sql</strong>
+</pre> <p>The <code class="literal">\i</code> command reads in commands from the specified file. <code class="command">psql</code>'s <code class="literal">-s</code> option puts you in single step mode which pauses before sending each statement to the server. The commands used in this section are in the file <code class="filename">basics.sql</code>.</p>  <div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter">  <table summary="Navigation footer"> <tr> <td width="40%" align="left">
+<a accesskey="p" href="https://www.postgresql.org/docs/13/tutorial-sql.html" title="Chapter 2. The SQL Language">Prev</a> </td> <td width="20%" align="center"><a accesskey="u" href="https://www.postgresql.org/docs/13/tutorial-sql.html" title="Chapter 2. The SQL Language">Up</a></td> <td width="40%" align="right"> <a accesskey="n" href="tutorial-concepts" title="2.2. Concepts">Next</a>
+</td> </tr> <tr> <td width="40%" align="left">Chapter 2. The SQL Language </td> <td width="20%" align="center"><a accesskey="h" href="https://www.postgresql.org/docs/13/index.html" title="PostgreSQL 13.4 Documentation">Home</a></td> <td width="40%" align="right"> 2.2. Concepts</td> </tr> </table> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2021 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/13/tutorial-sql-intro.html" class="_attribution-link">https://www.postgresql.org/docs/13/tutorial-sql-intro.html</a>
+  </p>
+</div>

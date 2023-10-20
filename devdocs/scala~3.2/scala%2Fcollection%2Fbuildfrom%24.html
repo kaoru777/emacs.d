@@ -1,0 +1,180 @@
+<h1>Object BuildFrom.BuildFrom</h1>
+<div class="links">
+<a href="buildfrom">Companion class</a> • <a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L45">Source code</a>
+</div>
+<h2 id="signature">
+<div class="signature">
+object <a href="buildfrom%24">BuildFrom</a> extends <a href="buildfromlowpriority1">BuildFromLowPriority1</a>
+</div>
+</h2>
+<table class="attributes">
+<tr>
+<th>Supertypes</th>
+<td><div class="related-types">
+<div class="member">trait <a href="buildfromlowpriority1">BuildFromLowPriority1</a>
+</div>
+<div class="member">trait <a href="buildfromlowpriority2">BuildFromLowPriority2</a>
+</div>
+<div class="member">class <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a>
+</div>
+<div class="member">trait <a href="../matchable">Matchable</a>
+</div>
+<div class="member">class <a href="../any">Any</a>
+</div>
+</div></td>
+</tr>
+<tr>
+<th>Self type</th>
+<td><div class="related-types"><div class="member">
+<a href="buildfrom%24">BuildFrom</a>.type</div></div></td>
+</tr>
+</table>
+<h2>Implicits</h2>
+<h3 id="buildFromArray-8bc">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L78" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromArray-8bc">buildFromArray</a>[A : <a href="../reflect/classtag">ClassTag</a>]: <a href="buildfrom">BuildFrom</a>[<a href="../array">Array</a>[_], A, <a href="../array">Array</a>[A]]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3 id="buildFromBitSet-fffff061">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L60" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromBitSet-fffff061">buildFromBitSet</a>[C &lt;: <a href="bitset">BitSet</a> &amp; <a href="bitsetops">BitSetOps</a>[LazyRef(...)]]: <a href="buildfrom">BuildFrom</a>[C, <a href="../int">Int</a>, C]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3 id="buildFromMapOps-fffff365">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L48" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromMapOps-fffff365">buildFromMapOps</a>[CC &lt;: ([X, Y] =&gt;&gt; <a href="map">Map</a>[X, Y] &amp; <a href="mapops">MapOps</a>[X, Y, LazyRef(...), _]), K0, V0, K, V]: <a href="buildfrom">BuildFrom</a>[CC[K0, V0], (K, V), CC[K, V]]
+</div>
+</h3>
+
+
+
+<p>Build the source collection type from a MapOps</p>
+
+
+
+<h3 id="buildFromSortedMapOps-24d">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L55" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromSortedMapOps-24d">buildFromSortedMapOps</a>[CC &lt;: ([X, Y] =&gt;&gt; <a href="sortedmap">SortedMap</a>[X, Y] &amp; <a href="sortedmapops">SortedMapOps</a>[X, Y, LazyRef(...), _]), K0, V0, K : <a href="../math/ordering">Ordering</a>, V]: <a href="buildfrom">BuildFrom</a>[CC[K0, V0], (K, V), CC[K, V]]
+</div>
+</h3>
+
+
+
+<p>Build the source collection type from a SortedMapOps</p>
+
+
+
+<h3 id="buildFromString-0">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L66" class="source-link">Source</a><div class="signature">
+implicit val <a href="buildfrom%24#buildFromString-0">buildFromString</a>: <a href="buildfrom">BuildFrom</a>[<a href="../predef%24#String-0">String</a>, <a href="../char">Char</a>, <a href="../predef%24#String-0">String</a>]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3 id="buildFromView-122">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L84" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromView-122">buildFromView</a>[A, B]: <a href="buildfrom">BuildFrom</a>[<a href="view">View</a>[A], B, <a href="view">View</a>[B]]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3 id="buildFromWrappedString-0">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L72" class="source-link">Source</a><div class="signature">
+implicit val <a href="buildfrom%24#buildFromWrappedString-0">buildFromWrappedString</a>: <a href="buildfrom">BuildFrom</a>[<a href="immutable/wrappedstring">WrappedString</a>, <a href="../char">Char</a>, <a href="immutable/wrappedstring">WrappedString</a>]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h2>Inherited implicits</h2>
+<h3 id="buildFromIterableOps-1e3">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L109" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromIterableOps-1e3">buildFromIterableOps</a>[CC &lt;: ([X] =&gt;&gt; <a href="iterable">Iterable</a>[X] &amp; <a href="iterableops">IterableOps</a>[X, LazyRef(...), _]), A0, A]: <a href="buildfrom">BuildFrom</a>[CC[A0], A, CC[A]]
+</div>
+</h3>
+
+
+
+<p>Build the source collection type from an IterableOps</p>
+<table class="attributes"><tr>
+<th>Inherited from</th>
+<td><a href="buildfromlowpriority2#buildFromIterableOps-1e3">BuildFromLowPriority2</a></td>
+</tr></table>
+
+
+<h3 id="buildFromIterator-fffff061">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L115" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromIterator-fffff061">buildFromIterator</a>[A]: <a href="buildfrom">BuildFrom</a>[<a href="iterator">Iterator</a>[_], A, <a href="iterator">Iterator</a>[A]]
+</div>
+</h3>
+
+
+
+
+<table class="attributes"><tr>
+<th>Inherited from</th>
+<td><a href="buildfromlowpriority2#buildFromIterator-fffff061">BuildFromLowPriority2</a></td>
+</tr></table>
+
+
+<h3 id="buildFromSortedSetOps-fffff70f">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L95" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#buildFromSortedSetOps-fffff70f">buildFromSortedSetOps</a>[CC &lt;: ([X] =&gt;&gt; <a href="sortedset">SortedSet</a>[X] &amp; <a href="sortedsetops">SortedSetOps</a>[X, LazyRef(...), _]), A0, A : <a href="../math/ordering">Ordering</a>]: <a href="buildfrom">BuildFrom</a>[CC[A0], A, CC[A]]
+</div>
+</h3>
+
+
+
+<p>Build the source collection type from an Iterable with SortedOps</p>
+<table class="attributes"><tr>
+<th>Inherited from</th>
+<td><a href="buildfromlowpriority1#buildFromSortedSetOps-fffff70f">BuildFromLowPriority1</a></td>
+</tr></table>
+
+
+<h3 id="fallbackStringCanBuildFrom-fffff061">
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/BuildFrom.scala#L100" class="source-link">Source</a><div class="signature">
+implicit def <a href="buildfrom%24#fallbackStringCanBuildFrom-fffff061">fallbackStringCanBuildFrom</a>[A]: <a href="buildfrom">BuildFrom</a>[<a href="../predef%24#String-0">String</a>, A, <a href="immutable/indexedseq">IndexedSeq</a>[A]]
+</div>
+</h3>
+
+
+
+
+<table class="attributes"><tr>
+<th>Inherited from</th>
+<td><a href="buildfromlowpriority1#fallbackStringCanBuildFrom-fffff061">BuildFromLowPriority1</a></td>
+</tr></table><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2002-2022 EPFL, with contributions from Lightbend.<br>Licensed under the Apache License, Version 2.0.<br>
+    <a href="https://scala-lang.org/api/3.2.0/scala/collection/BuildFrom$.html" class="_attribution-link">https://scala-lang.org/api/3.2.0/scala/collection/BuildFrom$.html</a>
+  </p>
+</div>

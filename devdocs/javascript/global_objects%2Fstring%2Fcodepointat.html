@@ -1,0 +1,87 @@
+<h1>String.prototype.codePointAt()</h1>
+<div class="section-content"><p> The <code>codePointAt()</code> method returns a non-negative integer that is the Unicode code point value at the given position. Note that this function does not give the nth code point in a string, but the code point starting at the specified string index. </p></div>
+<section aria-labelledby="try_it"><h2 id="try_it">Try it</h2>
+<div class="section-content"><iframe class="interactive is-shorter-height" height="200" src="https://interactive-examples.mdn.mozilla.net/pages/js/string-codepointat.html" title="MDN Web Docs Interactive Example" loading="lazy"></iframe></div></section><section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="js"><span class="token function">codePointAt</span><span class="token punctuation">(</span>pos<span class="token punctuation">)</span>
+</pre></div></div></section><section aria-labelledby="parameters"><h3 id="parameters">Parameters</h3>
+<div class="section-content"><dl> <dt id="pos"><code>pos</code></dt> <dd> <p> Position of an element in <code>str</code> to return the code point value from. </p> </dd> </dl></div></section><section aria-labelledby="return_value"><h3 id="return_value">Return value</h3>
+<div class="section-content">
+<p>A decimal number representing the code point value of the character at the given <code>pos</code>.</p> <ul> <li>If there is no element at <code>pos</code>, returns <a href="../undefined"><code>undefined</code></a>.</li> <li>If the element at <code>pos</code> is a UTF-16 high surrogate, returns the code point of the surrogate <em>pair</em>.</li> <li>If the element at <code>pos</code> is a UTF-16 low surrogate, returns <em>only</em> the low surrogate code point.</li> </ul>
+</div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="using_codepointat"><h3 id="using_codepointat">Using codePointAt()</h3>
+<div class="section-content"><div class="code-example"><pre data-language="js"><span class="token string">"ABC"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 65</span>
+<span class="token string">"ABC"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 41</span>
+
+<span class="token string">"😍"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 128525</span>
+<span class="token string">"\ud83d\ude0d"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 128525</span>
+<span class="token string">"\ud83d\ude0d"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1f60d</span>
+
+<span class="token string">"😍"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 56845</span>
+<span class="token string">"\ud83d\ude0d"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 56845</span>
+<span class="token string">"\ud83d\ude0d"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// de0d</span>
+
+<span class="token string">"ABC"</span><span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// undefined</span>
+</pre></div></div></section><section aria-labelledby="looping_with_codepointat"><h3 id="looping_with_codepointat">Looping with codePointAt()</h3>
+<div class="section-content">
+<p> Because indexing to a <code>pos</code> whose element is a UTF-16 low surrogate, returns <em>only</em> the low surrogate, it's better not to index directly into a UTF-16 string. </p> <p> Instead, use a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#for...of_statement"><code>for...of</code></a> statement or an Array's <a href="../array/foreach"><code>forEach()</code></a> method (or anything which correctly iterates UTF-16 surrogates) to iterate the string, using <code>codePointAt(0)</code> to get the code point of each element. </p> <div class="code-example"><pre data-language="js"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> codePoint <span class="token keyword">of</span> <span class="token string">"\ud83d\udc0e\ud83d\udc71\u2764"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>codePoint<span class="token punctuation">.</span><span class="token function">codePointAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// '1f40e', '1f471', '2764'</span>
+</pre></div>
+</div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.codepointat">ECMAScript Language Specification <br><small># sec-string.prototype.codepointat</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+<th colspan="2">Server</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+<th>Deno</th>
+<th>Node.js</th>
+</tr>
+</thead>
+<tbody><tr>
+<th><code>codePointAt</code></th>
+<td class="bc-supports-yes">41</td>
+<td class="bc-supports-yes">12</td>
+<td class="bc-supports-yes">29</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">28</td>
+<td class="bc-supports-yes">9</td>
+<td class="bc-supports-yes">41</td>
+<td class="bc-supports-yes">41</td>
+<td class="bc-supports-yes">29</td>
+<td class="bc-supports-yes">28</td>
+<td class="bc-supports-yes">9</td>
+<td class="bc-supports-yes">4.0</td>
+<td class="bc-supports-yes">1.0</td>
+<td class="bc-supports-yes">4.0.00.12.0</td>
+</tr></tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li><a href="https://github.com/zloirock/core-js#ecmascript-string-and-regexp" target="_blank">Polyfill of <code>String.prototype.codePointAt</code> in <code>core-js</code></a></li> <li><a href="fromcodepoint"><code>String.fromCodePoint()</code></a></li> <li><a href="fromcharcode"><code>String.fromCharCode()</code></a></li> <li><a href="charcodeat"><code>String.prototype.charCodeAt()</code></a></li> <li><a href="charat"><code>String.prototype.charAt()</code></a></li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt</a>
+  </p>
+</div>

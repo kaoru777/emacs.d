@@ -1,0 +1,100 @@
+  <main role="main">    <h1>Interface ExecutionControl</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="../../../../java.base/java/lang/autocloseable">AutoCloseable</a></code></dd> </dl> <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="../execution/directexecutioncontrol">DirectExecutionControl</a></code>, <code><a href="../execution/jdidefaultexecutioncontrol">JdiDefaultExecutionControl</a></code>, <code><a href="../execution/jdiexecutioncontrol">JdiExecutionControl</a></code>, <code><a href="../execution/localexecutioncontrol">LocalExecutionControl</a></code>, <code><a href="../execution/remoteexecutioncontrol">RemoteExecutionControl</a></code>, <code><a href="../execution/streamingexecutioncontrol">StreamingExecutionControl</a></code>
+</dd> </dl>  <pre data-language="java">public interface ExecutionControl
+extends AutoCloseable</pre> <div>
+<p>This interface specifies the functionality that must provided to implement a pluggable JShell execution engine. </p>
+<p> The audience for this Service Provider Interface is engineers wishing to implement their own version of the execution engine in support of the JShell API. </p>
+<p> A Snippet is compiled into code wrapped in a 'wrapper class'. The execution engine is used by the core JShell implementation to load and, for executable Snippets, execute the Snippet. </p>
+<p> Methods defined in this interface should only be called by the core JShell implementation.</p>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="nested.class.summary">Nested Classes</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Interface</th> <th scope="col">Description</th> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.classbytecodes">ExecutionControl.ClassBytecodes</a></code></th> <td> <p>Bundles class name with class bytecodes.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.classinstallexception">ExecutionControl.ClassInstallException</a></code></th> <td> <p>A class install (load or redefine) encountered a problem.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code></th> <td> <p>Unbidden execution engine termination has occurred.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.executioncontrolexception">ExecutionControl.ExecutionControlException</a></code></th> <td> <p>The abstract base of all <code>ExecutionControl</code> exceptions.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.internalexception">ExecutionControl.InternalException</a></code></th> <td> <p>An internal problem has occurred.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.notimplementedexception">ExecutionControl.NotImplementedException</a></code></th> <td> <p>The command is not implemented.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.resolutionexception">ExecutionControl.ResolutionException</a></code></th> <td> <p>An exception indicating that a <code>DeclarationSnippet</code> with unresolved references has been encountered.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.runexception">ExecutionControl.RunException</a></code></th> <td> <p>The abstract base of of exceptions specific to running user code.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.stoppedexception">ExecutionControl.StoppedException</a></code></th> <td> <p>An exception indicating that an <a href="#invoke(java.lang.String,java.lang.String)"><code>invoke(java.lang.String, java.lang.String)</code></a> (or theoretically a <a href="#varValue(java.lang.String,java.lang.String)"><code>varValue(java.lang.String, java.lang.String)</code></a>) has been interrupted by a <a href="#stop()"><code>stop()</code></a>.</p> </td> </tr> <tr> <td><code>static class </code></td> <th scope="row"><code><a href="executioncontrol.userexception">ExecutionControl.UserException</a></code></th> <td> <p>A 'normal' user exception occurred.</p> </td> </tr> </table>  </section>  <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#addToClasspath(java.lang.String)">addToClasspath</a>​(<a href="../../../../java.base/java/lang/string">String</a> path)</code></th> <td> <p>Adds the path to the execution class path.</p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#close()">close</a>()</code></th> <td> <p>Shuts down this execution engine.</p> </td> </tr> <tr id="i2"> <td><code><a href="../../../../java.base/java/lang/object">Object</a></code></td> <th scope="row"><code><a href="#extensionCommand(java.lang.String,java.lang.Object)">extensionCommand</a>​(<a href="../../../../java.base/java/lang/string">String</a> command,
+                <a href="../../../../java.base/java/lang/object">Object</a> arg)</code></th> <td> <p>Run a non-standard command (or a standard command from a newer version).</p> </td> </tr> <tr id="i3"> <td><code>static <a href="executioncontrol">ExecutionControl</a></code></td> <th scope="row"><code><a href="#generate(jdk.jshell.spi.ExecutionEnv,java.lang.String)">generate</a>​(<a href="executionenv">ExecutionEnv</a> env,
+        <a href="../../../../java.base/java/lang/string">String</a> spec)</code></th> <td> <p>Search for a provider, then create and return the <code>ExecutionControl</code> instance.</p> </td> </tr> <tr id="i4"> <td><code>static <a href="executioncontrol">ExecutionControl</a></code></td> <th scope="row"><code><a href="#generate(jdk.jshell.spi.ExecutionEnv,java.lang.String,java.util.Map)">generate</a>​(<a href="executionenv">ExecutionEnv</a> env,
+        <a href="../../../../java.base/java/lang/string">String</a> name,
+        <a href="../../../../java.base/java/util/map">Map</a>&lt;<a href="../../../../java.base/java/lang/string">String</a>,​<a href="../../../../java.base/java/lang/string">String</a>&gt; parameters)</code></th> <td> <p>Search for a provider, then create and return the <code>ExecutionControl</code> instance.</p> </td> </tr> <tr id="i5"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#invoke(java.lang.String,java.lang.String)">invoke</a>​(<a href="../../../../java.base/java/lang/string">String</a> className,
+      <a href="../../../../java.base/java/lang/string">String</a> methodName)</code></th> <td> <p>Invokes an executable Snippet by calling a method on the specified wrapper class.</p> </td> </tr> <tr id="i6"> <td><code>void</code></td> <th scope="row"><code><a href="#load(jdk.jshell.spi.ExecutionControl.ClassBytecodes%5B%5D)">load</a>​(<a href="executioncontrol.classbytecodes">ExecutionControl.ClassBytecodes</a>[] cbcs)</code></th> <td> <p>Attempts to load new classes.</p> </td> </tr> <tr id="i7"> <td><code>void</code></td> <th scope="row"><code><a href="#redefine(jdk.jshell.spi.ExecutionControl.ClassBytecodes%5B%5D)">redefine</a>​(<a href="executioncontrol.classbytecodes">ExecutionControl.ClassBytecodes</a>[] cbcs)</code></th> <td> <p>Attempts to redefine previously loaded classes.</p> </td> </tr> <tr id="i8"> <td><code>void</code></td> <th scope="row"><code><a href="#stop()">stop</a>()</code></th> <td> <p>Interrupts a running invoke.</p> </td> </tr> <tr id="i9"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#varValue(java.lang.String,java.lang.String)">varValue</a>​(<a href="../../../../java.base/java/lang/string">String</a> className,
+        <a href="../../../../java.base/java/lang/string">String</a> varName)</code></th> <td> <p>Returns the value of a variable.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="load(jdk.jshell.spi.ExecutionControl.ClassBytecodes[])">load</h3> <pre data-language="java">void load(ExecutionControl.ClassBytecodes[] cbcs)
+   throws ExecutionControl.ClassInstallException,
+          ExecutionControl.NotImplementedException,
+          ExecutionControl.EngineTerminationException</pre> <p>Attempts to load new classes.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>cbcs</code> - the class name and bytecodes to load</dd> <dt>Throws:</dt> <dd>
+<code><a href="executioncontrol.classinstallexception">ExecutionControl.ClassInstallException</a></code> - exception occurred loading the classes, some or all were not loaded</dd> <dd>
+<code><a href="executioncontrol.notimplementedexception">ExecutionControl.NotImplementedException</a></code> - if not implemented</dd> <dd>
+<code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code> - the execution engine has terminated</dd> </dl>    <h3 id="redefine(jdk.jshell.spi.ExecutionControl.ClassBytecodes[])">redefine</h3> <pre data-language="java">void redefine(ExecutionControl.ClassBytecodes[] cbcs)
+       throws ExecutionControl.ClassInstallException,
+              ExecutionControl.NotImplementedException,
+              ExecutionControl.EngineTerminationException</pre> <p>Attempts to redefine previously loaded classes.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>cbcs</code> - the class name and bytecodes to redefine</dd> <dt>Throws:</dt> <dd>
+<code><a href="executioncontrol.classinstallexception">ExecutionControl.ClassInstallException</a></code> - exception occurred redefining the classes, some or all were not redefined</dd> <dd>
+<code><a href="executioncontrol.notimplementedexception">ExecutionControl.NotImplementedException</a></code> - if not implemented</dd> <dd>
+<code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code> - the execution engine has terminated</dd> </dl>    <h3 id="invoke(java.lang.String,java.lang.String)">invoke</h3> <pre data-language="java">String invoke(String className,
+              String methodName)
+       throws ExecutionControl.RunException,
+              ExecutionControl.EngineTerminationException,
+              ExecutionControl.InternalException</pre> <p>Invokes an executable Snippet by calling a method on the specified wrapper class. The method must have no arguments and return String.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>className</code> - the class whose method should be invoked</dd> <dd>
+<code>methodName</code> - the name of method to invoke</dd> <dt>Returns:</dt> <dd>the result of the execution or null if no result</dd> <dt>Throws:</dt> <dd>
+<code><a href="executioncontrol.userexception">ExecutionControl.UserException</a></code> - the invoke raised a user exception</dd> <dd>
+<code><a href="executioncontrol.resolutionexception">ExecutionControl.ResolutionException</a></code> - the invoke attempted to directly or indirectly invoke an unresolved snippet</dd> <dd>
+<code><a href="executioncontrol.stoppedexception">ExecutionControl.StoppedException</a></code> - if the <code>invoke()</code> was canceled by <a href="#stop()"><code>stop()</code></a>
+</dd> <dd>
+<code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code> - the execution engine has terminated</dd> <dd>
+<code><a href="executioncontrol.internalexception">ExecutionControl.InternalException</a></code> - an internal problem occurred</dd> <dd><code><a href="executioncontrol.runexception">ExecutionControl.RunException</a></code></dd> </dl>    <h3 id="varValue(java.lang.String,java.lang.String)">varValue</h3> <pre data-language="java">String varValue(String className,
+                String varName)
+         throws ExecutionControl.RunException,
+                ExecutionControl.EngineTerminationException,
+                ExecutionControl.InternalException</pre> <p>Returns the value of a variable.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>className</code> - the name of the wrapper class of the variable</dd> <dd>
+<code>varName</code> - the name of the variable</dd> <dt>Returns:</dt> <dd>the value of the variable</dd> <dt>Throws:</dt> <dd>
+<code><a href="executioncontrol.userexception">ExecutionControl.UserException</a></code> - formatting the value raised a user exception</dd> <dd>
+<code><a href="executioncontrol.resolutionexception">ExecutionControl.ResolutionException</a></code> - formatting the value attempted to directly or indirectly invoke an unresolved snippet</dd> <dd>
+<code><a href="executioncontrol.stoppedexception">ExecutionControl.StoppedException</a></code> - if the formatting the value was canceled by <a href="#stop()"><code>stop()</code></a>
+</dd> <dd>
+<code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code> - the execution engine has terminated</dd> <dd>
+<code><a href="executioncontrol.internalexception">ExecutionControl.InternalException</a></code> - an internal problem occurred</dd> <dd><code><a href="executioncontrol.runexception">ExecutionControl.RunException</a></code></dd> </dl>    <h3 id="addToClasspath(java.lang.String)">addToClasspath</h3> <pre data-language="java">void addToClasspath(String path)
+             throws ExecutionControl.EngineTerminationException,
+                    ExecutionControl.InternalException</pre> <p>Adds the path to the execution class path.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>path</code> - the path to add</dd> <dt>Throws:</dt> <dd>
+<code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code> - the execution engine has terminated</dd> <dd>
+<code><a href="executioncontrol.internalexception">ExecutionControl.InternalException</a></code> - an internal problem occurred</dd> </dl>    <h3 id="stop()">stop</h3> <pre data-language="java">void stop()
+   throws ExecutionControl.EngineTerminationException,
+          ExecutionControl.InternalException</pre> <p>Interrupts a running invoke.</p> <dl> <dt>Throws:</dt> <dd>
+<code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code> - the execution engine has terminated</dd> <dd>
+<code><a href="executioncontrol.internalexception">ExecutionControl.InternalException</a></code> - an internal problem occurred</dd> </dl>    <h3 id="extensionCommand(java.lang.String,java.lang.Object)">extensionCommand</h3> <pre data-language="java">Object extensionCommand(String command,
+                        Object arg)
+                 throws ExecutionControl.RunException,
+                        ExecutionControl.EngineTerminationException,
+                        ExecutionControl.InternalException</pre> <p>Run a non-standard command (or a standard command from a newer version).</p> <dl> <dt>Parameters:</dt> <dd>
+<code>command</code> - the non-standard command</dd> <dd>
+<code>arg</code> - the commands argument</dd> <dt>Returns:</dt> <dd>the commands return value</dd> <dt>Throws:</dt> <dd>
+<code><a href="executioncontrol.userexception">ExecutionControl.UserException</a></code> - the command raised a user exception</dd> <dd>
+<code><a href="executioncontrol.resolutionexception">ExecutionControl.ResolutionException</a></code> - the command attempted to directly or indirectly invoke an unresolved snippet</dd> <dd>
+<code><a href="executioncontrol.stoppedexception">ExecutionControl.StoppedException</a></code> - if the command was canceled by <a href="#stop()"><code>stop()</code></a>
+</dd> <dd>
+<code><a href="executioncontrol.engineterminationexception">ExecutionControl.EngineTerminationException</a></code> - the execution engine has terminated</dd> <dd>
+<code><a href="executioncontrol.notimplementedexception">ExecutionControl.NotImplementedException</a></code> - if not implemented</dd> <dd>
+<code><a href="executioncontrol.internalexception">ExecutionControl.InternalException</a></code> - an internal problem occurred</dd> <dd><code><a href="executioncontrol.runexception">ExecutionControl.RunException</a></code></dd> </dl>    <h3 id="close()">close</h3> <pre data-language="java">void close()</pre> <div>
+<p>Shuts down this execution engine. Implementation should free all resources held by this execution engine. </p>
+<p> No calls to methods on this interface should be made after close.</p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/autocloseable#close()">close</a></code> in interface <code><a href="../../../../java.base/java/lang/autocloseable">AutoCloseable</a></code>
+</dd> </dl>    <h3 id="generate(jdk.jshell.spi.ExecutionEnv,java.lang.String,java.util.Map)">generate</h3> <pre data-language="java">static ExecutionControl generate(ExecutionEnv env,
+                                 String name,
+                                 Map&lt;String,​String&gt; parameters)
+                          throws Throwable</pre> <p>Search for a provider, then create and return the <code>ExecutionControl</code> instance.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>env</code> - the execution environment (provided by JShell)</dd> <dd>
+<code>name</code> - the name of provider</dd> <dd>
+<code>parameters</code> - the parameter map.</dd> <dt>Returns:</dt> <dd>the execution engine</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/throwable">Throwable</a></code> - an exception that occurred attempting to find or create the execution engine.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - if no ExecutionControlProvider has the specified <code>name</code> and <code>parameters</code>.</dd> </dl>    <h3 id="generate(jdk.jshell.spi.ExecutionEnv,java.lang.String)">generate</h3> <pre data-language="java">static ExecutionControl generate(ExecutionEnv env,
+                                 String spec)
+                          throws Throwable</pre> <p>Search for a provider, then create and return the <code>ExecutionControl</code> instance.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>env</code> - the execution environment (provided by JShell)</dd> <dd>
+<code>spec</code> - the <code>ExecutionControl</code> spec, which is described in the documentation of this <a href="package-summary">package documentation</a>.</dd> <dt>Returns:</dt> <dd>the execution engine</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/throwable">Throwable</a></code> - an exception that occurred attempting to find or create the execution engine.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - if no ExecutionControlProvider has the specified <code>name</code> and <code>parameters</code>.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - if <code>spec</code> is malformed</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jshell/jdk/jshell/spi/ExecutionControl.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jshell/jdk/jshell/spi/ExecutionControl.html</a>
+  </p>
+</div>

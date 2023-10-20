@@ -1,0 +1,14 @@
+  <main role="main">    <h1>Interface UIDefaults.ActiveValue</h1>     <dl> <dt>Enclosing class:</dt> <dd><a href="uidefaults">UIDefaults</a></dd> </dl>  <pre data-language="java">public static interface UIDefaults.ActiveValue</pre> <p>This class enables one to store an entry in the defaults table that's constructed each time it's looked up with one of the <code>getXXX(key)</code> methods. Here's an example of an <code>ActiveValue</code> that constructs a <code>DefaultListCellRenderer</code>: <pre data-language="java">Object cellRendererActiveValue = new UIDefaults.ActiveValue() {
+      public Object createValue(UIDefaults table) {
+          return new DefaultListCellRenderer();
+      }
+  };
+
+  uiDefaultsTable.put("MyRenderer", cellRendererActiveValue);</pre></p> <dl> <dt>See Also:</dt> <dd><a href="uidefaults#get(java.lang.Object)"><code>UIDefaults.get(java.lang.Object)</code></a></dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="../../../java.base/java/lang/object">Object</a></code></td> <th scope="row"><code><a href="#createValue(javax.swing.UIDefaults)">createValue</a>​(<a href="uidefaults">UIDefaults</a> table)</code></th> <td> <p>Creates the value retrieved from the <code>UIDefaults</code> table.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="createValue(javax.swing.UIDefaults)">createValue</h3> <pre data-language="java">Object createValue(UIDefaults table)</pre> <p>Creates the value retrieved from the <code>UIDefaults</code> table. The object is created each time it is accessed.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>table</code> - a <code>UIDefaults</code> table</dd> <dt>Returns:</dt> <dd>the created <code>Object</code>
+</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/UIDefaults.ActiveValue.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/UIDefaults.ActiveValue.html</a>
+  </p>
+</div>

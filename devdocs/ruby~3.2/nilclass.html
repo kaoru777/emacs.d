@@ -1,0 +1,84 @@
+<h1 id="class-NilClass" class="class"> class NilClass </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="object">Object</a></dd>
+</dl> <section class="description"> <p>The class of the singleton object <code>nil</code>.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-26"> <span class="method-callseq"> false &amp; obj → false </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> nil &amp; obj → false </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="26-source"> <pre class="c" data-language="c">static VALUE
+false_and(VALUE obj, VALUE obj2)
+{
+    return Qfalse;
+}</pre> </div> <p>And—Returns <code>false</code>. <em>obj</em> is always evaluated as it is the argument to a method call—there is no short-circuit evaluation in this case.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-3D-3D-3D"> <span class="method-callseq"> obj === other → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="3D-3D-3D-source"> <pre class="c" data-language="c">#define case_equal rb_equal</pre> </div> <p>Case Equality – For class <a href="object"><code>Object</code></a>, effectively the same as calling <code>#==</code>, but typically overridden by descendants to provide meaningful semantics in <code>case</code> statements.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-3D~"> <span class="method-callseq"> nil =~ other → nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="3D~-source"> <pre class="c" data-language="c">static VALUE
+nil_match(VALUE obj1, VALUE obj2)
+{
+    return Qnil;
+}</pre> </div> <p>Dummy pattern matching – always returns nil.</p> <p>This method makes it possible to ‘while gets =~ /re/ do`.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-5E"> <span class="method-callseq"> false ^ obj → true or false </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> nil ^ obj → true or false </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="5E-source"> <pre class="c" data-language="c">#define false_xor true_and</pre> </div> <p>Exclusive Or—If <em>obj</em> is <code>nil</code> or <code>false</code>, returns <code>false</code>; otherwise, returns <code>true</code>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-inspect"> <span class="method-callseq"> inspect → "nil" </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="inspect-source"> <pre class="c" data-language="c">static VALUE
+nil_inspect(VALUE obj)
+{
+    return rb_usascii_str_new2("nil");
+}</pre> </div> <p>Always returns the string “nil”.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-nil-3F"> <span class="method-callseq"> nil? → true </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="nil-3F-source"> <pre class="c" data-language="c">static VALUE
+rb_true(VALUE obj)
+{
+    return Qtrue;
+}</pre> </div> <p>Only the object <em>nil</em> responds <code>true</code> to <code>nil?</code>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-rationalize"> <span class="method-callseq"> rationalize([eps]) → (0/1) </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="rationalize-source"> <pre class="c" data-language="c">static VALUE
+nilclass_rationalize(int argc, VALUE *argv, VALUE self)
+{
+    rb_check_arity(argc, 0, 1);
+    return nilclass_to_r(self);
+}</pre> </div> <p>Returns zero as a rational. The optional argument <code>eps</code> is always ignored.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_a"> <span class="method-callseq"> to_a → [] </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_a-source"> <pre class="c" data-language="c">static VALUE
+nil_to_a(VALUE obj)
+{
+    return rb_ary_new2(0);
+}</pre> </div> <p>Always returns an empty array.</p> <pre class="ruby" data-language="ruby">nil.to_a   #=&gt; []
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_c"> <span class="method-callseq"> to_c → (0+0i) </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_c-source"> <pre class="c" data-language="c">static VALUE
+nilclass_to_c(VALUE self)
+{
+    return rb_complex_new1(INT2FIX(0));
+}</pre> </div> <p>Returns zero as a complex.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_d"> <span class="method-callseq"> to_d → bigdecimal </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_d-source"> <pre class="ruby" data-language="ruby"># File ext/bigdecimal/lib/bigdecimal/util.rb, line 182
+def to_d
+  BigDecimal(0)
+end</pre> </div> <p>Returns nil represented as a <a href="bigdecimal"><code>BigDecimal</code></a>.</p> <pre class="ruby" data-language="ruby">require 'bigdecimal'
+require 'bigdecimal/util'
+
+nil.to_d   # =&gt; 0.0
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_f"> <span class="method-callseq"> to_f → 0.0 </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_f-source"> <pre class="ruby" data-language="ruby"># File nilclass.rb, line 22
+def to_f
+  return 0.0
+end</pre> </div> <p>Always returns zero.</p> <pre class="ruby" data-language="ruby">nil.to_f   #=&gt; 0.0
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_h"> <span class="method-callseq"> to_h → {} </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_h-source"> <pre class="c" data-language="c">static VALUE
+nil_to_h(VALUE obj)
+{
+    return rb_hash_new();
+}</pre> </div> <p>Always returns an empty hash.</p> <pre class="ruby" data-language="ruby">nil.to_h   #=&gt; {}
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_i"> <span class="method-callseq"> to_i → 0 </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_i-source"> <pre class="ruby" data-language="ruby"># File nilclass.rb, line 10
+def to_i
+  return 0
+end</pre> </div> <p>Always returns zero.</p> <pre class="ruby" data-language="ruby">nil.to_i   #=&gt; 0
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_r"> <span class="method-callseq"> to_r → (0/1) </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_r-source"> <pre class="c" data-language="c">static VALUE
+nilclass_to_r(VALUE self)
+{
+    return rb_rational_new1(INT2FIX(0));
+}</pre> </div> <p>Returns zero as a rational.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_s"> <span class="method-callseq"> to_s → "" </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_s-source"> <pre class="c" data-language="c">MJIT_FUNC_EXPORTED VALUE
+rb_nil_to_s(VALUE obj)
+{
+    return rb_cNilClass_to_s;
+}</pre> </div> <p>Always returns the empty string.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-7C"> <span class="method-callseq"> false | obj → true or false </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> nil | obj → true or false </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="7C-source"> <pre class="c" data-language="c">#define false_or true_and</pre> </div> <p>Or—Returns <code>false</code> if <em>obj</em> is <code>nil</code> or <code>false</code>; <code>true</code> otherwise.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

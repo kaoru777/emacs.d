@@ -1,0 +1,218 @@
+<h1 title="Class InetAddress" class="title">Class InetAddress</h1> <div class="inheritance" title="Inheritance Tree">
+<a href="../lang/object" title="class in java.lang">java.lang.Object</a> <div class="inheritance">java.net.InetAddress</div> </div> <section class="class-description" id="class-description"> <dl class="notes"> <dt>All Implemented Interfaces:</dt> <dd><code><a href="../io/serializable" title="interface in java.io">Serializable</a></code></dd> </dl> <dl class="notes"> <dt>Direct Known Subclasses:</dt> <dd>
+<code><a href="inet4address" title="class in java.net">Inet4Address</a></code>, <code><a href="inet6address" title="class in java.net">Inet6Address</a></code>
+</dd> </dl>  <pre class="lang-java" data-language="java">public class InetAddress extends Object implements Serializable</pre> <div class="block">This class represents an Internet Protocol (IP) address. <p> An IP address is either a 32-bit or 128-bit unsigned number used by IP, a lower-level protocol on which protocols like UDP and TCP are built. The IP address architecture is defined by <a href="http://www.ietf.org/rfc/rfc790.txt"><i>RFC 790: Assigned Numbers</i></a>, <a href="http://www.ietf.org/rfc/rfc1918.txt"> <i>RFC 1918: Address Allocation for Private Internets</i></a>, <a href="http://www.ietf.org/rfc/rfc2365.txt"><i>RFC 2365: Administratively Scoped IP Multicast</i></a>, and <a href="http://www.ietf.org/rfc/rfc2373.txt"><i>RFC 2373: IP Version 6 Addressing Architecture</i></a>. An instance of an InetAddress consists of an IP address and possibly its corresponding host name (depending on whether it is constructed with a host name or whether it has already done reverse host name resolution). </p>
+<h2> Address types </h2> <table class="striped" style="margin-left:2em"> <caption style="display:none">Description of unicast and multicast address types</caption> <thead> <tr>
+<th scope="col">Address Type</th>
+<th scope="col">Description</th>
+</tr> </thead> <tbody> <tr>
+<th scope="row" style="vertical-align:top">unicast</th> <td>An identifier for a single interface. A packet sent to a unicast address is delivered to the interface identified by that address. <p> The Unspecified Address -- Also called anylocal or wildcard address. It must never be assigned to any node. It indicates the absence of an address. One example of its use is as the target of bind, which allows a server to accept a client connection on any interface, in case the server host has multiple interfaces. </p>
+<p> The <i>unspecified</i> address must not be used as the destination address of an IP packet. </p>
+<p> The <i>Loopback</i> Addresses -- This is the address assigned to the loopback interface. Anything sent to this IP address loops around and becomes IP input on the local host. This address is often used when testing a client.</p>
+</td>
+</tr> <tr>
+<th scope="row" style="vertical-align:top">multicast</th> <td>An identifier for a set of interfaces (typically belonging to different nodes). A packet sent to a multicast address is delivered to all interfaces identified by that address.</td>
+</tr> </tbody> </table> <h3> IP address scope </h3> <p> <i>Link-local</i> addresses are designed to be used for addressing on a single link for purposes such as auto-address configuration, neighbor discovery, or when no routers are present. </p>
+<p> <i>Site-local</i> addresses are designed to be used for addressing inside of a site without the need for a global prefix. </p>
+<p> <i>Global</i> addresses are unique across the internet. </p>
+<h3> Textual representation of IP addresses </h3> The textual representation of an IP address is address family specific. <p> For IPv4 address format, please refer to <a href="inet4address#format">Inet4Address#format</a>; For IPv6 address format, please refer to <a href="inet6address#format">Inet6Address#format</a>. </p>
+<p>There is a <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/doc-files/net-properties.html#Ipv4IPv6">couple of System Properties</a> affecting how IPv4 and IPv6 addresses are used.</p> <h3> Host Name Resolution </h3> Host name-to-IP address <i>resolution</i> is accomplished through the use of a combination of local machine configuration information and network naming services such as the Domain Name System (DNS) and Network Information Service(NIS). The particular naming services(s) being used is by default the local machine configured one. For any host name, its corresponding IP address is returned. <p> <i>Reverse name resolution</i> means that for any IP address, the host associated with the IP address is returned. </p>
+<p> The InetAddress class provides methods to resolve host names to their IP addresses and vice versa. </p>
+<h3> InetAddress Caching </h3> The InetAddress class has a cache to store successful as well as unsuccessful host name resolutions. <p> By default, when a security manager is installed, in order to protect against DNS spoofing attacks, the result of positive host name resolutions are cached forever. When a security manager is not installed, the default behavior is to cache entries for a finite (implementation dependent) period of time. The result of unsuccessful host name resolution is cached for a very short period of time (10 seconds) to improve performance. </p>
+<p> If the default behavior is not desired, then a Java security property can be set to a different Time-to-live (TTL) value for positive caching. Likewise, a system admin can configure a different negative caching TTL value when needed. </p>
+<p> Two Java security properties control the TTL values used for positive and negative host name resolution caching: </p>
+<dl style="margin-left:2em"> <dt><b>networkaddress.cache.ttl</b></dt> <dd>Indicates the caching policy for successful name lookups from the name service. The value is specified as an integer to indicate the number of seconds to cache the successful lookup. The default setting is to cache for an implementation specific period of time. <p> A value of -1 indicates "cache forever". </p>
+</dd> <dt>
+<b>networkaddress.cache.negative.ttl</b> (default: 10)</dt> <dd>Indicates the caching policy for un-successful name lookups from the name service. The value is specified as an integer to indicate the number of seconds to cache the failure for un-successful lookups. <p> A value of 0 indicates "never cache". A value of -1 indicates "cache forever". </p>
+</dd> </dl>
+</div> <dl class="notes"> <dt>Since:</dt> <dd>1.0</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="#getByAddress(byte%5B%5D)"><code>getByAddress(byte[])</code></a></li> <li><a href="#getByAddress(java.lang.String,byte%5B%5D)"><code>getByAddress(java.lang.String, byte[])</code></a></li> <li><a href="#getAllByName(java.lang.String)"><code>getAllByName(java.lang.String)</code></a></li> <li><a href="#getByName(java.lang.String)"><code>getByName(java.lang.String)</code></a></li> <li><a href="#getLocalHost()"><code>getLocalHost()</code></a></li> <li><a href="https://docs.oracle.com/en/java/javase/17/docs/api/serialized-form.html#java.net.InetAddress">Serialized Form</a></li> </ul> </dd> </dl> </section> <section class="summary"> <section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                                                               <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="../lang/object" title="class in java.lang">Object</a> obj)</wbr></code></td>
+<td> <div class="block">Compares this object against the specified object.</div> </td>
+</tr>
+<tr>
+<td><code>byte[]</code></td>
+<td><code><a href="#getAddress()" class="member-name-link">getAddress</a>()</code></td>
+<td> <div class="block">Returns the raw IP address of this <code>InetAddress</code> object.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="inetaddress" title="class in java.net">InetAddress</a>[]</code></td>
+<td><code><a href="#getAllByName(java.lang.String)" class="member-name-link">getAllByName</a><wbr>(<a href="../lang/string" title="class in java.lang">String</a> host)</wbr></code></td>
+<td> <div class="block">Given the name of a host, returns an array of its IP addresses, based on the configured name service on the system.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="inetaddress" title="class in java.net">InetAddress</a></code></td>
+<td><code><a href="#getByAddress(byte%5B%5D)" class="member-name-link">getByAddress</a><wbr>(byte[] addr)</wbr></code></td>
+<td> <div class="block">Returns an <code>InetAddress</code> object given the raw IP address .</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="inetaddress" title="class in java.net">InetAddress</a></code></td>
+<td><code><a href="#getByAddress(java.lang.String,byte%5B%5D)" class="member-name-link">getByAddress</a><wbr>(<a href="../lang/string" title="class in java.lang">String</a> host,
+ byte[] addr)</wbr></code></td>
+<td> <div class="block">Creates an InetAddress based on the provided host name and IP address.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="inetaddress" title="class in java.net">InetAddress</a></code></td>
+<td><code><a href="#getByName(java.lang.String)" class="member-name-link">getByName</a><wbr>(<a href="../lang/string" title="class in java.lang">String</a> host)</wbr></code></td>
+<td> <div class="block">Determines the IP address of a host, given the host's name.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#getCanonicalHostName()" class="member-name-link">getCanonicalHostName</a>()</code></td>
+<td> <div class="block">Gets the fully qualified domain name for this IP address.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#getHostAddress()" class="member-name-link">getHostAddress</a>()</code></td>
+<td> <div class="block">Returns the IP address string in textual presentation.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#getHostName()" class="member-name-link">getHostName</a>()</code></td>
+<td> <div class="block">Gets the host name for this IP address.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="inetaddress" title="class in java.net">InetAddress</a></code></td>
+<td><code><a href="#getLocalHost()" class="member-name-link">getLocalHost</a>()</code></td>
+<td> <div class="block">Returns the address of the local host.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="inetaddress" title="class in java.net">InetAddress</a></code></td>
+<td><code><a href="#getLoopbackAddress()" class="member-name-link">getLoopbackAddress</a>()</code></td>
+<td> <div class="block">Returns the loopback address.</div> </td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></td>
+<td> <div class="block">Returns a hashcode for this IP address.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isAnyLocalAddress()" class="member-name-link">isAnyLocalAddress</a>()</code></td>
+<td> <div class="block">Utility routine to check if the InetAddress is a wildcard address.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isLinkLocalAddress()" class="member-name-link">isLinkLocalAddress</a>()</code></td>
+<td> <div class="block">Utility routine to check if the InetAddress is an link local address.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isLoopbackAddress()" class="member-name-link">isLoopbackAddress</a>()</code></td>
+<td> <div class="block">Utility routine to check if the InetAddress is a loopback address.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isMCGlobal()" class="member-name-link">isMCGlobal</a>()</code></td>
+<td> <div class="block">Utility routine to check if the multicast address has global scope.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isMCLinkLocal()" class="member-name-link">isMCLinkLocal</a>()</code></td>
+<td> <div class="block">Utility routine to check if the multicast address has link scope.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isMCNodeLocal()" class="member-name-link">isMCNodeLocal</a>()</code></td>
+<td> <div class="block">Utility routine to check if the multicast address has node scope.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isMCOrgLocal()" class="member-name-link">isMCOrgLocal</a>()</code></td>
+<td> <div class="block">Utility routine to check if the multicast address has organization scope.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isMCSiteLocal()" class="member-name-link">isMCSiteLocal</a>()</code></td>
+<td> <div class="block">Utility routine to check if the multicast address has site scope.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isMulticastAddress()" class="member-name-link">isMulticastAddress</a>()</code></td>
+<td> <div class="block">Utility routine to check if the InetAddress is an IP multicast address.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isReachable(int)" class="member-name-link">isReachable</a><wbr>(int timeout)</wbr></code></td>
+<td> <div class="block">Test whether that address is reachable.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isReachable(java.net.NetworkInterface,int,int)" class="member-name-link">isReachable</a><wbr>(<a href="networkinterface" title="class in java.net">NetworkInterface</a> netif,
+ int ttl,
+ int timeout)</wbr></code></td>
+<td> <div class="block">Test whether that address is reachable.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isSiteLocalAddress()" class="member-name-link">isSiteLocalAddress</a>()</code></td>
+<td> <div class="block">Utility routine to check if the InetAddress is a site local address.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#toString()" class="member-name-link">toString</a>()</code></td>
+<td> <div class="block">Converts this IP address to a <code>String</code>.</div> </td>
+</tr>
+</table> </div> </div> <div class="inherited-list"> <h3 id="methods-inherited-from-class-java.lang.Object">Methods declared in class java.lang.<a href="../lang/object" title="class in java.lang">Object</a>
+</h3> <code><a href="../lang/object#clone()">clone</a>, <a href="../lang/object#finalize()">finalize</a>, <a href="../lang/object#getClass()">getClass</a>, <a href="../lang/object#notify()">notify</a>, <a href="../lang/object#notifyAll()">notifyAll</a>, <a href="../lang/object#wait()">wait</a>, <a href="../lang/object#wait(long)">wait</a>, <a href="../lang/object#wait(long,int)">wait</a></code>
+</div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="isMulticastAddress()"> <h3>isMulticastAddress</h3> <pre class="lang-java" data-language="java">public boolean isMulticastAddress()</pre> <div class="block">Utility routine to check if the InetAddress is an IP multicast address.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the InetAddress is an IP multicast address</dd> <dt>Since:</dt> <dd>1.1</dd> </dl> </section><section class="detail" id="isAnyLocalAddress()"> <h3>isAnyLocalAddress</h3> <pre class="lang-java" data-language="java">public boolean isAnyLocalAddress()</pre> <div class="block">Utility routine to check if the InetAddress is a wildcard address.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the InetAddress is a wildcard address.</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isLoopbackAddress()"> <h3>isLoopbackAddress</h3> <pre class="lang-java" data-language="java">public boolean isLoopbackAddress()</pre> <div class="block">Utility routine to check if the InetAddress is a loopback address.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the InetAddress is a loopback address; or false otherwise.</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isLinkLocalAddress()"> <h3>isLinkLocalAddress</h3> <pre class="lang-java" data-language="java">public boolean isLinkLocalAddress()</pre> <div class="block">Utility routine to check if the InetAddress is an link local address.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the InetAddress is a link local address; or false if address is not a link local unicast address.</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isSiteLocalAddress()"> <h3>isSiteLocalAddress</h3> <pre class="lang-java" data-language="java">public boolean isSiteLocalAddress()</pre> <div class="block">Utility routine to check if the InetAddress is a site local address.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the InetAddress is a site local address; or false if address is not a site local unicast address.</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isMCGlobal()"> <h3>isMCGlobal</h3> <pre class="lang-java" data-language="java">public boolean isMCGlobal()</pre> <div class="block">Utility routine to check if the multicast address has global scope.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the address has is a multicast address of global scope, false if it is not of global scope or it is not a multicast address</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isMCNodeLocal()"> <h3>isMCNodeLocal</h3> <pre class="lang-java" data-language="java">public boolean isMCNodeLocal()</pre> <div class="block">Utility routine to check if the multicast address has node scope.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the address has is a multicast address of node-local scope, false if it is not of node-local scope or it is not a multicast address</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isMCLinkLocal()"> <h3>isMCLinkLocal</h3> <pre class="lang-java" data-language="java">public boolean isMCLinkLocal()</pre> <div class="block">Utility routine to check if the multicast address has link scope.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the address has is a multicast address of link-local scope, false if it is not of link-local scope or it is not a multicast address</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isMCSiteLocal()"> <h3>isMCSiteLocal</h3> <pre class="lang-java" data-language="java">public boolean isMCSiteLocal()</pre> <div class="block">Utility routine to check if the multicast address has site scope.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the address has is a multicast address of site-local scope, false if it is not of site-local scope or it is not a multicast address</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isMCOrgLocal()"> <h3>isMCOrgLocal</h3> <pre class="lang-java" data-language="java">public boolean isMCOrgLocal()</pre> <div class="block">Utility routine to check if the multicast address has organization scope.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the address has is a multicast address of organization-local scope, false if it is not of organization-local scope or it is not a multicast address</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="isReachable(int)"> <h3>isReachable</h3> <pre class="lang-java" data-language="java">public boolean isReachable(int timeout) throws IOException</pre> <div class="block">Test whether that address is reachable. Best effort is made by the implementation to try to reach the host, but firewalls and server configuration may block requests resulting in a unreachable status while some specific ports may be accessible. A typical implementation will use ICMP ECHO REQUESTs if the privilege can be obtained, otherwise it will try to establish a TCP connection on port 7 (Echo) of the destination host. <p> The timeout value, in milliseconds, indicates the maximum amount of time the try should take. If the operation times out before getting an answer, the host is deemed unreachable. A negative value will result in an IllegalArgumentException being thrown.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>timeout</code> - the time, in milliseconds, before the call aborts</dd> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the address is reachable.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../io/ioexception" title="class in java.io">IOException</a></code> - if a network error occurs</dd> <dd>
+<code><a href="../lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>timeout</code> is negative.</dd> <dt>Since:</dt> <dd>1.5</dd> </dl> </section><section class="detail" id="isReachable(java.net.NetworkInterface,int,int)"> <h3>isReachable</h3> <pre class="lang-java" data-language="java">public boolean isReachable(NetworkInterface netif, int ttl, int timeout) throws IOException</pre> <div class="block">Test whether that address is reachable. Best effort is made by the implementation to try to reach the host, but firewalls and server configuration may block requests resulting in a unreachable status while some specific ports may be accessible. A typical implementation will use ICMP ECHO REQUESTs if the privilege can be obtained, otherwise it will try to establish a TCP connection on port 7 (Echo) of the destination host. <p> The <code>network interface</code> and <code>ttl</code> parameters let the caller specify which network interface the test will go through and the maximum number of hops the packets should go through. A negative value for the <code>ttl</code> will result in an IllegalArgumentException being thrown. </p>
+<p> The timeout value, in milliseconds, indicates the maximum amount of time the try should take. If the operation times out before getting an answer, the host is deemed unreachable. A negative value will result in an IllegalArgumentException being thrown.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>netif</code> - the NetworkInterface through which the test will be done, or null for any interface</dd> <dd>
+<code>ttl</code> - the maximum numbers of hops to try or 0 for the default</dd> <dd>
+<code>timeout</code> - the time, in milliseconds, before the call aborts</dd> <dt>Returns:</dt> <dd>a <code>boolean</code> indicating if the address is reachable.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if either <code>timeout</code> or <code>ttl</code> are negative.</dd> <dd>
+<code><a href="../io/ioexception" title="class in java.io">IOException</a></code> - if a network error occurs</dd> <dt>Since:</dt> <dd>1.5</dd> </dl> </section><section class="detail" id="getHostName()"> <h3>getHostName</h3> <pre class="lang-java" data-language="java">public String getHostName()</pre> <div class="block">Gets the host name for this IP address. <p>If this InetAddress was created with a host name, this host name will be remembered and returned; otherwise, a reverse name lookup will be performed and the result will be returned based on the system configured name lookup service. If a lookup of the name service is required, call <a href="#getCanonicalHostName()"><code>getCanonicalHostName</code></a>. </p>
+<p>If there is a security manager, its <code>checkConnect</code> method is first called with the hostname and <code>-1</code> as its arguments to see if the operation is allowed. If the operation is not allowed, it will return the textual representation of the IP address.</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>the host name for this IP address, or if the operation is not allowed by the security check, the textual representation of the IP address.</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="#getCanonicalHostName()"><code>getCanonicalHostName()</code></a></li> <li><a href="../lang/securitymanager#checkConnect(java.lang.String,int)"><code>SecurityManager.checkConnect(java.lang.String, int)</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="getCanonicalHostName()"> <h3>getCanonicalHostName</h3> <pre class="lang-java" data-language="java">public String getCanonicalHostName()</pre> <div class="block">Gets the fully qualified domain name for this IP address. Best effort method, meaning we may not be able to return the FQDN depending on the underlying system configuration. <p>If there is a security manager, this method first calls its <code>checkConnect</code> method with the hostname and <code>-1</code> as its arguments to see if the calling code is allowed to know the hostname for this IP address, i.e., to connect to the host. If the operation is not allowed, it will return the textual representation of the IP address.</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>the fully qualified domain name for this IP address, or if the operation is not allowed by the security check, the textual representation of the IP address.</dd> <dt>Since:</dt> <dd>1.4</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="../lang/securitymanager#checkConnect(java.lang.String,int)"><code>SecurityManager.checkConnect(java.lang.String, int)</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="getAddress()"> <h3>getAddress</h3> <pre class="lang-java" data-language="java">public byte[] getAddress()</pre> <div class="block">Returns the raw IP address of this <code>InetAddress</code> object. The result is in network byte order: the highest order byte of the address is in <code>getAddress()[0]</code>.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the raw IP address of this object.</dd> </dl> </section><section class="detail" id="getHostAddress()"> <h3>getHostAddress</h3> <pre class="lang-java" data-language="java">public String getHostAddress()</pre> <div class="block">Returns the IP address string in textual presentation.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the raw IP address in a string format.</dd> <dt>Since:</dt> <dd>1.0.2</dd> </dl> </section><section class="detail" id="hashCode()"> <h3>hashCode</h3> <pre class="lang-java" data-language="java">public int hashCode()</pre> <div class="block">Returns a hashcode for this IP address.</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../lang/object#hashCode()">hashCode</a></code> in class <code><a href="../lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>Returns:</dt> <dd>a hash code value for this IP address.</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="../lang/object#equals(java.lang.Object)"><code>Object.equals(java.lang.Object)</code></a></li> <li><a href="../lang/system#identityHashCode(java.lang.Object)"><code>System.identityHashCode(java.lang.Object)</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="equals(java.lang.Object)"> <h3>equals</h3> <pre class="lang-java" data-language="java">public boolean equals(Object obj)</pre> <div class="block">Compares this object against the specified object. The result is <code>true</code> if and only if the argument is not <code>null</code> and it represents the same IP address as this object. <p> Two instances of <code>InetAddress</code> represent the same IP address if the length of the byte arrays returned by <code>getAddress</code> is the same for both, and each of the array components is the same for the byte arrays.</p>
+</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../lang/object#equals(java.lang.Object)">equals</a></code> in class <code><a href="../lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>obj</code> - the object to compare against.</dd> <dt>Returns:</dt> <dd>
+<code>true</code> if the objects are the same; <code>false</code> otherwise.</dd> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="#getAddress()"><code>getAddress()</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="toString()"> <h3>toString</h3> <pre class="lang-java" data-language="java">public String toString()</pre> <div class="block">Converts this IP address to a <code>String</code>. The string returned is of the form: hostname / literal IP address. If the host name is unresolved, no reverse name service lookup is performed. The hostname part will be represented by an empty string.</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../lang/object#toString()">toString</a></code> in class <code><a href="../lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>Returns:</dt> <dd>a string representation of this IP address.</dd> </dl> </section><section class="detail" id="getByAddress(java.lang.String,byte[])"> <h3>getByAddress</h3> <pre class="lang-java" data-language="java">public static InetAddress getByAddress(String host, byte[] addr) throws UnknownHostException</pre> <div class="block">Creates an InetAddress based on the provided host name and IP address. No name service is checked for the validity of the address. <p> The host name can either be a machine name, such as "<code>www.example.com</code>", or a textual representation of its IP address. </p>
+<p> No validity checking is done on the host name either. </p>
+<p> If addr specifies an IPv4 address an instance of Inet4Address will be returned; otherwise, an instance of Inet6Address will be returned. </p>
+<p> IPv4 address byte array must be 4 bytes long and IPv6 byte array must be 16 bytes long</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>host</code> - the specified host</dd> <dd>
+<code>addr</code> - the raw IP address in network byte order</dd> <dt>Returns:</dt> <dd>an InetAddress object created from the raw IP address.</dd> <dt>Throws:</dt> <dd>
+<code><a href="unknownhostexception" title="class in java.net">UnknownHostException</a></code> - if IP address is of illegal length</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="getByName(java.lang.String)"> <h3>getByName</h3> <pre class="lang-java" data-language="java">public static InetAddress getByName(String host) throws UnknownHostException</pre> <div class="block">Determines the IP address of a host, given the host's name. <p> The host name can either be a machine name, such as "<code>www.example.com</code>", or a textual representation of its IP address. If a literal IP address is supplied, only the validity of the address format is checked. </p>
+<p> For <code>host</code> specified in literal IPv6 address, either the form defined in RFC 2732 or the literal IPv6 address format defined in RFC 2373 is accepted. IPv6 scoped addresses are also supported. See <a href="inet6address#scoped">here</a> for a description of IPv6 scoped addresses. </p>
+<p> If the host is <code>null</code> or <code>host.length()</code> is equal to zero, then an <code>InetAddress</code> representing an address of the loopback interface is returned. See <a href="http://www.ietf.org/rfc/rfc3330.txt">RFC 3330</a> section 2 and <a href="http://www.ietf.org/rfc/rfc2373.txt">RFC 2373</a> section 2.5.3. </p>
+<p> If there is a security manager, and <code>host</code> is not <code>null</code> or <code>host.length() </code> is not equal to zero, the security manager's <code>checkConnect</code> method is called with the hostname and <code>-1</code> as its arguments to determine if the operation is allowed.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>host</code> - the specified host, or <code>null</code>.</dd> <dt>Returns:</dt> <dd>an IP address for the given host name.</dd> <dt>Throws:</dt> <dd>
+<code><a href="unknownhostexception" title="class in java.net">UnknownHostException</a></code> - if no IP address for the <code>host</code> could be found, or if a scope_id was specified for a global IPv6 address.</dd> <dd>
+<code><a href="../lang/securityexception" title="class in java.lang">SecurityException</a></code> - if a security manager exists and its checkConnect method doesn't allow the operation</dd> </dl> </section><section class="detail" id="getAllByName(java.lang.String)"> <h3>getAllByName</h3> <pre class="lang-java" data-language="java">public static InetAddress[] getAllByName(String host) throws UnknownHostException</pre> <div class="block">Given the name of a host, returns an array of its IP addresses, based on the configured name service on the system. <p> The host name can either be a machine name, such as "<code>www.example.com</code>", or a textual representation of its IP address. If a literal IP address is supplied, only the validity of the address format is checked. </p>
+<p> For <code>host</code> specified in <i>literal IPv6 address</i>, either the form defined in RFC 2732 or the literal IPv6 address format defined in RFC 2373 is accepted. A literal IPv6 address may also be qualified by appending a scoped zone identifier or scope_id. The syntax and usage of scope_ids is described <a href="inet6address#scoped">here</a>. </p>
+<p> If the host is <code>null</code> or <code>host.length()</code> is equal to zero, then an <code>InetAddress</code> representing an address of the loopback interface is returned. See <a href="http://www.ietf.org/rfc/rfc3330.txt">RFC 3330</a> section 2 and <a href="http://www.ietf.org/rfc/rfc2373.txt">RFC 2373</a> section 2.5.3. </p> <p> If there is a security manager, and <code>host</code> is not <code>null</code> or <code>host.length() </code> is not equal to zero, the security manager's <code>checkConnect</code> method is called with the hostname and <code>-1</code> as its arguments to determine if the operation is allowed.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>host</code> - the name of the host, or <code>null</code>.</dd> <dt>Returns:</dt> <dd>an array of all the IP addresses for a given host name.</dd> <dt>Throws:</dt> <dd>
+<code><a href="unknownhostexception" title="class in java.net">UnknownHostException</a></code> - if no IP address for the <code>host</code> could be found, or if a scope_id was specified for a global IPv6 address.</dd> <dd>
+<code><a href="../lang/securityexception" title="class in java.lang">SecurityException</a></code> - if a security manager exists and its <code>checkConnect</code> method doesn't allow the operation.</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="../lang/securitymanager#checkConnect(java.lang.String,int)"><code>SecurityManager.checkConnect(java.lang.String, int)</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="getLoopbackAddress()"> <h3>getLoopbackAddress</h3> <pre class="lang-java" data-language="java">public static InetAddress getLoopbackAddress()</pre> <div class="block">Returns the loopback address. <p> The InetAddress returned will represent the IPv4 loopback address, 127.0.0.1, or the IPv6 loopback address, ::1. The IPv4 loopback address returned is only one of many in the form 127.*.*.*</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>the InetAddress loopback instance.</dd> <dt>Since:</dt> <dd>1.7</dd> </dl> </section><section class="detail" id="getByAddress(byte[])"> <h3>getByAddress</h3> <pre class="lang-java" data-language="java">public static InetAddress getByAddress(byte[] addr) throws UnknownHostException</pre> <div class="block">Returns an <code>InetAddress</code> object given the raw IP address . The argument is in network byte order: the highest order byte of the address is in <code>getAddress()[0]</code>. <p> This method doesn't block, i.e. no reverse name service lookup is performed. </p>
+<p> IPv4 address byte array must be 4 bytes long and IPv6 byte array must be 16 bytes long</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>addr</code> - the raw IP address in network byte order</dd> <dt>Returns:</dt> <dd>an InetAddress object created from the raw IP address.</dd> <dt>Throws:</dt> <dd>
+<code><a href="unknownhostexception" title="class in java.net">UnknownHostException</a></code> - if IP address is of illegal length</dd> <dt>Since:</dt> <dd>1.4</dd> </dl> </section><section class="detail" id="getLocalHost()"> <h3>getLocalHost</h3> <pre class="lang-java" data-language="java">public static InetAddress getLocalHost() throws UnknownHostException</pre> <div class="block">Returns the address of the local host. This is achieved by retrieving the name of the host from the system, then resolving that name into an <code>InetAddress</code>. <p>Note: The resolved address may be cached for a short period of time. </p> <p>If there is a security manager, its <code>checkConnect</code> method is called with the local host name and <code>-1</code> as its arguments to see if the operation is allowed. If the operation is not allowed, an InetAddress representing the loopback address is returned.</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>the address of the local host.</dd> <dt>Throws:</dt> <dd>
+<code><a href="unknownhostexception" title="class in java.net">UnknownHostException</a></code> - if the local host name could not be resolved into an address.</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="../lang/securitymanager#checkConnect(java.lang.String,int)"><code>SecurityManager.checkConnect(java.lang.String, int)</code></a></li> <li><a href="#getByName(java.lang.String)"><code>getByName(java.lang.String)</code></a></li> </ul> </dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/InetAddress.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/InetAddress.html</a>
+  </p>
+</div>

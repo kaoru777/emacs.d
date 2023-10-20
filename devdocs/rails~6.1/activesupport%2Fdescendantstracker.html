@@ -1,0 +1,48 @@
+<h1 id="module-ActiveSupport::DescendantsTracker" class="module"> module ActiveSupport::DescendantsTracker </h1> <section class="description"> <p>This module provides an internal implementation to track descendants which is faster than iterating through ObjectSpace.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-clear"> <span class="method-name">clear</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="clear-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 24
+def clear
+  if defined? ActiveSupport::Dependencies
+    @@direct_descendants.each do |klass, descendants|
+      if Dependencies.autoloaded?(klass)
+        @@direct_descendants.delete(klass)
+      else
+        descendants.reject! { |v| Dependencies.autoloaded?(v) }
+      end
+    end
+  else
+    @@direct_descendants.clear
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-descendants"> <span class="method-name">descendants</span><span class="method-args">(klass)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 18
+def descendants(klass)
+  arr = []
+  accumulate_descendants(klass, arr)
+  arr
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-direct_descendants"> <span class="method-name">direct_descendants</span><span class="method-args">(klass)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="direct_descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 12
+def direct_descendants(klass)
+  descendants = @@direct_descendants[klass]
+  descendants ? descendants.to_a : []
+end</pre> </div>  </div> <div class="aliases"> Also aliased as: <a href="descendantstracker#method-c-subclasses">subclasses</a> </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-store_inherited"> <span class="method-name">store_inherited</span><span class="method-args">(klass, descendant)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="store_inherited-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 40
+def store_inherited(klass, descendant)
+  (@@direct_descendants[klass] ||= DescendantsArray.new) &lt;&lt; descendant
+end</pre> </div> <p>This is the only method that is not thread safe, but is only ever called during the eager loading phase.</p>  </div> </div> <div class="method-detail method-alias"> <div class="method-heading" id="method-c-subclasses"> <span class="method-name">subclasses</span><span class="method-args">(klass)</span> </div>  <div class="aliases"> Alias for: <a href="descendantstracker#method-c-direct_descendants">direct_descendants</a> </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-descendants"> <span class="method-name">descendants</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 65
+def descendants
+  DescendantsTracker.descendants(self)
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-direct_descendants"> <span class="method-name">direct_descendants</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="direct_descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 60
+def direct_descendants
+  DescendantsTracker.direct_descendants(self)
+end</pre> </div>  </div> <div class="aliases"> Also aliased as: <a href="descendantstracker#method-i-subclasses">subclasses</a> </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-inherited"> <span class="method-name">inherited</span><span class="method-args">(base)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="inherited-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 55
+def inherited(base)
+  DescendantsTracker.store_inherited(self, base)
+  super
+end</pre> </div> <div class="method-calls-super"> Calls superclass method </div>  </div> </div> <div class="method-detail method-alias"> <div class="method-heading" id="method-i-subclasses"> <span class="method-name">subclasses</span><span class="method-args">()</span> </div>  <div class="aliases"> Alias for: <a href="descendantstracker#method-i-direct_descendants">direct_descendants</a> </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

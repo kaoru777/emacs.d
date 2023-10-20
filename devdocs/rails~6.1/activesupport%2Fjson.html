@@ -1,0 +1,37 @@
+<h1 id="module-ActiveSupport::JSON" class="module"> module ActiveSupport::JSON </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section class="constants-list"> <header> <h3>Constants</h3> </header> <dl> <dt id="DATETIME_REGEX">DATETIME_REGEX </dt>
+
+<dt id="DATE_REGEX">DATE_REGEX </dt>
+<dd>
+<p>matches YAML-formatted dates</p> </dd>
+</dl> </section> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-decode"> <span class="method-name">decode</span><span class="method-args">(json)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="decode-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/json/decoding.rb, line 22
+def decode(json)
+  data = ::JSON.parse(json, quirks_mode: true)
+
+  if ActiveSupport.parse_json_times
+    convert_dates_from(data)
+  else
+    data
+  end
+end</pre> </div> <p>Parses a <a href="json"><code>JSON</code></a> string (JavaScript <a href="../object"><code>Object</code></a> Notation) into a hash. See <a href="http://www.json.org">www.json.org</a> for more info.</p> <pre>ActiveSupport::JSON.decode("{\"team\":\"rails\",\"players\":\"36\"}")
+=&gt; {"team" =&gt; "rails", "players" =&gt; "36"}</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-encode"> <span class="method-name">encode</span><span class="method-args">(value, options = nil)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="encode-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/json/encoding.rb, line 21
+def self.encode(value, options = nil)
+  Encoding.json_encoder.new(options).encode(value)
+end</pre> </div> <p>Dumps objects in <a href="json"><code>JSON</code></a> (JavaScript <a href="../object"><code>Object</code></a> Notation). See <a href="http://www.json.org">www.json.org</a> for more info.</p> <pre class="ruby" data-language="ruby">ActiveSupport::JSON.encode({ team: 'rails', players: '36' })
+# =&gt; "{\"team\":\"rails\",\"players\":\"36\"}"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-parse_error"> <span class="method-name">parse_error</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="parse_error-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/json/decoding.rb, line 42
+def parse_error
+  ::JSON::ParserError
+end</pre> </div> <p>Returns the class of the error that will be raised when there is an error in decoding <a href="json"><code>JSON</code></a>. Using this method means you won't directly depend on the ActiveSupport's <a href="json"><code>JSON</code></a> implementation, in case it changes in the future.</p> <pre class="ruby" data-language="ruby">begin
+  obj = ActiveSupport::JSON.decode(some_string)
+rescue ActiveSupport::JSON.parse_error
+  Rails.logger.warn("Attempted to decode invalid JSON: #{some_string}")
+end
+</pre>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

@@ -1,0 +1,18 @@
+<h1 id="module-ActiveRecord::AttributeMethods::Read" class="module"> module ActiveRecord::AttributeMethods::Read </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-_read_attribute"> <span class="method-name">_read_attribute</span><span class="method-args">(attr_name, &amp;block)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="_read_attribute-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/attribute_methods/read.rb, line 35
+def _read_attribute(attr_name, &amp;block) # :nodoc
+  @attributes.fetch_value(attr_name, &amp;block)
+end</pre> </div> <p>This method exists to avoid the expensive primary_key check internally, without breaking compatibility with the <a href="read#method-i-read_attribute"><code>read_attribute</code></a> API</p>  </div> <div class="aliases"> Also aliased as: <a href="read#method-i-attribute">attribute</a> </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-read_attribute"> <span class="method-name">read_attribute</span><span class="method-args">(attr_name, &amp;block)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="read_attribute-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/attribute_methods/read.rb, line 25
+def read_attribute(attr_name, &amp;block)
+  name = attr_name.to_s
+  name = self.class.attribute_aliases[name] || name
+
+  name = @primary_key if name == "id" &amp;&amp; @primary_key
+  @attributes.fetch_value(name, &amp;block)
+end</pre> </div> <p>Returns the value of the attribute identified by <code>attr_name</code> after it has been typecast (for example, “2004-12-12” in a date column is cast to a date object, like Date.new(2004, 12, 12)).</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

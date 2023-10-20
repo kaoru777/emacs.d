@@ -1,0 +1,12 @@
+  <main role="main">    <h1>Annotation Type Retention</h1>      <pre data-language="java">@Documented
+@Retention(RUNTIME)
+@Target(ANNOTATION_TYPE)
+public @interface Retention</pre> <div>
+<p>Indicates how long annotations with the annotated type are to be retained. If no Retention annotation is present on an annotation type declaration, the retention policy defaults to <code>RetentionPolicy.CLASS</code>. </p>
+<p>A Retention meta-annotation has effect only if the meta-annotated type is used directly for annotation. It has no effect if the meta-annotated type is used as a member type in another annotation type.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd>   </dl>      <section role="region">  <h2 id="annotation.type.required.element.summary">Required Elements</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Required Element</th> <th scope="col">Description</th> </tr> <tr> <td><code><a href="retentionpolicy">RetentionPolicy</a></code></td> <th scope="row"><code><a href="#value()">value</a></code></th> <td> <p>Returns the retention policy.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="annotation.type.element.detail">Elements</h2>   <h3 id="value()">value</h3> <pre data-language="java">RetentionPolicy value</pre> <p>Returns the retention policy.</p> <dl> <dt>Returns:</dt> <dd>the retention policy</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Retention.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Retention.html</a>
+  </p>
+</div>

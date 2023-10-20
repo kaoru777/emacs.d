@@ -1,0 +1,1107 @@
+<h1 title="Class MemoryAccess" class="title">Class MemoryAccess</h1> <div class="inheritance" title="Inheritance Tree">
+<a href="../../../../java.base/java/lang/object" title="class in java.lang">java.lang.Object</a> <div class="inheritance">jdk.incubator.foreign.MemoryAccess</div> </div> <section class="class-description" id="class-description">  <pre class="lang-java" data-language="java">public final class MemoryAccess extends Object</pre> <div class="block">This class defines ready-made static accessors which can be used to dereference memory segments in many ways. <p> The most primitive accessors (see <a href="#getIntAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"><code>getIntAtOffset(MemorySegment, long, ByteOrder)</code></a>) take a segment, an offset (expressed in bytes) and a byte order. The final address at which the dereference will occur will be computed by offsetting the base address by the specified offset, as if by calling <a href="memoryaddress#addOffset(long)"><code>MemoryAddress.addOffset(long)</code></a> on the specified base address. </p>
+<p> In cases where no offset is required, overloads are provided (see <a href="#getInt(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)"><code>getInt(MemorySegment, ByteOrder)</code></a>) so that clients can omit the offset coordinate. </p>
+<p> To help dereferencing in array-like use cases (e.g. where the layout of a given memory segment is a sequence layout of given size an element count), higher-level overloads are also provided (see <a href="#getIntAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"><code>getIntAtIndex(MemorySegment, long, ByteOrder)</code></a>), which take a segment and a <em>logical</em> element index. The formula to obtain the byte offset <code>O</code> from an index <code>I</code> is given by <code>O = I * S</code> where <code>S</code> is the size (expressed in bytes) of the element to be dereferenced. </p>
+<p> In cases where native byte order is preferred, overloads are provided (see <a href="#getIntAtOffset(jdk.incubator.foreign.MemorySegment,long)"><code>getIntAtOffset(MemorySegment, long)</code></a>) so that clients can omit the byte order parameter. </p>
+<p> Unless otherwise specified, passing a <code>null</code> argument, or an array argument containing one or more <code>null</code> elements to a method in this class causes a <a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang"><code>NullPointerException</code></a> to be thrown. </p>
+</div> </section> <section class="summary"> <section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                                                                                                                                                                                                                                          <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#getAddress(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getAddress</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads a memory address from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#getAddressAtIndex(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getAddressAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index)</wbr></code></td>
+<td> <div class="block">Reads a memory address from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#getAddressAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getAddressAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads a memory address from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static byte</code></td>
+<td><code><a href="#getByte(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getByte</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads a byte from given segment.</div> </td>
+</tr>
+<tr>
+<td><code>static byte</code></td>
+<td><code><a href="#getByteAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getByteAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads a byte from given segment and offset.</div> </td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code><a href="#getChar(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getChar</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads a char from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code><a href="#getChar(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)" class="member-name-link">getChar</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a char from given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code><a href="#getCharAtIndex(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getCharAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index)</wbr></code></td>
+<td> <div class="block">Reads a char from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code><a href="#getCharAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getCharAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a char from given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code><a href="#getCharAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getCharAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads a char from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static char</code></td>
+<td><code><a href="#getCharAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getCharAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a char from given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code><a href="#getDouble(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getDouble</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads a double from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code><a href="#getDouble(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)" class="member-name-link">getDouble</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a double from given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code><a href="#getDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getDoubleAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index)</wbr></code></td>
+<td> <div class="block">Reads a double from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code><a href="#getDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getDoubleAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a double from given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code><a href="#getDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getDoubleAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads a double from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static double</code></td>
+<td><code><a href="#getDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getDoubleAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a double from given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static float</code></td>
+<td><code><a href="#getFloat(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getFloat</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads a float from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static float</code></td>
+<td><code><a href="#getFloat(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)" class="member-name-link">getFloat</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a float from given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static float</code></td>
+<td><code><a href="#getFloatAtIndex(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getFloatAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index)</wbr></code></td>
+<td> <div class="block">Reads a float from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static float</code></td>
+<td><code><a href="#getFloatAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getFloatAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a float from given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static float</code></td>
+<td><code><a href="#getFloatAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getFloatAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads a float from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static float</code></td>
+<td><code><a href="#getFloatAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getFloatAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a float from given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code><a href="#getInt(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getInt</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads an int from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code><a href="#getInt(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)" class="member-name-link">getInt</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads an int from given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code><a href="#getIntAtIndex(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getIntAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index)</wbr></code></td>
+<td> <div class="block">Reads an int from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code><a href="#getIntAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getIntAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads an int from given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code><a href="#getIntAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getIntAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads an int from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static int</code></td>
+<td><code><a href="#getIntAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getIntAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads an int from given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code><a href="#getLong(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getLong</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads a long from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code><a href="#getLong(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)" class="member-name-link">getLong</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a long from given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code><a href="#getLongAtIndex(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getLongAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index)</wbr></code></td>
+<td> <div class="block">Reads a long from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code><a href="#getLongAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getLongAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a long from given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code><a href="#getLongAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getLongAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads a long from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static long</code></td>
+<td><code><a href="#getLongAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getLongAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a long from given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static short</code></td>
+<td><code><a href="#getShort(jdk.incubator.foreign.MemorySegment)" class="member-name-link">getShort</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Reads a short from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static short</code></td>
+<td><code><a href="#getShort(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)" class="member-name-link">getShort</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a short from given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static short</code></td>
+<td><code><a href="#getShortAtIndex(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getShortAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index)</wbr></code></td>
+<td> <div class="block">Reads a short from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static short</code></td>
+<td><code><a href="#getShortAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getShortAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a short from given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static short</code></td>
+<td><code><a href="#getShortAtOffset(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">getShortAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset)</wbr></code></td>
+<td> <div class="block">Reads a short from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static short</code></td>
+<td><code><a href="#getShortAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)" class="member-name-link">getShortAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order)</wbr></code></td>
+<td> <div class="block">Reads a short from given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setAddress(jdk.incubator.foreign.MemorySegment,jdk.incubator.foreign.Addressable)" class="member-name-link">setAddress</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a> value)</wbr></code></td>
+<td> <div class="block">Writes a memory address at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setAddressAtIndex(jdk.incubator.foreign.MemorySegment,long,jdk.incubator.foreign.Addressable)" class="member-name-link">setAddressAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a> value)</wbr></code></td>
+<td> <div class="block">Writes a memory address at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setAddressAtOffset(jdk.incubator.foreign.MemorySegment,long,jdk.incubator.foreign.Addressable)" class="member-name-link">setAddressAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a> value)</wbr></code></td>
+<td> <div class="block">Writes a memory address at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setByte(jdk.incubator.foreign.MemorySegment,byte)" class="member-name-link">setByte</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ byte value)</wbr></code></td>
+<td> <div class="block">Writes a byte at given segment.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setByteAtOffset(jdk.incubator.foreign.MemorySegment,long,byte)" class="member-name-link">setByteAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ byte value)</wbr></code></td>
+<td> <div class="block">Writes a byte at given segment and offset.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setChar(jdk.incubator.foreign.MemorySegment,char)" class="member-name-link">setChar</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ char value)</wbr></code></td>
+<td> <div class="block">Writes a char at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setChar(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,char)" class="member-name-link">setChar</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ char value)</wbr></code></td>
+<td> <div class="block">Writes a char at given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setCharAtIndex(jdk.incubator.foreign.MemorySegment,long,char)" class="member-name-link">setCharAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ char value)</wbr></code></td>
+<td> <div class="block">Writes a char at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setCharAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,char)" class="member-name-link">setCharAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ char value)</wbr></code></td>
+<td> <div class="block">Writes a char at given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setCharAtOffset(jdk.incubator.foreign.MemorySegment,long,char)" class="member-name-link">setCharAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ char value)</wbr></code></td>
+<td> <div class="block">Writes a char at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setCharAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,char)" class="member-name-link">setCharAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ char value)</wbr></code></td>
+<td> <div class="block">Writes a char at given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setDouble(jdk.incubator.foreign.MemorySegment,double)" class="member-name-link">setDouble</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ double value)</wbr></code></td>
+<td> <div class="block">Writes a double at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setDouble(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,double)" class="member-name-link">setDouble</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ double value)</wbr></code></td>
+<td> <div class="block">Writes a double at given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long,double)" class="member-name-link">setDoubleAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ double value)</wbr></code></td>
+<td> <div class="block">Writes a double at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,double)" class="member-name-link">setDoubleAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ double value)</wbr></code></td>
+<td> <div class="block">Writes a double at given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long,double)" class="member-name-link">setDoubleAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ double value)</wbr></code></td>
+<td> <div class="block">Writes a double at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,double)" class="member-name-link">setDoubleAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ double value)</wbr></code></td>
+<td> <div class="block">Writes a double at given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setFloat(jdk.incubator.foreign.MemorySegment,float)" class="member-name-link">setFloat</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ float value)</wbr></code></td>
+<td> <div class="block">Writes a float at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setFloat(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,float)" class="member-name-link">setFloat</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ float value)</wbr></code></td>
+<td> <div class="block">Writes a float at given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setFloatAtIndex(jdk.incubator.foreign.MemorySegment,long,float)" class="member-name-link">setFloatAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ float value)</wbr></code></td>
+<td> <div class="block">Writes a float at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setFloatAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,float)" class="member-name-link">setFloatAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ float value)</wbr></code></td>
+<td> <div class="block">Writes a float at given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setFloatAtOffset(jdk.incubator.foreign.MemorySegment,long,float)" class="member-name-link">setFloatAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ float value)</wbr></code></td>
+<td> <div class="block">Writes a float at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setFloatAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,float)" class="member-name-link">setFloatAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ float value)</wbr></code></td>
+<td> <div class="block">Writes a float at given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setInt(jdk.incubator.foreign.MemorySegment,int)" class="member-name-link">setInt</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ int value)</wbr></code></td>
+<td> <div class="block">Writes an int at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setInt(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,int)" class="member-name-link">setInt</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ int value)</wbr></code></td>
+<td> <div class="block">Writes an int at given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setIntAtIndex(jdk.incubator.foreign.MemorySegment,long,int)" class="member-name-link">setIntAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ int value)</wbr></code></td>
+<td> <div class="block">Writes an int at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setIntAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,int)" class="member-name-link">setIntAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ int value)</wbr></code></td>
+<td> <div class="block">Writes an int at given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setIntAtOffset(jdk.incubator.foreign.MemorySegment,long,int)" class="member-name-link">setIntAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ int value)</wbr></code></td>
+<td> <div class="block">Writes an int at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setIntAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,int)" class="member-name-link">setIntAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ int value)</wbr></code></td>
+<td> <div class="block">Writes an int at given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setLong(jdk.incubator.foreign.MemorySegment,long)" class="member-name-link">setLong</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long value)</wbr></code></td>
+<td> <div class="block">Writes a long at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setLong(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,long)" class="member-name-link">setLong</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ long value)</wbr></code></td>
+<td> <div class="block">Writes a long at given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setLongAtIndex(jdk.incubator.foreign.MemorySegment,long,long)" class="member-name-link">setLongAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ long value)</wbr></code></td>
+<td> <div class="block">Writes a long at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setLongAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,long)" class="member-name-link">setLongAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ long value)</wbr></code></td>
+<td> <div class="block">Writes a long at given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setLongAtOffset(jdk.incubator.foreign.MemorySegment,long,long)" class="member-name-link">setLongAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ long value)</wbr></code></td>
+<td> <div class="block">Writes a long at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setLongAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,long)" class="member-name-link">setLongAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ long value)</wbr></code></td>
+<td> <div class="block">Writes a long at given segment and offset with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setShort(jdk.incubator.foreign.MemorySegment,short)" class="member-name-link">setShort</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ short value)</wbr></code></td>
+<td> <div class="block">Writes a short at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setShort(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,short)" class="member-name-link">setShort</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ short value)</wbr></code></td>
+<td> <div class="block">Writes a short at given segment, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setShortAtIndex(jdk.incubator.foreign.MemorySegment,long,short)" class="member-name-link">setShortAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ short value)</wbr></code></td>
+<td> <div class="block">Writes a short at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setShortAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,short)" class="member-name-link">setShortAtIndex</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long index,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ short value)</wbr></code></td>
+<td> <div class="block">Writes a short at given segment and element index, with given byte order.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setShortAtOffset(jdk.incubator.foreign.MemorySegment,long,short)" class="member-name-link">setShortAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ short value)</wbr></code></td>
+<td> <div class="block">Writes a short at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#setShortAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,short)" class="member-name-link">setShortAtOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment,
+ long offset,
+ <a href="../../../../java.base/java/nio/byteorder" title="class in java.nio">ByteOrder</a> order,
+ short value)</wbr></code></td>
+<td> <div class="block">Writes a short at given segment and offset with given byte order.</div> </td>
+</tr>
+</table> </div> </div> <div class="inherited-list"> <h3 id="methods-inherited-from-class-java.lang.Object">Methods declared in class java.lang.<a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a>
+</h3> <code><a href="../../../../java.base/java/lang/object#clone()">clone</a>, <a href="../../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a>, <a href="../../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../../java.base/java/lang/object#hashCode()">hashCode</a>, <a href="../../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../../java.base/java/lang/object#toString()">toString</a>, <a href="../../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long,int)">wait</a></code>
+</div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="getByteAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getByteAtOffset</h3> <pre class="lang-java" data-language="java">public static byte getByteAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads a byte from given segment and offset.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>a byte value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setByteAtOffset(jdk.incubator.foreign.MemorySegment,long,byte)"> <h3>setByteAtOffset</h3> <pre class="lang-java" data-language="java">public static void setByteAtOffset(MemorySegment segment, long offset, byte value)</pre> <div class="block">Writes a byte at given segment and offset.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the byte value to be written.</dd> </dl> </section><section class="detail" id="getCharAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getCharAtOffset</h3> <pre class="lang-java" data-language="java">public static char getCharAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads a char from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    getCharAtOffset(segment, offset, ByteOrder.nativeOrder());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>a char value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setCharAtOffset(jdk.incubator.foreign.MemorySegment,long,char)"> <h3>setCharAtOffset</h3> <pre class="lang-java" data-language="java">public static void setCharAtOffset(MemorySegment segment, long offset, char value)</pre> <div class="block">Writes a char at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setCharAtOffset(segment, offset, ByteOrder.nativeOrder(), value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the char value to be written.</dd> </dl> </section><section class="detail" id="getShortAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getShortAtOffset</h3> <pre class="lang-java" data-language="java">public static short getShortAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads a short from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    getShortAtOffset(segment, offset, ByteOrder.nativeOrder());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>a short value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setShortAtOffset(jdk.incubator.foreign.MemorySegment,long,short)"> <h3>setShortAtOffset</h3> <pre class="lang-java" data-language="java">public static void setShortAtOffset(MemorySegment segment, long offset, short value)</pre> <div class="block">Writes a short at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setShortAtOffset(segment, offset, ByteOrder.nativeOrder(), value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the short value to be written.</dd> </dl> </section><section class="detail" id="getIntAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getIntAtOffset</h3> <pre class="lang-java" data-language="java">public static int getIntAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads an int from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    getIntAtOffset(segment, offset, ByteOrder.nativeOrder());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>an int value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setIntAtOffset(jdk.incubator.foreign.MemorySegment,long,int)"> <h3>setIntAtOffset</h3> <pre class="lang-java" data-language="java">public static void setIntAtOffset(MemorySegment segment, long offset, int value)</pre> <div class="block">Writes an int at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setIntAtOffset(segment, offset, ByteOrder.nativeOrder(), value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the int value to be written.</dd> </dl> </section><section class="detail" id="getFloatAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getFloatAtOffset</h3> <pre class="lang-java" data-language="java">public static float getFloatAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads a float from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    getFloatAtOffset(segment, offset, ByteOrder.nativeOrder());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>a float value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setFloatAtOffset(jdk.incubator.foreign.MemorySegment,long,float)"> <h3>setFloatAtOffset</h3> <pre class="lang-java" data-language="java">public static void setFloatAtOffset(MemorySegment segment, long offset, float value)</pre> <div class="block">Writes a float at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setFloatAtOffset(segment, offset, ByteOrder.nativeOrder(), value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the float value to be written.</dd> </dl> </section><section class="detail" id="getLongAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getLongAtOffset</h3> <pre class="lang-java" data-language="java">public static long getLongAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads a long from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    getLongAtOffset(segment, offset, ByteOrder.nativeOrder());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>a long value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setLongAtOffset(jdk.incubator.foreign.MemorySegment,long,long)"> <h3>setLongAtOffset</h3> <pre class="lang-java" data-language="java">public static void setLongAtOffset(MemorySegment segment, long offset, long value)</pre> <div class="block">Writes a long at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setLongAtOffset(segment, offset, ByteOrder.nativeOrder(), value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the long value to be written.</dd> </dl> </section><section class="detail" id="getDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getDoubleAtOffset</h3> <pre class="lang-java" data-language="java">public static double getDoubleAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads a double from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    getDoubleAtOffset(segment, offset, ByteOrder.nativeOrder());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>a double value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long,double)"> <h3>setDoubleAtOffset</h3> <pre class="lang-java" data-language="java">public static void setDoubleAtOffset(MemorySegment segment, long offset, double value)</pre> <div class="block">Writes a double at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setDoubleAtOffset(segment, offset, ByteOrder.nativeOrder(), value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the double value to be written.</dd> </dl> </section><section class="detail" id="getAddressAtOffset(jdk.incubator.foreign.MemorySegment,long)"> <h3>getAddressAtOffset</h3> <pre class="lang-java" data-language="java">public static MemoryAddress getAddressAtOffset(MemorySegment segment, long offset)</pre> <div class="block">Reads a memory address from given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent (e.g. on a 64-bit platform) to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.asAddressHandle(MemoryHandles.varHandle(long.class, ByteOrder.nativeOrder()));
+    MemoryAddress value = (MemoryAddress)handle.get(segment, offset);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dt>Returns:</dt> <dd>a memory address read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setAddressAtOffset(jdk.incubator.foreign.MemorySegment,long,jdk.incubator.foreign.Addressable)"> <h3>setAddressAtOffset</h3> <pre class="lang-java" data-language="java">public static void setAddressAtOffset(MemorySegment segment, long offset, Addressable value)</pre> <div class="block">Writes a memory address at given segment and offset, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent (e.g. on a 64-bit platform) to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.asAddressHandle(MemoryHandles.varHandle(long.class, ByteOrder.nativeOrder()));
+    handle.set(segment, offset, value.address());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>value</code> - the memory address to be written (expressed as an <a href="addressable" title="interface in jdk.incubator.foreign"><code>Addressable</code></a> instance).</dd> </dl> </section><section class="detail" id="getCharAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getCharAtOffset</h3> <pre class="lang-java" data-language="java">public static char getCharAtOffset(MemorySegment segment, long offset, ByteOrder order)</pre> <div class="block">Reads a char from given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(char.class, 1, order);
+    char value = (char)handle.get(segment, offset);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a char value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setCharAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,char)"> <h3>setCharAtOffset</h3> <pre class="lang-java" data-language="java">public static void setCharAtOffset(MemorySegment segment, long offset, ByteOrder order, char value)</pre> <div class="block">Writes a char at given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(char.class, 1, order);
+    handle.set(segment, offset, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the char value to be written.</dd> </dl> </section><section class="detail" id="getShortAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getShortAtOffset</h3> <pre class="lang-java" data-language="java">public static short getShortAtOffset(MemorySegment segment, long offset, ByteOrder order)</pre> <div class="block">Reads a short from given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(short.class, 1, order);
+    short value = (short)handle.get(segment, offset);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a short value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setShortAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,short)"> <h3>setShortAtOffset</h3> <pre class="lang-java" data-language="java">public static void setShortAtOffset(MemorySegment segment, long offset, ByteOrder order, short value)</pre> <div class="block">Writes a short at given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(short.class, 1, order);
+    handle.set(segment, offset, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the short value to be written.</dd> </dl> </section><section class="detail" id="getIntAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getIntAtOffset</h3> <pre class="lang-java" data-language="java">public static int getIntAtOffset(MemorySegment segment, long offset, ByteOrder order)</pre> <div class="block">Reads an int from given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(int.class, 1, order);
+    int value = (int)handle.get(segment, offset);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>an int value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setIntAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,int)"> <h3>setIntAtOffset</h3> <pre class="lang-java" data-language="java">public static void setIntAtOffset(MemorySegment segment, long offset, ByteOrder order, int value)</pre> <div class="block">Writes an int at given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(int.class, 1, order);
+    handle.set(segment, offset, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the int value to be written.</dd> </dl> </section><section class="detail" id="getFloatAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getFloatAtOffset</h3> <pre class="lang-java" data-language="java">public static float getFloatAtOffset(MemorySegment segment, long offset, ByteOrder order)</pre> <div class="block">Reads a float from given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(float.class, 1, order);
+    float value = (float)handle.get(segment, offset);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a float value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setFloatAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,float)"> <h3>setFloatAtOffset</h3> <pre class="lang-java" data-language="java">public static void setFloatAtOffset(MemorySegment segment, long offset, ByteOrder order, float value)</pre> <div class="block">Writes a float at given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(float.class, 1, order);
+    handle.set(segment, offset, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the float value to be written.</dd> </dl> </section><section class="detail" id="getLongAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getLongAtOffset</h3> <pre class="lang-java" data-language="java">public static long getLongAtOffset(MemorySegment segment, long offset, ByteOrder order)</pre> <div class="block">Reads a long from given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(long.class, 1, order);
+    long value = (long)handle.get(segment, offset);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a long value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setLongAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,long)"> <h3>setLongAtOffset</h3> <pre class="lang-java" data-language="java">public static void setLongAtOffset(MemorySegment segment, long offset, ByteOrder order, long value)</pre> <div class="block">Writes a long at given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(long.class, 1, order);
+    handle.set(segment, offset, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the long value to be written.</dd> </dl> </section><section class="detail" id="getDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getDoubleAtOffset</h3> <pre class="lang-java" data-language="java">public static double getDoubleAtOffset(MemorySegment segment, long offset, ByteOrder order)</pre> <div class="block">Reads a double from given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(double.class, 1, order);
+    double value = (double)handle.get(segment, offset);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a double value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setDoubleAtOffset(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,double)"> <h3>setDoubleAtOffset</h3> <pre class="lang-java" data-language="java">public static void setDoubleAtOffset(MemorySegment segment, long offset, ByteOrder order, double value)</pre> <div class="block">Writes a double at given segment and offset with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    VarHandle handle = MemoryHandles.varHandle(double.class, 1, order);
+    handle.set(segment, offset, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>offset</code> - offset in bytes (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(offset)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the double value to be written.</dd> </dl> </section><section class="detail" id="getByte(jdk.incubator.foreign.MemorySegment)"> <h3>getByte</h3> <pre class="lang-java" data-language="java">public static byte getByte(MemorySegment segment)</pre> <div class="block">Reads a byte from given segment. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    byte value = getByteAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>a byte value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setByte(jdk.incubator.foreign.MemorySegment,byte)"> <h3>setByte</h3> <pre class="lang-java" data-language="java">public static void setByte(MemorySegment segment, byte value)</pre> <div class="block">Writes a byte at given segment. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setByteAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the byte value to be written.</dd> </dl> </section><section class="detail" id="getChar(jdk.incubator.foreign.MemorySegment)"> <h3>getChar</h3> <pre class="lang-java" data-language="java">public static char getChar(MemorySegment segment)</pre> <div class="block">Reads a char from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    char value = getCharAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>a char value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setChar(jdk.incubator.foreign.MemorySegment,char)"> <h3>setChar</h3> <pre class="lang-java" data-language="java">public static void setChar(MemorySegment segment, char value)</pre> <div class="block">Writes a char at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setCharAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the char value to be written.</dd> </dl> </section><section class="detail" id="getShort(jdk.incubator.foreign.MemorySegment)"> <h3>getShort</h3> <pre class="lang-java" data-language="java">public static short getShort(MemorySegment segment)</pre> <div class="block">Reads a short from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    short value = getShortAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>a short value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setShort(jdk.incubator.foreign.MemorySegment,short)"> <h3>setShort</h3> <pre class="lang-java" data-language="java">public static void setShort(MemorySegment segment, short value)</pre> <div class="block">Writes a short at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setShortAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the short value to be written.</dd> </dl> </section><section class="detail" id="getInt(jdk.incubator.foreign.MemorySegment)"> <h3>getInt</h3> <pre class="lang-java" data-language="java">public static int getInt(MemorySegment segment)</pre> <div class="block">Reads an int from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    int value = getIntAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>an int value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setInt(jdk.incubator.foreign.MemorySegment,int)"> <h3>setInt</h3> <pre class="lang-java" data-language="java">public static void setInt(MemorySegment segment, int value)</pre> <div class="block">Writes an int at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setIntAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the int value to be written.</dd> </dl> </section><section class="detail" id="getFloat(jdk.incubator.foreign.MemorySegment)"> <h3>getFloat</h3> <pre class="lang-java" data-language="java">public static float getFloat(MemorySegment segment)</pre> <div class="block">Reads a float from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    float value = getFloatAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>a float value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setFloat(jdk.incubator.foreign.MemorySegment,float)"> <h3>setFloat</h3> <pre class="lang-java" data-language="java">public static void setFloat(MemorySegment segment, float value)</pre> <div class="block">Writes a float at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setFloatAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the float value to be written.</dd> </dl> </section><section class="detail" id="getLong(jdk.incubator.foreign.MemorySegment)"> <h3>getLong</h3> <pre class="lang-java" data-language="java">public static long getLong(MemorySegment segment)</pre> <div class="block">Reads a long from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    long value = getLongAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>a long value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setLong(jdk.incubator.foreign.MemorySegment,long)"> <h3>setLong</h3> <pre class="lang-java" data-language="java">public static void setLong(MemorySegment segment, long value)</pre> <div class="block">Writes a long at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setLongAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the long value to be written.</dd> </dl> </section><section class="detail" id="getDouble(jdk.incubator.foreign.MemorySegment)"> <h3>getDouble</h3> <pre class="lang-java" data-language="java">public static double getDouble(MemorySegment segment)</pre> <div class="block">Reads a double from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    double value = getDoubleAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>a double value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setDouble(jdk.incubator.foreign.MemorySegment,double)"> <h3>setDouble</h3> <pre class="lang-java" data-language="java">public static void setDouble(MemorySegment segment, double value)</pre> <div class="block">Writes a double at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setDoubleAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the double value to be written.</dd> </dl> </section><section class="detail" id="getAddress(jdk.incubator.foreign.MemorySegment)"> <h3>getAddress</h3> <pre class="lang-java" data-language="java">public static MemoryAddress getAddress(MemorySegment segment)</pre> <div class="block">Reads a memory address from given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    MemoryAddress value = getAddressAtOffset(segment, 0L);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dt>Returns:</dt> <dd>a memory address read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setAddress(jdk.incubator.foreign.MemorySegment,jdk.incubator.foreign.Addressable)"> <h3>setAddress</h3> <pre class="lang-java" data-language="java">public static void setAddress(MemorySegment segment, Addressable value)</pre> <div class="block">Writes a memory address at given segment, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setAddressAtOffset(segment, 0L, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>value</code> - the memory address to be written (expressed as an <a href="addressable" title="interface in jdk.incubator.foreign"><code>Addressable</code></a> instance).</dd> </dl> </section><section class="detail" id="getChar(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)"> <h3>getChar</h3> <pre class="lang-java" data-language="java">public static char getChar(MemorySegment segment, ByteOrder order)</pre> <div class="block">Reads a char from given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    char value = getCharAtOffset(segment, 0L, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a char value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setChar(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,char)"> <h3>setChar</h3> <pre class="lang-java" data-language="java">public static void setChar(MemorySegment segment, ByteOrder order, char value)</pre> <div class="block">Writes a char at given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setCharAtOffset(segment, 0L, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the char value to be written.</dd> </dl> </section><section class="detail" id="getShort(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)"> <h3>getShort</h3> <pre class="lang-java" data-language="java">public static short getShort(MemorySegment segment, ByteOrder order)</pre> <div class="block">Reads a short from given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    short value = getShortAtOffset(segment, 0L, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a short value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setShort(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,short)"> <h3>setShort</h3> <pre class="lang-java" data-language="java">public static void setShort(MemorySegment segment, ByteOrder order, short value)</pre> <div class="block">Writes a short at given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setShortAtOffset(segment, 0L, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the short value to be written.</dd> </dl> </section><section class="detail" id="getInt(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)"> <h3>getInt</h3> <pre class="lang-java" data-language="java">public static int getInt(MemorySegment segment, ByteOrder order)</pre> <div class="block">Reads an int from given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    int value = getIntAtOffset(segment, 0L, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>an int value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setInt(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,int)"> <h3>setInt</h3> <pre class="lang-java" data-language="java">public static void setInt(MemorySegment segment, ByteOrder order, int value)</pre> <div class="block">Writes an int at given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setIntAtOffset(segment, 0L, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the int value to be written.</dd> </dl> </section><section class="detail" id="getFloat(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)"> <h3>getFloat</h3> <pre class="lang-java" data-language="java">public static float getFloat(MemorySegment segment, ByteOrder order)</pre> <div class="block">Reads a float from given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    float value = getFloatAtOffset(segment, 0L, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a float value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setFloat(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,float)"> <h3>setFloat</h3> <pre class="lang-java" data-language="java">public static void setFloat(MemorySegment segment, ByteOrder order, float value)</pre> <div class="block">Writes a float at given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setFloatAtOffset(segment, 0L, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the float value to be written.</dd> </dl> </section><section class="detail" id="getLong(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)"> <h3>getLong</h3> <pre class="lang-java" data-language="java">public static long getLong(MemorySegment segment, ByteOrder order)</pre> <div class="block">Reads a long from given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    long value = getLongAtOffset(segment, 0L, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a long value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setLong(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,long)"> <h3>setLong</h3> <pre class="lang-java" data-language="java">public static void setLong(MemorySegment segment, ByteOrder order, long value)</pre> <div class="block">Writes a long at given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setLongAtOffset(segment, 0L, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the long value to be written.</dd> </dl> </section><section class="detail" id="getDouble(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder)"> <h3>getDouble</h3> <pre class="lang-java" data-language="java">public static double getDouble(MemorySegment segment, ByteOrder order)</pre> <div class="block">Reads a double from given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    double value = getDoubleAtOffset(segment, 0L, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a double value read from <code>segment</code>.</dd> </dl> </section><section class="detail" id="setDouble(jdk.incubator.foreign.MemorySegment,java.nio.ByteOrder,double)"> <h3>setDouble</h3> <pre class="lang-java" data-language="java">public static void setDouble(MemorySegment segment, ByteOrder order, double value)</pre> <div class="block">Writes a double at given segment, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setDoubleAtOffset(segment, 0L, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the double value to be written.</dd> </dl> </section><section class="detail" id="getCharAtIndex(jdk.incubator.foreign.MemorySegment,long)"> <h3>getCharAtIndex</h3> <pre class="lang-java" data-language="java">public static char getCharAtIndex(MemorySegment segment, long index)</pre> <div class="block">Reads a char from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    char value = getCharAtOffset(segment, 2 * index);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dt>Returns:</dt> <dd>a char value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setCharAtIndex(jdk.incubator.foreign.MemorySegment,long,char)"> <h3>setCharAtIndex</h3> <pre class="lang-java" data-language="java">public static void setCharAtIndex(MemorySegment segment, long index, char value)</pre> <div class="block">Writes a char at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setCharAtOffset(segment, 2 * index, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dd>
+<code>value</code> - the char value to be written.</dd> </dl> </section><section class="detail" id="getShortAtIndex(jdk.incubator.foreign.MemorySegment,long)"> <h3>getShortAtIndex</h3> <pre class="lang-java" data-language="java">public static short getShortAtIndex(MemorySegment segment, long index)</pre> <div class="block">Reads a short from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    short value = getShortAtOffset(segment, 2 * index);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dt>Returns:</dt> <dd>a short value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setShortAtIndex(jdk.incubator.foreign.MemorySegment,long,short)"> <h3>setShortAtIndex</h3> <pre class="lang-java" data-language="java">public static void setShortAtIndex(MemorySegment segment, long index, short value)</pre> <div class="block">Writes a short at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setShortAtOffset(segment, 2 * index, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dd>
+<code>value</code> - the short value to be written.</dd> </dl> </section><section class="detail" id="getIntAtIndex(jdk.incubator.foreign.MemorySegment,long)"> <h3>getIntAtIndex</h3> <pre class="lang-java" data-language="java">public static int getIntAtIndex(MemorySegment segment, long index)</pre> <div class="block">Reads an int from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    int value = getIntAtOffset(segment, 4 * index);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dt>Returns:</dt> <dd>an int value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setIntAtIndex(jdk.incubator.foreign.MemorySegment,long,int)"> <h3>setIntAtIndex</h3> <pre class="lang-java" data-language="java">public static void setIntAtIndex(MemorySegment segment, long index, int value)</pre> <div class="block">Writes an int at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setIntAtOffset(segment, 4 * index, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dd>
+<code>value</code> - the int value to be written.</dd> </dl> </section><section class="detail" id="getFloatAtIndex(jdk.incubator.foreign.MemorySegment,long)"> <h3>getFloatAtIndex</h3> <pre class="lang-java" data-language="java">public static float getFloatAtIndex(MemorySegment segment, long index)</pre> <div class="block">Reads a float from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    float value = getFloatAtOffset(segment, 4 * index);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dt>Returns:</dt> <dd>a float value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setFloatAtIndex(jdk.incubator.foreign.MemorySegment,long,float)"> <h3>setFloatAtIndex</h3> <pre class="lang-java" data-language="java">public static void setFloatAtIndex(MemorySegment segment, long index, float value)</pre> <div class="block">Writes a float at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setFloatAtOffset(segment, 4 * index, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dd>
+<code>value</code> - the float value to be written.</dd> </dl> </section><section class="detail" id="getLongAtIndex(jdk.incubator.foreign.MemorySegment,long)"> <h3>getLongAtIndex</h3> <pre class="lang-java" data-language="java">public static long getLongAtIndex(MemorySegment segment, long index)</pre> <div class="block">Reads a long from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    return getLongAtOffset(segment, 8 * index);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dt>Returns:</dt> <dd>a long value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setLongAtIndex(jdk.incubator.foreign.MemorySegment,long,long)"> <h3>setLongAtIndex</h3> <pre class="lang-java" data-language="java">public static void setLongAtIndex(MemorySegment segment, long index, long value)</pre> <div class="block">Writes a long at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setLongAtOffset(segment, 8 * index, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dd>
+<code>value</code> - the long value to be written.</dd> </dl> </section><section class="detail" id="getDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long)"> <h3>getDoubleAtIndex</h3> <pre class="lang-java" data-language="java">public static double getDoubleAtIndex(MemorySegment segment, long index)</pre> <div class="block">Reads a double from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    return getDoubleAtOffset(segment, 8 * index);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dt>Returns:</dt> <dd>a double value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long,double)"> <h3>setDoubleAtIndex</h3> <pre class="lang-java" data-language="java">public static void setDoubleAtIndex(MemorySegment segment, long index, double value)</pre> <div class="block">Writes a double at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setDoubleAtOffset(segment, 8 * index, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dd>
+<code>value</code> - the double value to be written.</dd> </dl> </section><section class="detail" id="getAddressAtIndex(jdk.incubator.foreign.MemorySegment,long)"> <h3>getAddressAtIndex</h3> <pre class="lang-java" data-language="java">public static MemoryAddress getAddressAtIndex(MemorySegment segment, long index)</pre> <div class="block">Reads a memory address from given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    return getAddressAtOffset(segment, index * MemoryLayouts.ADDRESS.byteSize());
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dt>Returns:</dt> <dd>a memory address read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setAddressAtIndex(jdk.incubator.foreign.MemorySegment,long,jdk.incubator.foreign.Addressable)"> <h3>setAddressAtIndex</h3> <pre class="lang-java" data-language="java">public static void setAddressAtIndex(MemorySegment segment, long index, Addressable value)</pre> <div class="block">Writes a memory address at given segment and element index, with byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setAddressAtOffset(segment, index * MemoryLayouts.ADDRESS.byteSize(), value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dd>
+<code>value</code> - the memory address to be written (expressed as an <a href="addressable" title="interface in jdk.incubator.foreign"><code>Addressable</code></a> instance).</dd> </dl> </section><section class="detail" id="getCharAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getCharAtIndex</h3> <pre class="lang-java" data-language="java">public static char getCharAtIndex(MemorySegment segment, long index, ByteOrder order)</pre> <div class="block">Reads a char from given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    char value = getCharAtOffset(segment, 2 * index, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a char value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setCharAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,char)"> <h3>setCharAtIndex</h3> <pre class="lang-java" data-language="java">public static void setCharAtIndex(MemorySegment segment, long index, ByteOrder order, char value)</pre> <div class="block">Writes a char at given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setCharAtOffset(segment, 2 * index, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the char value to be written.</dd> </dl> </section><section class="detail" id="getShortAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getShortAtIndex</h3> <pre class="lang-java" data-language="java">public static short getShortAtIndex(MemorySegment segment, long index, ByteOrder order)</pre> <div class="block">Reads a short from given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    short value = getShortAtOffset(segment, 2 * index, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a short value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setShortAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,short)"> <h3>setShortAtIndex</h3> <pre class="lang-java" data-language="java">public static void setShortAtIndex(MemorySegment segment, long index, ByteOrder order, short value)</pre> <div class="block">Writes a short at given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setShortAtOffset(segment, 2 * index, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 2)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the short value to be written.</dd> </dl> </section><section class="detail" id="getIntAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getIntAtIndex</h3> <pre class="lang-java" data-language="java">public static int getIntAtIndex(MemorySegment segment, long index, ByteOrder order)</pre> <div class="block">Reads an int from given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    int value = getIntAtOffset(segment, 4 * index, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>an int value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setIntAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,int)"> <h3>setIntAtIndex</h3> <pre class="lang-java" data-language="java">public static void setIntAtIndex(MemorySegment segment, long index, ByteOrder order, int value)</pre> <div class="block">Writes an int at given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setIntAtOffset(segment, 4 * index, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the int value to be written.</dd> </dl> </section><section class="detail" id="getFloatAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getFloatAtIndex</h3> <pre class="lang-java" data-language="java">public static float getFloatAtIndex(MemorySegment segment, long index, ByteOrder order)</pre> <div class="block">Reads a float from given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    float value = getFloatAtOffset(segment, 4 * index, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a float value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setFloatAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,float)"> <h3>setFloatAtIndex</h3> <pre class="lang-java" data-language="java">public static void setFloatAtIndex(MemorySegment segment, long index, ByteOrder order, float value)</pre> <div class="block">Writes a float at given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setFloatAtOffset(segment, 4 * index, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 4)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the float value to be written.</dd> </dl> </section><section class="detail" id="getLongAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getLongAtIndex</h3> <pre class="lang-java" data-language="java">public static long getLongAtIndex(MemorySegment segment, long index, ByteOrder order)</pre> <div class="block">Reads a long from given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    return getLongAtOffset(segment, 8 * index, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a long value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setLongAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,long)"> <h3>setLongAtIndex</h3> <pre class="lang-java" data-language="java">public static void setLongAtIndex(MemorySegment segment, long index, ByteOrder order, long value)</pre> <div class="block">Writes a long at given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setLongAtOffset(segment, 8 * index, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the long value to be written.</dd> </dl> </section><section class="detail" id="getDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder)"> <h3>getDoubleAtIndex</h3> <pre class="lang-java" data-language="java">public static double getDoubleAtIndex(MemorySegment segment, long index, ByteOrder order)</pre> <div class="block">Reads a double from given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    return getDoubleAtOffset(segment, 8 * index, order);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dt>Returns:</dt> <dd>a double value read from <code>segment</code> at the element index specified by <code>index</code>.</dd> </dl> </section><section class="detail" id="setDoubleAtIndex(jdk.incubator.foreign.MemorySegment,long,java.nio.ByteOrder,double)"> <h3>setDoubleAtIndex</h3> <pre class="lang-java" data-language="java">public static void setDoubleAtIndex(MemorySegment segment, long index, ByteOrder order, double value)</pre> <div class="block">Writes a double at given segment and element index, with given byte order. <p> This is equivalent to the following code: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+    setDoubleAtOffset(segment, 8 * index, order, value);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment to be dereferenced.</dd> <dd>
+<code>index</code> - element index (relative to <code>segment</code>). The final address of this read operation can be expressed as <code>segment.address().addOffset(index * 8)</code>.</dd> <dd>
+<code>order</code> - the specified byte order.</dd> <dd>
+<code>value</code> - the double value to be written.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemoryAccess.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemoryAccess.html</a>
+  </p>
+</div>

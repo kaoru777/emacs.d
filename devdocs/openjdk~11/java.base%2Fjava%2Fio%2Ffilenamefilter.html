@@ -1,0 +1,14 @@
+  <main role="main">    <h1>Interface FilenameFilter</h1>     <dl> <dt>Functional Interface:</dt> <dd>This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.</dd> </dl>  <pre data-language="java">@FunctionalInterface
+public interface FilenameFilter</pre> <p>Instances of classes that implement this interface are used to filter filenames. These instances are used to filter directory listings in the <code>list</code> method of class <code>File</code>, and by the Abstract Window Toolkit's file dialog component.</p> <dl> <dt>Since:</dt> <dd>1.0</dd> <dt>See Also:</dt> <dd>
+<a href="../../../java.desktop/java/awt/filedialog#setFilenameFilter(java.io.FilenameFilter)"><code>FileDialog.setFilenameFilter(java.io.FilenameFilter)</code></a>, <a href="file"><code>File</code></a>, <a href="file#list(java.io.FilenameFilter)"><code>File.list(java.io.FilenameFilter)</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>boolean</code></td> <th scope="row"><code><a href="#accept(java.io.File,java.lang.String)">accept</a>​(<a href="file">File</a> dir,
+      <a href="../lang/string">String</a> name)</code></th> <td> <p>Tests if a specified file should be included in a file list.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="accept(java.io.File,java.lang.String)">accept</h3> <pre data-language="java">boolean accept(File dir,
+               String name)</pre> <p>Tests if a specified file should be included in a file list.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>dir</code> - the directory in which the file was found.</dd> <dd>
+<code>name</code> - the name of the file.</dd> <dt>Returns:</dt> <dd>
+<code>true</code> if and only if the name should be included in the file list; <code>false</code> otherwise.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/FilenameFilter.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/FilenameFilter.html</a>
+  </p>
+</div>

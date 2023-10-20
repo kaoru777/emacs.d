@@ -1,0 +1,22 @@
+<h1 id="module-ActionController::PermissionsPolicy" class="module"> module ActionController::PermissionsPolicy </h1> <section class="description"> <p>HTTP Permissions Policy is a web standard for defining a mechanism to allow and deny the use of browser permissions in its own context, and in content within any &lt;iframe&gt; elements in the document.</p> <p>Full details of HTTP Permissions Policy specification and guidelines can be found at MDN:</p> <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy">developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</a></p> <p>Examples of usage:</p> <pre class="ruby" data-language="ruby"># Global policy
+Rails.application.config.permissions_policy do |f|
+  f.camera      :none
+  f.gyroscope   :none
+  f.microphone  :none
+  f.usb         :none
+  f.fullscreen  :self
+  f.payment     :self, "https://secure.example.com"
+end
+
+# Controller level policy
+class PagesController &lt; ApplicationController
+  permissions_policy do |p|
+    p.geolocation "https://example.com"
+  end
+end
+</pre> </section> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

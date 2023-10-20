@@ -1,0 +1,22 @@
+  <main role="main">    <h1>Interface Extension</h1>      <pre data-language="java">public interface Extension</pre> <div>
+<p>This interface represents an X.509 extension. </p>
+<p> Extensions provide a means of associating additional attributes with users or public keys and for managing a certification hierarchy. The extension format also allows communities to define private extensions to carry information unique to those communities. </p>
+<p> Each extension contains an object identifier, a criticality setting indicating whether it is a critical or a non-critical extension, and and an ASN.1 DER-encoded value. Its ASN.1 definition is: </p>
+<pre data-language="java">Extension ::= SEQUENCE {
+         extnId        OBJECT IDENTIFIER,
+         critical      BOOLEAN DEFAULT FALSE,
+         extnValue     OCTET STRING
+                 -- contains a DER encoding of a value
+                 -- of the type registered for use with
+                 -- the extnId object identifier value
+     }</pre> <p> This interface is designed to provide access to a single extension, unlike <a href="x509extension"><code>X509Extension</code></a> which is more suitable for accessing a set of extensions.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.7</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#encode(java.io.OutputStream)">encode</a>​(<a href="../../io/outputstream">OutputStream</a> out)</code></th> <td> <p>Generates the extension's DER encoding and writes it to the output stream.</p> </td> </tr> <tr id="i1"> <td><code><a href="../../lang/string">String</a></code></td> <th scope="row"><code><a href="#getId()">getId</a>()</code></th> <td> <p>Gets the extensions's object identifier.</p> </td> </tr> <tr id="i2"> <td><code>byte[]</code></td> <th scope="row"><code><a href="#getValue()">getValue</a>()</code></th> <td> <p>Gets the extensions's DER-encoded value.</p> </td> </tr> <tr id="i3"> <td><code>boolean</code></td> <th scope="row"><code><a href="#isCritical()">isCritical</a>()</code></th> <td> <p>Gets the extension's criticality setting.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getId()">getId</h3> <pre data-language="java">String getId()</pre> <p>Gets the extensions's object identifier.</p> <dl> <dt>Returns:</dt> <dd>the object identifier as a String</dd> </dl>    <h3 id="isCritical()">isCritical</h3> <pre data-language="java">boolean isCritical()</pre> <p>Gets the extension's criticality setting.</p> <dl> <dt>Returns:</dt> <dd>true if this is a critical extension.</dd> </dl>    <h3 id="getValue()">getValue</h3> <pre data-language="java">byte[] getValue()</pre> <p>Gets the extensions's DER-encoded value. Note, this is the bytes that are encoded as an OCTET STRING. It does not include the OCTET STRING tag and length.</p> <dl> <dt>Returns:</dt> <dd>a copy of the extension's value, or <code>null</code> if no extension value is present.</dd> </dl>    <h3 id="encode(java.io.OutputStream)">encode</h3> <pre data-language="java">void encode(OutputStream out)
+     throws IOException</pre> <p>Generates the extension's DER encoding and writes it to the output stream.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>out</code> - the output stream</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../io/ioexception">IOException</a></code> - on encoding or output error.</dd> <dd>
+<code><a href="../../lang/nullpointerexception">NullPointerException</a></code> - if <code>out</code> is <code>null</code>.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/cert/Extension.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/cert/Extension.html</a>
+  </p>
+</div>

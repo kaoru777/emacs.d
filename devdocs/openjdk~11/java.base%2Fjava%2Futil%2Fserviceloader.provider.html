@@ -1,0 +1,18 @@
+  <main role="main">    <h1>Interface ServiceLoader.Provider&lt;S&gt;</h1>     <dl> <dt>Type Parameters:</dt> <dd>
+<code>S</code> - The service type</dd> </dl> <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="function/supplier">Supplier</a>&lt;S&gt;</code></dd> </dl> <dl> <dt>Enclosing class:</dt> <dd>
+<a href="serviceloader">ServiceLoader</a>&lt;<a href="serviceloader">S</a>&gt;</dd> </dl>  <pre data-language="java">public static interface ServiceLoader.Provider&lt;S&gt;
+extends Supplier&lt;S&gt;</pre> <div>
+<p>Represents a service provider located by <code>ServiceLoader</code>. </p>
+<p> When using a loader's <a href="serviceloader#stream()"><code>stream()</code></a> method then the elements are of type <code>Provider</code>. This allows processing to select or filter on the provider class without instantiating the provider. </p>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="serviceloader.provider">S</a></code></td> <th scope="row"><code><a href="#get()">get</a>()</code></th> <td> <p>Returns an instance of the provider.</p> </td> </tr> <tr id="i1"> <td><code><a href="../lang/class">Class</a>&lt;? extends <a href="serviceloader.provider">S</a>&gt;</code></td> <th scope="row"><code><a href="#type()">type</a>()</code></th> <td> <p>Returns the provider type.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="type()">type</h3> <pre data-language="java">Class&lt;? extends S&gt; type()</pre> <div>
+<p>Returns the provider type. There is no guarantee that this type is accessible or that it has a public no-args constructor. The <a href="#get()"><code>get()</code></a> method should be used to obtain the provider instance. </p>
+<p> When a module declares that the provider class is created by a provider factory then this method returns the return type of its public static "<code>provider()</code>" method.</p>
+</div> <dl> <dt>Returns:</dt> <dd>The provider type</dd> </dl>    <h3 id="get()">get</h3> <pre data-language="java">S get()</pre> <p>Returns an instance of the provider.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="function/supplier#get()">get</a></code> in interface <code><a href="function/supplier">Supplier</a>&lt;<a href="serviceloader.provider">S</a>&gt;</code>
+</dd> <dt>Returns:</dt> <dd>An instance of the provider.</dd> <dt>Throws:</dt> <dd>
+<code><a href="serviceconfigurationerror">ServiceConfigurationError</a></code> - If the service provider cannot be instantiated, or in the case of a provider factory, the public static "<code>provider()</code>" method returns <code>null</code> or throws an error or exception. The <code>ServiceConfigurationError</code> will carry an appropriate cause where possible.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.Provider.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.Provider.html</a>
+  </p>
+</div>

@@ -1,0 +1,77 @@
+  <main role="main">    <h1>Interface SaslServer</h1>      <pre data-language="java">public interface SaslServer</pre> <div>
+<p>Performs SASL authentication as a server. </p>
+<p> A server such an LDAP server gets an instance of this class in order to perform authentication defined by a specific SASL mechanism. Invoking methods on the <code>SaslServer</code> instance generates challenges according to the SASL mechanism implemented by the <code>SaslServer</code>. As the authentication proceeds, the instance encapsulates the state of a SASL server's authentication exchange. </p>
+<p> Here's an example of how an LDAP server might use a <code>SaslServer</code>. It first gets an instance of a <code>SaslServer</code> for the SASL mechanism requested by the client: </p>
+<pre data-language="java">SaslServer ss = Sasl.createSaslServer(mechanism,
+    "ldap", myFQDN, props, callbackHandler);</pre> It can then proceed to use the server for authentication. For example, suppose the LDAP server received an LDAP BIND request containing the name of the SASL mechanism and an (optional) initial response. It then might use the server as follows: <pre data-language="java">while (!ss.isComplete()) {
+    try {
+        byte[] challenge = ss.evaluateResponse(response);
+        if (ss.isComplete()) {
+            status = ldap.sendBindResponse(mechanism, challenge, SUCCESS);
+        } else {
+            status = ldap.sendBindResponse(mechanism, challenge,
+                  SASL_BIND_IN_PROGRESS);
+            response = ldap.readBindRequest();
+        }
+    } catch (SaslException e) {
+         status = ldap.sendErrorResponse(e);
+         break;
+    }
+}
+if (ss.isComplete() &amp;&amp; status == SUCCESS) {
+   String qop = (String) sc.getNegotiatedProperty(Sasl.QOP);
+   if (qop != null
+       &amp;&amp; (qop.equalsIgnoreCase("auth-int")
+           || qop.equalsIgnoreCase("auth-conf"))) {
+
+     // Use SaslServer.wrap() and SaslServer.unwrap() for future
+     // communication with client
+     ldap.in = new SecureInputStream(ss, ldap.in);
+     ldap.out = new SecureOutputStream(ss, ldap.out);
+   }
+}</pre>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd> <dt>See Also:</dt> <dd>
+<a href="sasl"><code>Sasl</code></a>, <a href="saslserverfactory"><code>SaslServerFactory</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#dispose()">dispose</a>()</code></th> <td> <p>Disposes of any system resources or security-sensitive information the SaslServer might be using.</p> </td> </tr> <tr id="i1"> <td><code>byte[]</code></td> <th scope="row"><code><a href="#evaluateResponse(byte%5B%5D)">evaluateResponse</a>​(byte[] response)</code></th> <td> <p>Evaluates the response data and generates a challenge.</p> </td> </tr> <tr id="i2"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#getAuthorizationID()">getAuthorizationID</a>()</code></th> <td> <p>Reports the authorization ID in effect for the client of this session.</p> </td> </tr> <tr id="i3"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#getMechanismName()">getMechanismName</a>()</code></th> <td> <p>Returns the IANA-registered mechanism name of this SASL server.</p> </td> </tr> <tr id="i4"> <td><code><a href="../../../../java.base/java/lang/object">Object</a></code></td> <th scope="row"><code><a href="#getNegotiatedProperty(java.lang.String)">getNegotiatedProperty</a>​(<a href="../../../../java.base/java/lang/string">String</a> propName)</code></th> <td> <p>Retrieves the negotiated property.</p> </td> </tr> <tr id="i5"> <td><code>boolean</code></td> <th scope="row"><code><a href="#isComplete()">isComplete</a>()</code></th> <td> <p>Determines whether the authentication exchange has completed.</p> </td> </tr> <tr id="i6"> <td><code>byte[]</code></td> <th scope="row"><code><a href="#unwrap(byte%5B%5D,int,int)">unwrap</a>​(byte[] incoming,
+      int offset,
+      int len)</code></th> <td> <p>Unwraps a byte array received from the client.</p> </td> </tr> <tr id="i7"> <td><code>byte[]</code></td> <th scope="row"><code><a href="#wrap(byte%5B%5D,int,int)">wrap</a>​(byte[] outgoing,
+    int offset,
+    int len)</code></th> <td> <p>Wraps a byte array to be sent to the client.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getMechanismName()">getMechanismName</h3> <pre data-language="java">String getMechanismName()</pre> <p>Returns the IANA-registered mechanism name of this SASL server. (e.g. "CRAM-MD5", "GSSAPI").</p> <dl> <dt>Returns:</dt> <dd>A non-null string representing the IANA-registered mechanism name.</dd> </dl>    <h3 id="evaluateResponse(byte[])">evaluateResponse</h3> <pre data-language="java">byte[] evaluateResponse(byte[] response)
+                 throws SaslException</pre> <p>Evaluates the response data and generates a challenge. If a response is received from the client during the authentication process, this method is called to prepare an appropriate next challenge to submit to the client. The challenge is null if the authentication has succeeded and no more challenge data is to be sent to the client. It is non-null if the authentication must be continued by sending a challenge to the client, or if the authentication has succeeded but challenge data needs to be processed by the client. <code>isComplete()</code> should be called after each call to <code>evaluateResponse()</code>,to determine if any further response is needed from the client.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>response</code> - The non-null (but possibly empty) response sent by the client.</dd> <dt>Returns:</dt> <dd>The possibly null challenge to send to the client. It is null if the authentication has succeeded and there is no more challenge data to be sent to the client.</dd> <dt>Throws:</dt> <dd>
+<code><a href="saslexception">SaslException</a></code> - If an error occurred while processing the response or generating a challenge.</dd> </dl>    <h3 id="isComplete()">isComplete</h3> <pre data-language="java">boolean isComplete()</pre> <p>Determines whether the authentication exchange has completed. This method is typically called after each invocation of <code>evaluateResponse()</code> to determine whether the authentication has completed successfully or should be continued.</p> <dl> <dt>Returns:</dt> <dd>true if the authentication exchange has completed; false otherwise.</dd> </dl>    <h3 id="getAuthorizationID()">getAuthorizationID</h3> <pre data-language="java">String getAuthorizationID()</pre> <p>Reports the authorization ID in effect for the client of this session. This method can only be called if isComplete() returns true.</p> <dl> <dt>Returns:</dt> <dd>The authorization ID of the client.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception">IllegalStateException</a></code> - if this authentication session has not completed</dd> </dl>    <h3 id="unwrap(byte[],int,int)">unwrap</h3> <pre data-language="java">byte[] unwrap(byte[] incoming,
+              int offset,
+              int len)
+       throws SaslException</pre> <div>
+<p>Unwraps a byte array received from the client. This method can be called only after the authentication exchange has completed (i.e., when <code>isComplete()</code> returns true) and only if the authentication exchange has negotiated integrity and/or privacy as the quality of protection; otherwise, an <code>IllegalStateException</code> is thrown. </p>
+<p> <code>incoming</code> is the contents of the SASL buffer as defined in RFC 2222 without the leading four octet field that represents the length. <code>offset</code> and <code>len</code> specify the portion of <code>incoming</code> to use.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>incoming</code> - A non-null byte array containing the encoded bytes from the client.</dd> <dd>
+<code>offset</code> - The starting position at <code>incoming</code> of the bytes to use.</dd> <dd>
+<code>len</code> - The number of bytes from <code>incoming</code> to use.</dd> <dt>Returns:</dt> <dd>A non-null byte array containing the decoded bytes.</dd> <dt>Throws:</dt> <dd>
+<code><a href="saslexception">SaslException</a></code> - if <code>incoming</code> cannot be successfully unwrapped.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception">IllegalStateException</a></code> - if the authentication exchange has not completed, or if the negotiated quality of protection has neither integrity nor privacy</dd> </dl>    <h3 id="wrap(byte[],int,int)">wrap</h3> <pre data-language="java">byte[] wrap(byte[] outgoing,
+            int offset,
+            int len)
+     throws SaslException</pre> <div>
+<p>Wraps a byte array to be sent to the client. This method can be called only after the authentication exchange has completed (i.e., when <code>isComplete()</code> returns true) and only if the authentication exchange has negotiated integrity and/or privacy as the quality of protection; otherwise, a <code>SaslException</code> is thrown. </p>
+<p> The result of this method will make up the contents of the SASL buffer as defined in RFC 2222 without the leading four octet field that represents the length. <code>offset</code> and <code>len</code> specify the portion of <code>outgoing</code> to use.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>outgoing</code> - A non-null byte array containing the bytes to encode.</dd> <dd>
+<code>offset</code> - The starting position at <code>outgoing</code> of the bytes to use.</dd> <dd>
+<code>len</code> - The number of bytes from <code>outgoing</code> to use.</dd> <dt>Returns:</dt> <dd>A non-null byte array containing the encoded bytes.</dd> <dt>Throws:</dt> <dd>
+<code><a href="saslexception">SaslException</a></code> - if <code>outgoing</code> cannot be successfully wrapped.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception">IllegalStateException</a></code> - if the authentication exchange has not completed, or if the negotiated quality of protection has neither integrity nor privacy.</dd> </dl>    <h3 id="getNegotiatedProperty(java.lang.String)">getNegotiatedProperty</h3> <pre data-language="java">Object getNegotiatedProperty(String propName)</pre> <div>
+<p>Retrieves the negotiated property. This method can be called only after the authentication exchange has completed (i.e., when <code>isComplete()</code> returns true); otherwise, an <code>IllegalStateException</code> is thrown. </p>
+<p> The <a href="sasl"><code>Sasl</code></a> class includes several well-known property names (For example, <a href="sasl#QOP"><code>Sasl.QOP</code></a>). A SASL provider can support other properties which are specific to the vendor and/or a mechanism.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>propName</code> - the property</dd> <dt>Returns:</dt> <dd>The value of the negotiated property. If null, the property was not negotiated or is not applicable to this mechanism.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception">IllegalStateException</a></code> - if this authentication exchange has not completed</dd> </dl>    <h3 id="dispose()">dispose</h3> <pre data-language="java">void dispose()
+      throws SaslException</pre> <p>Disposes of any system resources or security-sensitive information the SaslServer might be using. Invoking this method invalidates the SaslServer instance. This method is idempotent.</p> <dl> <dt>Throws:</dt> <dd>
+<code><a href="saslexception">SaslException</a></code> - If a problem was encountered while disposing the resources.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.security.sasl/javax/security/sasl/SaslServer.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.security.sasl/javax/security/sasl/SaslServer.html</a>
+  </p>
+</div>

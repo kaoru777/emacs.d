@@ -1,0 +1,30 @@
+  <main role="main">    <h1>Interface InterruptibleChannel</h1>     <dl> <dt>All Superinterfaces:</dt> <dd>
+<code><a href="../../lang/autocloseable">AutoCloseable</a></code>, <code><a href="channel">Channel</a></code>, <code><a href="../../io/closeable">Closeable</a></code>
+</dd> </dl> <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="spi/abstractinterruptiblechannel">AbstractInterruptibleChannel</a></code>, <code><a href="spi/abstractselectablechannel">AbstractSelectableChannel</a></code>, <code><a href="datagramchannel">DatagramChannel</a></code>, <code><a href="filechannel">FileChannel</a></code>, <code><a href="pipe.sinkchannel">Pipe.SinkChannel</a></code>, <code><a href="pipe.sourcechannel">Pipe.SourceChannel</a></code>, <code><a href="../../../../jdk.sctp/com/sun/nio/sctp/sctpchannel">SctpChannel</a></code>, <code><a href="../../../../jdk.sctp/com/sun/nio/sctp/sctpmultichannel">SctpMultiChannel</a></code>, <code><a href="../../../../jdk.sctp/com/sun/nio/sctp/sctpserverchannel">SctpServerChannel</a></code>, <code><a href="selectablechannel">SelectableChannel</a></code>, <code><a href="serversocketchannel">ServerSocketChannel</a></code>, <code><a href="socketchannel">SocketChannel</a></code>
+</dd> </dl>  <pre data-language="java">public interface InterruptibleChannel
+extends Channel</pre> <div>
+<p>A channel that can be asynchronously closed and interrupted. </p>
+<p> A channel that implements this interface is <i>asynchronously closeable:</i> If a thread is blocked in an I/O operation on an interruptible channel then another thread may invoke the channel's <a href="#close()"><code>close</code></a> method. This will cause the blocked thread to receive an <a href="asynchronouscloseexception"><code>AsynchronousCloseException</code></a>. </p>
+<p> A channel that implements this interface is also <i>interruptible:</i> If a thread is blocked in an I/O operation on an interruptible channel then another thread may invoke the blocked thread's <a href="../../lang/thread#interrupt()"><code>interrupt</code></a> method. This will cause the channel to be closed, the blocked thread to receive a <a href="closedbyinterruptexception"><code>ClosedByInterruptException</code></a>, and the blocked thread's interrupt status to be set. </p>
+<p> If a thread's interrupt status is already set and it invokes a blocking I/O operation upon a channel then the channel will be closed and the thread will immediately receive a <a href="closedbyinterruptexception"><code>ClosedByInterruptException</code></a>; its interrupt status will remain set. </p>
+<p> A channel supports asynchronous closing and interruption if, and only if, it implements this interface. This can be tested at runtime, if necessary, via the <code>instanceof</code> operator.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.4</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#close()">close</a>()</code></th> <td> <p>Closes this channel.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.java.nio.channels.Channel">Methods declared in interface java.nio.channels.<a href="channel">Channel</a>
+</h2> <code><a href="channel#isOpen()">isOpen</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="close()">close</h3> <pre data-language="java">void close()
+    throws IOException</pre> <div>
+<p>Closes this channel. </p>
+<p> Any thread currently blocked in an I/O operation upon this channel will receive an <a href="asynchronouscloseexception"><code>AsynchronousCloseException</code></a>. </p>
+<p> This method otherwise behaves exactly as specified by the <a href="channel#close()"><code>Channel</code></a> interface. </p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../../lang/autocloseable#close()">close</a></code> in interface <code><a href="../../lang/autocloseable">AutoCloseable</a></code>
+</dd> <dt>Specified by:</dt> <dd>
+<code><a href="channel#close()">close</a></code> in interface <code><a href="channel">Channel</a></code>
+</dd> <dt>Specified by:</dt> <dd>
+<code><a href="../../io/closeable#close()">close</a></code> in interface <code><a href="../../io/closeable">Closeable</a></code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../io/ioexception">IOException</a></code> - If an I/O error occurs</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/channels/InterruptibleChannel.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/channels/InterruptibleChannel.html</a>
+  </p>
+</div>

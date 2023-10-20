@@ -1,0 +1,42 @@
+  <main role="main">    <h1>Interface Type</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="mirror">Mirror</a></code></dd> </dl> <dl> <dt>All Known Subinterfaces:</dt> <dd>
+<code><a href="arraytype">ArrayType</a></code>, <code><a href="booleantype">BooleanType</a></code>, <code><a href="bytetype">ByteType</a></code>, <code><a href="chartype">CharType</a></code>, <code><a href="classtype">ClassType</a></code>, <code><a href="doubletype">DoubleType</a></code>, <code><a href="floattype">FloatType</a></code>, <code><a href="integertype">IntegerType</a></code>, <code><a href="interfacetype">InterfaceType</a></code>, <code><a href="longtype">LongType</a></code>, <code><a href="primitivetype">PrimitiveType</a></code>, <code><a href="referencetype">ReferenceType</a></code>, <code><a href="shorttype">ShortType</a></code>, <code><a href="voidtype">VoidType</a></code>
+</dd> </dl>  <pre data-language="java">public interface Type
+extends Mirror</pre> <div>
+<p>The mirror for a type in the target VM. This interface is the root of a type hierarchy encompassing primitive types and reference types. </p>
+<p> A Type may be used to represent a run-time type: </p>
+<blockquote> <a href="value"><code>Value</code></a>.type() </blockquote> or a compile-time type: <blockquote> <a href="field#type()"><code>Field.type()</code></a> <br> <a href="method#returnType()"><code>Method.returnType()</code></a> <br> <a href="method#argumentTypes()"><code>Method.argumentTypes()</code></a> <br> <a href="localvariable#type()"><code>LocalVariable.type()</code></a> <br> <a href="arraytype#componentType()"><code>ArrayType.componentType()</code></a> </blockquote> <p> The following tables illustrate which subinterfaces of Type are used to mirror types in the target VM -- </p>
+<table>  <thead style="background-color:#EEEEFF; text-align:left"> <tr> <th scope="col" style="width:25em">Type declared in target as</th> <th scope="col" style="width:20em">Is mirrored as an instance of</th> </tr>
+</thead>  <tr> <th scope="row"><code>boolean</code></th> <td> <a href="booleantype"><code>BooleanType</code></a>
+</td> </tr>
+<tr> <th scope="row"><code>byte</code></th> <td><a href="bytetype"><code>ByteType</code></a></td> </tr>
+<tr> <th scope="row"><code>char</code></th> <td><a href="chartype"><code>CharType</code></a></td> </tr>
+<tr> <th scope="row"><code>double</code></th> <td><a href="doubletype"><code>DoubleType</code></a></td> </tr>
+<tr> <th scope="row"><code>float</code></th> <td><a href="floattype"><code>FloatType</code></a></td> </tr>
+<tr> <th scope="row"><code>int</code></th> <td><a href="integertype"><code>IntegerType</code></a></td> </tr>
+<tr> <th scope="row"><code>long</code></th> <td><a href="longtype"><code>LongType</code></a></td> </tr>
+<tr> <th scope="row"><code>short</code></th> <td><a href="shorttype"><code>ShortType</code></a></td> </tr>
+<tr> <th scope="row"><code>void</code></th> <td><a href="voidtype"><code>VoidType</code></a></td> </tr> </table> <table>  <thead style="background-color:#EEEEFF; text-align:left"> <tr> <th scope="col" style="width:15em">Type declared in target as</th> <th scope="col" style="width:10em">For example</th> <th scope="col" style="width:20em">Is mirrored as an instance of</th> </tr>
+</thead>  <tr> <th scope="row"><i>a class</i></th> <th scope="row"><code>Date</code></th> <td><a href="classtype"><code>ClassType</code></a></td> </tr>
+<tr> <th scope="row"><i>an interface</i></th> <th scope="row"><code>Runnable</code></th> <td><a href="interfacetype"><code>InterfaceType</code></a></td> </tr>
+<tr> <th scope="row" rowspan="4"><i>an array</i></th> <th scope="row"><i>(any)</i></th> <td><a href="arraytype"><code>ArrayType</code></a></td> </tr>
+<tr>  <th scope="row"><code>int[]</code></th> <td>
+<a href="arraytype"><code>ArrayType</code></a> whose <a href="arraytype#componentType()"><code>componentType()</code></a> is <a href="integertype"><code>IntegerType</code></a>
+</td> </tr>
+<tr>  <th scope="row"><code>Date[]</code></th> <td>
+<a href="arraytype"><code>ArrayType</code></a> whose <a href="arraytype#componentType()"><code>componentType()</code></a> is <a href="classtype"><code>ClassType</code></a>
+</td> </tr>
+<tr>  <th scope="row"><code>Runnable[]</code></th> <td>
+<a href="arraytype"><code>ArrayType</code></a> whose <a href="arraytype#componentType()"><code>componentType()</code></a> is <a href="interfacetype"><code>InterfaceType</code></a>
+</td> </tr> </table>
+</div> <dl> <dt>Since:</dt> <dd>1.3</dd> <dt>See Also:</dt> <dd>
+<a href="primitivetype"><code>Subinterface PrimitiveType</code></a>, <a href="referencetype"><code>Subinterface ReferenceType</code></a>, <a href="value"><code>Value - for relationship between Type and Value</code></a>, <a href="field#type()"><code>Field.type() - for usage examples</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#name()">name</a>()</code></th> <td> </td> </tr> <tr id="i1"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#signature()">signature</a>()</code></th> <td> <p>Returns the JNI-style signature for this type.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.com.sun.jdi.Mirror">Methods declared in interface com.sun.jdi.<a href="mirror">Mirror</a>
+</h2> <code><a href="mirror#toString()">toString</a>, <a href="mirror#virtualMachine()">virtualMachine</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="signature()">signature</h3> <pre data-language="java">String signature()</pre> <div>
+<p>Returns the JNI-style signature for this type. </p>
+<p> For primitive classes the returned signature is the signature of the corresponding primitive type; for example, "I" is returned as the signature of the class represented by <a href="../../../../java.base/java/lang/integer#TYPE"><code>Integer.TYPE</code></a>.</p>
+</div> <dl> <dt>Returns:</dt> <dd>the string containing the type signature.</dd> <dt>See Also:</dt> <dd><a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jdi/com/sun/jdi/doc-files/signature.html">Type Signatures</a></dd> </dl>    <h3 id="name()">name</h3> <pre data-language="java">String name()</pre> <dl> <dt>Returns:</dt> <dd>a text representation of this type.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jdi/com/sun/jdi/Type.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jdi/com/sun/jdi/Type.html</a>
+  </p>
+</div>

@@ -1,0 +1,56 @@
+<h1 id="class-SyntaxSuggest::BlockExpand" class="class"> class SyntaxSuggest::BlockExpand </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../object">Object</a></dd>
+</dl> <section class="description"> <p>This class is responsible for taking a code block that exists at a far indentaion and then iteratively increasing the block so that it captures everything within the same indentation block.</p> <pre class="ruby" data-language="ruby">def dog
+  puts "bow"
+  puts "wow"
+end
+</pre> <p>block = <a href="blockexpand#method-c-new"><code>BlockExpand.new</code></a>(code_lines: code_lines)</p> <pre>.call(CodeBlock.new(lines: code_lines[1]))</pre> <p>puts block.to_s # =&gt; puts “bow”</p> <pre class="ruby" data-language="ruby">puts "wow"
+</pre> <p>Once a code block has captured everything at a given indentation level then it will expand to capture surrounding indentation.</p> <p>block = <a href="blockexpand#method-c-new"><code>BlockExpand.new</code></a>(code_lines: code_lines)</p> <pre>.call(block)</pre> <p>block.to_s # =&gt; def dog</p> <pre>  puts "bow"
+  puts "wow"
+end</pre> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(code_lines:)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/block_expand.rb, line 34
+def initialize(code_lines:)
+  @code_lines = code_lines
+end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-call"> <span class="method-name">call</span><span class="method-args">(block)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="call-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/block_expand.rb, line 38
+def call(block)
+  if (next_block = expand_neighbors(block))
+    return next_block
+  end
+
+  expand_indent(block)
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-expand_indent"> <span class="method-name">expand_indent</span><span class="method-args">(block)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="expand_indent-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/block_expand.rb, line 46
+def expand_indent(block)
+  AroundBlockScan.new(code_lines: @code_lines, block: block)
+    .skip(:hidden?)
+    .stop_after_kw
+    .scan_adjacent_indent
+    .code_block
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-expand_neighbors"> <span class="method-name">expand_neighbors</span><span class="method-args">(block)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="expand_neighbors-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/block_expand.rb, line 54
+def expand_neighbors(block)
+  expanded_lines = AroundBlockScan.new(code_lines: @code_lines, block: block)
+    .skip(:hidden?)
+    .stop_after_kw
+    .scan_neighbors
+    .scan_while { |line| line.empty? } # Slurp up empties
+    .lines
+
+  if block.lines == expanded_lines
+    nil
+  else
+    CodeBlock.new(lines: expanded_lines)
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-inspect"> <span class="method-name">inspect</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="inspect-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/block_expand.rb, line 70
+def inspect
+  "#&lt;SyntaxSuggest::CodeBlock:0x0000123843lol &gt;"
+end</pre> </div> <p>Managable rspec errors</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

@@ -1,0 +1,22 @@
+<h1 id="module-ActiveSupport::RangeWithFormat" class="module"> module ActiveSupport::RangeWithFormat </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section class="constants-list"> <header> <h3>Constants</h3> </header> <dl> <dt id="RANGE_FORMATS">RANGE_FORMATS </dt>
+
+</dl> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-to_formatted_s"> <span class="method-name">to_formatted_s</span><span class="method-args">(format = :default)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="to_formatted_s-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/core_ext/range/conversions.rb, line 30
+def to_formatted_s(format = :default)
+  if formatter = RANGE_FORMATS[format]
+    formatter.call(first, last)
+  else
+    to_s
+  end
+end</pre> </div> <p>Convert range to a formatted string. See <a href="rangewithformat#RANGE_FORMATS"><code>RANGE_FORMATS</code></a> for predefined formats.</p> <p>This method is aliased to <code>to_fs</code>.</p> <pre class="ruby" data-language="ruby">range = (1..100)           # =&gt; 1..100
+
+range.to_s                 # =&gt; "1..100"
+range.to_formatted_s(:db)            # =&gt; "BETWEEN '1' AND '100'"
+</pre> <h2 id="method-i-to_formatted_s-label-Adding+your+own+range+formats+to+to_s">Adding your own range formats to to_s</h2> <p>You can add your own formats to the Range::RANGE_FORMATS hash. Use the format name as the hash key and a Proc instance.</p> <pre class="ruby" data-language="ruby"># config/initializers/range_formats.rb
+Range::RANGE_FORMATS[:short] = -&gt;(start, stop) { "Between #{start.to_formatted_s(:db)} and #{stop.to_formatted_s(:db)}" }
+</pre>  </div> <div class="aliases"> Also aliased as: <a href="rangewithformat#method-i-to_fs">to_fs</a> </div> </div> <div class="method-detail method-alias"> <div class="method-heading" id="method-i-to_fs"> <span class="method-name">to_fs</span><span class="method-args">(format = :default)</span> </div>  <div class="aliases"> Alias for: <a href="rangewithformat#method-i-to_formatted_s">to_formatted_s</a> </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

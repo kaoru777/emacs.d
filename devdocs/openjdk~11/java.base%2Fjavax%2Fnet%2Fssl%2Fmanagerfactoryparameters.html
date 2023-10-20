@@ -1,0 +1,11 @@
+  <main role="main">    <h1>Interface ManagerFactoryParameters</h1>     <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="certpathtrustmanagerparameters">CertPathTrustManagerParameters</a></code>, <code><a href="keystorebuilderparameters">KeyStoreBuilderParameters</a></code>
+</dd> </dl>  <pre data-language="java">public interface ManagerFactoryParameters</pre> <div>
+<p>This class is the base interface for providing algorithm-specific information to a KeyManagerFactory or TrustManagerFactory. </p>
+<p> In some cases, initialization parameters other than keystores may be needed by a provider. Users of that particular provider are expected to pass an implementation of the appropriate sub-interface of this class as defined by the provider. The provider can then call the specified methods in the <code>ManagerFactoryParameters</code> implementation to obtain the needed information.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.4</dd> </dl>    </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/net/ssl/ManagerFactoryParameters.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/net/ssl/ManagerFactoryParameters.html</a>
+  </p>
+</div>

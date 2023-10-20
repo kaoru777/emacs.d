@@ -1,0 +1,92 @@
+  <main role="main">    <h1>Class PagedResultsControl</h1>   <ul class="inheritance"> <li><a href="../../../../java.base/java/lang/object">java.lang.Object</a></li> <li> <ul class="inheritance"> <li><a href="basiccontrol">javax.naming.ldap.BasicControl</a></li> <li> <ul class="inheritance"> <li>javax.naming.ldap.PagedResultsControl</li> </ul> </li> </ul> </li> </ul>   <dl> <dt>All Implemented Interfaces:</dt> <dd>
+<code><a href="../../../../java.base/java/io/serializable">Serializable</a></code>, <code><a href="control">Control</a></code>
+</dd> </dl>  <pre data-language="java">public final class PagedResultsControl
+extends BasicControl</pre> <div>
+<p>Requests that the results of a search operation be returned by the LDAP server in batches of a specified size. The requestor controls the rate at which batches are returned by the rate at which it invokes search operations. </p>
+<p> The following code sample shows how the class may be used: </p>
+<pre data-language="java">// Open an LDAP association
+     LdapContext ctx = new InitialLdapContext();
+
+     // Activate paged results
+     int pageSize = 20; // 20 entries per page
+     byte[] cookie = null;
+     int total;
+     ctx.setRequestControls(new Control[]{
+         new PagedResultsControl(pageSize, Control.CRITICAL) });
+
+     do {
+         // Perform the search
+         NamingEnumeration results =
+             ctx.search("", "(objectclass=*)", new SearchControls());
+
+         // Iterate over a batch of search results
+         while (results != null &amp;&amp; results.hasMore()) {
+             // Display an entry
+             SearchResult entry = (SearchResult)results.next();
+             System.out.println(entry.getName());
+             System.out.println(entry.getAttributes());
+
+             // Handle the entry's response controls (if any)
+             if (entry instanceof HasControls) {
+                 // ((HasControls)entry).getControls();
+             }
+         }
+         // Examine the paged results control response
+         Control[] controls = ctx.getResponseControls();
+         if (controls != null) {
+             for (int i = 0; i &lt; controls.length; i++) {
+                 if (controls[i] instanceof PagedResultsResponseControl) {
+                     PagedResultsResponseControl prrc =
+                         (PagedResultsResponseControl)controls[i];
+                     total = prrc.getResultSize();
+                     cookie = prrc.getCookie();
+                 } else {
+                     // Handle other response controls (if any)
+                 }
+             }
+         }
+
+         // Re-activate paged results
+         ctx.setRequestControls(new Control[]{
+             new PagedResultsControl(pageSize, cookie, Control.CRITICAL) });
+     } while (cookie != null);
+
+     // Close the LDAP association
+     ctx.close();
+     ...</pre> <p> This class implements the LDAPv3 Control for paged-results as defined in <a href="http://www.ietf.org/rfc/rfc2696.txt">RFC 2696</a>. The control's value has the following ASN.1 definition: </p>
+<pre data-language="java">realSearchControlValue ::= SEQUENCE {
+         size      INTEGER (0..maxInt),
+                           -- requested page size from client
+                           -- result set size estimate from server
+         cookie    OCTET STRING
+     }</pre>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd> <dt>See Also:</dt> <dd>
+<a href="pagedresultsresponsecontrol"><code>PagedResultsResponseControl</code></a>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/serialized-form.html#javax.naming.ldap.PagedResultsControl">Serialized Form</a>
+</dd> </dl>      <section role="region">  <h2 id="field.summary">Fields</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Field</th> <th scope="col">Description</th> </tr> <tr> <td><code>static <a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#OID">OID</a></code></th> <td> <p>The paged-results control's assigned object identifier is 1.2.840.113556.1.4.319.</p> </td> </tr> </table>  <h2 id="fields.inherited.from.class.javax.naming.ldap.BasicControl">Fields declared in class javax.naming.ldap.<a href="basiccontrol">BasicControl</a>
+</h2> <code><a href="basiccontrol#criticality">criticality</a>, <a href="basiccontrol#id">id</a>, <a href="basiccontrol#value">value</a></code>  <h2 id="fields.inherited.from.class.javax.naming.ldap.Control">Fields declared in interface javax.naming.ldap.<a href="control">Control</a>
+</h2> <code><a href="control#CRITICAL">CRITICAL</a>, <a href="control#NONCRITICAL">NONCRITICAL</a></code>  </section>  <section role="region">  <h2 id="constructor.summary">Constructors</h2> <table>  <tr> <th scope="col">Constructor</th> <th scope="col">Description</th> </tr> <tr> <th scope="row"><code><a href="#%3Cinit%3E(int,boolean)">PagedResultsControl</a>​(int pageSize,
+                   boolean criticality)</code></th> <td> <p>Constructs a control to set the number of entries to be returned per page of results.</p> </td> </tr> <tr> <th scope="row"><code><a href="#%3Cinit%3E(int,byte%5B%5D,boolean)">PagedResultsControl</a>​(int pageSize,
+                   byte[] cookie,
+                   boolean criticality)</code></th> <td> <p>Constructs a control to set the number of entries to be returned per page of results.</p> </td> </tr> </table>  </section>  <section role="region">  <h2 id="method.summary">Methods</h2>  <h2 id="methods.inherited.from.class.javax.naming.ldap.BasicControl">Methods declared in class javax.naming.ldap.<a href="basiccontrol">BasicControl</a>
+</h2> <code><a href="basiccontrol#getEncodedValue()">getEncodedValue</a>, <a href="basiccontrol#getID()">getID</a>, <a href="basiccontrol#isCritical()">isCritical</a></code>  <h2 id="methods.inherited.from.class.java.lang.Object">Methods declared in class java.lang.<a href="../../../../java.base/java/lang/object">Object</a>
+</h2> <code><a href="../../../../java.base/java/lang/object#clone()">clone</a>, <a href="../../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a>, <a href="../../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../../java.base/java/lang/object#hashCode()">hashCode</a>, <a href="../../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../../java.base/java/lang/object#toString()">toString</a>, <a href="../../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long,int)">wait</a></code>  </section>   <div>   <section role="region">  <h2 id="field.detail">Fields</h2>   <h3 id="OID">OID</h3> <pre data-language="java">public static final String OID</pre> <p>The paged-results control's assigned object identifier is 1.2.840.113556.1.4.319.</p> <dl> <dt>See Also:</dt> <dd><a href="https://docs.oracle.com/en/java/javase/11/docs/api/constant-values.html#javax.naming.ldap.PagedResultsControl.OID">Constant Field Values</a></dd> </dl>   </section>  <section role="region">  <h2 id="constructor.detail">Constructors</h2>   <h3 id="&lt;init&gt;(int,boolean)">PagedResultsControl</h3> <pre data-language="java">public PagedResultsControl(int pageSize,
+                           boolean criticality)
+                    throws IOException</pre> <p>Constructs a control to set the number of entries to be returned per page of results.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>pageSize</code> - The number of entries to return in a page.</dd> <dd>
+<code>criticality</code> - If true then the server must honor the control and return search results as indicated by pageSize or refuse to perform the search. If false, then the server need not honor the control.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - If an error was encountered while encoding the supplied arguments into a control.</dd> </dl>    <h3 id="&lt;init&gt;(int,byte[],boolean)">PagedResultsControl</h3> <pre data-language="java">public PagedResultsControl(int pageSize,
+                           byte[] cookie,
+                           boolean criticality)
+                    throws IOException</pre> <div>
+<p>Constructs a control to set the number of entries to be returned per page of results. The cookie is provided by the server and may be obtained from the paged-results response control. </p>
+<p> A sequence of paged-results can be abandoned by setting the pageSize to zero and setting the cookie to the last cookie received from the server.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>pageSize</code> - The number of entries to return in a page.</dd> <dd>
+<code>cookie</code> - A possibly null server-generated cookie.</dd> <dd>
+<code>criticality</code> - If true then the server must honor the control and return search results as indicated by pageSize or refuse to perform the search. If false, then the server need not honor the control.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - If an error was encountered while encoding the supplied arguments into a control.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.naming/javax/naming/ldap/PagedResultsControl.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.naming/javax/naming/ldap/PagedResultsControl.html</a>
+  </p>
+</div>

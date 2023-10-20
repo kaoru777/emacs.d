@@ -1,0 +1,1147 @@
+<h1 id="class-Net::HTTP" class="class"> class Net::HTTP </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent">Protocol</dd>
+</dl> <section class="description"> <p>Class Net::HTTP provides a rich library that implements the client in a client-server model that uses the HTTP request-response protocol. For information about HTTP, see</p> <ul>
+<li> <p><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">Hypertext Transfer Protocol</a>.</p> </li>
+<li> <p><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Technical_overview">Technical overview</a>.</p> </li>
+</ul> <p>Note: If you are performing only a few GET requests, consider using <a href="../openuri"><code>OpenURI</code></a>; otherwise, read on.</p> <h2 id="class-Net::HTTP-label-Synopsis">Synopsis</h2> <p>If you are already familiar with HTTP, this synopsis may be helpful.</p> <p><a href="http#class-Net::HTTP-label-Sessions">Session</a> with multiple requests for <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP methods</a>:</p> <pre class="ruby" data-language="ruby">Net::HTTP.start(hostname) do |http|
+  # Session started automatically before block execution.
+  http.get(path_or_uri, headers = {})
+  http.head(path_or_uri, headers = {})
+  http.post(path_or_uri, data, headers = {})  # Can also have a block.
+  http.put(path_or_uri, data, headers = {})
+  http.delete(path_or_uri, headers = {Depth: 'Infinity'})
+  http.options(path_or_uri, headers = {})
+  http.trace(path_or_uri, headers = {})
+  http.patch(path_or_uri, data, headers = {}) # Can also have a block.
+  # Session finished automatically at block exit.
+end
+</pre> <p><a href="http#class-Net::HTTP-label-Sessions">Session</a> with multiple requests for <a href="https://en.wikipedia.org/wiki/WebDAV#Implementation">WebDAV methods</a>:</p> <pre class="ruby" data-language="ruby">Net::HTTP.start(hostname) do |http|
+  # Session started automatically before block execution.
+  http.copy(path_or_uri, headers = {})
+  http.lock(path_or_uri, body, headers = {})
+  http.mkcol(path_or_uri, body = nil, headers = {})
+  http.move(path_or_uri, headers = {})
+  http.propfind(path_or_uri, body = nil, headers = {'Depth' =&gt; '0'})
+  http.proppatch(path_or_uri, body, headers = {})
+  http.unlock(path_or_uri, body, headers = {})
+  # Session finished automatically at block exit.
+end
+</pre> <p>Each of the following methods automatically starts and finishes a <a href="http#class-Net::HTTP-label-Sessions">session</a> that sends a single request:</p> <pre class="ruby" data-language="ruby"># Return string response body.
+Net::HTTP.get(hostname, path, port = 80)
+Net::HTTP.get(uri, headers = {}, port = 80)
+
+# Write string response body to $stdout.
+Net::HTTP.get_print(hostname, path_or_uri, port = 80)
+Net::HTTP.get_print(uri, headers = {}, port = 80)
+
+# Return response as Net::HTTPResponse object.
+Net::HTTP.get_response(hostname, path_or_uri, port = 80)
+Net::HTTP.get_response(uri, headers = {}, port = 80)
+
+Net::HTTP.post(uri, data, headers = {})
+Net::HTTP.post_form(uri, params)
+</pre> <h2 id="class-Net::HTTP-label-About+the+Examples">About the Examples</h2> <p>Examples here assume that <code>net/http</code> has been required (which also requires <code>uri</code>):</p> <pre class="ruby" data-language="ruby">require 'net/http'
+</pre> <p>Many code examples here use these example websites:</p> <ul>
+<li> <p><a href="https://jsonplaceholder.typicode.com">jsonplaceholder.typicode.com</a>.</p> </li>
+<li> <p><a href="http://example.com">example.com</a>.</p> </li>
+</ul> <p>Some examples also assume these variables:</p> <pre class="ruby" data-language="ruby">uri = URI('https://jsonplaceholder.typicode.com')
+uri.freeze # Examples may not modify.
+hostname = uri.hostname # =&gt; "jsonplaceholder.typicode.com"
+port = uri.port         # =&gt; 443
+</pre> <p>So that example requests may be written as:</p> <pre class="ruby" data-language="ruby">Net::HTTP.get(uri)
+Net::HTTP.get(hostname, '/index.html')
+Net::HTTP.start(hostname) do |http|
+  http.get('/todos/1')
+  http.get('/todos/2')
+end
+</pre> <p>An example that needs a modified <a href="../uri"><code>URI</code></a> first duplicates <code>uri</code>, then modifies the duplicate:</p> <pre class="ruby" data-language="ruby">_uri = uri.dup
+_uri.path = '/todos/1'
+</pre> <h2 id="class-Net::HTTP-label-URIs">URIs</h2> <p>On the internet, a <a href="../uri"><code>URI</code></a> (<a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">Universal Resource Identifier</a>) is a string that identifies a particular resource. It consists of some or all of: scheme, hostname, path, query, and fragment; see <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax">URI syntax</a>.</p> <p>A Ruby <a href="../uri/generic"><code>URI::Generic</code></a> object represents an internet <a href="../uri"><code>URI</code></a>. It provides, among others, methods <code>scheme</code>, <code>hostname</code>, <code>path</code>, <code>query</code>, and <code>fragment</code>.</p> <h3 id="class-Net::HTTP-label-Schemes">Schemes</h3> <p>An internet URI has a <a href="https://en.wikipedia.org/wiki/List_of_URI_schemes">scheme</a>.</p> <p>The two schemes supported in Net::HTTP are <code>'https'</code> and <code>'http'</code>:</p> <pre class="ruby" data-language="ruby">uri.scheme                       # =&gt; "https"
+URI('http://example.com').scheme # =&gt; "http"
+</pre> <h3 id="class-Net::HTTP-label-Hostnames">Hostnames</h3> <p>A hostname identifies a server (host) to which requests may be sent:</p> <pre class="ruby" data-language="ruby">hostname = uri.hostname # =&gt; "jsonplaceholder.typicode.com"
+Net::HTTP.start(hostname) do |http|
+  # Some HTTP stuff.
+end
+</pre> <h3 id="class-Net::HTTP-label-Paths">Paths</h3> <p>A host-specific path identifies a resource on the host:</p> <pre class="ruby" data-language="ruby">_uri = uri.dup
+_uri.path = '/todos/1'
+hostname = _uri.hostname
+path = _uri.path
+Net::HTTP.get(hostname, path)
+</pre> <h3 id="class-Net::HTTP-label-Queries">Queries</h3> <p>A host-specific query adds name/value pairs to the URI:</p> <pre class="ruby" data-language="ruby">_uri = uri.dup
+params = {userId: 1, completed: false}
+_uri.query = URI.encode_www_form(params)
+_uri # =&gt; #&lt;URI::HTTPS https://jsonplaceholder.typicode.com?userId=1&amp;completed=false&gt;
+Net::HTTP.get(_uri)
+</pre> <h3 id="class-Net::HTTP-label-Fragments">Fragments</h3> <p>A <a href="https://en.wikipedia.org/wiki/URI_fragment">URI fragment</a> has no effect in Net::HTTP; the same data is returned, regardless of whether a fragment is included.</p> <h2 id="class-Net::HTTP-label-Request+Headers">Request Headers</h2> <p>Request headers may be used to pass additional information to the host, similar to arguments passed in a method call; each header is a name/value pair.</p> <p>Each of the Net::HTTP methods that sends a request to the host has optional argument <code>headers</code>, where the headers are expressed as a hash of field-name/value pairs:</p> <pre class="ruby" data-language="ruby">headers = {Accept: 'application/json', Connection: 'Keep-Alive'}
+Net::HTTP.get(uri, headers)
+</pre> <p>See lists of both standard request fields and common request fields at <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Request_fields">Request Fields</a>. A host may also accept other custom fields.</p> <h2 id="class-Net::HTTP-label-Sessions">Sessions</h2> <p>A <em>session</em> is a connection between a server (host) and a client that:</p> <ul>
+<li> <p>Is begun by instance method <a href="http#method-i-start"><code>Net::HTTP#start</code></a>.</p> </li>
+<li> <p>May contain any number of requests.</p> </li>
+<li> <p>Is ended by instance method <a href="http#method-i-finish"><code>Net::HTTP#finish</code></a>.</p> </li>
+</ul> <p>See example sessions at the <a href="http#class-Net::HTTP-label-Synopsis">Synopsis</a>.</p> <h3 id="class-Net::HTTP-label-Session+Using+Net-3A-3AHTTP.start">Session Using Net::HTTP.start</h3> <p>If you have many requests to make to a single host (and port), consider using singleton method <a href="http#method-c-start"><code>Net::HTTP.start</code></a> with a block; the method handles the session automatically by:</p> <ul>
+<li> <p>Calling <a href="http#method-i-start"><code>start</code></a> before block execution.</p> </li>
+<li> <p>Executing the block.</p> </li>
+<li> <p>Calling <a href="http#method-i-finish"><code>finish</code></a> after block execution.</p> </li>
+</ul> <p>In the block, you can use these instance methods, each of which that sends a single request:</p> <ul>
+<li> <p><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP methods</a>:</p> <ul>
+<li> <p><a href="http#method-i-get"><code>get</code></a>, <a href="http#method-i-request_get"><code>request_get</code></a>: GET.</p> </li>
+<li> <p><a href="http#method-i-head"><code>head</code></a>, <a href="http#method-i-request_head"><code>request_head</code></a>: HEAD.</p> </li>
+<li> <p><a href="http#method-i-post"><code>post</code></a>, <a href="http#method-i-request_post"><code>request_post</code></a>: POST.</p> </li>
+<li> <p><a href="http#method-i-delete"><code>delete</code></a>: DELETE.</p> </li>
+<li> <p><a href="http#method-i-options"><code>options</code></a>: OPTIONS.</p> </li>
+<li> <p><a href="http#method-i-trace"><code>trace</code></a>: TRACE.</p> </li>
+<li> <p><a href="http#method-i-patch"><code>patch</code></a>: PATCH.</p> </li>
+</ul> </li>
+<li> <p><a href="https://en.wikipedia.org/wiki/WebDAV#Implementation">WebDAV methods</a>:</p> <ul>
+<li> <p><a href="http#method-i-copy"><code>copy</code></a>: COPY.</p> </li>
+<li> <p><a href="http#method-i-lock"><code>lock</code></a>: LOCK.</p> </li>
+<li> <p><a href="http#method-i-mkcol"><code>mkcol</code></a>: MKCOL.</p> </li>
+<li> <p><a href="http#method-i-move"><code>move</code></a>: MOVE.</p> </li>
+<li> <p><a href="http#method-i-propfind"><code>propfind</code></a>: PROPFIND.</p> </li>
+<li> <p><a href="http#method-i-proppatch"><code>proppatch</code></a>: PROPPATCH.</p> </li>
+<li> <p><a href="http#method-i-unlock"><code>unlock</code></a>: UNLOCK.</p> </li>
+</ul> </li>
+</ul> <h3 id="class-Net::HTTP-label-Session+Using+Net-3A-3AHTTP.start+and+Net-3A-3AHTTP.finish">Session Using Net::HTTP.start and Net::HTTP.finish</h3> <p>You can manage a session manually using methods <a href="http#method-i-start"><code>start</code></a> and <a href="http#method-i-finish"><code>finish</code></a>:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+http.start
+http.get('/todos/1')
+http.get('/todos/2')
+http.delete('/posts/1')
+http.finish # Needed to free resources.
+</pre> <h3 id="class-Net::HTTP-label-Single-Request+Session">Single-Request Session</h3> <p>Certain convenience methods automatically handle a session by:</p> <ul>
+<li> <p>Creating an HTTP object</p> </li>
+<li> <p>Starting a session.</p> </li>
+<li> <p>Sending a single request.</p> </li>
+<li> <p>Finishing the session.</p> </li>
+<li> <p>Destroying the object.</p> </li>
+</ul> <p>Such methods that send GET requests:</p> <ul>
+<li> <p><a href="http#method-c-get"><code>::get</code></a>: Returns the string response body.</p> </li>
+<li> <p><a href="http#method-c-get_print"><code>::get_print</code></a>: Writes the string response body to $stdout.</p> </li>
+<li> <p><a href="http#method-c-get_response"><code>::get_response</code></a>: Returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> </li>
+</ul> <p>Such methods that send POST requests:</p> <ul>
+<li> <p><a href="http#method-c-post"><code>::post</code></a>: Posts data to the host.</p> </li>
+<li> <p><a href="http#method-c-post_form"><code>::post_form</code></a>: Posts form data to the host.</p> </li>
+</ul> <h2 id="class-Net::HTTP-label-HTTP+Requests+and+Responses">HTTP Requests and Responses</h2> <p>Many of the methods above are convenience methods, each of which sends a request and returns a string without directly using Net::HTTPRequest and Net::HTTPResponse objects.</p> <p>You can, however, directly create a request object, send the request, and retrieve the response object; see:</p> <ul>
+<li> <p><a href="httprequest"><code>Net::HTTPRequest</code></a>.</p> </li>
+<li> <p><a href="httpresponse"><code>Net::HTTPResponse</code></a>.</p> </li>
+</ul> <h2 id="class-Net::HTTP-label-Following+Redirection">Following Redirection</h2> <p>Each <a href="httpresponse"><code>Net::HTTPResponse</code></a> object belongs to a class for its response code.</p> <p>For example, all 2XX responses are instances of a <a href="httpsuccess"><code>Net::HTTPSuccess</code></a> subclass, a 3XX response is an instance of a <a href="httpredirection"><code>Net::HTTPRedirection</code></a> subclass and a 200 response is an instance of the <a href="httpok"><code>Net::HTTPOK</code></a> class. For details of response classes, see the section “HTTP Response Classes” below.</p> <p>Using a case statement you can handle various types of responses properly:</p> <pre class="ruby" data-language="ruby">def fetch(uri_str, limit = 10)
+  # You should choose a better exception.
+  raise ArgumentError, 'too many HTTP redirects' if limit == 0
+
+  response = Net::HTTP.get_response(URI(uri_str))
+
+  case response
+  when Net::HTTPSuccess then
+    response
+  when Net::HTTPRedirection then
+    location = response['location']
+    warn "redirected to #{location}"
+    fetch(location, limit - 1)
+  else
+    response.value
+  end
+end
+
+print fetch('http://www.ruby-lang.org')
+</pre> <h2 id="class-Net::HTTP-label-Basic+Authentication">Basic Authentication</h2> <p>Basic authentication is performed according to [RFC2617](<a href="http://www.ietf.org/rfc/rfc2617.txt">www.ietf.org/rfc/rfc2617.txt</a>).</p> <pre class="ruby" data-language="ruby">uri = URI('http://example.com/index.html?key=value')
+
+req = Net::HTTP::Get.new(uri)
+req.basic_auth 'user', 'pass'
+
+res = Net::HTTP.start(uri.hostname, uri.port) {|http|
+  http.request(req)
+}
+puts res.body
+</pre> <h2 id="class-Net::HTTP-label-Streaming+Response+Bodies">Streaming Response Bodies</h2> <p>By default <a href="http"><code>Net::HTTP</code></a> reads an entire response into memory. If you are handling large files or wish to implement a progress bar you can instead stream the body directly to an <a href="../io"><code>IO</code></a>.</p> <pre class="ruby" data-language="ruby">uri = URI('http://example.com/large_file')
+
+Net::HTTP.start(uri.host, uri.port) do |http|
+  request = Net::HTTP::Get.new uri
+
+  http.request request do |response|
+    open 'large_file', 'w' do |io|
+      response.read_body do |chunk|
+        io.write chunk
+      end
+    end
+  end
+end
+</pre> <h2 id="class-Net::HTTP-label-HTTPS">HTTPS</h2> <p>HTTPS is enabled for an <a href="http"><code>HTTP</code></a> connection by <a href="http#method-i-use_ssl-3D"><code>Net::HTTP#use_ssl=</code></a>.</p> <pre class="ruby" data-language="ruby">uri = URI('https://secure.example.com/some_path?query=string')
+
+Net::HTTP.start(uri.host, uri.port, :use_ssl =&gt; true) do |http|
+  request = Net::HTTP::Get.new uri
+  response = http.request request # Net::HTTPResponse object
+end
+</pre> <p>Or if you simply want to make a GET request, you may pass in an <a href="../uri"><code>URI</code></a> object that has an HTTPS URL. <a href="http"><code>Net::HTTP</code></a> automatically turns on TLS verification if the <a href="../uri"><code>URI</code></a> object has a ‘https’ <a href="../uri"><code>URI</code></a> scheme.</p> <pre class="ruby" data-language="ruby">uri = URI('https://example.com/')
+Net::HTTP.get(uri) # =&gt; String
+</pre> <p>In previous versions of Ruby you would need to require ‘net/https’ to use HTTPS. This is no longer true.</p> <h2 id="class-Net::HTTP-label-Proxies">Proxies</h2> <p><a href="http"><code>Net::HTTP</code></a> will automatically create a proxy from the <code>http_proxy</code> environment variable if it is present. To disable use of <code>http_proxy</code>, pass <code>nil</code> for the proxy address.</p> <p>You may also create a custom proxy:</p> <pre class="ruby" data-language="ruby">proxy_addr = 'your.proxy.host'
+proxy_port = 8080
+
+Net::HTTP.new('example.com', nil, proxy_addr, proxy_port).start { |http|
+  # always proxy via your.proxy.addr:8080
+}
+</pre> <p>See <a href="http#method-c-new"><code>Net::HTTP.new</code></a> for further details and examples such as proxies that require a username and password.</p> <h2 id="class-Net::HTTP-label-Compression">Compression</h2> <p><a href="http"><code>Net::HTTP</code></a> automatically adds Accept-Encoding for compression of response bodies and automatically decompresses gzip and deflate responses unless a <a href="../range"><code>Range</code></a> header was sent.</p> <p>Compression can be disabled through the Accept-Encoding: identity header.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section class="constants-list"> <header> <h3>Constants</h3> </header> <dl> <dt id="SSL_ATTRIBUTES">SSL_ATTRIBUTES </dt>
+
+<dt id="SSL_IVNAMES">SSL_IVNAMES </dt>
+
+<dt id="STATUS_CODES">STATUS_CODES </dt>
+
+</dl> </section> <section class="attribute-method-details"> <header> <h3>Attributes</h3> </header> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-proxy_address"> <span class="method-name">proxy_address</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>Address of proxy host. If <a href="http"><code>Net::HTTP</code></a> does not use a proxy, nil.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-proxy_pass"> <span class="method-name">proxy_pass</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>User password for accessing proxy. If <a href="http"><code>Net::HTTP</code></a> does not use a proxy, nil.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-proxy_port"> <span class="method-name">proxy_port</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>Port number of proxy host. If <a href="http"><code>Net::HTTP</code></a> does not use a proxy, nil.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-proxy_user"> <span class="method-name">proxy_user</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>User name for accessing proxy. If <a href="http"><code>Net::HTTP</code></a> does not use a proxy, nil.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-address"> <span class="method-name">address</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>The DNS host name or IP address to connect to.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-ca_file"> <span class="method-name">ca_file</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets path of a CA certification file in PEM format.</p> <p>The file can contain several CA certificates.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-ca_path"> <span class="method-name">ca_path</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets path of a CA certification directory containing certifications in PEM format.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-cert"> <span class="method-name">cert</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets an <a href="../openssl/x509/certificate"><code>OpenSSL::X509::Certificate</code></a> object as client certificate. (This method is appeared in Michal Rokos’s <a href="../openssl"><code>OpenSSL</code></a> extension).</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-cert_store"> <span class="method-name">cert_store</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the X509::Store to verify peer certificate.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-ciphers"> <span class="method-name">ciphers</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the available ciphers. See <a href="../openssl/ssl/sslcontext#method-i-ciphers-3D"><code>OpenSSL::SSL::SSLContext#ciphers=</code></a></p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-close_on_empty_response"> <span class="method-name">close_on_empty_response</span><span class="attribute-access-type">[RW]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-continue_timeout"> <span class="method-name">continue_timeout</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>Seconds to wait for 100 Continue response. If the <a href="http"><code>HTTP</code></a> object does not receive a response in this many seconds it sends the request body. The default value is <code>nil</code>.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-extra_chain_cert"> <span class="method-name">extra_chain_cert</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the extra X509 certificates to be added to the certificate chain. See <a href="../openssl/ssl/sslcontext#attribute-i-extra_chain_cert"><code>OpenSSL::SSL::SSLContext#extra_chain_cert=</code></a></p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-ignore_eof"> <span class="method-name">ignore_eof</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Whether to ignore EOF when reading response bodies with defined Content-Length headers. For backwards compatibility, the default is true.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-keep_alive_timeout"> <span class="method-name">keep_alive_timeout</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Seconds to reuse the connection of the previous request. If the idle time is less than this Keep-Alive <a href="../timeout"><code>Timeout</code></a>, <a href="http"><code>Net::HTTP</code></a> reuses the TCP/IP socket used by the previous communication. The default value is 2 seconds.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-key"> <span class="method-name">key</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets an <a href="../openssl/pkey/rsa"><code>OpenSSL::PKey::RSA</code></a> or <a href="../openssl/pkey/dsa"><code>OpenSSL::PKey::DSA</code></a> object. (This method is appeared in Michal Rokos’s <a href="../openssl"><code>OpenSSL</code></a> extension.)</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-local_host"> <span class="method-name">local_host</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>The local host used to establish the connection.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-local_port"> <span class="method-name">local_port</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>The local port used to establish the connection.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-max_retries"> <span class="method-name">max_retries</span><span class="attribute-access-type">[R]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-max_version"> <span class="method-name">max_version</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the maximum SSL version. See <a href="../openssl/ssl/sslcontext#method-i-max_version-3D"><code>OpenSSL::SSL::SSLContext#max_version=</code></a></p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-min_version"> <span class="method-name">min_version</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the minimum SSL version. See <a href="../openssl/ssl/sslcontext#method-i-min_version-3D"><code>OpenSSL::SSL::SSLContext#min_version=</code></a></p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-open_timeout"> <span class="method-name">open_timeout</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Number of seconds to wait for the connection to open. Any number may be used, including Floats for fractional seconds. If the <a href="http"><code>HTTP</code></a> object cannot open a connection in this many seconds, it raises a <a href="opentimeout"><code>Net::OpenTimeout</code></a> exception. The default value is 60 seconds.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-port"> <span class="method-name">port</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>The port number to connect to.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-proxy_address"> <span class="method-name">proxy_address</span><span class="attribute-access-type">[W]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-proxy_from_env"> <span class="method-name">proxy_from_env</span><span class="attribute-access-type">[W]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-proxy_pass"> <span class="method-name">proxy_pass</span><span class="attribute-access-type">[W]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-proxy_port"> <span class="method-name">proxy_port</span><span class="attribute-access-type">[W]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-proxy_user"> <span class="method-name">proxy_user</span><span class="attribute-access-type">[W]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-read_timeout"> <span class="method-name">read_timeout</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>Number of seconds to wait for one block to be read (via one read(2) call). Any number may be used, including Floats for fractional seconds. If the <a href="http"><code>HTTP</code></a> object cannot read data in this many seconds, it raises a <a href="readtimeout"><code>Net::ReadTimeout</code></a> exception. The default value is 60 seconds.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-response_body_encoding"> <span class="method-name">response_body_encoding</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>The encoding to use for the response body. If <a href="../encoding"><code>Encoding</code></a>, uses the specified encoding. If other true value, tries to detect the response body encoding.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-ssl_timeout"> <span class="method-name">ssl_timeout</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the SSL timeout seconds.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-ssl_version"> <span class="method-name">ssl_version</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the SSL version. See <a href="../openssl/ssl/sslcontext#method-i-ssl_version-3D"><code>OpenSSL::SSL::SSLContext#ssl_version=</code></a></p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-verify_callback"> <span class="method-name">verify_callback</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the verify callback for the server certification verification.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-verify_depth"> <span class="method-name">verify_depth</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the maximum depth for the certificate chain verification.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-verify_hostname"> <span class="method-name">verify_hostname</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets to check the server certificate is valid for the hostname. See <a href="../openssl/ssl/sslcontext#attribute-i-verify_hostname"><code>OpenSSL::SSL::SSLContext#verify_hostname=</code></a></p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-verify_mode"> <span class="method-name">verify_mode</span><span class="attribute-access-type">[RW]</span> </div> <div class="method-description"> <p>Sets the flags for server the certification verification at beginning of SSL/TLS session.</p> <p>OpenSSL::SSL::VERIFY_NONE or OpenSSL::SSL::VERIFY_PEER are acceptable.</p> </div> </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-write_timeout"> <span class="method-name">write_timeout</span><span class="attribute-access-type">[R]</span> </div> <div class="method-description"> <p>Number of seconds to wait for one block to be written (via one write(2) call). Any number may be used, including Floats for fractional seconds. If the <a href="http"><code>HTTP</code></a> object cannot write data in this many seconds, it raises a <a href="writetimeout"><code>Net::WriteTimeout</code></a> exception. The default value is 60 seconds. <a href="writetimeout"><code>Net::WriteTimeout</code></a> is not raised on Windows.</p> </div> </div> </section> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-default_port"> <span class="method-name">default_port</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="default_port-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 558
+def HTTP.default_port
+  http_default_port()
+end</pre> </div> <p>Returns intger <code>80</code>, the default port to use for <a href="http"><code>HTTP</code></a> requests:</p> <pre class="ruby" data-language="ruby">Net::HTTP.default_port # =&gt; 80
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-get"> <span class="method-callseq"> Net::HTTP.get(hostname, path, port = 80) → body </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> Net::HTTP:get(uri, headers = {}, port = uri.port) → body </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="get-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 460
+def HTTP.get(uri_or_host, path_or_headers = nil, port = nil)
+  get_response(uri_or_host, path_or_headers, port).body
+end</pre> </div> <p>Sends a GET request and returns the HTTP response body as a string.</p> <p>With string arguments <code>hostname</code> and <code>path</code>:</p> <pre class="ruby" data-language="ruby">hostname = 'jsonplaceholder.typicode.com'
+path = '/todos/1'
+puts Net::HTTP.get(hostname, path)
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">{
+  "userId": 1,
+  "id": 1,
+  "title": "delectus aut autem",
+  "completed": false
+}
+</pre> <p>With <a href="../uri"><code>URI</code></a> object <code>uri</code> and optional hash argument <code>headers</code>:</p> <pre class="ruby" data-language="ruby">uri = URI('https://jsonplaceholder.typicode.com/todos/1')
+headers = {'Content-type' =&gt; 'application/json; charset=UTF-8'}
+Net::HTTP.get(uri, headers)
+</pre> <p>Related:</p> <ul>
+<li> <p><a href="http/get"><code>Net::HTTP::Get</code></a>: request class for HTTP method <code>GET</code>.</p> </li>
+<li> <p><a href="http#method-i-get"><code>Net::HTTP#get</code></a>: convenience method for HTTP method <code>GET</code>.</p> </li>
+</ul>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-get_print"> <span class="method-callseq"> Net::HTTP.get_print(hostname, path, port = 80) → nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> Net::HTTP:get_print(uri, headers = {}, port = uri.port) → nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="get_print-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 419
+def HTTP.get_print(uri_or_host, path_or_headers = nil, port = nil)
+  get_response(uri_or_host, path_or_headers, port) {|res|
+    res.read_body do |chunk|
+      $stdout.print chunk
+    end
+  }
+  nil
+end</pre> </div> <p>Like <a href="http#method-c-get"><code>Net::HTTP.get</code></a>, but writes the returned body to $stdout; returns <code>nil</code>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-get_response"> <span class="method-callseq"> Net::HTTP.get_response(hostname, path, port = 80) → http_response </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> Net::HTTP:get_response(uri, headers = {}, port = uri.port) → http_response </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="get_response-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 470
+def HTTP.get_response(uri_or_host, path_or_headers = nil, port = nil, &amp;block)
+  if path_or_headers &amp;&amp; !path_or_headers.is_a?(Hash)
+    host = uri_or_host
+    path = path_or_headers
+    new(host, port || HTTP.default_port).start {|http|
+      return http.request_get(path, &amp;block)
+    }
+  else
+    uri = uri_or_host
+    headers = path_or_headers
+    start(uri.hostname, uri.port,
+          :use_ssl =&gt; uri.scheme == 'https') {|http|
+      return http.request_get(uri, headers, &amp;block)
+    }
+  end
+end</pre> </div> <p>Like <a href="http#method-c-get"><code>Net::HTTP.get</code></a>, but returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object instead of the body string.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-http_default_port"> <span class="method-name">http_default_port</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="http_default_port-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 566
+def HTTP.http_default_port
+  80
+end</pre> </div> <p>Returns integer <code>80</code>, the default port to use for <a href="http"><code>HTTP</code></a> requests:</p> <pre class="ruby" data-language="ruby">Net::HTTP.http_default_port # =&gt; 80
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-https_default_port"> <span class="method-name">https_default_port</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="https_default_port-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 574
+def HTTP.https_default_port
+  443
+end</pre> </div> <p>Returns integer <code>443</code>, the default port to use for HTTPS requests:</p> <pre class="ruby" data-language="ruby">Net::HTTP.https_default_port # =&gt; 443
+</pre>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-c-is_version_1_2-3F"> <span class="method-name">is_version_1_2?</span><span class="method-args">()</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-c-version_1_2-3F">version_1_2?</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(address, port = nil, p_addr = :ENV, p_port = nil, p_user = nil, p_pass = nil, p_no_proxy = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 802
+def HTTP.new(address, port = nil, p_addr = :ENV, p_port = nil, p_user = nil, p_pass = nil, p_no_proxy = nil)
+  http = super address, port
+
+  if proxy_class? then # from Net::HTTP::Proxy()
+    http.proxy_from_env = @proxy_from_env
+    http.proxy_address  = @proxy_address
+    http.proxy_port     = @proxy_port
+    http.proxy_user     = @proxy_user
+    http.proxy_pass     = @proxy_pass
+  elsif p_addr == :ENV then
+    http.proxy_from_env = true
+  else
+    if p_addr &amp;&amp; p_no_proxy &amp;&amp; !URI::Generic.use_proxy?(p_addr, p_addr, p_port, p_no_proxy)
+      p_addr = nil
+      p_port = nil
+    end
+    http.proxy_address = p_addr
+    http.proxy_port    = p_port || default_port
+    http.proxy_user    = p_user
+    http.proxy_pass    = p_pass
+  end
+
+  http
+end</pre> </div> <p>Returns a new <a href="http"><code>Net::HTTP</code></a> object <code>http</code> (but does not open a TCP connection or <a href="http"><code>HTTP</code></a> session).</p> <p><strong>No Proxy</strong></p> <p>With only string argument <code>hostname</code> given (and <code>ENV['http_proxy']</code> undefined or <code>nil</code>), the returned <code>http</code>:</p> <ul>
+<li> <p>Has the given address.</p> </li>
+<li> <p>Has the default port number, <a href="http#method-c-default_port"><code>Net::HTTP.default_port</code></a> (80).</p> </li>
+<li> <p>Has no proxy.</p> </li>
+</ul> <p>Example:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+# =&gt; #&lt;Net::HTTP jsonplaceholder.typicode.com:80 open=false&gt;
+http.address # =&gt; "jsonplaceholder.typicode.com"
+http.port    # =&gt; 80
+http.proxy?  # =&gt; false
+</pre> <p>With integer argument <code>port</code> also given, the returned <code>http</code> has the given port:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname, 8000)
+# =&gt; #&lt;Net::HTTP jsonplaceholder.typicode.com:8000 open=false&gt;
+http.port # =&gt; 8000
+</pre> <p><strong>Proxy Using Argument <code>p_addr</code> as a String</strong></p> <p>When argument <code>p_addr</code> is a string hostname, the returned <code>http</code> has a proxy:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname, nil, 'proxy.example')
+# =&gt; #&lt;Net::HTTP jsonplaceholder.typicode.com:80 open=false&gt;
+http.proxy?        # =&gt; true
+http.proxy_address # =&gt; "proxy.example"
+# These use default values.
+http.proxy_port    # =&gt; 80
+http.proxy_user    # =&gt; nil
+http.proxy_pass    # =&gt; nil
+</pre> <p>The port, username, and password for the proxy may also be given:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname, nil, 'proxy.example', 8000, 'pname', 'ppass')
+# =&gt; #&lt;Net::HTTP jsonplaceholder.typicode.com:80 open=false&gt;
+http.proxy?        # =&gt; true
+http.proxy_address # =&gt; "proxy.example"
+http.proxy_port    # =&gt; 8000
+http.proxy_user    # =&gt; "pname"
+http.proxy_pass    # =&gt; "ppass"
+</pre> <p><strong>Proxy Using <code>ENV['http_proxy']</code></strong></p> <p>When environment variable <code>'http_proxy'</code> is set to a URI string, the returned <code>http</code> will have that <a href="../uri"><code>URI</code></a> as its proxy; note that the URI string must have a protocol such as <code>'http'</code> or <code>'https'</code>:</p> <pre class="ruby" data-language="ruby">ENV['http_proxy'] = 'http://example.com'
+# =&gt; "http://example.com"
+http = Net::HTTP.new(hostname)
+# =&gt; #&lt;Net::HTTP jsonplaceholder.typicode.com:80 open=false&gt;
+http.proxy?        # =&gt; true
+http.address       # =&gt; "jsonplaceholder.typicode.com"
+http.proxy_address # =&gt; "example.com"
+</pre> <p>The URI string may include proxy username, password, and port number:</p> <pre class="ruby" data-language="ruby">ENV['http_proxy'] = 'http://pname:ppass@example.com:8000'
+# =&gt; "http://pname:ppass@example.com:8000"
+http = Net::HTTP.new(hostname)
+# =&gt; #&lt;Net::HTTP jsonplaceholder.typicode.com:80 open=false&gt;
+http.proxy_port # =&gt; 8000
+http.proxy_user # =&gt; "pname"
+http.proxy_pass # =&gt; "ppass"
+</pre> <p><strong>Argument <code>p_no_proxy</code></strong></p> <p>You can use argument <code>p_no_proxy</code> to reject certain proxies:</p> <ul>
+<li> <p>Reject a certain address:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new('example.com', nil, 'proxy.example', 8000, 'pname', 'ppass', 'proxy.example')
+http.proxy_address # =&gt; nil
+</pre> </li>
+<li> <p>Reject certain domains or subdomains:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new('example.com', nil, 'my.proxy.example', 8000, 'pname', 'ppass', 'proxy.example')
+http.proxy_address # =&gt; nil
+</pre> </li>
+<li> <p>Reject certain addresses and port combinations:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new('example.com', nil, 'proxy.example', 8000, 'pname', 'ppass', 'proxy.example:1234')
+http.proxy_address # =&gt; "proxy.example"
+
+http = Net::HTTP.new('example.com', nil, 'proxy.example', 8000, 'pname', 'ppass', 'proxy.example:8000')
+http.proxy_address # =&gt; nil
+</pre> </li>
+<li> <p>Reject a list of the types above delimited using a comma:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new('example.com', nil, 'proxy.example', 8000, 'pname', 'ppass', 'my.proxy,proxy.example:8000')
+http.proxy_address # =&gt; nil
+
+http = Net::HTTP.new('example.com', nil, 'my.proxy', 8000, 'pname', 'ppass', 'my.proxy,proxy.example:8000')
+http.proxy_address # =&gt; nil
+</pre> </li>
+</ul> <div class="method-calls-super"> Calls superclass method </div>  </div> <div class="aliases"> Also aliased as: <a href="http#method-c-newobj">newobj</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(address, port = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 830
+def initialize(address, port = nil)
+  @address = address
+  @port    = (port || HTTP.default_port)
+  @ipaddr = nil
+  @local_host = nil
+  @local_port = nil
+  @curr_http_version = HTTPVersion
+  @keep_alive_timeout = 2
+  @last_communicated = nil
+  @close_on_empty_response = false
+  @socket  = nil
+  @started = false
+  @open_timeout = 60
+  @read_timeout = 60
+  @write_timeout = 60
+  @continue_timeout = nil
+  @max_retries = 1
+  @debug_output = nil
+  @response_body_encoding = false
+  @ignore_eof = true
+
+  @proxy_from_env = false
+  @proxy_uri      = nil
+  @proxy_address  = nil
+  @proxy_port     = nil
+  @proxy_user     = nil
+  @proxy_pass     = nil
+
+  @use_ssl = false
+  @ssl_context = nil
+  @ssl_session = nil
+  @sspi_enabled = false
+  SSL_IVNAMES.each do |ivname|
+    instance_variable_set ivname, nil
+  end
+end</pre> </div> <p>Creates a new <a href="http"><code>Net::HTTP</code></a> object for the specified server address, without opening the TCP connection or initializing the <a href="http"><code>HTTP</code></a> session. The <code>address</code> should be a DNS hostname or IP address.</p>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-c-newobj"> <span class="method-name">newobj</span><span class="method-args">(address, port = nil, p_addr = :ENV, p_port = nil, p_user = nil, p_pass = nil, p_no_proxy = nil)</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-c-new">new</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-post"> <span class="method-name">post</span><span class="method-args">(url, data, header = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="post-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 513
+def HTTP.post(url, data, header = nil)
+  start(url.hostname, url.port,
+        :use_ssl =&gt; url.scheme == 'https' ) {|http|
+    http.post(url, data, header)
+  }
+end</pre> </div> <p>Posts data to a host; returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>Argument <code>url</code> must be a URL; argument <code>data</code> must be a string:</p> <pre class="ruby" data-language="ruby">_uri = uri.dup
+_uri.path = '/posts'
+data = '{"title": "foo", "body": "bar", "userId": 1}'
+headers = {'content-type': 'application/json'}
+res = Net::HTTP.post(_uri, data, headers) # =&gt; #&lt;Net::HTTPCreated 201 Created readbody=true&gt;
+puts res.body
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">{
+  "title": "foo",
+  "body": "bar",
+  "userId": 1,
+  "id": 101
+}
+</pre> <p>Related:</p> <ul>
+<li> <p><a href="http/post"><code>Net::HTTP::Post</code></a>: request class for HTTP method <code>POST</code>.</p> </li>
+<li> <p><a href="http#method-i-post"><code>Net::HTTP#post</code></a>: convenience method for HTTP method <code>POST</code>.</p> </li>
+</ul>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-post_form"> <span class="method-name">post_form</span><span class="method-args">(url, params)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="post_form-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 540
+def HTTP.post_form(url, params)
+  req = Post.new(url)
+  req.form_data = params
+  req.basic_auth url.user, url.password if url.user
+  start(url.hostname, url.port,
+        :use_ssl =&gt; url.scheme == 'https' ) {|http|
+    http.request(req)
+  }
+end</pre> </div> <p>Posts data to a host; returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>Argument <code>url</code> must be a <a href="../uri"><code>URI</code></a>; argument <code>data</code> must be a hash:</p> <pre class="ruby" data-language="ruby">_uri = uri.dup
+_uri.path = '/posts'
+data = {title: 'foo', body: 'bar', userId: 1}
+res = Net::HTTP.post_form(_uri, data) # =&gt; #&lt;Net::HTTPCreated 201 Created readbody=true&gt;
+puts res.body
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">{
+  "title": "foo",
+  "body": "bar",
+  "userId": "1",
+  "id": 101
+}
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-proxy_class-3F"> <span class="method-name">proxy_class?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proxy_class-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1423
+def proxy_class?
+  defined?(@is_proxy_class) ? @is_proxy_class : false
+end</pre> </div> <p>returns true if self is a class which was created by HTTP::Proxy.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-start"> <span class="method-callseq"> start(address, port = nil, p_addr = :ENV, p_port = nil, p_user = nil, p_pass = nil, opts) → http </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> start(address, port = nil, p_addr = :ENV, p_port = nil, p_user = nil, p_pass = nil, opts) {|http| ... } → object </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="start-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 668
+def HTTP.start(address, *arg, &amp;block) # :yield: +http+
+  arg.pop if opt = Hash.try_convert(arg[-1])
+  port, p_addr, p_port, p_user, p_pass = *arg
+  p_addr = :ENV if arg.size &lt; 2
+  port = https_default_port if !port &amp;&amp; opt &amp;&amp; opt[:use_ssl]
+  http = new(address, port, p_addr, p_port, p_user, p_pass)
+  http.ipaddr = opt[:ipaddr] if opt &amp;&amp; opt[:ipaddr]
+
+  if opt
+    if opt[:use_ssl]
+      opt = {verify_mode: OpenSSL::SSL::VERIFY_PEER}.update(opt)
+    end
+    http.methods.grep(/\A(\w+)=\z/) do |meth|
+      key = $1.to_sym
+      opt.key?(key) or next
+      http.__send__(meth, opt[key])
+    end
+  end
+
+  http.start(&amp;block)
+end</pre> </div> <p>Creates a new Net::HTTP object, <code>http</code>, via Net::HTTP.new:</p> <pre class="ruby" data-language="ruby">Net::HTTP.new(address, port, p_addr, p_port, p_user, p_pass)
+</pre> <ul>
+<li> <p>For arguments <code>hostname</code> through <code>p_pass</code>, see <a href="http#method-c-new"><code>Net::HTTP.new</code></a>.</p> </li>
+<li> <p>For argument <code>opts</code>, see below.</p> </li>
+</ul> <p>Note: If <code>port</code> is <code>nil</code> and <code>opts[:use_ssl]</code> is a truthy value, the value passed to <code>new</code> is <a href="http#method-c-https_default_port"><code>Net::HTTP.https_default_port</code></a>, not <code>port</code>.</p> <p>With no block given:</p> <ul>
+<li> <p>Calls <code>http.start</code> with no block (see <a href="http#method-i-start"><code>start</code></a>), which opens a TCP connection and HTTP session.</p> </li>
+<li> <p>Returns <code>http</code>.</p> </li>
+<li> <p>The caller should call <a href="http#method-i-finish"><code>finish</code></a> to close the session:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.start(hostname)
+http.started? # =&gt; true
+http.finish
+http.started? # =&gt; false
+</pre> </li>
+</ul> <p>With a block given:</p> <ul>
+<li> <p>Calls <code>http.start</code> with the block (see <a href="http#method-i-start"><code>start</code></a>), which:</p> <ul>
+<li> <p>Opens a TCP connection and HTTP session.</p> </li>
+<li> <p>Calls the block, which may make any number of requests to the host.</p> </li>
+<li> <p>Closes the HTTP session and TCP connection on block exit.</p> </li>
+<li> <p>Returns the block’s value <code>object</code>.</p> </li>
+</ul> </li>
+<li> <p>Returns <code>object</code>.</p> </li>
+</ul> <p>Example:</p> <pre class="ruby" data-language="ruby">hostname = 'jsonplaceholder.typicode.com'
+Net::HTTP.start(hostname) do |http|
+  puts http.get('/todos/1').body
+  puts http.get('/todos/2').body
+end
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">{
+  "userId": 1,
+  "id": 1,
+  "title": "delectus aut autem",
+  "completed": false
+}
+{
+  "userId": 1,
+  "id": 2,
+  "title": "quis ut nam facilis et officia qui",
+  "completed": false
+}
+</pre> <p>If the last argument given is a hash, it is the <code>opts</code> hash, where each key is a method or accessor to be called, and its value is the value to be set.</p> <p>The keys may include:</p> <ul>
+<li> <p><a href="http#attribute-i-ca_file"><code>ca_file</code></a></p> </li>
+<li> <p><a href="http#attribute-i-ca_path"><code>ca_path</code></a></p> </li>
+<li> <p><a href="http#attribute-i-cert"><code>cert</code></a></p> </li>
+<li> <p><a href="http#attribute-i-cert_store"><code>cert_store</code></a></p> </li>
+<li> <p><a href="http#attribute-i-ciphers"><code>ciphers</code></a></p> </li>
+<li> <p><a href="http#attribute-i-close_on_empty_response"><code>close_on_empty_response</code></a></p> </li>
+<li> <p><code>ipaddr</code> (calls <a href="http#method-i-ipaddr-3D"><code>ipaddr=</code></a>)</p> </li>
+<li> <p><a href="http#attribute-i-keep_alive_timeout"><code>keep_alive_timeout</code></a></p> </li>
+<li> <p><a href="http#attribute-i-key"><code>key</code></a></p> </li>
+<li> <p><a href="http#attribute-i-open_timeout"><code>open_timeout</code></a></p> </li>
+<li> <p><a href="http#attribute-i-read_timeout"><code>read_timeout</code></a></p> </li>
+<li> <p><a href="http#attribute-i-ssl_timeout"><code>ssl_timeout</code></a></p> </li>
+<li> <p><a href="http#attribute-i-ssl_version"><code>ssl_version</code></a></p> </li>
+<li> <p><code>use_ssl</code> (calls <a href="http#method-i-use_ssl-3D"><code>use_ssl=</code></a>)</p> </li>
+<li> <p><a href="http#attribute-i-verify_callback"><code>verify_callback</code></a></p> </li>
+<li> <p><a href="http#attribute-i-verify_depth"><code>verify_depth</code></a></p> </li>
+<li> <p><a href="http#attribute-i-verify_mode"><code>verify_mode</code></a></p> </li>
+<li> <p><a href="http#attribute-i-write_timeout"><code>write_timeout</code></a></p> </li>
+</ul>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-version_1_2"> <span class="method-name">version_1_2</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="version_1_2-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 394
+def HTTP.version_1_2
+  true
+end</pre> </div> <p>Returns <code>true</code>; retained for compatibility.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-version_1_2-3F"> <span class="method-name">version_1_2?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="version_1_2-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 399
+def HTTP.version_1_2?
+  true
+end</pre> </div> <p>Returns <code>true</code>; retained for compatibility.</p>  </div> <div class="aliases"> Also aliased as: <a href="http#method-c-is_version_1_2-3F">is_version_1_2?</a> </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-active-3F"> <span class="method-name">active?</span><span class="method-args">()</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-i-started-3F">started?</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-continue_timeout-3D"> <span class="method-name">continue_timeout=</span><span class="method-args">(sec)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="continue_timeout-3D-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1085
+def continue_timeout=(sec)
+  @socket.continue_timeout = sec if @socket
+  @continue_timeout = sec
+end</pre> </div> <p>Setter for the <a href="http#attribute-i-continue_timeout"><code>continue_timeout</code></a> attribute.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-copy"> <span class="method-name">copy</span><span class="method-args">(path, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="copy-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1685
+def copy(path, initheader = nil)
+  request(Copy.new(path, initheader))
+end</pre> </div> <p>Sends a COPY request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-delete"> <span class="method-name">delete</span><span class="method-args">(path, initheader = {'Depth' =&gt; 'Infinity'})</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="delete-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1673
+def delete(path, initheader = {'Depth' =&gt; 'Infinity'})
+  request(Delete.new(path, initheader))
+end</pre> </div> <p>Sends a DELETE request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-finish"> <span class="method-name">finish</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="finish-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1369
+def finish
+  raise IOError, 'HTTP session not yet started' unless started?
+  do_finish
+end</pre> </div> <p>Finishes the <a href="http"><code>HTTP</code></a> session and closes the TCP connection. Raises <a href="../ioerror"><code>IOError</code></a> if the session has not been started.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-get"> <span class="method-name">get</span><span class="method-args">(path, initheader = nil, dest = nil) { |body_segment| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="get-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1573
+def get(path, initheader = nil, dest = nil, &amp;block) # :yield: +body_segment+
+  res = nil
+  request(Get.new(path, initheader)) {|r|
+    r.read_body dest, &amp;block
+    res = r
+  }
+  res
+end</pre> </div> <p>Retrieves data from <code>path</code> on the connected-to host which may be an absolute path <a href="../string"><code>String</code></a> or a <a href="../uri"><code>URI</code></a> to extract the path from.</p> <p><code>initheader</code> must be a <a href="../hash"><code>Hash</code></a> like { ‘Accept’ =&gt; ‘<strong>/</strong>’, … }, and it defaults to an empty hash. If <code>initheader</code> doesn’t have the key ‘accept-encoding’, then a value of “gzip;q=1.0,deflate;q=0.6,identity;q=0.3” is used, so that gzip compression is used in preference to deflate compression, which is used in preference to no compression. Ruby doesn’t have libraries to support the compress (Lempel-Ziv) compression, so that is not supported. The intent of this is to reduce bandwidth by default. If this routine sets up compression, then it does the decompression also, removing the header as well to prevent confusion. Otherwise it leaves the body as it found it.</p> <p>This method returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>If called with a block, yields each fragment of the entity body in turn as a string as it is read from the socket. Note that in this case, the returned response object will <strong>not</strong> contain a (meaningful) body.</p> <p><code>dest</code> argument is obsolete. It still works but you must not use it.</p> <p>This method never raises an exception.</p> <pre class="ruby" data-language="ruby">response = http.get('/index.html')
+
+# using block
+File.open('result.txt', 'w') {|f|
+  http.get('/~foo/') do |str|
+    f.write str
+  end
+}
+</pre>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-get2"> <span class="method-name">get2</span><span class="method-args">(path, initheader = nil)</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-i-request_get">request_get</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-head"> <span class="method-name">head</span><span class="method-args">(path, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="head-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1595
+def head(path, initheader = nil)
+  request(Head.new(path, initheader))
+end</pre> </div> <p>Gets only the header from <code>path</code> on the connected-to host. <code>header</code> is a <a href="../hash"><code>Hash</code></a> like { ‘Accept’ =&gt; ‘<strong>/</strong>’, … }.</p> <p>This method returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>This method never raises an exception.</p> <pre class="ruby" data-language="ruby">response = nil
+Net::HTTP.start('some.www.server', 80) {|http|
+  response = http.head('/index.html')
+}
+p response['content-type']
+</pre>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-head2"> <span class="method-name">head2</span><span class="method-args">(path, initheader = nil, &amp;block)</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-i-request_head">request_head</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-inspect"> <span class="method-name">inspect</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="inspect-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 872
+def inspect
+  "#&lt;#{self.class} #{@address}:#{@port} open=#{started?}&gt;"
+end</pre> </div> <p>Returns a string representation of <code>self</code>:</p> <pre class="ruby" data-language="ruby">Net::HTTP.new(hostname).inspect
+# =&gt; "#&lt;Net::HTTP jsonplaceholder.typicode.com:80 open=false&gt;"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-ipaddr"> <span class="method-name">ipaddr</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="ipaddr-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 995
+def ipaddr
+  started? ?  @socket.io.peeraddr[3] : @ipaddr
+end</pre> </div> <p>Returns the IP address for the connection.</p> <p>If the session has not been started, returns the value set by <a href="http#method-i-ipaddr-3D"><code>ipaddr=</code></a>, or <code>nil</code> if it has not been set:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+http.ipaddr # =&gt; nil
+http.ipaddr = '172.67.155.76'
+http.ipaddr # =&gt; "172.67.155.76"
+</pre> <p>If the session has been started, returns the IP address from the socket:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+http.start
+http.ipaddr # =&gt; "172.67.155.76"
+http.finish
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-ipaddr-3D"> <span class="method-name">ipaddr=</span><span class="method-args">(addr)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="ipaddr-3D-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1007
+def ipaddr=(addr)
+  raise IOError, "ipaddr value changed, but session already started" if started?
+  @ipaddr = addr
+end</pre> </div> <p>Sets the IP address for the connection:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+http.ipaddr # =&gt; nil
+http.ipaddr = '172.67.155.76'
+http.ipaddr # =&gt; "172.67.155.76"
+</pre> <p>The IP address may not be set if the session has been started.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-lock"> <span class="method-name">lock</span><span class="method-args">(path, body, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="lock-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1649
+def lock(path, body, initheader = nil)
+  request(Lock.new(path, initheader), body)
+end</pre> </div> <p>Sends a LOCK request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-max_retries-3D"> <span class="method-name">max_retries=</span><span class="method-args">(retries)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="max_retries-3D-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1043
+def max_retries=(retries)
+  retries = retries.to_int
+  if retries &lt; 0
+    raise ArgumentError, 'max_retries should be non-negative integer number'
+  end
+  @max_retries = retries
+end</pre> </div> <p>Sets the maximum number of times to retry an idempotent request in case of <a href="readtimeout"><code>Net::ReadTimeout</code></a>, <a href="../ioerror"><code>IOError</code></a>, <a href="../eoferror"><code>EOFError</code></a>, Errno::ECONNRESET, Errno::ECONNABORTED, Errno::EPIPE, <a href="../openssl/ssl/sslerror"><code>OpenSSL::SSL::SSLError</code></a>, <a href="../timeout/error"><code>Timeout::Error</code></a>. The initial value is 1.</p> <p>Argument <code>retries</code> must be a non-negative numeric value:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+http.max_retries = 2   # =&gt; 2
+http.max_retries       # =&gt; 2
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-mkcol"> <span class="method-name">mkcol</span><span class="method-args">(path, body = nil, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="mkcol-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1691
+def mkcol(path, body = nil, initheader = nil)
+  request(Mkcol.new(path, initheader), body)
+end</pre> </div> <p>Sends a MKCOL request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-move"> <span class="method-name">move</span><span class="method-args">(path, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="move-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1679
+def move(path, initheader = nil)
+  request(Move.new(path, initheader))
+end</pre> </div> <p>Sends a MOVE request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-options"> <span class="method-name">options</span><span class="method-args">(path, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="options-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1661
+def options(path, initheader = nil)
+  request(Options.new(path, initheader))
+end</pre> </div> <p>Sends a OPTIONS request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-patch"> <span class="method-name">patch</span><span class="method-args">(path, data, initheader = nil, dest = nil) { |body_segment| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="patch-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1633
+def patch(path, data, initheader = nil, dest = nil, &amp;block) # :yield: +body_segment+
+  send_entity(path, data, initheader, dest, Patch, &amp;block)
+end</pre> </div> <p>Sends a PATCH request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-peer_cert"> <span class="method-name">peer_cert</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="peer_cert-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1217
+def peer_cert
+  if not use_ssl? or not @socket
+    return nil
+  end
+  @socket.io.peer_cert
+end</pre> </div> <p>Returns the X.509 certificates the server presented.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-post"> <span class="method-name">post</span><span class="method-args">(path, data, initheader = nil, dest = nil) { |body_segment| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="post-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1627
+def post(path, data, initheader = nil, dest = nil, &amp;block) # :yield: +body_segment+
+  send_entity(path, data, initheader, dest, Post, &amp;block)
+end</pre> </div> <p>Posts <code>data</code> (must be a <a href="../string"><code>String</code></a>) to <code>path</code>. <code>header</code> must be a <a href="../hash"><code>Hash</code></a> like { ‘Accept’ =&gt; ‘<strong>/</strong>’, … }.</p> <p>This method returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>If called with a block, yields each fragment of the entity body in turn as a string as it is read from the socket. Note that in this case, the returned response object will <strong>not</strong> contain a (meaningful) body.</p> <p><code>dest</code> argument is obsolete. It still works but you must not use it.</p> <p>This method never raises exception.</p> <pre class="ruby" data-language="ruby">response = http.post('/cgi-bin/search.rb', 'query=foo')
+
+# using block
+File.open('result.txt', 'w') {|f|
+  http.post('/cgi-bin/search.rb', 'query=foo') do |str|
+    f.write str
+  end
+}
+</pre> <p>You should set Content-Type: header field for POST. If no Content-Type: field given, this method uses “application/x-www-form-urlencoded” by default.</p>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-post2"> <span class="method-name">post2</span><span class="method-args">(path, data, initheader = nil)</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-i-request_post">request_post</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-propfind"> <span class="method-name">propfind</span><span class="method-args">(path, body = nil, initheader = {'Depth' =&gt; '0'})</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="propfind-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1667
+def propfind(path, body = nil, initheader = {'Depth' =&gt; '0'})
+  request(Propfind.new(path, initheader), body)
+end</pre> </div> <p>Sends a PROPFIND request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proppatch"> <span class="method-name">proppatch</span><span class="method-args">(path, body, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proppatch-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1643
+def proppatch(path, body, initheader = nil)
+  request(Proppatch.new(path, initheader), body)
+end</pre> </div> <p>Sends a PROPPATCH request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proxy-3F"> <span class="method-name">proxy?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proxy-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1442
+def proxy?
+  !!(@proxy_from_env ? proxy_uri : @proxy_address)
+end</pre> </div> <p>True if requests for this connection will be proxied</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proxy_address"> <span class="method-name">proxy_address</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proxy_address-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1461
+def proxy_address
+  if @proxy_from_env then
+    proxy_uri&amp;.hostname
+  else
+    @proxy_address
+  end
+end</pre> </div> <p>The address of the proxy server, if one is configured.</p>  </div> <div class="aliases"> Also aliased as: <a href="http#method-i-proxyaddr">proxyaddr</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proxy_from_env-3F"> <span class="method-name">proxy_from_env?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proxy_from_env-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1447
+def proxy_from_env?
+  @proxy_from_env
+end</pre> </div> <p>True if the proxy for this connection is determined from the environment</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proxy_pass"> <span class="method-name">proxy_pass</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proxy_pass-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1489
+def proxy_pass
+  if @proxy_from_env
+    pass = proxy_uri&amp;.password
+    unescape(pass) if pass
+  else
+    @proxy_pass
+  end
+end</pre> </div> <p>The password of the proxy server, if one is configured.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proxy_port"> <span class="method-name">proxy_port</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proxy_port-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1470
+def proxy_port
+  if @proxy_from_env then
+    proxy_uri&amp;.port
+  else
+    @proxy_port
+  end
+end</pre> </div> <p>The port of the proxy server, if one is configured.</p>  </div> <div class="aliases"> Also aliased as: <a href="http#method-i-proxyport">proxyport</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proxy_user"> <span class="method-name">proxy_user</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proxy_user-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1479
+def proxy_user
+  if @proxy_from_env
+    user = proxy_uri&amp;.user
+    unescape(user) if user
+  else
+    @proxy_user
+  end
+end</pre> </div> <p>The username of the proxy server, if one is configured.</p>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-proxyaddr"> <span class="method-name">proxyaddr</span><span class="method-args">()</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-i-proxy_address">proxy_address</a> </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-proxyport"> <span class="method-name">proxyport</span><span class="method-args">()</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-i-proxy_port">proxy_port</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-read_timeout-3D"> <span class="method-name">read_timeout=</span><span class="method-args">(sec)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="read_timeout-3D-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1064
+def read_timeout=(sec)
+  @socket.read_timeout = sec if @socket
+  @read_timeout = sec
+end</pre> </div> <p>Sets the read timeout, in seconds, for <code>self</code> to integer <code>sec</code>; the initial value is 60.</p> <p>Argument <code>sec</code> must be a non-negative numeric value:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+http.read_timeout # =&gt; 60
+http.get('/todos/1') # =&gt; #&lt;Net::HTTPOK 200 OK readbody=true&gt;
+http.read_timeout = 0
+http.get('/todos/1') # Raises Net::ReadTimeout.
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-request"> <span class="method-name">request</span><span class="method-args">(req, body = nil) { |response| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="request-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1815
+def request(req, body = nil, &amp;block)  # :yield: +response+
+  unless started?
+    start {
+      req['connection'] ||= 'close'
+      return request(req, body, &amp;block)
+    }
+  end
+  if proxy_user()
+    req.proxy_basic_auth proxy_user(), proxy_pass() unless use_ssl?
+  end
+  req.set_body_internal body
+  res = transport_request(req, &amp;block)
+  if sspi_auth?(res)
+    sspi_auth(req)
+    res = transport_request(req, &amp;block)
+  end
+  res
+end</pre> </div> <p>Sends an <a href="httprequest"><code>HTTPRequest</code></a> object <code>req</code> to the <a href="http"><code>HTTP</code></a> server.</p> <p>If <code>req</code> is a <a href="http/post"><code>Net::HTTP::Post</code></a> or <a href="http/put"><code>Net::HTTP::Put</code></a> request containing data, the data is also sent. Providing data for a <a href="http/head"><code>Net::HTTP::Head</code></a> or <a href="http/get"><code>Net::HTTP::Get</code></a> request results in an <a href="../argumenterror"><code>ArgumentError</code></a>.</p> <p>Returns an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p> <p>When called with a block, passes an <a href="httpresponse"><code>HTTPResponse</code></a> object to the block. The body of the response will not have been read yet; the block can process it using <a href="httpresponse#method-i-read_body"><code>HTTPResponse#read_body</code></a>, if desired.</p> <p>This method never raises Net::* exceptions.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-request_get"> <span class="method-name">request_get</span><span class="method-args">(path, initheader = nil) { |response| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="request_get-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1726
+def request_get(path, initheader = nil, &amp;block) # :yield: +response+
+  request(Get.new(path, initheader), &amp;block)
+end</pre> </div> <p>Sends a GET request to the <code>path</code>. Returns the response as a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>When called with a block, passes an <a href="httpresponse"><code>HTTPResponse</code></a> object to the block. The body of the response will not have been read yet; the block can process it using <a href="httpresponse#method-i-read_body"><code>HTTPResponse#read_body</code></a>, if desired.</p> <p>Returns the response.</p> <p>This method never raises Net::* exceptions.</p> <pre class="ruby" data-language="ruby">response = http.request_get('/index.html')
+# The entity body is already read in this case.
+p response['content-type']
+puts response.body
+
+# Using a block
+http.request_get('/index.html') {|response|
+  p response['content-type']
+  response.read_body do |str|   # read body now
+    print str
+  end
+}
+</pre>  </div> <div class="aliases"> Also aliased as: <a href="http#method-i-get2">get2</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-request_head"> <span class="method-name">request_head</span><span class="method-args">(path, initheader = nil, &amp;block)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="request_head-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1740
+def request_head(path, initheader = nil, &amp;block)
+  request(Head.new(path, initheader), &amp;block)
+end</pre> </div> <p>Sends a HEAD request to the <code>path</code> and returns the response as a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>Returns the response.</p> <p>This method never raises Net::* exceptions.</p> <pre class="ruby" data-language="ruby">response = http.request_head('/index.html')
+p response['content-type']
+</pre>  </div> <div class="aliases"> Also aliased as: <a href="http#method-i-head2">head2</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-request_post"> <span class="method-name">request_post</span><span class="method-args">(path, data, initheader = nil) { |response| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="request_post-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1770
+def request_post(path, data, initheader = nil, &amp;block) # :yield: +response+
+  request Post.new(path, initheader), data, &amp;block
+end</pre> </div> <p>Sends a POST request to the <code>path</code>.</p> <p>Returns the response as a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>When called with a block, the block is passed an <a href="httpresponse"><code>HTTPResponse</code></a> object. The body of that response will not have been read yet; the block can process it using <a href="httpresponse#method-i-read_body"><code>HTTPResponse#read_body</code></a>, if desired.</p> <p>Returns the response.</p> <p>This method never raises Net::* exceptions.</p> <pre class="ruby" data-language="ruby"># example
+response = http.request_post('/cgi-bin/nice.rb', 'datadatadata...')
+p response.status
+puts response.body          # body is already read in this case
+
+# using block
+http.request_post('/cgi-bin/nice.rb', 'datadatadata...') {|response|
+  p response.status
+  p response['content-type']
+  response.read_body do |str|   # read body now
+    print str
+  end
+}
+</pre>  </div> <div class="aliases"> Also aliased as: <a href="http#method-i-post2">post2</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-response_body_encoding-3D"> <span class="method-name">response_body_encoding=</span><span class="method-args">(value)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="response_body_encoding-3D-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 965
+def response_body_encoding=(value)
+  value = Encoding.find(value) if value.is_a?(String)
+  @response_body_encoding = value
+end</pre> </div> <p>Sets the encoding to be used for the response body; returns the encoding.</p> <p>The given <code>value</code> may be:</p> <ul>
+<li> <p>An <a href="../encoding"><code>Encoding</code></a> object.</p> </li>
+<li> <p>The name of an encoding.</p> </li>
+<li> <p>An alias for an encoding name.</p> </li>
+</ul> <p>See <a href="../encoding"><code>Encoding</code></a>.</p> <p>Examples:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+http.response_body_encoding = Encoding::US_ASCII # =&gt; #&lt;Encoding:US-ASCII&gt;
+http.response_body_encoding = 'US-ASCII'         # =&gt; "US-ASCII"
+http.response_body_encoding = 'ASCII'            # =&gt; "ASCII"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-send_request"> <span class="method-name">send_request</span><span class="method-args">(name, path, data = nil, header = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="send_request-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1794
+def send_request(name, path, data = nil, header = nil)
+  has_response_body = name != 'HEAD'
+  r = HTTPGenericRequest.new(name,(data ? true : false),has_response_body,path,header)
+  request r, data
+end</pre> </div> <p>Sends an <a href="http"><code>HTTP</code></a> request to the <a href="http"><code>HTTP</code></a> server. Also sends a DATA string if <code>data</code> is given.</p> <p>Returns a <a href="httpresponse"><code>Net::HTTPResponse</code></a> object.</p> <p>This method never raises Net::* exceptions.</p> <pre class="ruby" data-language="ruby">response = http.send_request('GET', '/index.html')
+puts response.body
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-set_debug_output"> <span class="method-name">set_debug_output</span><span class="method-args">(output)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="set_debug_output-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 925
+def set_debug_output(output)
+  warn 'Net::HTTP#set_debug_output called after HTTP started', uplevel: 1 if started?
+  @debug_output = output
+end</pre> </div> <p><strong>WARNING</strong> This method opens a serious security hole. Never use this method in production code.</p> <p>Sets the output stream for debugging:</p> <pre class="ruby" data-language="ruby">http = Net::HTTP.new(hostname)
+File.open('t.tmp', 'w') do |file|
+  http.set_debug_output(file)
+  http.start
+  http.get('/nosuch/1')
+  http.finish
+end
+puts File.read('t.tmp')
+</pre> <p>Output:</p> <pre>opening connection to jsonplaceholder.typicode.com:80...
+opened
+&lt;- "GET /nosuch/1 HTTP/1.1\r\nAccept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3\r\nAccept: */*\r\nUser-Agent: Ruby\r\nHost: jsonplaceholder.typicode.com\r\n\r\n"
+-&gt; "HTTP/1.1 404 Not Found\r\n"
+-&gt; "Date: Mon, 12 Dec 2022 21:14:11 GMT\r\n"
+-&gt; "Content-Type: application/json; charset=utf-8\r\n"
+-&gt; "Content-Length: 2\r\n"
+-&gt; "Connection: keep-alive\r\n"
+-&gt; "X-Powered-By: Express\r\n"
+-&gt; "X-Ratelimit-Limit: 1000\r\n"
+-&gt; "X-Ratelimit-Remaining: 999\r\n"
+-&gt; "X-Ratelimit-Reset: 1670879660\r\n"
+-&gt; "Vary: Origin, Accept-Encoding\r\n"
+-&gt; "Access-Control-Allow-Credentials: true\r\n"
+-&gt; "Cache-Control: max-age=43200\r\n"
+-&gt; "Pragma: no-cache\r\n"
+-&gt; "Expires: -1\r\n"
+-&gt; "X-Content-Type-Options: nosniff\r\n"
+-&gt; "Etag: W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\"\r\n"
+-&gt; "Via: 1.1 vegur\r\n"
+-&gt; "CF-Cache-Status: MISS\r\n"
+-&gt; "Server-Timing: cf-q-config;dur=1.3000000762986e-05\r\n"
+-&gt; "Report-To: {\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=yOr40jo%2BwS1KHzhTlVpl54beJ5Wx2FcG4gGV0XVrh3X9OlR5q4drUn2dkt5DGO4GDcE%2BVXT7CNgJvGs%2BZleIyMu8CLieFiDIvOviOY3EhHg94m0ZNZgrEdpKD0S85S507l1vsEwEHkoTm%2Ff19SiO\"}],\"group\":\"cf-nel\",\"max_age\":604800}\r\n"
+-&gt; "NEL: {\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}\r\n"
+-&gt; "Server: cloudflare\r\n"
+-&gt; "CF-RAY: 778977dc484ce591-DFW\r\n"
+-&gt; "alt-svc: h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400\r\n"
+-&gt; "\r\n"
+reading 2 bytes...
+-&gt; "{}"
+read 2 bytes
+Conn keep-alive</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-start"> <span class="method-name">start</span><span class="method-args">() { |http| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="start-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1233
+def start  # :yield: http
+  raise IOError, 'HTTP session already opened' if @started
+  if block_given?
+    begin
+      do_start
+      return yield(self)
+    ensure
+      do_finish
+    end
+  end
+  do_start
+  self
+end</pre> </div> <p>Opens a TCP connection and <a href="http"><code>HTTP</code></a> session.</p> <p>When this method is called with a block, it passes the <a href="http"><code>Net::HTTP</code></a> object to the block, and closes the TCP connection and <a href="http"><code>HTTP</code></a> session after the block has been executed.</p> <p>When called with a block, it returns the return value of the block; otherwise, it returns self.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-started-3F"> <span class="method-name">started?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="started-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1101
+def started?
+  @started
+end</pre> </div> <p>Returns true if the <a href="http"><code>HTTP</code></a> session has been started.</p>  </div> <div class="aliases"> Also aliased as: <a href="http#method-i-active-3F">active?</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-trace"> <span class="method-name">trace</span><span class="method-args">(path, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="trace-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1697
+def trace(path, initheader = nil)
+  request(Trace.new(path, initheader))
+end</pre> </div> <p>Sends a TRACE request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-unlock"> <span class="method-name">unlock</span><span class="method-args">(path, body, initheader = nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="unlock-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1655
+def unlock(path, body, initheader = nil)
+  request(Unlock.new(path, initheader), body)
+end</pre> </div> <p>Sends a UNLOCK request to the <code>path</code> and gets a response, as an <a href="httpresponse"><code>HTTPResponse</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-use_ssl-3D"> <span class="method-name">use_ssl=</span><span class="method-args">(flag)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="use_ssl-3D-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1118
+def use_ssl=(flag)
+  flag = flag ? true : false
+  if started? and @use_ssl != flag
+    raise IOError, "use_ssl value changed, but session already started"
+  end
+  @use_ssl = flag
+end</pre> </div> <p>Turn on/off SSL. This flag must be set before starting session. If you change use_ssl value after session started, a <a href="http"><code>Net::HTTP</code></a> object raises <a href="../ioerror"><code>IOError</code></a>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-use_ssl-3F"> <span class="method-name">use_ssl?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="use_ssl-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1110
+def use_ssl?
+  @use_ssl
+end</pre> </div> <p>Returns true if SSL/TLS is being used with <a href="http"><code>HTTP</code></a>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-write_timeout-3D"> <span class="method-name">write_timeout=</span><span class="method-args">(sec)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="write_timeout-3D-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1074
+def write_timeout=(sec)
+  @socket.write_timeout = sec if @socket
+  @write_timeout = sec
+end</pre> </div> <p>Sets the write timeout, in seconds, for <code>self</code> to integer <code>sec</code>; the initial value is 60.</p> <p>Argument <code>sec</code> must be a non-negative numeric value.</p>  </div> </div> </section> <section id="private-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Private Instance Methods</h3> </header> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-D"> <span class="method-name">D</span><span class="method-args">(msg)</span> </div> </div>  <div class="aliases"> Alias for: <a href="http#method-i-debug">debug</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-addr_port"> <span class="method-name">addr_port</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="addr_port-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1984
+def addr_port
+  addr = address
+  addr = "[#{addr}]" if addr.include?(":")
+  default_port = use_ssl? ? HTTP.https_default_port : HTTP.http_default_port
+  default_port == port ? addr : "#{addr}:#{port}"
+end</pre> </div> <p>utils</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-begin_transport"> <span class="method-name">begin_transport</span><span class="method-args">(req)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="begin_transport-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1901
+def begin_transport(req)
+  if @socket.closed?
+    connect
+  elsif @last_communicated
+    if @last_communicated + @keep_alive_timeout &lt; Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      debug 'Conn close because of keep_alive_timeout'
+      @socket.close
+      connect
+    elsif @socket.io.to_io.wait_readable(0) &amp;&amp; @socket.eof?
+      debug "Conn close because of EOF"
+      @socket.close
+      connect
+    end
+  end
+
+  if not req.response_body_permitted? and @close_on_empty_response
+    req['connection'] ||= 'close'
+  end
+
+  req.update_uri address, port, use_ssl?
+  req['host'] ||= addr_port()
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-connect"> <span class="method-name">connect</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="connect-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1253
+def connect
+  if use_ssl?
+    # reference early to load OpenSSL before connecting,
+    # as OpenSSL may take time to load.
+    @ssl_context = OpenSSL::SSL::SSLContext.new
+  end
+
+  if proxy? then
+    conn_addr = proxy_address
+    conn_port = proxy_port
+  else
+    conn_addr = conn_address
+    conn_port = port
+  end
+
+  debug "opening connection to #{conn_addr}:#{conn_port}..."
+  s = Timeout.timeout(@open_timeout, Net::OpenTimeout) {
+    begin
+      TCPSocket.open(conn_addr, conn_port, @local_host, @local_port)
+    rescue =&gt; e
+      raise e, "Failed to open TCP connection to " +
+        "#{conn_addr}:#{conn_port} (#{e.message})"
+    end
+  }
+  s.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1)
+  debug "opened"
+  if use_ssl?
+    if proxy?
+      plain_sock = BufferedIO.new(s, read_timeout: @read_timeout,
+                                  write_timeout: @write_timeout,
+                                  continue_timeout: @continue_timeout,
+                                  debug_output: @debug_output)
+      buf = "CONNECT #{conn_address}:#{@port} HTTP/#{HTTPVersion}\r\n"
+      buf &lt;&lt; "Host: #{@address}:#{@port}\r\n"
+      if proxy_user
+        credential = ["#{proxy_user}:#{proxy_pass}"].pack('m0')
+        buf &lt;&lt; "Proxy-Authorization: Basic #{credential}\r\n"
+      end
+      buf &lt;&lt; "\r\n"
+      plain_sock.write(buf)
+      HTTPResponse.read_new(plain_sock).value
+      # assuming nothing left in buffers after successful CONNECT response
+    end
+
+    ssl_parameters = Hash.new
+    iv_list = instance_variables
+    SSL_IVNAMES.each_with_index do |ivname, i|
+      if iv_list.include?(ivname)
+        value = instance_variable_get(ivname)
+        unless value.nil?
+          ssl_parameters[SSL_ATTRIBUTES[i]] = value
+        end
+      end
+    end
+    @ssl_context.set_params(ssl_parameters)
+    unless @ssl_context.session_cache_mode.nil? # a dummy method on JRuby
+      @ssl_context.session_cache_mode =
+          OpenSSL::SSL::SSLContext::SESSION_CACHE_CLIENT |
+              OpenSSL::SSL::SSLContext::SESSION_CACHE_NO_INTERNAL_STORE
+    end
+    if @ssl_context.respond_to?(:session_new_cb) # not implemented under JRuby
+      @ssl_context.session_new_cb = proc {|sock, sess| @ssl_session = sess }
+    end
+
+    # Still do the post_connection_check below even if connecting
+    # to IP address
+    verify_hostname = @ssl_context.verify_hostname
+
+    # Server Name Indication (SNI) RFC 3546/6066
+    case @address
+    when Resolv::IPv4::Regex, Resolv::IPv6::Regex
+      # don't set SNI, as IP addresses in SNI is not valid
+      # per RFC 6066, section 3.
+
+      # Avoid openssl warning
+      @ssl_context.verify_hostname = false
+    else
+      ssl_host_address = @address
+    end
+
+    debug "starting SSL for #{conn_addr}:#{conn_port}..."
+    s = OpenSSL::SSL::SSLSocket.new(s, @ssl_context)
+    s.sync_close = true
+    s.hostname = ssl_host_address if s.respond_to?(:hostname=) &amp;&amp; ssl_host_address
+
+    if @ssl_session and
+       Process.clock_gettime(Process::CLOCK_REALTIME) &lt; @ssl_session.time.to_f + @ssl_session.timeout
+      s.session = @ssl_session
+    end
+    ssl_socket_connect(s, @open_timeout)
+    if (@ssl_context.verify_mode != OpenSSL::SSL::VERIFY_NONE) &amp;&amp; verify_hostname
+      s.post_connection_check(@address)
+    end
+    debug "SSL established, protocol: #{s.ssl_version}, cipher: #{s.cipher[0]}"
+  end
+  @socket = BufferedIO.new(s, read_timeout: @read_timeout,
+                           write_timeout: @write_timeout,
+                           continue_timeout: @continue_timeout,
+                           debug_output: @debug_output)
+  @last_communicated = nil
+  on_connect
+rescue =&gt; exception
+  if s
+    debug "Conn close because of connect error #{exception}"
+    s.close
+  end
+  raise
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-debug"> <span class="method-name">debug</span><span class="method-args">(msg)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="debug-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1992
+def debug(msg)
+  return unless @debug_output
+  @debug_output &lt;&lt; msg
+  @debug_output &lt;&lt; "\n"
+end</pre> </div> <p>Adds a message to debugging output</p>  </div> <div class="aliases"> Also aliased as: <a href="http#method-i-D">D</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-do_finish"> <span class="method-name">do_finish</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="do_finish-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1374
+def do_finish
+  @started = false
+  @socket.close if @socket
+  @socket = nil
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-do_start"> <span class="method-name">do_start</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="do_start-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1247
+def do_start
+  connect
+  @started = true
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-edit_path"> <span class="method-name">edit_path</span><span class="method-args">(path)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="edit_path-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1518
+def edit_path(path)
+  if proxy?
+    if path.start_with?("ftp://") || use_ssl?
+      path
+    else
+      "http://#{addr_port}#{path}"
+    end
+  else
+    path
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-end_transport"> <span class="method-name">end_transport</span><span class="method-args">(req, res)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="end_transport-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1924
+def end_transport(req, res)
+  @curr_http_version = res.http_version
+  @last_communicated = nil
+  if @socket.closed?
+    debug 'Conn socket closed'
+  elsif not res.body and @close_on_empty_response
+    debug 'Conn close'
+    @socket.close
+  elsif keep_alive?(req, res)
+    debug 'Conn keep-alive'
+    @last_communicated = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  else
+    debug 'Conn close'
+    @socket.close
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-keep_alive-3F"> <span class="method-name">keep_alive?</span><span class="method-args">(req, res)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="keep_alive-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1941
+def keep_alive?(req, res)
+  return false if req.connection_close?
+  if @curr_http_version &lt;= '1.0'
+    res.connection_keep_alive?
+  else   # HTTP/1.1 or later
+    not res.connection_close?
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-on_connect"> <span class="method-name">on_connect</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="on_connect-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1363
+def on_connect
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-send_entity"> <span class="method-name">send_entity</span><span class="method-args">(path, data, initheader, dest, type, &amp;block)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="send_entity-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1838
+def send_entity(path, data, initheader, dest, type, &amp;block)
+  res = nil
+  request(type.new(path, initheader), data) {|r|
+    r.read_body dest, &amp;block
+    res = r
+  }
+  res
+end</pre> </div> <p>Executes a request which uses a representation and returns its body.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-sspi_auth"> <span class="method-name">sspi_auth</span><span class="method-args">(req)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="sspi_auth-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1965
+def sspi_auth(req)
+  n = Win32::SSPI::NegotiateAuth.new
+  req["Proxy-Authorization"] = "Negotiate #{n.get_initial_token}"
+  # Some versions of ISA will close the connection if this isn't present.
+  req["Connection"] = "Keep-Alive"
+  req["Proxy-Connection"] = "Keep-Alive"
+  res = transport_request(req)
+  authphrase = res["Proxy-Authenticate"]  or return res
+  req["Proxy-Authorization"] = "Negotiate #{n.complete_authentication(authphrase)}"
+rescue =&gt; err
+  raise HTTPAuthenticationError.new('HTTP authentication failed', err)
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-sspi_auth-3F"> <span class="method-name">sspi_auth?</span><span class="method-args">(res)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="sspi_auth-3F-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1950
+def sspi_auth?(res)
+  return false unless @sspi_enabled
+  if res.kind_of?(HTTPProxyAuthenticationRequired) and
+      proxy? and res["Proxy-Authenticate"].include?("Negotiate")
+    begin
+      require 'win32/sspi'
+      true
+    rescue LoadError
+      false
+    end
+  else
+    false
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-transport_request"> <span class="method-name">transport_request</span><span class="method-args">(req) { |res| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="transport_request-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1849
+def transport_request(req)
+  count = 0
+  begin
+    begin_transport req
+    res = catch(:response) {
+      begin
+        req.exec @socket, @curr_http_version, edit_path(req.path)
+      rescue Errno::EPIPE
+        # Failure when writing full request, but we can probably
+        # still read the received response.
+      end
+
+      begin
+        res = HTTPResponse.read_new(@socket)
+        res.decode_content = req.decode_content
+        res.body_encoding = @response_body_encoding
+        res.ignore_eof = @ignore_eof
+      end while res.kind_of?(HTTPInformation)
+
+      res.uri = req.uri
+
+      res
+    }
+    res.reading_body(@socket, req.response_body_permitted?) {
+      yield res if block_given?
+    }
+  rescue Net::OpenTimeout
+    raise
+  rescue Net::ReadTimeout, IOError, EOFError,
+         Errno::ECONNRESET, Errno::ECONNABORTED, Errno::EPIPE, Errno::ETIMEDOUT,
+         # avoid a dependency on OpenSSL
+         defined?(OpenSSL::SSL) ? OpenSSL::SSL::SSLError : IOError,
+         Timeout::Error =&gt; exception
+    if count &lt; max_retries &amp;&amp; IDEMPOTENT_METHODS_.include?(req.method)
+      count += 1
+      @socket.close if @socket
+      debug "Conn close because of error #{exception}, and retry"
+      retry
+    end
+    debug "Conn close because of error #{exception}"
+    @socket.close if @socket
+    raise
+  end
+
+  end_transport req, res
+  res
+rescue =&gt; exception
+  debug "Conn close because of error #{exception}"
+  @socket.close if @socket
+  raise exception
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-unescape"> <span class="method-name">unescape</span><span class="method-args">(value)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="unescape-source"> <pre class="ruby" data-language="ruby"># File lib/net/http.rb, line 1503
+def unescape(value)
+  require 'cgi/util'
+  CGI.unescape(value)
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

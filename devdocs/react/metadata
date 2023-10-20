@@ -1,0 +1,2 @@
+(1 (name . "React") (slug . "react") (type . "simple") (links (home . "https://reactjs.org/") (code . "https://github.com/facebook/react")) (release . "18.2.0") (mtime . 1661622346) (db_size . 1376253) (attribution . "&copy; 2013&ndash;present Facebook Inc.<br>
+      Licensed under the Creative Commons Attribution 4.0 International Public License."))

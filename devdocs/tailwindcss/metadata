@@ -1,0 +1,1 @@
+(1 (name . "Tailwind CSS") (slug . "tailwindcss") (type . "tailwindcss") (links (home . "tps://tailwindcss.com/") (code . "https://github.com/tailwindlabs/tailwindcss")) (release . "3.3.2") (mtime . 1686474553) (db_size . 2617695) (attribution . "&copy; 2022 Tailwind Labs Inc."))

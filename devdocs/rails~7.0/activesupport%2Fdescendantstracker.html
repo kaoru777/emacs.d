@@ -1,0 +1,49 @@
+<h1 id="module-ActiveSupport::DescendantsTracker" class="module"> module ActiveSupport::DescendantsTracker </h1> <section class="description"> <p>This module provides an internal implementation to track descendants which is faster than iterating through ObjectSpace.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-descendants"> <span class="method-name">descendants</span><span class="method-args">(klass)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 62
+def descendants(klass)
+  klass.descendants
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-direct_descendants"> <span class="method-name">direct_descendants</span><span class="method-args">(klass)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="direct_descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 11
+      def direct_descendants(klass)
+        ActiveSupport::Deprecation.warn(&lt;&lt;~MSG)
+          ActiveSupport::DescendantsTracker.direct_descendants is deprecated and will be removed in Rails 7.1.
+          Use ActiveSupport::DescendantsTracker.subclasses instead.
+        MSG
+        subclasses(klass)
+      end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-store_inherited"> <span class="method-name">store_inherited</span><span class="method-args">(klass, descendant)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="store_inherited-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 138
+def store_inherited(klass, descendant)
+  (@@direct_descendants[klass] ||= DescendantsArray.new) &lt;&lt; descendant
+end</pre> </div> <p>This is the only method that is not thread safe, but is only ever called during the eager loading phase.</p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-subclasses"> <span class="method-name">subclasses</span><span class="method-args">(klass)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="subclasses-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 58
+def subclasses(klass)
+  klass.subclasses
+end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-descendants"> <span class="method-name">descendants</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 88
+def descendants
+  subclasses.concat(subclasses.flat_map(&amp;:descendants))
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-direct_descendants"> <span class="method-name">direct_descendants</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="direct_descendants-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 92
+      def direct_descendants
+        ActiveSupport::Deprecation.warn(&lt;&lt;~MSG)
+          ActiveSupport::DescendantsTracker#direct_descendants is deprecated and will be removed in Rails 7.1.
+          Use #subclasses instead.
+        MSG
+        subclasses
+      end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-inherited"> <span class="method-name">inherited</span><span class="method-args">(base)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="inherited-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 153
+def inherited(base)
+  DescendantsTracker.store_inherited(self, base)
+  super
+end</pre> </div> <div class="method-calls-super"> Calls superclass method </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-subclasses"> <span class="method-name">subclasses</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="subclasses-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/descendants_tracker.rb, line 82
+def subclasses
+  subclasses = super
+  subclasses.reject! { |d| @@excluded_descendants[d] }
+  subclasses
+end</pre> </div> <div class="method-calls-super"> Calls superclass method </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

@@ -1,0 +1,21 @@
+<h1 id="class-ActiveSupport::KeyGenerator" class="class"> class ActiveSupport::KeyGenerator </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../object">Object</a></dd>
+</dl> <section class="description"> <p><a href="keygenerator"><code>KeyGenerator</code></a> is a simple wrapper around OpenSSL's implementation of PBKDF2. It can be used to derive a number of keys for various purposes from a given secret. This lets Rails applications have a single secure secret, but avoid reusing that key in multiple incompatible contexts.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(secret, options = {})</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/key_generator.rb, line 12
+def initialize(secret, options = {})
+  @secret = secret
+  # The default iterations are higher than required for our key derivation uses
+  # on the off chance someone uses this for password storage
+  @iterations = options[:iterations] || 2**16
+end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-generate_key"> <span class="method-name">generate_key</span><span class="method-args">(salt, key_size = 64)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="generate_key-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/key_generator.rb, line 22
+def generate_key(salt, key_size = 64)
+  OpenSSL::PKCS5.pbkdf2_hmac_sha1(@secret, salt, @iterations, key_size)
+end</pre> </div> <p>Returns a derived key suitable for use. The default key_size is chosen to be compatible with the default settings of <a href="messageverifier"><code>ActiveSupport::MessageVerifier</code></a>. i.e. OpenSSL::Digest::SHA1#block_length</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

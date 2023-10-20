@@ -1,0 +1,163 @@
+<h1>Object SeqView.SeqView</h1>
+<div class="links">
+<a href="seqview">Companion class</a> • <a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L42">Source code</a>
+</div>
+<h2 id="signature">
+<div class="signature">
+object <a href="seqview%24">SeqView</a>
+</div>
+</h2>
+<table class="attributes">
+<tr>
+<th>Supertypes</th>
+<td><div class="related-types">
+<div class="member">class <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a>
+</div>
+<div class="member">trait <a href="../matchable">Matchable</a>
+</div>
+<div class="member">class <a href="../any">Any</a>
+</div>
+</div></td>
+</tr>
+<tr>
+<th>Self type</th>
+<td><div class="related-types"><div class="member">
+<a href="seqview%24">SeqView</a>.type</div></div></td>
+</tr>
+</table>
+<h2>Classlikes</h2>
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L64" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24appended">Appended</a>[+A](underlying: SomeSeqOps[A], elem: A) extends <a href="view%24%24appended">Appended</a>[A] with <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L76" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24concat">Concat</a>[A](prefix: SomeSeqOps[A], suffix: SomeSeqOps[A]) extends <a href="view%24%24concat">Concat</a>[A] with <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L112" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24drop">Drop</a>[A](underlying: SomeSeqOps[A], n: <a href="../int">Int</a>) extends <a href="view%24%24drop">Drop</a>[A] with <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L120" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24dropright">DropRight</a>[A](underlying: SomeSeqOps[A], n: <a href="../int">Int</a>) extends <a href="view%24%24dropright">DropRight</a>[A] with <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L49" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24id">Id</a>[+A](underlying: SomeSeqOps[A]) extends <a href="abstractseqview">AbstractSeqView</a>[A]
+</div>
+</h3>
+
+
+
+<p>A view that doesn’t apply any transformation to an underlying sequence</p>
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L58" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24map">Map</a>[+A, +B](underlying: SomeSeqOps[A], f: A =&gt; B) extends <a href="view%24%24map">Map</a>[A, B] with <a href="seqview">SeqView</a>[B]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L70" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24prepended">Prepended</a>[+A](elem: A, underlying: SomeSeqOps[A]) extends <a href="view%24%24prepended">Prepended</a>[A] with <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L85" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24reverse">Reverse</a>[A](underlying: SomeSeqOps[A]) extends <a href="abstractseqview">AbstractSeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L128" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24sorted">Sorted</a>[A, B &gt;: A] extends <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L94" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24take">Take</a>[+A](underlying: SomeSeqOps[A], n: <a href="../int">Int</a>) extends <a href="view%24%24take">Take</a>[A] with <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+
+
+
+<h3>
+<a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/collection/SeqView.scala#L104" class="source-link">Source</a><div class="signature">
+class <a href="seqview%24%24takeright">TakeRight</a>[+A](underlying: SomeSeqOps[A], n: <a href="../int">Int</a>) extends <a href="view%24%24takeright">TakeRight</a>[A] with <a href="seqview">SeqView</a>[A]
+</div>
+</h3>
+
+
+
+
+<div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2002-2022 EPFL, with contributions from Lightbend.<br>Licensed under the Apache License, Version 2.0.<br>
+    <a href="https://scala-lang.org/api/3.2.0/scala/collection/SeqView$.html" class="_attribution-link">https://scala-lang.org/api/3.2.0/scala/collection/SeqView$.html</a>
+  </p>
+</div>

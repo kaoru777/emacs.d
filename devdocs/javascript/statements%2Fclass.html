@@ -1,0 +1,101 @@
+<h1>class</h1>
+<div class="section-content">
+<p> The <code>class</code> declaration creates a new class with a given name using prototype-based inheritance. </p> <p>You can also define a class using a <a href="../operators/class">class expression</a>, which allows redeclarations and omitting class names. Attempting to place <strong>class declaration</strong> in the same scope, under the same name, will throw a <a href="../global_objects/syntaxerror"><code>SyntaxError</code></a>.</p>
+</div>
+<section aria-labelledby="try_it"><h2 id="try_it">Try it</h2>
+<div class="section-content"><iframe class="interactive is-js-height" height="200" src="https://interactive-examples.mdn.mozilla.net/pages/js/statement-class.html" title="MDN Web Docs Interactive Example" loading="lazy"></iframe></div></section><section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="js"><span class="token keyword">class</span> <span class="token class-name">name</span> <span class="token punctuation">[</span><span class="token keyword">extends</span> <span class="token class-name">otherName</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token comment">// class body</span>
+<span class="token punctuation">}</span>
+</pre></div></div></section><section aria-labelledby="description"><h2 id="description">Description</h2>
+<div class="section-content">
+<p> The class body of a class declaration is executed in <a href="../strict_mode">strict mode</a>. The <code>constructor</code> method is optional. </p> <p> Class declarations behave like <a href="let"><code>let</code></a> and <a href="const"><code>const</code></a> and are not <a href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting">hoisted</a> (unlike <a href="function">function declarations</a>). </p>
+</div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="a_simple_class_declaration"><h3 id="a_simple_class_declaration">A simple class declaration</h3>
+<div class="section-content">
+<p> In the following example, we first define a class named <code>Rectangle</code>, then extend it to create a class named <code>FilledRectangle</code>. </p> <p> Note that <code>super()</code>, used in the <code>constructor</code>, can only be used in constructors, and <em>must</em> be called <em>before</em> the <code>this</code> keyword can be used. </p> <div class="code-example"><pre data-language="js"><span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">height<span class="token punctuation">,</span> width</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Rectangle"</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">=</span> height<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">=</span> width<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">FilledRectangle</span> <span class="token keyword">extends</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">height<span class="token punctuation">,</span> width<span class="token punctuation">,</span> color</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Filled rectangle"</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre></div>
+</div></section><section aria-labelledby="attempting_to_declare_a_class_twice"><h3 id="attempting_to_declare_a_class_twice">Attempting to declare a class twice</h3>
+<div class="section-content">
+<p>Re-declaring a class using the class declaration throws a <a href="../global_objects/syntaxerror"><code>SyntaxError</code></a>.</p> <div class="code-example"><pre data-language="js"><span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment">// Uncaught SyntaxError: Identifier 'Foo' has already been declared</span>
+</pre></div> <p> The same error is thrown when a class has been defined before using the class expression. </p> <div class="code-example"><pre data-language="js"><span class="token keyword">let</span> Foo <span class="token operator">=</span> <span class="token keyword">class</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment">// Uncaught SyntaxError: Identifier 'Foo' has already been declared</span>
+</pre></div> <p>If you're experimenting in a REPL, such as the Firefox web console (<strong>Tools</strong> &gt; <strong>Web Developer</strong> &gt; <strong>Web Console</strong>), and you run two class declarations with the same name in two separate inputs, you may get the same re-declaration error. See further discussion of this issue in <a href="https://bugzil.la/1580891" target="_blank">Firefox bug 1580891</a>. The Chrome console allows class re-declarations between different REPL inputs.</p>
+</div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://tc39.es/ecma262/multipage/ecmascript-language-functions-and-classes.html#sec-class-definitions">ECMAScript Language Specification <br><small># sec-class-definitions</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+<th colspan="2">Server</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+<th>Deno</th>
+<th>Node.js</th>
+</tr>
+</thead>
+<tbody><tr>
+<th><code>class</code></th>
+<td class="bc-supports-yes">49<details><summary>42–49</summary>Strict mode is required.</details>
+</td>
+<td class="bc-supports-yes">13</td>
+<td class="bc-supports-yes">45</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">36<details><summary>29–36</summary>Strict mode is required.</details>
+</td>
+<td class="bc-supports-yes">10.1</td>
+<td class="bc-supports-yes">49<details><summary>42–49</summary>Strict mode is required.</details>
+</td>
+<td class="bc-supports-yes">49<details><summary>42–49</summary>Strict mode is required.</details>
+</td>
+<td class="bc-supports-yes">45</td>
+<td class="bc-supports-yes">36<details><summary>29–36</summary>Strict mode is required.</details>
+</td>
+<td class="bc-supports-yes">10.3</td>
+<td class="bc-supports-yes">5.0<details><summary>4.0–5.0</summary>Strict mode is required.</details>
+</td>
+<td class="bc-supports-yes">1.0</td>
+<td class="bc-supports-yes">6.0.0</td>
+</tr></tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li><a href="function"><code>function</code> declaration</a></li> <li><a href="../operators/class"><code>class</code> expression</a></li> <li><a href="../classes">Classes</a></li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/class" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/class</a>
+  </p>
+</div>

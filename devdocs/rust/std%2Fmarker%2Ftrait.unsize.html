@@ -1,0 +1,15 @@
+<h1 class="main-heading">Trait std::marker::Unsize</h1>
+<pre class="rust item-decl" data-language="rust">pub trait Unsize&lt;T&gt;
+where
+    T: ?Sized,{ }</pre>
+<span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>unsize</code> <a href="https://github.com/rust-lang/rust/issues/18598">#18598</a>)</span>
+</div></span><p>Types that can be “unsized” to a dynamically-sized type.</p> <p>For example, the sized array type <code>[i8; 2]</code> implements <code>Unsize&lt;[i8]&gt;</code> and <code>Unsize&lt;dyn fmt::Debug&gt;</code>.</p> <p>All implementations of <code>Unsize</code> are provided automatically by the compiler. Those implementations are:</p> <ul> <li>Arrays <code>[T; N]</code> implement <code>Unsize&lt;[T]&gt;</code>.</li> <li>Types implementing a trait <code>Trait</code> also implement <code>Unsize&lt;dyn Trait&gt;</code>.</li> <li>Structs <code>Foo&lt;..., T, ...&gt;</code> implement <code>Unsize&lt;Foo&lt;..., U, ...&gt;&gt;</code> if all of these conditions are met: <ul> <li>
+<code>T: Unsize&lt;U&gt;</code>.</li> <li>Only the last field of <code>Foo</code> has a type involving <code>T</code>.</li> <li>
+<code>Bar&lt;T&gt;: Unsize&lt;Bar&lt;U&gt;&gt;</code>, where <code>Bar&lt;T&gt;</code> stands for the actual type of that last field.</li> </ul> </li> </ul> <p><code>Unsize</code> is used along with <a href="../ops/trait.coerceunsized" title="trait std::ops::CoerceUnsized"><code>ops::CoerceUnsized</code></a> to allow “user-defined” containers such as <a href="../rc/struct.rc"><code>Rc</code></a> to contain dynamically-sized types. See the <a href="https://github.com/rust-lang/rfcs/blob/master/text/0982-dst-coercion.md">DST coercion RFC</a> and <a href="https://doc.rust-lang.org/nomicon/coercions.html">the nomicon entry on coercion</a> for more details.</p> <h2 id="implementors" class="small-section-header">Implementors</h2>
+<div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2010 The Rust Project Developers<br>Licensed under the Apache License, Version 2.0 or the MIT license, at your option.<br>
+    <a href="https://doc.rust-lang.org/std/marker/trait.Unsize.html" class="_attribution-link">https://doc.rust-lang.org/std/marker/trait.Unsize.html</a>
+  </p>
+</div>

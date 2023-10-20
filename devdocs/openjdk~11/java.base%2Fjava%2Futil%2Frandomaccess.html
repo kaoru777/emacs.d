@@ -1,0 +1,15 @@
+  <main role="main">    <h1>Interface RandomAccess</h1>     <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="arraylist">ArrayList</a></code>, <code><a href="../../../java.management/javax/management/attributelist">AttributeList</a></code>, <code><a href="concurrent/copyonwritearraylist">CopyOnWriteArrayList</a></code>, <code><a href="../../../java.management/javax/management/relation/rolelist">RoleList</a></code>, <code><a href="../../../java.management/javax/management/relation/roleunresolvedlist">RoleUnresolvedList</a></code>, <code><a href="stack">Stack</a></code>, <code><a href="vector">Vector</a></code>
+</dd> </dl>  <pre data-language="java">public interface RandomAccess</pre> <div>
+<p>Marker interface used by <code>List</code> implementations to indicate that they support fast (generally constant time) random access. The primary purpose of this interface is to allow generic algorithms to alter their behavior to provide good performance when applied to either random or sequential access lists. </p>
+<p>The best algorithms for manipulating random access lists (such as <code>ArrayList</code>) can produce quadratic behavior when applied to sequential access lists (such as <code>LinkedList</code>). Generic list algorithms are encouraged to check whether the given list is an <code>instanceof</code> this interface before applying an algorithm that would provide poor performance if it were applied to a sequential access list, and to alter their behavior if necessary to guarantee acceptable performance. </p>
+<p>It is recognized that the distinction between random and sequential access is often fuzzy. For example, some <code>List</code> implementations provide asymptotically linear access times if they get huge, but constant access times in practice. Such a <code>List</code> implementation should generally implement this interface. As a rule of thumb, a <code>List</code> implementation should implement this interface if, for typical instances of the class, this loop: </p>
+<pre data-language="java">for (int i=0, n=list.size(); i &lt; n; i++)
+         list.get(i);</pre> runs faster than this loop: <pre data-language="java">for (Iterator i=list.iterator(); i.hasNext(); )
+         i.next();</pre> <p>This interface is a member of the <a href="package-summary#CollectionsFramework"> Java Collections Framework</a>.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.4</dd> </dl>    </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/RandomAccess.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/RandomAccess.html</a>
+  </p>
+</div>

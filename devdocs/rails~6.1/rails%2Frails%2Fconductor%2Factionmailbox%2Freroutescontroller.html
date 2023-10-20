@@ -1,0 +1,17 @@
+<h1 id="class-Rails::Rails::Conductor::ActionMailbox::ReroutesController" class="class"> class Rails::Rails::Conductor::ActionMailbox::ReroutesController </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent">Rails::Rails::Conductor::BaseController</dd>
+</dl> <section class="description"> <p>Rerouting will run routing and processing on an email that has already been, or attempted to be, processed.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-create"> <span class="method-name">create</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="create-source"> <pre class="ruby" data-language="ruby"># File actionmailbox/app/controllers/rails/conductor/action_mailbox/reroutes_controller.rb, line 6
+def create
+  inbound_email = ActionMailbox::InboundEmail.find(params[:inbound_email_id])
+  reroute inbound_email
+
+  redirect_to main_app.rails_conductor_inbound_email_url(inbound_email)
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

@@ -1,0 +1,61 @@
+<h1>hwb()</h1>
+<div class="section-content"><p>The <code>hwb()</code> functional notation expresses a given color according to its hue, whiteness, and blackness. An optional alpha component represents the color's transparency.</p></div>
+<section aria-labelledby="try_it"><h2 id="try_it">Try it</h2>
+<div class="section-content"><iframe class="interactive is-default-height" height="200" src="https://interactive-examples.mdn.mozilla.net/pages/css/function-hwb.html" title="MDN Web Docs Interactive Example" loading="lazy"></iframe></div></section><section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token function">hwb</span><span class="token punctuation">(</span>194 0% 0%<span class="token punctuation">)</span> <span class="token comment">/* #00c3ff */</span>
+<span class="token function">hwb</span><span class="token punctuation">(</span>194 0% 0% / .5<span class="token punctuation">)</span> <span class="token comment">/* #00c3ff with 50% opacity */</span>
+</pre></div></div></section><section aria-labelledby="values"><h3 id="values">Values</h3>
+<div class="section-content">
+<div class="notecard note" id="sect1"> <p><strong>Note:</strong> The HWB function does <strong>not</strong> use commas to separate its values as with previous color functions and the optional alpha value needs to be preceded with a forward slash (<code>/</code>) if specified.</p> </div> <dl> <dt id="functional_notation">Functional notation: <code>hwb(H W B[ / A])</code>
+</dt> <dd> <p><code>H</code> (hue) is an <a href="../angle"><code>&lt;angle&gt;</code></a> of the color circle given in <code>deg</code>s, <code>rad</code>s, <code>grad</code>s, or <code>turn</code>s in the <a href="https://drafts.csswg.org/css-color/#typedef-hue" target="_blank">CSS Color</a> specification. When written as a unitless <a href="../number"><code>&lt;number&gt;</code></a>, it is interpreted as degrees, as specified in the <a href="https://drafts.csswg.org/css-color-3/#hsl-color" target="_blank">CSS Color Level 3</a> specification. By definition, red=0deg=360deg, with the other colors spread around the circle, so green=120deg, blue=240deg, etc. As an <code>&lt;angle&gt;</code>, it implicitly wraps around such that -120deg=240deg, 480deg=120deg, -1turn=1turn, etc.</p> <p><code>W</code> (whiteness) specifies the amount of white to mix in, as a percentage from 0% (no whiteness) to 100% (full whiteness).</p> <p><code>B</code> (blackness) specifies the amount of black to mix in, also from 0% (no blackness) to 100% (full blackness).</p> <p><code>A</code> (alpha) can be a <a href="../number"><code>&lt;number&gt;</code></a> between <code>0</code> and <code>1</code>, or a <a href="../percentage"><code>&lt;percentage&gt;</code></a>, where the number <code>1</code> corresponds to <code>100%</code> (full opacity).</p> </dd> </dl>
+</div></section><section aria-labelledby="formal_syntax"><h3 id="formal_syntax">Formal syntax</h3>
+<div class="section-content"><pre class="notranslate"><span class="token property" id="&lt;hwb()&gt;">&lt;hwb()&gt; = </span><br>  <span class="token function">hwb(</span> <a href="../value_definition_syntax#brackets">[</a> <span class="token property">&lt;hue&gt;</span> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">[</a> <a href="../percentage"><span class="token property">&lt;percentage&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">[</a> <a href="../percentage"><span class="token property">&lt;percentage&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">[</a> / <a href="../value_definition_syntax#brackets">[</a> <span class="token property">&lt;alpha-value&gt;</span> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">]</a><a href="../value_definition_syntax#question_mark">?</a> <span class="token function">)</span>  <br><br><span class="token property" id="&lt;hue&gt;">&lt;hue&gt; = </span><br>  <a href="../number"><span class="token property">&lt;number&gt;</span></a>  <a href="../value_definition_syntax#single_bar">|</a><br>  <a href="../angle"><span class="token property">&lt;angle&gt;</span></a>   <br><br><span class="token property" id="&lt;alpha-value&gt;">&lt;alpha-value&gt; = </span><br>  <a href="../number"><span class="token property">&lt;number&gt;</span></a>      <a href="../value_definition_syntax#single_bar">|</a><br>  <a href="../percentage"><span class="token property">&lt;percentage&gt;</span></a>  <br><br></pre></div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://w3c.github.io/csswg-drafts/css-color/#the-hwb-notation">CSS Color Module Level 4 <br><small># the-hwb-notation</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody><tr>
+<th><code>hwb</code></th>
+<td class="bc-supports-yes">101</td>
+<td class="bc-supports-yes">101</td>
+<td class="bc-supports-yes">96</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">87</td>
+<td class="bc-supports-yes">15</td>
+<td class="bc-supports-yes">101</td>
+<td class="bc-supports-yes">101</td>
+<td class="bc-supports-yes">96</td>
+<td class="bc-supports-yes">70</td>
+<td class="bc-supports-yes">15</td>
+<td class="bc-supports-yes">19.0</td>
+</tr></tbody>
+</table></div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hwb" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hwb</a>
+  </p>
+</div>

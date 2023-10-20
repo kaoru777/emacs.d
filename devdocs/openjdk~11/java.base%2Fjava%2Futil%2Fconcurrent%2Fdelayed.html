@@ -1,0 +1,14 @@
+  <main role="main">    <h1>Interface Delayed</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="../../lang/comparable">Comparable</a>&lt;<a href="delayed">Delayed</a>&gt;</code></dd> </dl> <dl> <dt>All Known Subinterfaces:</dt> <dd>
+<code><a href="runnablescheduledfuture">RunnableScheduledFuture</a>&lt;V&gt;</code>, <code><a href="scheduledfuture">ScheduledFuture</a>&lt;V&gt;</code>
+</dd> </dl>  <pre data-language="java">public interface Delayed
+extends Comparable&lt;Delayed&gt;</pre> <div>
+<p>A mix-in style interface for marking objects that should be acted upon after a given delay. </p>
+<p>An implementation of this interface must define a <code>compareTo</code> method that provides an ordering consistent with its <code>getDelay</code> method.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>long</code></td> <th scope="row"><code><a href="#getDelay(java.util.concurrent.TimeUnit)">getDelay</a>​(<a href="timeunit">TimeUnit</a> unit)</code></th> <td> <p>Returns the remaining delay associated with this object, in the given time unit.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.java.lang.Comparable">Methods declared in interface java.lang.<a href="../../lang/comparable">Comparable</a>
+</h2> <code><a href="../../lang/comparable#compareTo(T)">compareTo</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getDelay(java.util.concurrent.TimeUnit)">getDelay</h3> <pre data-language="java">long getDelay(TimeUnit unit)</pre> <p>Returns the remaining delay associated with this object, in the given time unit.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>unit</code> - the time unit</dd> <dt>Returns:</dt> <dd>the remaining delay; zero or negative values indicate that the delay has already elapsed</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Delayed.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Delayed.html</a>
+  </p>
+</div>

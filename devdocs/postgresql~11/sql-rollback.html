@@ -1,0 +1,15 @@
+<h1>ROLLBACK</h1> <p>ROLLBACK — abort the current transaction</p>   <h2>Synopsis</h2> <pre data-language="sql">
+ROLLBACK [ WORK | TRANSACTION ]
+</pre>  <div class="refsect1" id="id-1.9.3.166.5"> <h2>Description</h2> <p><code class="command">ROLLBACK</code> rolls back the current transaction and causes all the updates made by the transaction to be discarded.</p> </div> <div class="refsect1" id="id-1.9.3.166.6"> <h2>Parameters</h2> <div class="variablelist"> <dl class="variablelist"> <dt>
+<code class="literal">WORK</code><code class="literal">TRANSACTION</code>
+</dt> <dd> <p>Optional key words. They have no effect.</p> </dd> </dl> </div> </div> <div class="refsect1" id="id-1.9.3.166.7"> <h2>Notes</h2> <p>Use <a class="xref" href="sql-commit" title="COMMIT">COMMIT</a> to successfully terminate a transaction.</p> <p>Issuing <code class="command">ROLLBACK</code> outside of a transaction block emits a warning and otherwise has no effect.</p> </div> <div class="refsect1" id="id-1.9.3.166.8"> <h2>Examples</h2> <p>To abort all changes:</p> <pre data-language="sql">
+ROLLBACK;
+</pre> </div> <div class="refsect1" id="id-1.9.3.166.9"> <h2>Compatibility</h2> <p>The SQL standard only specifies the two forms <code class="literal">ROLLBACK</code> and <code class="literal">ROLLBACK WORK</code>. Otherwise, this command is fully conforming.</p> </div> <div class="refsect1" id="id-1.9.3.166.10"> <h2>See Also</h2>
+<span class="simplelist"><a class="xref" href="sql-begin" title="BEGIN">BEGIN</a>, <a class="xref" href="sql-commit" title="COMMIT">COMMIT</a>, <a class="xref" href="sql-rollback-to" title="ROLLBACK TO SAVEPOINT">ROLLBACK TO SAVEPOINT</a></span> </div>  <div class="navfooter">  <table summary="Navigation footer"> <tr> <td width="40%" align="left">
+<a accesskey="p" href="sql-revoke">Prev</a> </td> <td width="20%" align="center"><a accesskey="u" href="https://www.postgresql.org/docs/11/sql-commands.html">Up</a></td> <td width="40%" align="right"> <a accesskey="n" href="sql-rollback-prepared">Next</a>
+</td> </tr> <tr> <td width="40%" align="left">REVOKE </td> <td width="20%" align="center"><a accesskey="h" href="https://www.postgresql.org/docs/11/index.html">Home</a></td> <td width="40%" align="right"> ROLLBACK PREPARED</td> </tr> </table> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2019 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/11/sql-rollback.html" class="_attribution-link">https://www.postgresql.org/docs/11/sql-rollback.html</a>
+  </p>
+</div>

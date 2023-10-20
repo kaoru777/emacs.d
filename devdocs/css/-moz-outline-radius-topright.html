@@ -1,0 +1,97 @@
+<h1>-moz-outline-radius-topright</h1>
+<div class="section-content">
+<div class="notecard deprecated" id="sect1"><p><strong>Deprecated:</strong> This feature is no longer recommended. Though some browsers might still support it, it may have already been removed from the relevant web standards, may be in the process of being dropped, or may only be kept for compatibility purposes. Avoid using it, and update existing code if possible; see the <a href="#browser_compatibility">compatibility table</a> at the bottom of this page to guide your decision. Be aware that this feature may cease to work at any time.</p></div>
+<div class="notecard nonstandard" id="sect2"><p><strong>Non-standard:</strong> This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user. There may also be large incompatibilities between implementations and the behavior may change in the future.</p></div> <p>In Mozilla applications, the <code>-moz-outline-radius-topright</code> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> property can be used to round the top-right corner of an element's <a href="outline"><code>outline</code></a>.</p>
+</div>
+<section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><p>The value of <code>-moz-outline-radius-topright</code> is either a CSS <a href="length"><code>&lt;length&gt;</code></a> or a <a href="percentage">percentage</a> of the corresponding dimensions of the border box. The <a href="calc"><code>calc()</code></a> function may be used as well.</p></div></section><section aria-labelledby="values"><h3 id="values">Values</h3>
+<div class="section-content"><dl> <dt id="length"><code>&lt;length&gt;</code></dt> <dd> <p>The radius of the circle defining the curvature of the top and right edges of the element, specified as a CSS <a href="length"><code>&lt;length&gt;</code></a>.</p> </dd> <dt id="percentage"><code>&lt;percentage&gt;</code></dt> <dd> <p>The radius of the circle defining the rounding of the top-right corner of the element, specified as the <a href="percentage">percentages</a> of the top and right sides of the border box.</p> </dd> </dl></div></section><section aria-labelledby="formal_definition"><h2 id="formal_definition">Formal definition</h2>
+<div class="section-content"><figure class="table-container"><div class="_table"><table class="properties"><tbody>
+<tr>
+<th scope="row"><a href="initial_value">Initial value</a></th>
+<td><code>0</code></td>
+</tr>
+<tr>
+<th scope="row">Applies to</th>
+<td>all elements</td>
+</tr>
+<tr>
+<th scope="row"><a href="inheritance">Inherited</a></th>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">Percentages</th>
+<td>refer to the corresponding dimension of the border box</td>
+</tr>
+<tr>
+<th scope="row"><a href="computed_value">Computed value</a></th>
+<td>as specified</td>
+</tr>
+<tr>
+<th scope="row">Animation type</th>
+<td>a <a href="length#interpolation">length</a>, <a href="percentage#interpolation">percentage</a> or calc();</td>
+</tr>
+</tbody></table></div></figure></div></section><section aria-labelledby="formal_syntax"><h2 id="formal_syntax">Formal syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="plain">-moz-outline-radius-topright =
+  &lt;outline-radius&gt;
+</pre></div></div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="html"><h3 id="html">HTML</h3>
+<div class="section-content"><div class="code-example"><pre data-language="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Look at this paragraph's top-right corner.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</pre></div></div></section><section aria-labelledby="css"><h3 id="css">CSS</h3>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token selector">p</span> <span class="token punctuation">{</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 5px<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> solid cyan<span class="token punctuation">;</span>
+  <span class="token property">outline</span><span class="token punctuation">:</span> dotted red<span class="token punctuation">;</span>
+  <span class="token property">-moz-outline-radius-topright</span><span class="token punctuation">:</span> 2em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre></div></div></section><section aria-labelledby="result"><h3 id="result">Result</h3>
+<div class="section-content">
+<iframe class="sample-code-frame" title="Examples sample" id="frame_examples" src="https://live-samples.mdn.mozilla.net/en-US/docs/Web/CSS/-moz-outline-radius-topright/_sample_.examples.html" loading="lazy"></iframe> <div class="notecard note" id="sect3"> <p><strong>Note:</strong> The example above will not display the desired effect if you are viewing this in a browser other than Firefox.</p> </div>
+</div></section><section aria-labelledby="specifications"><h2 id="specifications">Specifications</h2>
+<div class="section-content"><p>Not part of any standard.</p></div></section><h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody><tr>
+<th><code>-moz-outline-radius-topright</code></th>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no"><details><summary>1–88</summary>From Firefox 88, <a href="https://developer.mozilla.org/docs/Web/CSS/outline">outline</a> now follows the shape created by <a href="https://developer.mozilla.org/docs/Web/CSS/border-radius">border-radius</a> automatically, so this property is no longer needed (see <a href="https://bugzil.la/1694146">bug 1694146</a>).</details></td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no"><details><summary>4–88</summary>From Firefox 88, <a href="https://developer.mozilla.org/docs/Web/CSS/outline">outline</a> now follows the shape created by <a href="https://developer.mozilla.org/docs/Web/CSS/border-radius">border-radius</a> automatically, so this property is no longer needed (see <a href="https://bugzil.la/1694146">bug 1694146</a>).</details></td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+</tr></tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li>See the <a href="-moz-outline-radius"><code>-moz-outline-radius</code></a> property for more information.</li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-outline-radius-topright" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-outline-radius-topright</a>
+  </p>
+</div>

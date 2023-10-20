@@ -1,0 +1,2 @@
+(1 (name . "HAProxy") (slug . "haproxy~2.8") (type . "haproxy") (links (home . "https://www.haproxy.org/") (code . "https://github.com/haproxy/haproxy")) (version . "2.8") (release . "2.8.0") (mtime . 1691007360) (db_size . 2298119) (attribution . "&copy; 2023 Willy Tarreau, HAProxy contributors<br>
+      Licensed under the GNU General Public License version 2."))

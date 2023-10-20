@@ -1,0 +1,254 @@
+  <main role="main">    <h1>Interface TreeVisitor&lt;R,​P&gt;</h1>     <dl> <dt>Type Parameters:</dt> <dd>
+<code>R</code> - the return type of this visitor's methods. Use <a href="../../../../../java.base/java/lang/void"><code>Void</code></a> for visitors that do not need to return results.</dd> <dd>
+<code>P</code> - the type of the additional parameter to this visitor's methods. Use <code>Void</code> for visitors that do not need an additional parameter.</dd> </dl> <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="../util/simpletreevisitor">SimpleTreeVisitor</a></code>, <code><a href="../util/treepathscanner">TreePathScanner</a></code>, <code><a href="../util/treescanner">TreeScanner</a></code>
+</dd> </dl>  <pre data-language="java">public interface TreeVisitor&lt;R,P&gt;</pre> <div>
+<p>A visitor of trees, in the style of the visitor design pattern. Classes implementing this interface are used to operate on a tree when the kind of tree is unknown at compile time. When a visitor is passed to an tree's <a href="tree#accept(com.sun.source.tree.TreeVisitor,D)"><code>accept</code></a> method, the <code>visit<i>Xyz</i></code> method most applicable to that tree is invoked. </p>
+<p> Classes implementing this interface may or may not throw a <code>NullPointerException</code> if the additional parameter <code>p</code> is <code>null</code>; see documentation of the implementing class for details. </p>
+<p> <b>WARNING:</b> It is possible that methods will be added to this interface to accommodate new, currently unknown, language structures added to future versions of the Java™ programming language. Therefore, visitor classes directly implementing this interface may be source incompatible with future versions of the platform.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.6</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitAnnotatedType(com.sun.source.tree.AnnotatedTypeTree,P)">visitAnnotatedType</a>​(<a href="annotatedtypetree">AnnotatedTypeTree</a> node,
+                  <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an AnnotatedTypeTree node.</p> </td> </tr> <tr id="i1"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitAnnotation(com.sun.source.tree.AnnotationTree,P)">visitAnnotation</a>​(<a href="annotationtree">AnnotationTree</a> node,
+               <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an AnnotatedTree node.</p> </td> </tr> <tr id="i2"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitArrayAccess(com.sun.source.tree.ArrayAccessTree,P)">visitArrayAccess</a>​(<a href="arrayaccesstree">ArrayAccessTree</a> node,
+                <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an ArrayAccessTree node.</p> </td> </tr> <tr id="i3"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitArrayType(com.sun.source.tree.ArrayTypeTree,P)">visitArrayType</a>​(<a href="arraytypetree">ArrayTypeTree</a> node,
+              <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an ArrayTypeTree node.</p> </td> </tr> <tr id="i4"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitAssert(com.sun.source.tree.AssertTree,P)">visitAssert</a>​(<a href="asserttree">AssertTree</a> node,
+           <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an AssertTree node.</p> </td> </tr> <tr id="i5"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitAssignment(com.sun.source.tree.AssignmentTree,P)">visitAssignment</a>​(<a href="assignmenttree">AssignmentTree</a> node,
+               <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an AssignmentTree node.</p> </td> </tr> <tr id="i6"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitBinary(com.sun.source.tree.BinaryTree,P)">visitBinary</a>​(<a href="binarytree">BinaryTree</a> node,
+           <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a BinaryTree node.</p> </td> </tr> <tr id="i7"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitBlock(com.sun.source.tree.BlockTree,P)">visitBlock</a>​(<a href="blocktree">BlockTree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a BlockTree node.</p> </td> </tr> <tr id="i8"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitBreak(com.sun.source.tree.BreakTree,P)">visitBreak</a>​(<a href="breaktree">BreakTree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a BreakTree node.</p> </td> </tr> <tr id="i9"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitCase(com.sun.source.tree.CaseTree,P)">visitCase</a>​(<a href="casetree">CaseTree</a> node,
+         <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a CaseTree node.</p> </td> </tr> <tr id="i10"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitCatch(com.sun.source.tree.CatchTree,P)">visitCatch</a>​(<a href="catchtree">CatchTree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a CatchTree node.</p> </td> </tr> <tr id="i11"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitClass(com.sun.source.tree.ClassTree,P)">visitClass</a>​(<a href="classtree">ClassTree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ClassTree node.</p> </td> </tr> <tr id="i12"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitCompilationUnit(com.sun.source.tree.CompilationUnitTree,P)">visitCompilationUnit</a>​(<a href="compilationunittree">CompilationUnitTree</a> node,
+                    <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a CompilationUnitTree node.</p> </td> </tr> <tr id="i13"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitCompoundAssignment(com.sun.source.tree.CompoundAssignmentTree,P)">visitCompoundAssignment</a>​(<a href="compoundassignmenttree">CompoundAssignmentTree</a> node,
+                       <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a CompoundAssignmentTree node.</p> </td> </tr> <tr id="i14"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitConditionalExpression(com.sun.source.tree.ConditionalExpressionTree,P)">visitConditionalExpression</a>​(<a href="conditionalexpressiontree">ConditionalExpressionTree</a> node,
+                          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ConditionalExpressionTree node.</p> </td> </tr> <tr id="i15"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitContinue(com.sun.source.tree.ContinueTree,P)">visitContinue</a>​(<a href="continuetree">ContinueTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ContinueTree node.</p> </td> </tr> <tr id="i16"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitDoWhileLoop(com.sun.source.tree.DoWhileLoopTree,P)">visitDoWhileLoop</a>​(<a href="dowhilelooptree">DoWhileLoopTree</a> node,
+                <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a DoWhileTree node.</p> </td> </tr> <tr id="i17"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitEmptyStatement(com.sun.source.tree.EmptyStatementTree,P)">visitEmptyStatement</a>​(<a href="emptystatementtree">EmptyStatementTree</a> node,
+                   <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an EmptyStatementTree node.</p> </td> </tr> <tr id="i18"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitEnhancedForLoop(com.sun.source.tree.EnhancedForLoopTree,P)">visitEnhancedForLoop</a>​(<a href="enhancedforlooptree">EnhancedForLoopTree</a> node,
+                    <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an EnhancedForLoopTree node.</p> </td> </tr> <tr id="i19"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitErroneous(com.sun.source.tree.ErroneousTree,P)">visitErroneous</a>​(<a href="erroneoustree">ErroneousTree</a> node,
+              <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an ErroneousTree node.</p> </td> </tr> <tr id="i20"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitExports(com.sun.source.tree.ExportsTree,P)">visitExports</a>​(<a href="exportstree">ExportsTree</a> node,
+            <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an ExportsTree node.</p> </td> </tr> <tr id="i21"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitExpressionStatement(com.sun.source.tree.ExpressionStatementTree,P)">visitExpressionStatement</a>​(<a href="expressionstatementtree">ExpressionStatementTree</a> node,
+                        <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an ExpressionStatementTree node.</p> </td> </tr> <tr id="i22"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitForLoop(com.sun.source.tree.ForLoopTree,P)">visitForLoop</a>​(<a href="forlooptree">ForLoopTree</a> node,
+            <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ForLoopTree node.</p> </td> </tr> <tr id="i23"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitIdentifier(com.sun.source.tree.IdentifierTree,P)">visitIdentifier</a>​(<a href="identifiertree">IdentifierTree</a> node,
+               <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an IdentifierTree node.</p> </td> </tr> <tr id="i24"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitIf(com.sun.source.tree.IfTree,P)">visitIf</a>​(<a href="iftree">IfTree</a> node,
+       <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an IfTree node.</p> </td> </tr> <tr id="i25"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitImport(com.sun.source.tree.ImportTree,P)">visitImport</a>​(<a href="importtree">ImportTree</a> node,
+           <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an ImportTree node.</p> </td> </tr> <tr id="i26"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitInstanceOf(com.sun.source.tree.InstanceOfTree,P)">visitInstanceOf</a>​(<a href="instanceoftree">InstanceOfTree</a> node,
+               <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an InstanceOfTree node.</p> </td> </tr> <tr id="i27"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitIntersectionType(com.sun.source.tree.IntersectionTypeTree,P)">visitIntersectionType</a>​(<a href="intersectiontypetree">IntersectionTypeTree</a> node,
+                     <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an IntersectionTypeTree node.</p> </td> </tr> <tr id="i28"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitLabeledStatement(com.sun.source.tree.LabeledStatementTree,P)">visitLabeledStatement</a>​(<a href="labeledstatementtree">LabeledStatementTree</a> node,
+                     <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a LabeledStatementTree node.</p> </td> </tr> <tr id="i29"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitLambdaExpression(com.sun.source.tree.LambdaExpressionTree,P)">visitLambdaExpression</a>​(<a href="lambdaexpressiontree">LambdaExpressionTree</a> node,
+                     <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a LambdaExpressionTree node.</p> </td> </tr> <tr id="i30"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitLiteral(com.sun.source.tree.LiteralTree,P)">visitLiteral</a>​(<a href="literaltree">LiteralTree</a> node,
+            <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a LiteralTree node.</p> </td> </tr> <tr id="i31"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitMemberReference(com.sun.source.tree.MemberReferenceTree,P)">visitMemberReference</a>​(<a href="memberreferencetree">MemberReferenceTree</a> node,
+                    <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a MemberReferenceTree node.</p> </td> </tr> <tr id="i32"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitMemberSelect(com.sun.source.tree.MemberSelectTree,P)">visitMemberSelect</a>​(<a href="memberselecttree">MemberSelectTree</a> node,
+                 <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a MemberSelectTree node.</p> </td> </tr> <tr id="i33"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitMethod(com.sun.source.tree.MethodTree,P)">visitMethod</a>​(<a href="methodtree">MethodTree</a> node,
+           <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a MethodTree node.</p> </td> </tr> <tr id="i34"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitMethodInvocation(com.sun.source.tree.MethodInvocationTree,P)">visitMethodInvocation</a>​(<a href="methodinvocationtree">MethodInvocationTree</a> node,
+                     <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a MethodInvocationTree node.</p> </td> </tr> <tr id="i35"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitModifiers(com.sun.source.tree.ModifiersTree,P)">visitModifiers</a>​(<a href="modifierstree">ModifiersTree</a> node,
+              <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ModifiersTree node.</p> </td> </tr> <tr id="i36"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitModule(com.sun.source.tree.ModuleTree,P)">visitModule</a>​(<a href="moduletree">ModuleTree</a> node,
+           <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ModuleTree node.</p> </td> </tr> <tr id="i37"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitNewArray(com.sun.source.tree.NewArrayTree,P)">visitNewArray</a>​(<a href="newarraytree">NewArrayTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a NewArrayTree node.</p> </td> </tr> <tr id="i38"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitNewClass(com.sun.source.tree.NewClassTree,P)">visitNewClass</a>​(<a href="newclasstree">NewClassTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a NewClassTree node.</p> </td> </tr> <tr id="i39"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitOpens(com.sun.source.tree.OpensTree,P)">visitOpens</a>​(<a href="openstree">OpensTree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an OpensTree node.</p> </td> </tr> <tr id="i40"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitOther(com.sun.source.tree.Tree,P)">visitOther</a>​(<a href="tree">Tree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits an unknown type of Tree node.</p> </td> </tr> <tr id="i41"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitPackage(com.sun.source.tree.PackageTree,P)">visitPackage</a>​(<a href="packagetree">PackageTree</a> node,
+            <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a PackageTree node.</p> </td> </tr> <tr id="i42"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitParameterizedType(com.sun.source.tree.ParameterizedTypeTree,P)">visitParameterizedType</a>​(<a href="parameterizedtypetree">ParameterizedTypeTree</a> node,
+                      <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ParameterizedTypeTree node.</p> </td> </tr> <tr id="i43"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitParenthesized(com.sun.source.tree.ParenthesizedTree,P)">visitParenthesized</a>​(<a href="parenthesizedtree">ParenthesizedTree</a> node,
+                  <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ParenthesizedTree node.</p> </td> </tr> <tr id="i44"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitPrimitiveType(com.sun.source.tree.PrimitiveTypeTree,P)">visitPrimitiveType</a>​(<a href="primitivetypetree">PrimitiveTypeTree</a> node,
+                  <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a PrimitiveTypeTree node.</p> </td> </tr> <tr id="i45"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitProvides(com.sun.source.tree.ProvidesTree,P)">visitProvides</a>​(<a href="providestree">ProvidesTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ProvidesTree node.</p> </td> </tr> <tr id="i46"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitRequires(com.sun.source.tree.RequiresTree,P)">visitRequires</a>​(<a href="requirestree">RequiresTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a RequiresTree node.</p> </td> </tr> <tr id="i47"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitReturn(com.sun.source.tree.ReturnTree,P)">visitReturn</a>​(<a href="returntree">ReturnTree</a> node,
+           <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ReturnTree node.</p> </td> </tr> <tr id="i48"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSwitch(com.sun.source.tree.SwitchTree,P)">visitSwitch</a>​(<a href="switchtree">SwitchTree</a> node,
+           <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a SwitchTree node.</p> </td> </tr> <tr id="i49"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSynchronized(com.sun.source.tree.SynchronizedTree,P)">visitSynchronized</a>​(<a href="synchronizedtree">SynchronizedTree</a> node,
+                 <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a SynchronizedTree node.</p> </td> </tr> <tr id="i50"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitThrow(com.sun.source.tree.ThrowTree,P)">visitThrow</a>​(<a href="throwtree">ThrowTree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a ThrowTree node.</p> </td> </tr> <tr id="i51"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitTry(com.sun.source.tree.TryTree,P)">visitTry</a>​(<a href="trytree">TryTree</a> node,
+        <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a TryTree node.</p> </td> </tr> <tr id="i52"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitTypeCast(com.sun.source.tree.TypeCastTree,P)">visitTypeCast</a>​(<a href="typecasttree">TypeCastTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a TypeCastTree node.</p> </td> </tr> <tr id="i53"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitTypeParameter(com.sun.source.tree.TypeParameterTree,P)">visitTypeParameter</a>​(<a href="typeparametertree">TypeParameterTree</a> node,
+                  <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a TypeParameterTree node.</p> </td> </tr> <tr id="i54"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitUnary(com.sun.source.tree.UnaryTree,P)">visitUnary</a>​(<a href="unarytree">UnaryTree</a> node,
+          <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a UnaryTree node.</p> </td> </tr> <tr id="i55"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitUnionType(com.sun.source.tree.UnionTypeTree,P)">visitUnionType</a>​(<a href="uniontypetree">UnionTypeTree</a> node,
+              <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a UnionTypeTree node.</p> </td> </tr> <tr id="i56"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitUses(com.sun.source.tree.UsesTree,P)">visitUses</a>​(<a href="usestree">UsesTree</a> node,
+         <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a UsesTree node.</p> </td> </tr> <tr id="i57"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitVariable(com.sun.source.tree.VariableTree,P)">visitVariable</a>​(<a href="variabletree">VariableTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a VariableTree node.</p> </td> </tr> <tr id="i58"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitWhileLoop(com.sun.source.tree.WhileLoopTree,P)">visitWhileLoop</a>​(<a href="whilelooptree">WhileLoopTree</a> node,
+              <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a WhileLoopTree node.</p> </td> </tr> <tr id="i59"> <td><code><a href="treevisitor">R</a></code></td> <th scope="row"><code><a href="#visitWildcard(com.sun.source.tree.WildcardTree,P)">visitWildcard</a>​(<a href="wildcardtree">WildcardTree</a> node,
+             <a href="treevisitor">P</a> p)</code></th> <td> <p>Visits a WildcardTypeTree node.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="visitAnnotatedType(com.sun.source.tree.AnnotatedTypeTree,java.lang.Object)">visitAnnotatedType</h3> <pre data-language="java">R visitAnnotatedType(AnnotatedTypeTree node,
+                     P p)</pre> <p>Visits an AnnotatedTypeTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitAnnotation(com.sun.source.tree.AnnotationTree,java.lang.Object)">visitAnnotation</h3> <pre data-language="java">R visitAnnotation(AnnotationTree node,
+                  P p)</pre> <p>Visits an AnnotatedTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitMethodInvocation(com.sun.source.tree.MethodInvocationTree,java.lang.Object)">visitMethodInvocation</h3> <pre data-language="java">R visitMethodInvocation(MethodInvocationTree node,
+                        P p)</pre> <p>Visits a MethodInvocationTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitAssert(com.sun.source.tree.AssertTree,java.lang.Object)">visitAssert</h3> <pre data-language="java">R visitAssert(AssertTree node,
+              P p)</pre> <p>Visits an AssertTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitAssignment(com.sun.source.tree.AssignmentTree,java.lang.Object)">visitAssignment</h3> <pre data-language="java">R visitAssignment(AssignmentTree node,
+                  P p)</pre> <p>Visits an AssignmentTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitCompoundAssignment(com.sun.source.tree.CompoundAssignmentTree,java.lang.Object)">visitCompoundAssignment</h3> <pre data-language="java">R visitCompoundAssignment(CompoundAssignmentTree node,
+                          P p)</pre> <p>Visits a CompoundAssignmentTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitBinary(com.sun.source.tree.BinaryTree,java.lang.Object)">visitBinary</h3> <pre data-language="java">R visitBinary(BinaryTree node,
+              P p)</pre> <p>Visits a BinaryTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitBlock(com.sun.source.tree.BlockTree,java.lang.Object)">visitBlock</h3> <pre data-language="java">R visitBlock(BlockTree node,
+             P p)</pre> <p>Visits a BlockTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitBreak(com.sun.source.tree.BreakTree,java.lang.Object)">visitBreak</h3> <pre data-language="java">R visitBreak(BreakTree node,
+             P p)</pre> <p>Visits a BreakTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitCase(com.sun.source.tree.CaseTree,java.lang.Object)">visitCase</h3> <pre data-language="java">R visitCase(CaseTree node,
+            P p)</pre> <p>Visits a CaseTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitCatch(com.sun.source.tree.CatchTree,java.lang.Object)">visitCatch</h3> <pre data-language="java">R visitCatch(CatchTree node,
+             P p)</pre> <p>Visits a CatchTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitClass(com.sun.source.tree.ClassTree,java.lang.Object)">visitClass</h3> <pre data-language="java">R visitClass(ClassTree node,
+             P p)</pre> <p>Visits a ClassTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitConditionalExpression(com.sun.source.tree.ConditionalExpressionTree,java.lang.Object)">visitConditionalExpression</h3> <pre data-language="java">R visitConditionalExpression(ConditionalExpressionTree node,
+                             P p)</pre> <p>Visits a ConditionalExpressionTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitContinue(com.sun.source.tree.ContinueTree,java.lang.Object)">visitContinue</h3> <pre data-language="java">R visitContinue(ContinueTree node,
+                P p)</pre> <p>Visits a ContinueTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitDoWhileLoop(com.sun.source.tree.DoWhileLoopTree,java.lang.Object)">visitDoWhileLoop</h3> <pre data-language="java">R visitDoWhileLoop(DoWhileLoopTree node,
+                   P p)</pre> <p>Visits a DoWhileTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitErroneous(com.sun.source.tree.ErroneousTree,java.lang.Object)">visitErroneous</h3> <pre data-language="java">R visitErroneous(ErroneousTree node,
+                 P p)</pre> <p>Visits an ErroneousTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitExpressionStatement(com.sun.source.tree.ExpressionStatementTree,java.lang.Object)">visitExpressionStatement</h3> <pre data-language="java">R visitExpressionStatement(ExpressionStatementTree node,
+                           P p)</pre> <p>Visits an ExpressionStatementTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitEnhancedForLoop(com.sun.source.tree.EnhancedForLoopTree,java.lang.Object)">visitEnhancedForLoop</h3> <pre data-language="java">R visitEnhancedForLoop(EnhancedForLoopTree node,
+                       P p)</pre> <p>Visits an EnhancedForLoopTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitForLoop(com.sun.source.tree.ForLoopTree,java.lang.Object)">visitForLoop</h3> <pre data-language="java">R visitForLoop(ForLoopTree node,
+               P p)</pre> <p>Visits a ForLoopTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitIdentifier(com.sun.source.tree.IdentifierTree,java.lang.Object)">visitIdentifier</h3> <pre data-language="java">R visitIdentifier(IdentifierTree node,
+                  P p)</pre> <p>Visits an IdentifierTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitIf(com.sun.source.tree.IfTree,java.lang.Object)">visitIf</h3> <pre data-language="java">R visitIf(IfTree node,
+          P p)</pre> <p>Visits an IfTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitImport(com.sun.source.tree.ImportTree,java.lang.Object)">visitImport</h3> <pre data-language="java">R visitImport(ImportTree node,
+              P p)</pre> <p>Visits an ImportTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitArrayAccess(com.sun.source.tree.ArrayAccessTree,java.lang.Object)">visitArrayAccess</h3> <pre data-language="java">R visitArrayAccess(ArrayAccessTree node,
+                   P p)</pre> <p>Visits an ArrayAccessTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitLabeledStatement(com.sun.source.tree.LabeledStatementTree,java.lang.Object)">visitLabeledStatement</h3> <pre data-language="java">R visitLabeledStatement(LabeledStatementTree node,
+                        P p)</pre> <p>Visits a LabeledStatementTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitLiteral(com.sun.source.tree.LiteralTree,java.lang.Object)">visitLiteral</h3> <pre data-language="java">R visitLiteral(LiteralTree node,
+               P p)</pre> <p>Visits a LiteralTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitMethod(com.sun.source.tree.MethodTree,java.lang.Object)">visitMethod</h3> <pre data-language="java">R visitMethod(MethodTree node,
+              P p)</pre> <p>Visits a MethodTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitModifiers(com.sun.source.tree.ModifiersTree,java.lang.Object)">visitModifiers</h3> <pre data-language="java">R visitModifiers(ModifiersTree node,
+                 P p)</pre> <p>Visits a ModifiersTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitNewArray(com.sun.source.tree.NewArrayTree,java.lang.Object)">visitNewArray</h3> <pre data-language="java">R visitNewArray(NewArrayTree node,
+                P p)</pre> <p>Visits a NewArrayTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitNewClass(com.sun.source.tree.NewClassTree,java.lang.Object)">visitNewClass</h3> <pre data-language="java">R visitNewClass(NewClassTree node,
+                P p)</pre> <p>Visits a NewClassTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitLambdaExpression(com.sun.source.tree.LambdaExpressionTree,java.lang.Object)">visitLambdaExpression</h3> <pre data-language="java">R visitLambdaExpression(LambdaExpressionTree node,
+                        P p)</pre> <p>Visits a LambdaExpressionTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitPackage(com.sun.source.tree.PackageTree,java.lang.Object)">visitPackage</h3> <pre data-language="java">R visitPackage(PackageTree node,
+               P p)</pre> <p>Visits a PackageTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitParenthesized(com.sun.source.tree.ParenthesizedTree,java.lang.Object)">visitParenthesized</h3> <pre data-language="java">R visitParenthesized(ParenthesizedTree node,
+                     P p)</pre> <p>Visits a ParenthesizedTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitReturn(com.sun.source.tree.ReturnTree,java.lang.Object)">visitReturn</h3> <pre data-language="java">R visitReturn(ReturnTree node,
+              P p)</pre> <p>Visits a ReturnTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitMemberSelect(com.sun.source.tree.MemberSelectTree,java.lang.Object)">visitMemberSelect</h3> <pre data-language="java">R visitMemberSelect(MemberSelectTree node,
+                    P p)</pre> <p>Visits a MemberSelectTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitMemberReference(com.sun.source.tree.MemberReferenceTree,java.lang.Object)">visitMemberReference</h3> <pre data-language="java">R visitMemberReference(MemberReferenceTree node,
+                       P p)</pre> <p>Visits a MemberReferenceTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitEmptyStatement(com.sun.source.tree.EmptyStatementTree,java.lang.Object)">visitEmptyStatement</h3> <pre data-language="java">R visitEmptyStatement(EmptyStatementTree node,
+                      P p)</pre> <p>Visits an EmptyStatementTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitSwitch(com.sun.source.tree.SwitchTree,java.lang.Object)">visitSwitch</h3> <pre data-language="java">R visitSwitch(SwitchTree node,
+              P p)</pre> <p>Visits a SwitchTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitSynchronized(com.sun.source.tree.SynchronizedTree,java.lang.Object)">visitSynchronized</h3> <pre data-language="java">R visitSynchronized(SynchronizedTree node,
+                    P p)</pre> <p>Visits a SynchronizedTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitThrow(com.sun.source.tree.ThrowTree,java.lang.Object)">visitThrow</h3> <pre data-language="java">R visitThrow(ThrowTree node,
+             P p)</pre> <p>Visits a ThrowTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitCompilationUnit(com.sun.source.tree.CompilationUnitTree,java.lang.Object)">visitCompilationUnit</h3> <pre data-language="java">R visitCompilationUnit(CompilationUnitTree node,
+                       P p)</pre> <p>Visits a CompilationUnitTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitTry(com.sun.source.tree.TryTree,java.lang.Object)">visitTry</h3> <pre data-language="java">R visitTry(TryTree node,
+           P p)</pre> <p>Visits a TryTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitParameterizedType(com.sun.source.tree.ParameterizedTypeTree,java.lang.Object)">visitParameterizedType</h3> <pre data-language="java">R visitParameterizedType(ParameterizedTypeTree node,
+                         P p)</pre> <p>Visits a ParameterizedTypeTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitUnionType(com.sun.source.tree.UnionTypeTree,java.lang.Object)">visitUnionType</h3> <pre data-language="java">R visitUnionType(UnionTypeTree node,
+                 P p)</pre> <p>Visits a UnionTypeTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitIntersectionType(com.sun.source.tree.IntersectionTypeTree,java.lang.Object)">visitIntersectionType</h3> <pre data-language="java">R visitIntersectionType(IntersectionTypeTree node,
+                        P p)</pre> <p>Visits an IntersectionTypeTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitArrayType(com.sun.source.tree.ArrayTypeTree,java.lang.Object)">visitArrayType</h3> <pre data-language="java">R visitArrayType(ArrayTypeTree node,
+                 P p)</pre> <p>Visits an ArrayTypeTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitTypeCast(com.sun.source.tree.TypeCastTree,java.lang.Object)">visitTypeCast</h3> <pre data-language="java">R visitTypeCast(TypeCastTree node,
+                P p)</pre> <p>Visits a TypeCastTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitPrimitiveType(com.sun.source.tree.PrimitiveTypeTree,java.lang.Object)">visitPrimitiveType</h3> <pre data-language="java">R visitPrimitiveType(PrimitiveTypeTree node,
+                     P p)</pre> <p>Visits a PrimitiveTypeTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitTypeParameter(com.sun.source.tree.TypeParameterTree,java.lang.Object)">visitTypeParameter</h3> <pre data-language="java">R visitTypeParameter(TypeParameterTree node,
+                     P p)</pre> <p>Visits a TypeParameterTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitInstanceOf(com.sun.source.tree.InstanceOfTree,java.lang.Object)">visitInstanceOf</h3> <pre data-language="java">R visitInstanceOf(InstanceOfTree node,
+                  P p)</pre> <p>Visits an InstanceOfTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitUnary(com.sun.source.tree.UnaryTree,java.lang.Object)">visitUnary</h3> <pre data-language="java">R visitUnary(UnaryTree node,
+             P p)</pre> <p>Visits a UnaryTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitVariable(com.sun.source.tree.VariableTree,java.lang.Object)">visitVariable</h3> <pre data-language="java">R visitVariable(VariableTree node,
+                P p)</pre> <p>Visits a VariableTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitWhileLoop(com.sun.source.tree.WhileLoopTree,java.lang.Object)">visitWhileLoop</h3> <pre data-language="java">R visitWhileLoop(WhileLoopTree node,
+                 P p)</pre> <p>Visits a WhileLoopTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitWildcard(com.sun.source.tree.WildcardTree,java.lang.Object)">visitWildcard</h3> <pre data-language="java">R visitWildcard(WildcardTree node,
+                P p)</pre> <p>Visits a WildcardTypeTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitModule(com.sun.source.tree.ModuleTree,java.lang.Object)">visitModule</h3> <pre data-language="java">R visitModule(ModuleTree node,
+              P p)</pre> <p>Visits a ModuleTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitExports(com.sun.source.tree.ExportsTree,java.lang.Object)">visitExports</h3> <pre data-language="java">R visitExports(ExportsTree node,
+               P p)</pre> <p>Visits an ExportsTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitOpens(com.sun.source.tree.OpensTree,java.lang.Object)">visitOpens</h3> <pre data-language="java">R visitOpens(OpensTree node,
+             P p)</pre> <p>Visits an OpensTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitProvides(com.sun.source.tree.ProvidesTree,java.lang.Object)">visitProvides</h3> <pre data-language="java">R visitProvides(ProvidesTree node,
+                P p)</pre> <p>Visits a ProvidesTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitRequires(com.sun.source.tree.RequiresTree,java.lang.Object)">visitRequires</h3> <pre data-language="java">R visitRequires(RequiresTree node,
+                P p)</pre> <p>Visits a RequiresTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitUses(com.sun.source.tree.UsesTree,java.lang.Object)">visitUses</h3> <pre data-language="java">R visitUses(UsesTree node,
+            P p)</pre> <p>Visits a UsesTree node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>    <h3 id="visitOther(com.sun.source.tree.Tree,java.lang.Object)">visitOther</h3> <pre data-language="java">R visitOther(Tree node,
+             P p)</pre> <p>Visits an unknown type of Tree node. This can occur if the language evolves and new kinds of nodes are added to the <code>Tree</code> hierarchy.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>a result value</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.compiler/com/sun/source/tree/TreeVisitor.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.compiler/com/sun/source/tree/TreeVisitor.html</a>
+  </p>
+</div>

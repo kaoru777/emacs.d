@@ -1,0 +1,30 @@
+  <main role="main">    <h1>Interface Checksum</h1>     <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="adler32">Adler32</a></code>, <code><a href="crc32">CRC32</a></code>, <code><a href="crc32c">CRC32C</a></code>
+</dd> </dl>  <pre data-language="java">public interface Checksum</pre> <p>An interface representing a data checksum.</p> <dl> <dt>Since:</dt> <dd>1.1</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>long</code></td> <th scope="row"><code><a href="#getValue()">getValue</a>()</code></th> <td> <p>Returns the current checksum value.</p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#reset()">reset</a>()</code></th> <td> <p>Resets the checksum to its initial value.</p> </td> </tr> <tr id="i2"> <td><code>default void</code></td> <th scope="row"><code><a href="#update(byte%5B%5D)">update</a>​(byte[] b)</code></th> <td> <p>Updates the current checksum with the specified array of bytes.</p> </td> </tr> <tr id="i3"> <td><code>void</code></td> <th scope="row"><code><a href="#update(byte%5B%5D,int,int)">update</a>​(byte[] b,
+      int off,
+      int len)</code></th> <td> <p>Updates the current checksum with the specified array of bytes.</p> </td> </tr> <tr id="i4"> <td><code>void</code></td> <th scope="row"><code><a href="#update(int)">update</a>​(int b)</code></th> <td> <p>Updates the current checksum with the specified byte.</p> </td> </tr> <tr id="i5"> <td><code>default void</code></td> <th scope="row"><code><a href="#update(java.nio.ByteBuffer)">update</a>​(<a href="../../nio/bytebuffer">ByteBuffer</a> buffer)</code></th> <td> <p>Updates the current checksum with the bytes from the specified buffer.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="update(int)">update</h3> <pre data-language="java">void update(int b)</pre> <p>Updates the current checksum with the specified byte.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>b</code> - the byte to update the checksum with</dd> </dl>    <h3 id="update(byte[])">update</h3> <pre data-language="java">default void update(byte[] b)</pre> <p>Updates the current checksum with the specified array of bytes.</p> <dl> <dt>Implementation Requirements:</dt> <dd>This default implementation is equal to calling <code>update(b, 0, b.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>b</code> - the array of bytes to update the checksum with</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../lang/nullpointerexception">NullPointerException</a></code> - if <code>b</code> is <code>null</code>
+</dd> <dt>Since:</dt> <dd>9</dd> </dl>    <h3 id="update(byte[],int,int)">update</h3> <pre data-language="java">void update(byte[] b,
+            int off,
+            int len)</pre> <p>Updates the current checksum with the specified array of bytes.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>b</code> - the byte array to update the checksum with</dd> <dd>
+<code>off</code> - the start offset of the data</dd> <dd>
+<code>len</code> - the number of bytes to use for the update</dd> </dl>    <h3 id="update(java.nio.ByteBuffer)">update</h3> <pre data-language="java">default void update(ByteBuffer buffer)</pre> <p>Updates the current checksum with the bytes from the specified buffer. The checksum is updated with the remaining bytes in the buffer, starting at the buffer's position. Upon return, the buffer's position will be updated to its limit; its limit will not have been changed.</p> <dl> <dt>API Note:</dt> <dd>For best performance with DirectByteBuffer and other ByteBuffer implementations without a backing array implementers of this interface should override this method.</dd> <dt>Implementation Requirements:</dt> <dd>The default implementation has the following behavior.<br> For ByteBuffers backed by an accessible byte array. <pre data-language="java">update(buffer.array(),
+        buffer.position() + buffer.arrayOffset(),
+        buffer.remaining());</pre> For ByteBuffers not backed by an accessible byte array. <pre data-language="java">byte[] b = new byte[Math.min(buffer.remaining(), 4096)];
+ while (buffer.hasRemaining()) {
+     int length = Math.min(buffer.remaining(), b.length);
+     buffer.get(b, 0, length);
+     update(b, 0, length);
+ }</pre>
+</dd> <dt>Parameters:</dt> <dd>
+<code>buffer</code> - the ByteBuffer to update the checksum with</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../lang/nullpointerexception">NullPointerException</a></code> - if <code>buffer</code> is <code>null</code>
+</dd> <dt>Since:</dt> <dd>9</dd> </dl>    <h3 id="getValue()">getValue</h3> <pre data-language="java">long getValue()</pre> <p>Returns the current checksum value.</p> <dl> <dt>Returns:</dt> <dd>the current checksum value</dd> </dl>    <h3 id="reset()">reset</h3> <pre data-language="java">void reset()</pre> <p>Resets the checksum to its initial value.</p>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/zip/Checksum.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/zip/Checksum.html</a>
+  </p>
+</div>

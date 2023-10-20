@@ -1,0 +1,14 @@
+<h1 id="module-CSV::DeleteSuffix" class="module"> module CSV::DeleteSuffix </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-delete_suffix"> <span class="method-name">delete_suffix</span><span class="method-args">(suffix)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="delete_suffix-source"> <pre class="ruby" data-language="ruby"># File lib/csv/delete_suffix.rb, line 8
+def delete_suffix(suffix)
+  if end_with?(suffix)
+    self[0...-suffix.size]
+  else
+    self
+  end
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

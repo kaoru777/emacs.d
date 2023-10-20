@@ -1,0 +1,23 @@
+  <main role="main">    <h1>Interface AppletInitializer</h1>      <pre data-language="java">@Deprecated(since="9")
+public interface AppletInitializer</pre> <div>
+<strong>Deprecated.</strong> <div>The Applet API is deprecated. See the <a href="../applet/package-summary"> java.applet package documentation</a> for further information.</div> </div> <p>This interface is designed to work in collusion with java.beans.Beans.instantiate. The interface is intended to provide mechanism to allow the proper initialization of JavaBeans that are also Applets, during their instantiation by java.beans.Beans.instantiate().</p> <dl> <dt>Since:</dt> <dd>1.2</dd> <dt>See Also:</dt> <dd><a href="beans#instantiate(java.lang.ClassLoader,java.lang.String)"><code>Beans.instantiate(java.lang.ClassLoader, java.lang.String)</code></a></dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#activate(java.applet.Applet)">activate</a>​(<a href="../applet/applet">Applet</a> newApplet)</code></th> <td> <p><strong>Deprecated.</strong></p> <p> Activate, and/or mark Applet active.</p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#initialize(java.applet.Applet,java.beans.beancontext.BeanContext)">initialize</a>​(<a href="../applet/applet">Applet</a> newAppletBean,
+          <a href="beancontext/beancontext">BeanContext</a> bCtxt)</code></th> <td> <p><strong>Deprecated.</strong></p> <p> If passed to the appropriate variant of java.beans.Beans.instantiate this method will be called in order to associate the newly instantiated Applet (JavaBean) with its AppletContext, AppletStub, and Container.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="initialize(java.applet.Applet,java.beans.beancontext.BeanContext)">initialize</h3> <pre data-language="java">void initialize(Applet newAppletBean,
+                BeanContext bCtxt)</pre> <div><strong>Deprecated.</strong></div> <div>
+
+<p> If passed to the appropriate variant of java.beans.Beans.instantiate this method will be called in order to associate the newly instantiated Applet (JavaBean) with its AppletContext, AppletStub, and Container. </p> <p> Conformant implementations shall: </p>
+<ol> <li> Associate the newly instantiated Applet with the appropriate AppletContext. </li>
+<li> Instantiate an AppletStub() and associate that AppletStub with the Applet via an invocation of setStub(). </li>
+<li> If BeanContext parameter is null, then it shall associate the Applet with its appropriate Container by adding that Applet to its Container via an invocation of add(). If the BeanContext parameter is non-null, then it is the responsibility of the BeanContext to associate the Applet with its Container during the subsequent invocation of its addChildren() method. </li>
+</ol>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>newAppletBean</code> - The newly instantiated JavaBean</dd> <dd>
+<code>bCtxt</code> - The BeanContext intended for this Applet, or null.</dd> </dl>    <h3 id="activate(java.applet.Applet)">activate</h3> <pre data-language="java">void activate(Applet newApplet)</pre> <div><strong>Deprecated.</strong></div> <div>
+
+<p> Activate, and/or mark Applet active. Implementors of this interface shall mark this Applet as active, and optionally invoke its start() method. </p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>newApplet</code> - The newly instantiated JavaBean</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/beans/AppletInitializer.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/beans/AppletInitializer.html</a>
+  </p>
+</div>

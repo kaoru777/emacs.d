@@ -1,0 +1,114 @@
+<h1>lab()</h1>
+<div class="section-content"><p>The <code>lab()</code> functional notation expresses a given color in the CIE L*a*b* color space. Lab represents the entire range of color that humans can see.</p></div>
+<section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token function">lab</span><span class="token punctuation">(</span>29.2345% 39.3825 20.0664<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">lab</span><span class="token punctuation">(</span>52.2345% 40.1645 59.9971<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">lab</span><span class="token punctuation">(</span>52.2345% 40.1645 59.9971 / .5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre></div></div></section><section aria-labelledby="values"><h3 id="values">Values</h3>
+<div class="section-content">
+<ul> <li>Functional notation: <code>lab(L a b [/ A])</code> <ul> <li>
+<code>L</code> is a <a href="../number"><code>&lt;number&gt;</code></a> between <code>0</code> and <code>100</code> or a <a href="../percentage"><code>&lt;percentage&gt;</code></a> between <code>0%</code> and <code>100%</code> that specifies the CIE Lightness where the number <code>0</code> corresponds to <code>0%</code> (black) and the number <code>100</code> corresponds to <code>100%</code> (white).</li> <li>
+<code>a</code> is a <a href="../number"><code>&lt;number&gt;</code></a> between <code>-125</code> and <code>125</code> or a <a href="../percentage"><code>&lt;percentage&gt;</code></a> between <code>-100%</code> and <code>100%</code>, specifying the distance along the <code>a</code> axis in the Lab colorspace, that is how green/red the color is.</li> <li>
+<code>b</code> is a <a href="../number"><code>&lt;number&gt;</code></a> between <code>-125</code> and <code>125</code> or a <a href="../percentage"><code>&lt;percentage&gt;</code></a> between <code>-100%</code> and <code>100%</code>, specifying the distance along the <code>b</code> axis in the Lab colorspace, that is how blue/yellow the color is.</li> <li>
+<code>A</code> (alpha) can be a <a href="../number"><code>&lt;number&gt;</code></a> between <code>0</code> and <code>1</code>, or a <a href="../percentage"><code>&lt;percentage&gt;</code></a>, where the number <code>1</code> corresponds to <code>100%</code> (full opacity).</li> </ul> </li> </ul> <div class="notecard note" id="sect1"> <p> <strong>Note:</strong> Usually when percentage values have a numeric equivalent in CSS, <code>100%</code> is equal to the number <code>1</code>. This case is notable where <code>100%</code> is equal to the number <code>100</code> for the <code>L</code> value and <code>125</code> for the <code>a</code> and <code>b</code> values. </p> </div>
+</div></section><section aria-labelledby="formal_syntax"><h3 id="formal_syntax">Formal syntax</h3>
+<div class="section-content"><pre class="notranslate"><span class="token property" id="&lt;lab()&gt;">&lt;lab()&gt; = </span><br>  <span class="token function">lab(</span> <a href="../value_definition_syntax#brackets">[</a> <a href="../percentage"><span class="token property">&lt;percentage&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <a href="../number"><span class="token property">&lt;number&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">[</a> <a href="../percentage"><span class="token property">&lt;percentage&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <a href="../number"><span class="token property">&lt;number&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">[</a> <a href="../percentage"><span class="token property">&lt;percentage&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <a href="../number"><span class="token property">&lt;number&gt;</span></a> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">[</a> / <a href="../value_definition_syntax#brackets">[</a> <span class="token property">&lt;alpha-value&gt;</span> <a href="../value_definition_syntax#single_bar">|</a> <span class="token keyword">none</span> <a href="../value_definition_syntax#brackets">]</a> <a href="../value_definition_syntax#brackets">]</a><a href="../value_definition_syntax#question_mark">?</a> <span class="token function">)</span>  <br><br><span class="token property" id="&lt;alpha-value&gt;">&lt;alpha-value&gt; = </span><br>  <a href="../number"><span class="token property">&lt;number&gt;</span></a>      <a href="../value_definition_syntax#single_bar">|</a><br>  <a href="../percentage"><span class="token property">&lt;percentage&gt;</span></a>  <br><br></pre></div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="adjusting_lightness_and_color_axes_with_lab"><h3 id="adjusting_lightness_and_color_axes_with_lab">Adjusting lightness and color axes with lab()</h3>
+<div class="section-content">
+<p>The following example shows the effect of varying the lightness, a-axis, and b-axis values of the <code>lab()</code> function.</p> <div class="code-example"><pre data-language="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-a<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-b<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-light<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</pre></div>  <div class="code-example"><pre data-language="css"><span class="token selector">[data-color="red"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>100 125 125<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">[data-color="red-a"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>100 110 125<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">[data-color="green"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>75% -120 125<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">[data-color="green-b"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>75% -120 10<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">[data-color="blue"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>0 -120 -120<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">[data-color="blue-light"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>70 -120 -120<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre></div>
+<iframe class="sample-code-frame" title="Adjusting lightness and color axes with lab sample" id="frame_adjusting_lightness_and_color_axes_with_lab" src="https://live-samples.mdn.mozilla.net/en-US/docs/Web/CSS/color_value/lab/_sample_.adjusting_lightness_and_color_axes_with_lab.html" loading="lazy"></iframe>
+</div></section><section aria-labelledby="adjusting_opacity_with_lab"><h3 id="adjusting_opacity_with_lab">Adjusting opacity with lab()</h3>
+<div class="section-content">
+<p> The following example shows the effect of varying the <code>A</code> (alpha) value of the <code>lab()</code> functional notation. The <code>red</code> and <code>red-alpha</code> elements overlap the <code>#background-div</code> element to demonstrate the effect of opacity. Giving <code>A</code> a value of <code>0.4</code> makes the color 40% opaque. </p> <div class="code-example"><pre data-language="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>background-div<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-alpha<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</pre></div>  <div class="code-example"><pre data-language="css"><span class="token selector">[data-color="red"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>100 125 125<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">[data-color="red-alpha"]</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">lab</span><span class="token punctuation">(</span>100 125 125 / 0.4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre></div>
+<iframe class="sample-code-frame" title="Adjusting opacity with lab sample" id="frame_adjusting_opacity_with_lab" src="https://live-samples.mdn.mozilla.net/en-US/docs/Web/CSS/color_value/lab/_sample_.adjusting_opacity_with_lab.html" loading="lazy"></iframe>
+</div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://w3c.github.io/csswg-drafts/css-color/#lab-colors">CSS Color Module Level 4 <br><small># lab-colors</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody><tr>
+<th><code>lab</code></th>
+<td class="bc-supports-yes">111</td>
+<td class="bc-supports-yes">111</td>
+<td class="bc-supports-yes">111</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">97</td>
+<td class="bc-supports-yes">15</td>
+<td class="bc-supports-yes">111</td>
+<td class="bc-supports-yes">111</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">15</td>
+<td class="bc-supports-no">No</td>
+</tr></tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li>The <a href="../color_value"><code>&lt;color&gt;</code> data type</a> for a list of all color notations</li> <li><a href="https://lea.verou.me/2020/04/lch-colors-in-css-what-why-and-how/" target="_blank">LCH colors in CSS: what, why, and how?</a></li> <li>
+<a href="https://webkit.org/blog/11577/release-notes-for-safari-technology-preview-122/" target="_blank">Safari Technology Preview 122 release notes</a>: includes <code>lab()</code> and <a href="lch"><code>lch()</code></a> colors.</li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/lab" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/lab</a>
+  </p>
+</div>

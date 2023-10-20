@@ -1,0 +1,14 @@
+ <main role="main">   <h1>Package javax.lang.model</h1>   <section role="region"> <div id="package.description">
+<p>Classes and hierarchies of packages used to model the Java programming language. The members of this package and its subpackages are for use in language modeling and language processing tasks and APIs including, but not limited to, the <a href="../../annotation/processing/package-summary">annotation processing</a> framework. </p>
+<p> This language model follows a <i>mirror</i>-based design; see </p>
+<blockquote> Gilad Bracha and David Ungar. <i>Mirrors: Design Principles for Meta-level Facilities of Object-Oriented Programming Languages</i>. In Proc. of the ACM Conf. on Object-Oriented Programming, Systems, Languages and Applications, October 2004. </blockquote> In particular, the model makes a distinction between static language constructs, like the <a href="element/package-summary">element</a> representing <code>java.util.Set</code>, and the family of <a href="type/package-summary">types</a> that may be associated with an element, like the raw type <code>java.util.Set</code>, <code>
+ java.util.Set&lt;String&gt;</code>, and <code>java.util.Set&lt;T&gt;</code>. <p> Unless otherwise specified, methods in this package will throw a <code>NullPointerException</code> if given a <code>null</code> argument.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.6</dd> </dl> </section> <table>  <tr> <th scope="col">Interface</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="annotatedconstruct">AnnotatedConstruct</a></th> <td> <p>Represents a construct that can be annotated.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Enum</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="sourceversion">SourceVersion</a></th> <td> <p>Source versions of the Java™ programming language.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Exception</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="unknownentityexception">UnknownEntityException</a></th> <td> <p>Superclass of exceptions which indicate that an unknown kind of entity was encountered.</p> </td> </tr>  </table>
+  </main> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.compiler/javax/lang/model/package-summary.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.compiler/javax/lang/model/package-summary.html</a>
+  </p>
+</div>

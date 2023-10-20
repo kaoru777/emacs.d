@@ -1,0 +1,14 @@
+  <main role="main">    <h1>Interface JMXAddressable</h1>     <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="jmxconnectorserver">JMXConnectorServer</a></code>, <code><a href="../../../../java.management.rmi/javax/management/remote/rmi/rmiconnector">RMIConnector</a></code>, <code><a href="../../../../java.management.rmi/javax/management/remote/rmi/rmiconnectorserver">RMIConnectorServer</a></code>
+</dd> </dl>  <pre data-language="java">public interface JMXAddressable</pre> <div>
+
+<p>Implemented by objects that can have a <code>JMXServiceURL</code> address. All <a href="jmxconnectorserver"><code>JMXConnectorServer</code></a> objects implement this interface. Depending on the connector implementation, a <a href="jmxconnector"><code>JMXConnector</code></a> object may implement this interface too. <code>JMXConnector</code> objects for the RMI Connector are instances of <a href="../../../../java.management.rmi/javax/management/remote/rmi/rmiconnector"><code>RMIConnector</code></a> which implements this interface.</p> <p>An object implementing this interface might not have an address at a given moment. This is indicated by a null return value from <a href="#getAddress()"><code>getAddress()</code></a>.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.6</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="jmxserviceurl">JMXServiceURL</a></code></td> <th scope="row"><code><a href="#getAddress()">getAddress</a>()</code></th> <td> <p>The address of this object.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getAddress()">getAddress</h3> <pre data-language="java">JMXServiceURL getAddress()</pre> <div>
+
+<p>The address of this object.</p>
+</div> <dl> <dt>Returns:</dt> <dd>the address of this object, or null if it does not have one.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.management/javax/management/remote/JMXAddressable.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.management/javax/management/remote/JMXAddressable.html</a>
+  </p>
+</div>

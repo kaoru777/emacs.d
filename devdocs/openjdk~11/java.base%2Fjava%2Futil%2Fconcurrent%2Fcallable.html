@@ -1,0 +1,17 @@
+  <main role="main">    <h1>Interface Callable&lt;V&gt;</h1>     <dl> <dt>Type Parameters:</dt> <dd>
+<code>V</code> - the result type of method <code>call</code>
+</dd> </dl> <dl> <dt>All Known Subinterfaces:</dt> <dd>
+<code><a href="../../../../java.compiler/javax/tools/documentationtool.documentationtask">DocumentationTool.DocumentationTask</a></code>, <code><a href="../../../../java.compiler/javax/tools/javacompiler.compilationtask">JavaCompiler.CompilationTask</a></code>
+</dd> </dl> <dl> <dt>All Known Implementing Classes:</dt> <dd><code><a href="../../../../jdk.compiler/com/sun/source/util/javactask">JavacTask</a></code></dd> </dl> <dl> <dt>Functional Interface:</dt> <dd>This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.</dd> </dl>  <pre data-language="java">@FunctionalInterface
+public interface Callable&lt;V&gt;</pre> <div>
+<p>A task that returns a result and may throw an exception. Implementors define a single method with no arguments called <code>call</code>. </p>
+<p>The <code>Callable</code> interface is similar to <a href="../../lang/runnable"><code>Runnable</code></a>, in that both are designed for classes whose instances are potentially executed by another thread. A <code>Runnable</code>, however, does not return a result and cannot throw a checked exception. </p>
+<p>The <a href="executors"><code>Executors</code></a> class contains utility methods to convert from other common forms to <code>Callable</code> classes.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd> <dt>See Also:</dt> <dd><a href="executor"><code>Executor</code></a></dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="callable">V</a></code></td> <th scope="row"><code><a href="#call()">call</a>()</code></th> <td> <p>Computes a result, or throws an exception if unable to do so.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="call()">call</h3> <pre data-language="java">V call()
+throws Exception</pre> <p>Computes a result, or throws an exception if unable to do so.</p> <dl> <dt>Returns:</dt> <dd>computed result</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../lang/exception">Exception</a></code> - if unable to compute a result</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Callable.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/Callable.html</a>
+  </p>
+</div>

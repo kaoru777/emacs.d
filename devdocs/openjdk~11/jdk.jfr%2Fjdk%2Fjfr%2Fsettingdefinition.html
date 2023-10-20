@@ -1,0 +1,23 @@
+  <main role="main">    <h1>Annotation Type SettingDefinition</h1>      <pre data-language="java">@Retention(RUNTIME)
+@Target(METHOD)
+public @interface SettingDefinition</pre> <div>
+<p>Annotation that specifies that a method in an event class should be used to filter out events. </p>
+<p> For the method to be valid it must return a <code>SettingControl</code> and only have one parameter, which should be a non-abstract subclass of <a href="settingcontrol"><code>SettingControl</code></a> </p>
+<p> The return value of the method specifies whether the event is to be written to the Flight Recorder system or not. </p>
+<p> The following example shows how to annotate a method in an event class. </p>
+<pre data-language="java">class HelloWorld extend Event {
+
+   @Label("Message");
+   String message;
+
+   @SettingDefinition;
+   @Label("Message Filter");
+   public boolean filter(RegExpControl regExp) {
+     return regExp.matches(message);
+   }
+ }</pre> For an example of how the setting controls are defined, see <a href="settingcontrol"><code>SettingControl</code></a>.</div> <dl> <dt>Since:</dt> <dd>9</dd> <dt>See Also:</dt> <dd><a href="settingcontrol"><code>SettingControl</code></a></dd> </dl>    </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/SettingDefinition.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/SettingDefinition.html</a>
+  </p>
+</div>

@@ -1,0 +1,169 @@
+<h1>text-combine-upright</h1>
+<div class="section-content">
+<p>The <code>text-combine-upright</code> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> property sets the combination of characters into the space of a single character. If the combined text is wider than 1em, the user agent must fit the contents within 1em. The resulting composition is treated as a single upright glyph for layout and decoration. This property only has an effect in vertical writing modes.</p> <p>This is used to produce an effect that is known as tate-chū-yoko <q>縦中横</q> in Japanese, or as <q>橫向文字</q> in Chinese.</p>
+</div>
+<section aria-labelledby="try_it"><h2 id="try_it">Try it</h2>
+<div class="section-content"><iframe class="interactive is-default-height" height="200" src="https://interactive-examples.mdn.mozilla.net/pages/css/text-combine-upright.html" title="MDN Web Docs Interactive Example" loading="lazy"></iframe></div></section><section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token comment">/* Keyword values */</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> all<span class="token punctuation">;</span>
+
+<span class="token comment">/* Digits values */</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> digits<span class="token punctuation">;</span> <span class="token comment">/* fits 2 consecutive digits horizontally inside vertical text */</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> digits 4<span class="token punctuation">;</span> <span class="token comment">/* fits up to 4 consecutive digits horizontally inside vertical text */</span>
+
+<span class="token comment">/* Global values */</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> initial<span class="token punctuation">;</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> revert<span class="token punctuation">;</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> revert-layer<span class="token punctuation">;</span>
+<span class="token property">text-combine-upright</span><span class="token punctuation">:</span> unset<span class="token punctuation">;</span>
+</pre></div></div></section><section aria-labelledby="values"><h3 id="values">Values</h3>
+<div class="section-content"><dl> <dt id="none"><code>none</code></dt> <dd> <p>There is no special processing.</p> </dd> <dt id="all"><code>all</code></dt> <dd> <p>Attempts to typeset all consecutive characters within the box horizontally, such that they take up the space of a single character within the vertical line of the box.</p> </dd> <dt id="digits_integer"><code>digits &lt;integer&gt;?</code></dt> <dd> <p>Attempts to display a sequence of consecutive ASCII digits (U+0030–U+0039) that has as many or fewer characters than the specified integer, such that it takes up the space of a single character within the vertical line box. If the integer is omitted, it computes to 2. Integers outside the range of 2-4 are invalid.</p> </dd> </dl></div></section><section aria-labelledby="formal_definition"><h2 id="formal_definition">Formal definition</h2>
+<div class="section-content"><figure class="table-container"><div class="_table"><table class="properties"><tbody>
+<tr>
+<th scope="row"><a href="initial_value">Initial value</a></th>
+<td><code>none</code></td>
+</tr>
+<tr>
+<th scope="row">Applies to</th>
+<td>non-replaced inline elements</td>
+</tr>
+<tr>
+<th scope="row"><a href="inheritance">Inherited</a></th>
+<td>yes</td>
+</tr>
+<tr>
+<th scope="row"><a href="computed_value">Computed value</a></th>
+<td>specified keyword, plus integer if 'digits'</td>
+</tr>
+<tr>
+<th scope="row">Animation type</th>
+<td>Not animatable</td>
+</tr>
+</tbody></table></div></figure></div></section><section aria-labelledby="formal_syntax"><h2 id="formal_syntax">Formal syntax</h2>
+<div class="section-content"><pre class="notranslate"><span class="token property" id="text-combine-upright">text-combine-upright = </span><br>  <span class="token keyword">none</span>                         <a href="value_definition_syntax#single_bar">|</a><br>  <span class="token keyword">all</span>                          <a href="value_definition_syntax#single_bar">|</a><br>  <a href="value_definition_syntax#brackets">[</a> <span class="token keyword">digits</span> <a href="integer"><span class="token property">&lt;integer [2,4]&gt;</span></a><a href="value_definition_syntax#question_mark">?</a> <a href="value_definition_syntax#brackets">]</a>  <br><br></pre></div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="example_using_digits"><h3 id="example_using_digits">Example using "digits"</h3>
+<div class="section-content">
+<p>The digits value requires less markup than the all value when digits are being combined, but it is currently not very widely supported by browsers.</p> <h4 id="html">HTML</h4> <div class="code-example"><pre data-language="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ja<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>exampleText<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>平成20年4月16日に<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</pre></div> <h4 id="css">CSS</h4> <div class="code-example"><pre data-language="css"><span class="token selector">.exampleText</span> <span class="token punctuation">{</span>
+  <span class="token property">writing-mode</span><span class="token punctuation">:</span> vertical-lr<span class="token punctuation">;</span>
+  <span class="token property">text-combine-upright</span><span class="token punctuation">:</span> digits 2<span class="token punctuation">;</span>
+  <span class="token property">font</span><span class="token punctuation">:</span> 36px serif<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre></div> <h4 id="results">Results</h4>
+<figure class="table-container"><div class="_table"><table class="sample-code-table">
+<thead><tr>
+<th scope="col">Screenshot</th>
+<th scope="col">Live sample</th>
+</tr></thead>
+<tbody><tr>
+<td><img alt="" class="internal" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAFGCAMAAAB5f8C3AAAAeFBMVEX///8/t+zv7+8PDw+/v78/Pz9/f38AAAB/z/K/5/jf398vLy9fX1/Pz8+fn58fHx9vb2+Pj4+vr69PT08AJzlfw+8vseofq+mP1fQfR1kAd6w/Z3mPt8ifx9hPd4lfh5kPh7xvv+IPN0l/p7kfl8yf2/Xf8/vP7frwi5GmAAAPd0lEQVR42u3d65qjNrYGYNWStL60zkAye2cm2bPPc/93OAFkJMA2tFFXTXfq+5Fyd/SsF4yQQKbc4h9vJ/J/4hvky09f2+b7lb35INlLGU5UdYlekMuu7WMkAHdY1QHW32lDrPXQPZc56hIJWF2lu8ns+F4cAMiwl7X6Q++SOB0NqLvH0AdVYoFOVTE3OdwoP7/QXyX386vgi/x4+6huo4ZlqxWfkY0zdU2eX1nwSiazkvMhHAa6tTGuq2ue2meWvJMNAGtq2Sbab5+E7Kc2/8WJ1l1eCaWDOEiEpk3NBIxFiyw8pNrKAQDC2OZnzSVqPmWMEUdRgKV1TQnozXFOQNjIGpAdLfv8QiLgVjUDEGkjEwC1amUAhOU4Jy4FvR4DrbV/LncAVF0zQu77tgMk1a0ckPZ9u8Tz8TgGwFU1Q4EruQfQVa0M4Eqbcj6X6CM4H9ZSM8pe7GXCupXDsGvz1TIDXGp2eY+3VTUwlFYGjh7JpMZwEsfputJ3KGa431T1Uvoia/d4ljQ8phenUuSQdyVVc9W+Vc95c/JcdZxjOSfkYeyBnIcJinfnql47Y8IzKkDXkUCsXgNykhWrOhZwKkcDQNrKpIV31LlntDozSxrNdSLgeJWtrHjq2MPV+fm41QNZv78s9EfJxkYdrQ1fJYcWMl04qw5kPmjzYbLXY6Q9L8em+0zDeRmnZJyUhf4wOby3XMbtd5fLuH02BkB3KNNevj5uR1g6ITcZt4/z5d/eNvnrX//zbZ2/HIzbLVcrGo/bRKfl1uO2tKmnI5kO24xRyn+NPACIYWD/tKoFLPunbYJmTvYrbAYijZXdMzkBYA8M/vH5nP97OgHQ070luicyT60YkP7hWfW147YCxtZ63GkyD+TciiSQrsjkaCcrIAhbr4eR2W8fj3K4vx5maWx3MIZZyYtt8j2b98IB4LI/uVEt0zAYD1i6I/shiODouZwAqW9ZXluM4UUeIFndAlg1pZcApC/y6ZT+kgPY+6MEA5Fz5tcl/SM5nelVORG4L4f19smj0UaNscqflvU9+ajVXibLYyKHZ7LZ1PTj34UjmfLofOl8nmrmQilPvbBqU7WWh7kVxf6B7MP845zco5s6UndbsqF7MiWaWo0mAdpcmTFyT5XAQApweRko+nvyMP59AHg+AoC/K4eBY9JHdj47LRCNmU8rB7jduy1v9/M+H/QOiIHuyTSMB5lOHOdynxanziMBVeRNK76dVhboLlyHbWQHBBHGPX8oq3wKGEDS0bXnebkH3PgyPJU7gEUC3MM7d/OH3KXDpcdUDQ8S6IEoNjKVVTgzjQGRJGAeyd4JPYTjOZkr2QESUCt538oCA5Cu3T/3QMg7m4e0MmjsZQssa+qSHq8Bzjmcq3y+W8oD1PIuqlK1A1TdKpYrJnq47umeyw4y76udB/tlVd3wapakeppypS90r94/awxKM2vA5ZK3A9hVsob1qkyWCsvNVc+vykAQHcb0M2xlPvKxkiMSlesUL4HbW+PW8vkoxLnLwmWYFCY6oMgGMMKMnqQZDlPT8f+8KieE+aTmGzyawMCykgPc3M2kz/DUIawXw8tytGJMMOM9wXKEMcUt8gAzTcjj1Kny52P53X9VVuWTg15Cq3KzMSZkmcDlLFxmZTPTkV7qYTrkF0pLp+q1NACQWealhrLQqkyGGKMfjSSR1eNdzrBKu0ZhkDLvM2m6LfnoztSNVARgH4wkyipN19YMPGXnzi74rnvybrNquk6yz1/e66mOt/LyyozRXi4zxjvLJfpPJRsO493+UUzP3HlRhQKzvyJb1TkzdAeug9YWiL24pZNS282di3EWkEMoMnEEBvXoqnc4uur1chgFY8sFnZtmXob0pWqCU6p3gDVZ9hGs+oj04pW+l5KWB4XmdycsH/1HulV1ULdJTJpJJjmZZvqxv7s5ljV0tV5Cc0l7uyjlLDPs0h56kjXmTWZA7WXt2CaXDtbS/foxggTwso5NsywR64ch3vK9yBh/b8Ywaow/eqoi77TCWKy+m9NAN8ojAy6t+K3+NC8CqsinwwBQaup51015+GuUp1ayavUmDOrtcy+M2waALruf5uXUarNolEORewDDm+hWreQr43avHS3bjjD9kKVm7j12eW/T/G4PKxm/FbnOIM7E5yva+U0oxzQ/H2PKkyfwbyICtrpk+/uVcVvPXZvuySWM+azatPrb3Xf73OdVXe7ZalNTr2Qj55HEb1r9ereHaXUC9hk+kO18qf+2bfXzy+82xRE+lNMEN5Rz3z2Uw3Q7c172x7IrT9rRpqYrsgc0iUn2B7LXY5w/HshsafOwb3uJ3FcP+vb59LC07kRVf+9vMlkEsciynM89gP/YyZ65MwewlwUel+LWo5O5ycMIL7Jet/qfrexY2f5gWYpsgcMwD0m0dOW4rJMU2Lg3wWt5N2OkE6uPSVI5t/IgVmahlGVV7bFLb8KXeX0AhleuhhRU2fvptVuWmwCYWaZYBsKA/m2alftlfg5b2afjdU+b8gvTRSD31eHWddztaihSNcyat+lHus2zcX/VOwRh1dPjHFBH3w6vyWe5mWWDgec4OUJv06gXb1sS9jIFcdC3I+pwftdvHxH2YpYd6rhRFmo+KBQxvLJOorCKWhYhNKfyRLHBKmGSRYBUY1NLr8ikVilb5LTullVzr1cxk5yXUiRPbd77zt2MG/vOcsmR/KOsk4iW+9ydqkrtZYUYjquaGJrLHYBojqr2QAyNZQtEJlHH76s6ANK3lMsNWgkj7apKIG02bzDXZAfo/biqaV01AHINk4VUV2SD8vT06hnqtTwtyKziysr6y7vM5TPKR8cwAPbesxUXZD96x3KE9HdbvS5rSHMk5wcB2sod4MWhbCScaCsbiSB2NQ1tqmpY0VjWCELRpibFzbNfHSztZeYLMo97zJKp1Cz3q7lqvhFhprWsAPeyrKSaS0g9Zvk5xi9VyWqarrx49axUBDDQa7JJlDdeP+thjnOruD+fzYWz6lA25qBVc7lU/ZS/tZzCGdlQc5kBPpDzif6STOpRzQAA7kgm+/Kzj9HqOgB0nX6SSfMYtz+fLTDSo3wxuP8EYuhVHQCqjrkuq/vyJmbX6r1k9Sk3kcOHyXxK5m8kmw+T1SlZNZY7wIpTsmksC6VOrJP87x+/ePMjrJN8yn82uWfzMbI5N0pYqNayPiV3aC73OCOTbC6TPCUPaC6nU7JCc9mjOyNH3VzWrE7IbFVrOUQ6IRupWsske3FCHpxoLbtBnJB7Sa1lJc0JmWIQrWXL4oTMWrSWOytOyAa+tUxSnZE1i9ayS+KE3EdqLStJJ2SKSrSWYxAn5DSI1nInq29Bc8x8t6qXprkcdI7F/IVtd6syNml0Ph+/20bldJi/sO295H2rT/n6FWD/EbKJACwdyQkAt5QVblFPn4R3GJPYNJNJ3UJPZK9v8T/KHd2Zqp/Pk3yn73ZHm05+typ9A1nDmQq24HtVdTLrqZWuywMAvSQCGO7JgFNLOkD6yzIDej2WSbOXExA3X+JqmsuxGhkft0Jqv89anJH19ePcn5I7tJfVKVl9yq1kqZfYx3J9Vr3vPttqJPn+3+1PGafkeF0Or8m4LvPqEb9uJ5dW7WVoXuIey1EvsU3kAeiO3+0EcOt91oA6ljXQt5YB0LEcAd9YVoAVh7IBpGgsM5CO5QAMreUImGPZAaGdXEaIQ5kAKRrLDlDbJQu/kzuAtzJdkxWQ9g8SbGWKiLT7dvZrsq1WRvqUn4CirczV1njKiyX+ktyN8BJvMUZuj7Opu5cZMObicfYjXIUmOmxli7CZ3HBxfiaZ9lf9sRcb2cl+NwTA0gWZkhfbBL+6N/7ly5cvv/36+5d1fv/5v/++/OHfv82awdtPh/nlR/tdo0/5x5G9EuuYwKy+uaw6C94s58JqQParqv3Aa1m5COjuNdnriDErOUCqPBfNVUkF1hJYyTRA98oCll6RSSllN3IYxVkeRnle0gbWMtnlKyL51Xeb1rKRI1jLU8JG1pCUx2/9qizWsgZU9ctTS9W13AHd8svwTeT6FlEZ8Ugmebt46HWiNvIAOFFyV94uyjWRCUA4liPAjeUAQB3KfmzVWM53sBQ4mMcyAzCNZTvK5DAmPZT1tH0mRURnGskAtJdDrxiAeyRLIAqG1RKQvolsAMSobiNJ90AGoJ32+dciTAtZoXxGMBa9L4+t4G4jHnQrWdffmPFQtlWX/L2ZXF7zQ1nX39XR6DjrurcdygbAr436djyUxWb7fm51Ph/LEkBrOVWj08PjLIZKbvRu1w+5KgDhvtyVVgbA31rIIgKp+k3r+/LIhbJ9vzWRAxCXM9U9miXdskLFgL1yHZbqNdB8NSQR6ZFslmsSC/SvyXli6suf7SSKYRxGi5zHrSyLftra/PMlGSV8oxNkYg1dvg+QOUmMNLOaZREkmISScOI1WZWY6mEVrV1fzfq6JGRZGAcAVn3IHV3e2tZyWSfZ5i3/fP91kt3f/PI9PtXxKb+jrJVYhZjuVFXfQka2y/jp91XjZgMDugYyoq6C9b+iU1ppLkkA3FU5AbwZzKPZyQPgVBUA6C/KvJfrY/i4VRAfJYtP+VP+lP8FZaeqvKusucpDOeoq3/27/a8j+1MytZehTsnqqqxPye7DZP0pf8rt5PBO8n5E5jvyfnTnq7Jc7w3dl+1mRmshb361yQCW9jLW2+cB9Fflns3Dj6PrfXZUtxr0CL/jOknJn+l5kh9izeDPJ9NHyR20Oa7aJ9V+nzWkP6xqJFJzOQCR6gdbktY6bcenBKTdAyFU2lz9XVjjJHIiraqq+lLYdHpuZ8NVuSwS6cQDpqidbLLrUOIvyLysa3Wuzz6gywy4+UzHS8uKRMAYaS7IaXkbKRuW/a738HKd0pupbQQGVnStb1tRhZ25128HSFqtULr+ct8GQl3S3z9jIlzdypnrZ5UH6HgkIcC3Pp97DOJYVoiitczgE3KH1Fx204lL5nlVRmgua4woH1TV0/Yp01K2mCofytOp1XSfMdYM7kCWYyuj28vzyE93q5ZWjhvLJPx8svJzOX9jjG8nK5EgxshnshdhHnJsK1miE1LP5bsnci90nF+aZmdVZKTczbtHsoUzebCTltrIA4AsBkA6Vn+kZ+Z+fVYhgvPQEzvT5tqzXA051LFV1VQ+nTISAJbvjulfln0lCzWgSiX3VSuvUedlWcS5Zg6pjgc9xvWVTKhb+aQlcuylq14cf87qdq28GnPpO8ftGdngQasrMjltDuT8WPcH3UuaPfyDrpP8/08n8kX8SPknZvD0DUrPEIcAAAAASUVORK5CYII=" width="121" height="326" loading="lazy"></td>
+<td><iframe class="sample-code-frame" title='Example using "digits" sample' id="frame_example_using_digits" width="100" height="350" src="https://live-samples.mdn.mozilla.net/en-US/docs/Web/CSS/text-combine-upright/_sample_.example_using_digits.html" loading="lazy"></iframe></td>
+</tr></tbody>
+</table></div></figure>
+</div></section><section aria-labelledby="example_using_all"><h3 id="example_using_all">Example using "all"</h3>
+<div class="section-content">
+<p>The all value requires markup around every piece of horizontal text, but it is currently supported by more browsers than the digits value.</p> <h4 id="html_2">HTML</h4> <div class="code-example"><pre data-language="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>zh-Hant<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  民國<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>num<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>105<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>年<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>num<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>月<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span>
+    <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>num<span class="token punctuation">"</span></span>
+    <span class="token punctuation">&gt;</span></span>29<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span>
+  <span class="token punctuation">&gt;</span></span>日
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</pre></div> <h4 id="css_2">CSS</h4> <div class="code-example"><pre data-language="css"><span class="token selector">html</span> <span class="token punctuation">{</span>
+  <span class="token property">writing-mode</span><span class="token punctuation">:</span> vertical-rl<span class="token punctuation">;</span>
+  <span class="token property">font</span><span class="token punctuation">:</span> 24px serif<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.num</span> <span class="token punctuation">{</span>
+  <span class="token property">text-combine-upright</span><span class="token punctuation">:</span> all<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre></div> <h4 id="results_2">Results</h4>
+<figure class="table-container"><div class="_table"><table class="sample-code-table">
+<thead><tr>
+<th scope="col">Screenshot</th>
+<th scope="col">Live sample</th>
+</tr></thead>
+<tbody><tr>
+<td><img alt="" class="internal" src="data:image/png;base64,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" width="236" height="309" loading="lazy"></td>
+<td><iframe class="sample-code-frame" title='Example using "all" sample' id="frame_example_using_all" width="250" height="300" src="https://live-samples.mdn.mozilla.net/en-US/docs/Web/CSS/text-combine-upright/_sample_.example_using_all.html" loading="lazy"></iframe></td>
+</tr></tbody>
+</table></div></figure>
+</div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://w3c.github.io/csswg-drafts/css-writing-modes/#text-combine-upright">CSS Writing Modes Level 4 <br><small># text-combine-upright</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><code>text-combine-upright</code></th>
+<td class="bc-supports-yes">48<details><summary>9</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>
+</td>
+<td class="bc-supports-no">15–7912–79</td>
+<td class="bc-supports-yes"><details><summary>48</summary>Before version 81, Firefox implemented the property as animatable. This was corrected to spec in 81.</details></td>
+<td class="bc-supports-yes">11</td>
+<td class="bc-supports-yes">35<details><summary>15</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>
+</td>
+<td class="bc-supports-yes">
+<details><summary>5.1</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>preview</td>
+<td class="bc-supports-yes">48<details><summary>≤37</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>
+</td>
+<td class="bc-supports-yes">48<details><summary>18</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>
+</td>
+<td class="bc-supports-yes"><details><summary>48</summary>Before version 81, Firefox implemented the property as animatable. This was corrected to spec in 81.</details></td>
+<td class="bc-supports-yes">35<details><summary>14</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>
+</td>
+<td class="bc-supports-yes">15.4<details><summary>5</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>
+</td>
+<td class="bc-supports-yes">5.0<details><summary>1.0</summary>This property was initially named <code>-webkit-text-combine</code> according to a <a href="https://www.w3.org/TR/2011/WD-css3-writing-modes-20110531/#text-combine">2011 version of the CSS3 Writing Modes specification</a>, supporting the values <code>none</code> and <code>horizontal</code> without <code>digits</code>.</details>
+</td>
+</tr>
+<tr>
+<th><code>digits</code></th>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">15–7912–79</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">11</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+</tr>
+</tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li>
+<a href="writing-mode"><code>writing-mode</code></a>, <a href="text-orientation"><code>text-orientation</code></a>
+</li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-combine-upright" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/text-combine-upright</a>
+  </p>
+</div>

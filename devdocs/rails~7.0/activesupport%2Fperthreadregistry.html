@@ -1,0 +1,28 @@
+<h1 id="module-ActiveSupport::PerThreadRegistry" class="module"> module ActiveSupport::PerThreadRegistry </h1> <section class="description"> <p>NOTE: This approach has been deprecated for end-user code in favor of <a href="../module#method-i-thread_mattr_accessor">thread_mattr_accessor</a> and friends. Please use that approach instead.</p> <p>This module is used to encapsulate access to thread local variables.</p> <p>Instead of polluting the thread locals namespace:</p> <pre class="ruby" data-language="ruby">Thread.current[:connection_handler]
+</pre> <p>you define a class that extends this module:</p> <pre class="ruby" data-language="ruby">module ActiveRecord
+  class RuntimeRegistry
+    extend ActiveSupport::PerThreadRegistry
+
+    attr_accessor :connection_handler
+  end
+end
+</pre> <p>and invoke the declared instance accessors as class methods. So</p> <pre class="ruby" data-language="ruby">ActiveRecord::RuntimeRegistry.connection_handler = connection_handler
+</pre> <p>sets a connection handler local to the current thread, and</p> <pre class="ruby" data-language="ruby">ActiveRecord::RuntimeRegistry.connection_handler
+</pre> <p>returns a connection handler local to the current thread.</p> <p>This feature is accomplished by instantiating the class and storing the instance as a thread local keyed by the class name. In the example above a key “ActiveRecord::RuntimeRegistry” is stored in <code>Thread.current</code>. The class methods proxy to said thread local instance.</p> <p>If the class has an initializer, it must accept no arguments.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-extended"> <span class="method-name">extended</span><span class="method-args">(object)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="extended-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/per_thread_registry.rb, line 42
+    def self.extended(object)
+      ActiveSupport::Deprecation.warn(&lt;&lt;~MSG)
+        ActiveSupport::PerThreadRegistry is deprecated and will be removed in Rails 7.1.
+        Use `Module#thread_mattr_accessor` instead.
+      MSG
+      object.instance_variable_set :@per_thread_registry_key, object.name.freeze
+    end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-instance"> <span class="method-name">instance</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="instance-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/per_thread_registry.rb, line 50
+def instance
+  Thread.current[@per_thread_registry_key] ||= new
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

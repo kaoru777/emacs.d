@@ -1,0 +1,5 @@
+(1 (name . "OpenJDK") (slug . "openjdk~11") (type . "openjdk") (links (home . "https://openjdk.java.net/") (code . "https://github.com/openjdk/jdk")) (version . "11") (release . "11.0.11") (mtime . 1623654507) (db_size . 81635907) (attribution . "&copy; 1993, 2022, Oracle and/or its affiliates. All rights reserved.<br>
+      Documentation extracted from Debian's OpenJDK Development Kit package.<br>
+      Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>
+      Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>
+      Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates."))

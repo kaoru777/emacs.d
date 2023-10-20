@@ -1,0 +1,1 @@
+(1 (name . "SQLite") (slug . "sqlite") (type . "sqlite") (links (home . "https://sqlite.org/") (code . "https://www.sqlite.org/src/")) (release . "3.43.0") (mtime . 1692904893) (db_size . 13563347) (attribution . "SQLite is in the Public Domain."))

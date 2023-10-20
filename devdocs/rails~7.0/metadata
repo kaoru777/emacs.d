@@ -1,0 +1,1 @@
+(1 (name . "Ruby on Rails") (slug . "rails~7.0") (type . "rdoc") (links (home . "https://rubyonrails.org/") (code . "https://github.com/rails/rails")) (version . "7.0") (release . "7.0.0") (mtime . 1641683048) (db_size . 8679089))

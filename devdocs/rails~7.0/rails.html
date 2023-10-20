@@ -1,0 +1,80 @@
+<h1 id="module-Rails" class="module"> module Rails </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section class="attribute-method-details"> <header> <h3>Attributes</h3> </header> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-app_class"> <span class="method-name">app_class</span><span class="attribute-access-type">[RW]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-application"> <span class="method-name">application</span><span class="attribute-access-type">[W]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-cache"> <span class="method-name">cache</span><span class="attribute-access-type">[RW]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-c-logger"> <span class="method-name">logger</span><span class="attribute-access-type">[RW]</span> </div>  </div> </section> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-application"> <span class="method-name">application</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="application-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 39
+def application
+  @application ||= (app_class.instance if app_class)
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-autoloaders"> <span class="method-name">autoloaders</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="autoloaders-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 116
+def autoloaders
+  application.autoloaders
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-backtrace_cleaner"> <span class="method-name">backtrace_cleaner</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="backtrace_cleaner-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 50
+def backtrace_cleaner
+  @backtrace_cleaner ||= begin
+    # Relies on Active Support, so we have to lazy load to postpone definition until Active Support has been loaded
+    require "rails/backtrace_cleaner"
+    Rails::BacktraceCleaner.new
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-configuration"> <span class="method-name">configuration</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="configuration-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 46
+def configuration
+  application.config
+end</pre> </div> <p>The <span><code>Configuration</code></span> instance used to configure the <span><code>Rails</code></span> environment</p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-env"> <span class="method-name">env</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="env-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 72
+def env
+  @_env ||= ActiveSupport::EnvironmentInquirer.new(ENV["RAILS_ENV"].presence || ENV["RACK_ENV"].presence || "development")
+end</pre> </div> <p>Returns the current <span><code>Rails</code></span> environment.</p> <pre class="ruby" data-language="ruby">Rails.env # =&gt; "development"
+Rails.env.development? # =&gt; true
+Rails.env.production? # =&gt; false
+</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-env-3D"> <span class="method-name">env=</span><span class="method-args">(environment)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="env-3D-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 79
+def env=(environment)
+  @_env = ActiveSupport::EnvironmentInquirer.new(environment)
+end</pre> </div> <p>Sets the <span><code>Rails</code></span> environment.</p> <pre class="ruby" data-language="ruby">Rails.env = "staging" # =&gt; "staging"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-error"> <span class="method-name">error</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="error-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 83
+def error
+  application &amp;&amp; application.executor.error_reporter
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-gem_version"> <span class="method-name">gem_version</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="gem_version-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails/gem_version.rb, line 5
+def self.gem_version
+  Gem::Version.new VERSION::STRING
+end</pre> </div> <p>Returns the version of the currently loaded <span><code>Rails</code></span> as a <code>Gem::Version</code></p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-groups"> <span class="method-name">groups</span><span class="method-args">(*groups)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="groups-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 96
+def groups(*groups)
+  hash = groups.extract_options!
+  env = Rails.env
+  groups.unshift(:default, env)
+  groups.concat ENV["RAILS_GROUPS"].to_s.split(",")
+  groups.concat hash.map { |k, v| k if v.map(&amp;:to_s).include?(env) }
+  groups.compact!
+  groups.uniq!
+  groups
+end</pre> </div> <p>Returns all <span><code>Rails</code></span> groups for loading based on:</p> <ul>
+<li> <p>The <span><code>Rails</code></span> environment;</p> </li>
+<li> <p>The environment variable RAILS_GROUPS;</p> </li>
+<li> <p>The optional envs given as argument and the hash with group dependencies;</p> </li>
+</ul> <pre class="ruby" data-language="ruby">Rails.groups assets: [:development, :test]
+# =&gt; [:default, "development", :assets] for Rails.env == "development"
+# =&gt; [:default, "production"]           for Rails.env == "production"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-public_path"> <span class="method-name">public_path</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="public_path-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 112
+def public_path
+  application &amp;&amp; Pathname.new(application.paths["public"].first)
+end</pre> </div> <p>Returns a <a href="pathname"><code>Pathname</code></a> object of the public folder of the current <span><code>Rails</code></span> project, otherwise it returns <code>nil</code> if there is no project:</p> <pre class="ruby" data-language="ruby">Rails.public_path
+  # =&gt; #&lt;Pathname:/Users/someuser/some/path/project/public&gt;
+</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-root"> <span class="method-name">root</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="root-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails.rb, line 63
+def root
+  application &amp;&amp; application.config.root
+end</pre> </div> <p>Returns a <a href="pathname"><code>Pathname</code></a> object of the current <span><code>Rails</code></span> project, otherwise it returns <code>nil</code> if there is no project:</p> <pre class="ruby" data-language="ruby">Rails.root
+  # =&gt; #&lt;Pathname:/Users/someuser/some/path/project&gt;
+</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-c-version"> <span class="method-name">version</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="version-source"> <pre class="ruby" data-language="ruby"># File railties/lib/rails/version.rb, line 7
+def self.version
+  VERSION::STRING
+end</pre> </div> <p>Returns the version of the currently loaded <span><code>Rails</code></span> as a string.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

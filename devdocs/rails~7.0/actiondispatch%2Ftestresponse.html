@@ -1,0 +1,22 @@
+<h1 id="class-ActionDispatch::TestResponse" class="class"> class ActionDispatch::TestResponse </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="response">ActionDispatch::Response</a></dd>
+</dl> <section class="description"> <p><span><code>Integration</code></span> test methods such as ActionDispatch::Integration::Session#get and ActionDispatch::Integration::Session#post return objects of class <a href="testresponse"><code>TestResponse</code></a>, which represent the HTTP response results of the requested controller actions.</p> <p>See <a href="response"><code>Response</code></a> for more information on controller response objects.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-from_response"> <span class="method-name">from_response</span><span class="method-args">(response)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="from_response-source"> <pre class="ruby" data-language="ruby"># File actionpack/lib/action_dispatch/testing/test_response.rb, line 13
+def self.from_response(response)
+  new response.status, response.headers, response.body
+end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-parsed_body"> <span class="method-name">parsed_body</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="parsed_body-source"> <pre class="ruby" data-language="ruby"># File actionpack/lib/action_dispatch/testing/test_response.rb, line 17
+def parsed_body
+  @parsed_body ||= response_parser.call(body)
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-response_parser"> <span class="method-name">response_parser</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="response_parser-source"> <pre class="ruby" data-language="ruby"># File actionpack/lib/action_dispatch/testing/test_response.rb, line 21
+def response_parser
+  @response_parser ||= RequestEncoder.parser(media_type)
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

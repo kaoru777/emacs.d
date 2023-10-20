@@ -1,0 +1,70 @@
+  <main role="main">    <h1>Interface DataSource</h1>     <dl> <dt>All Superinterfaces:</dt> <dd>
+<code><a href="commondatasource">CommonDataSource</a></code>, <code><a href="../../java/sql/wrapper">Wrapper</a></code>
+</dd> </dl>  <pre data-language="java">public interface DataSource
+extends CommonDataSource, Wrapper</pre> <div>
+
+<p>A factory for connections to the physical data source that this <code>DataSource</code> object represents. An alternative to the <code>DriverManager</code> facility, a <code>DataSource</code> object is the preferred means of getting a connection. An object that implements the <code>DataSource</code> interface will typically be registered with a naming service based on the Java™ Naming and Directory (JNDI) API. </p>
+<p> The <code>DataSource</code> interface is implemented by a driver vendor. There are three types of implementations: </p>
+<ol> <li>Basic implementation -- produces a standard <code>Connection</code> object </li>
+<li>Connection pooling implementation -- produces a <code>Connection</code> object that will automatically participate in connection pooling. This implementation works with a middle-tier connection pooling manager. </li>
+<li>Distributed transaction implementation -- produces a <code>Connection</code> object that may be used for distributed transactions and almost always participates in connection pooling. This implementation works with a middle-tier transaction manager and almost always with a connection pooling manager. </li>
+</ol> <p> A <code>DataSource</code> object has properties that can be modified when necessary. For example, if the data source is moved to a different server, the property for the server can be changed. The benefit is that because the data source's properties can be changed, any code accessing that data source does not need to be changed. </p>
+<p> A driver that is accessed via a <code>DataSource</code> object does not register itself with the <code>DriverManager</code>. Rather, a <code>DataSource</code> object is retrieved through a lookup operation and then used to create a <code>Connection</code> object. With a basic implementation, the connection obtained through a <code>DataSource</code> object is identical to a connection obtained through the <code>DriverManager</code> facility. </p>
+<p> An implementation of <code>DataSource</code> must include a public no-arg constructor.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.4</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>default <a href="../../java/sql/connectionbuilder">ConnectionBuilder</a></code></td> <th scope="row"><code><a href="#createConnectionBuilder()">createConnectionBuilder</a>()</code></th> <td> <p>Create a new <code>ConnectionBuilder</code> instance</p> </td> </tr> <tr id="i1"> <td><code><a href="../../java/sql/connection">Connection</a></code></td> <th scope="row"><code><a href="#getConnection()">getConnection</a>()</code></th> <td> <p>Attempts to establish a connection with the data source that this <code>DataSource</code> object represents.</p> </td> </tr> <tr id="i2"> <td><code><a href="../../java/sql/connection">Connection</a></code></td> <th scope="row"><code><a href="#getConnection(java.lang.String,java.lang.String)">getConnection</a>​(<a href="../../../java.base/java/lang/string">String</a> username,
+             <a href="../../../java.base/java/lang/string">String</a> password)</code></th> <td> <p>Attempts to establish a connection with the data source that this <code>DataSource</code> object represents.</p> </td> </tr> <tr id="i3"> <td><code>int</code></td> <th scope="row"><code><a href="#getLoginTimeout()">getLoginTimeout</a>()</code></th> <td> <p>Gets the maximum time in seconds that this data source can wait while attempting to connect to a database.</p> </td> </tr> <tr id="i4"> <td><code><a href="../../../java.base/java/io/printwriter">PrintWriter</a></code></td> <th scope="row"><code><a href="#getLogWriter()">getLogWriter</a>()</code></th> <td> <p>Retrieves the log writer for this <code>DataSource</code> object.</p> </td> </tr> <tr id="i5"> <td><code>void</code></td> <th scope="row"><code><a href="#setLoginTimeout(int)">setLoginTimeout</a>​(int seconds)</code></th> <td> <p>Sets the maximum time in seconds that this data source will wait while attempting to connect to a database.</p> </td> </tr> <tr id="i6"> <td><code>void</code></td> <th scope="row"><code><a href="#setLogWriter(java.io.PrintWriter)">setLogWriter</a>​(<a href="../../../java.base/java/io/printwriter">PrintWriter</a> out)</code></th> <td> <p>Sets the log writer for this <code>DataSource</code> object to the given <code>java.io.PrintWriter</code> object.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.javax.sql.CommonDataSource">Methods declared in interface javax.sql.<a href="commondatasource">CommonDataSource</a>
+</h2> <code><a href="commondatasource#createShardingKeyBuilder()">createShardingKeyBuilder</a>, <a href="commondatasource#getParentLogger()">getParentLogger</a></code>  <h2 id="methods.inherited.from.class.java.sql.Wrapper">Methods declared in interface java.sql.<a href="../../java/sql/wrapper">Wrapper</a>
+</h2> <code><a href="../../java/sql/wrapper#isWrapperFor(java.lang.Class)">isWrapperFor</a>, <a href="../../java/sql/wrapper#unwrap(java.lang.Class)">unwrap</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getConnection()">getConnection</h3> <pre data-language="java">Connection getConnection()
+                  throws SQLException</pre> <div>
+
+<p>Attempts to establish a connection with the data source that this <code>DataSource</code> object represents.</p>
+</div> <dl> <dt>Returns:</dt> <dd>a connection to the data source</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../java/sql/sqlexception">SQLException</a></code> - if a database access error occurs</dd> <dd>
+<code><a href="../../java/sql/sqltimeoutexception">SQLTimeoutException</a></code> - when the driver has determined that the timeout value specified by the <code>setLoginTimeout</code> method has been exceeded and has at least tried to cancel the current database connection attempt</dd> </dl>    <h3 id="getConnection(java.lang.String,java.lang.String)">getConnection</h3> <pre data-language="java">Connection getConnection(String username,
+                         String password)
+                  throws SQLException</pre> <div>
+
+<p>Attempts to establish a connection with the data source that this <code>DataSource</code> object represents.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>username</code> - the database user on whose behalf the connection is being made</dd> <dd>
+<code>password</code> - the user's password</dd> <dt>Returns:</dt> <dd>a connection to the data source</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../java/sql/sqlexception">SQLException</a></code> - if a database access error occurs</dd> <dd>
+<code><a href="../../java/sql/sqltimeoutexception">SQLTimeoutException</a></code> - when the driver has determined that the timeout value specified by the <code>setLoginTimeout</code> method has been exceeded and has at least tried to cancel the current database connection attempt</dd> <dt>Since:</dt> <dd>1.4</dd> </dl>    <h3 id="getLogWriter()">getLogWriter</h3> <pre data-language="java">PrintWriter getLogWriter()
+                  throws SQLException</pre> <div>
+
+<p>Retrieves the log writer for this <code>DataSource</code> object. </p>
+<p>The log writer is a character output stream to which all logging and tracing messages for this data source will be printed. This includes messages printed by the methods of this object, messages printed by methods of other objects manufactured by this object, and so on. Messages printed to a data source specific log writer are not printed to the log writer associated with the <code>java.sql.DriverManager</code> class. When a <code>DataSource</code> object is created, the log writer is initially null; in other words, the default is for logging to be disabled.</p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="commondatasource#getLogWriter()">getLogWriter</a></code> in interface <code><a href="commondatasource">CommonDataSource</a></code>
+</dd> <dt>Returns:</dt> <dd>the log writer for this data source or null if logging is disabled</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../java/sql/sqlexception">SQLException</a></code> - if a database access error occurs</dd> <dt>Since:</dt> <dd>1.4</dd> <dt>See Also:</dt> <dd><a href="commondatasource#setLogWriter(java.io.PrintWriter)"><code>CommonDataSource.setLogWriter(java.io.PrintWriter)</code></a></dd> </dl>    <h3 id="setLogWriter(java.io.PrintWriter)">setLogWriter</h3> <pre data-language="java">void setLogWriter(PrintWriter out)
+           throws SQLException</pre> <div>
+
+<p>Sets the log writer for this <code>DataSource</code> object to the given <code>java.io.PrintWriter</code> object. </p>
+<p>The log writer is a character output stream to which all logging and tracing messages for this data source will be printed. This includes messages printed by the methods of this object, messages printed by methods of other objects manufactured by this object, and so on. Messages printed to a data source- specific log writer are not printed to the log writer associated with the <code>java.sql.DriverManager</code> class. When a <code>DataSource</code> object is created the log writer is initially null; in other words, the default is for logging to be disabled.</p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="commondatasource#setLogWriter(java.io.PrintWriter)">setLogWriter</a></code> in interface <code><a href="commondatasource">CommonDataSource</a></code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>out</code> - the new log writer; to disable logging, set to null</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../java/sql/sqlexception">SQLException</a></code> - if a database access error occurs</dd> <dt>Since:</dt> <dd>1.4</dd> <dt>See Also:</dt> <dd><a href="commondatasource#getLogWriter()"><code>CommonDataSource.getLogWriter()</code></a></dd> </dl>    <h3 id="setLoginTimeout(int)">setLoginTimeout</h3> <pre data-language="java">void setLoginTimeout(int seconds)
+              throws SQLException</pre> <div>
+
+<p>Sets the maximum time in seconds that this data source will wait while attempting to connect to a database. A value of zero specifies that the timeout is the default system timeout if there is one; otherwise, it specifies that there is no timeout. When a <code>DataSource</code> object is created, the login timeout is initially zero.</p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="commondatasource#setLoginTimeout(int)">setLoginTimeout</a></code> in interface <code><a href="commondatasource">CommonDataSource</a></code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>seconds</code> - the data source login time limit</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../java/sql/sqlexception">SQLException</a></code> - if a database access error occurs.</dd> <dt>Since:</dt> <dd>1.4</dd> <dt>See Also:</dt> <dd><a href="commondatasource#getLoginTimeout()"><code>CommonDataSource.getLoginTimeout()</code></a></dd> </dl>    <h3 id="getLoginTimeout()">getLoginTimeout</h3> <pre data-language="java">int getLoginTimeout()
+             throws SQLException</pre> <p>Gets the maximum time in seconds that this data source can wait while attempting to connect to a database. A value of zero means that the timeout is the default system timeout if there is one; otherwise, it means that there is no timeout. When a <code>DataSource</code> object is created, the login timeout is initially zero.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="commondatasource#getLoginTimeout()">getLoginTimeout</a></code> in interface <code><a href="commondatasource">CommonDataSource</a></code>
+</dd> <dt>Returns:</dt> <dd>the data source login time limit</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../java/sql/sqlexception">SQLException</a></code> - if a database access error occurs.</dd> <dt>Since:</dt> <dd>1.4</dd> <dt>See Also:</dt> <dd><a href="commondatasource#setLoginTimeout(int)"><code>CommonDataSource.setLoginTimeout(int)</code></a></dd> </dl>    <h3 id="createConnectionBuilder()">createConnectionBuilder</h3> <pre data-language="java">default ConnectionBuilder createConnectionBuilder()
+                                           throws SQLException</pre> <p>Create a new <code>ConnectionBuilder</code> instance</p> <dl> <dt>Implementation Requirements:</dt> <dd>The default implementation will throw a <code>SQLFeatureNotSupportedException</code>
+</dd> <dt>Returns:</dt> <dd>The ConnectionBuilder instance that was created</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../java/sql/sqlexception">SQLException</a></code> - if an error occurs creating the builder</dd> <dd>
+<code><a href="../../java/sql/sqlfeaturenotsupportedexception">SQLFeatureNotSupportedException</a></code> - if the driver does not support sharding</dd> <dt>Since:</dt> <dd>9</dd> <dt>See Also:</dt> <dd><a href="../../java/sql/connectionbuilder"><code>ConnectionBuilder</code></a></dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/javax/sql/DataSource.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/javax/sql/DataSource.html</a>
+  </p>
+</div>

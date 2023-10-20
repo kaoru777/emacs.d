@@ -1,0 +1,14 @@
+<h1 id="module-ActiveRecord::Core::ClassMethods" class="module"> module ActiveRecord::Core::ClassMethods </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section class="attribute-method-details"> <header> <h3>Attributes</h3> </header> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-filter_attributes"> <span class="method-name">filter_attributes</span><span class="attribute-access-type">[W]</span> </div> <div class="method-description"> <p>Specifies columns which shouldn't be exposed while calling <code>#inspect</code>.</p> </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-filter_attributes"> <span class="method-name">filter_attributes</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="filter_attributes-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/core.rb, line 384
+def filter_attributes
+  if defined?(@filter_attributes)
+    @filter_attributes
+  else
+    superclass.filter_attributes
+  end
+end</pre> </div> <p>Returns columns which shouldn't be exposed while calling <code>#inspect</code>.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

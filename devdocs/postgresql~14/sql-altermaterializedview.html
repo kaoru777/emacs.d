@@ -1,0 +1,38 @@
+<h1>ALTER MATERIALIZED VIEW</h1> <p>ALTER MATERIALIZED VIEW — change the definition of a materialized view</p>   <h2>Synopsis</h2> <pre data-language="sql">
+ALTER MATERIALIZED VIEW [ IF EXISTS ] name
+    action [, ... ]
+ALTER MATERIALIZED VIEW name
+    [ NO ] DEPENDS ON EXTENSION extension_name
+ALTER MATERIALIZED VIEW [ IF EXISTS ] name
+    RENAME [ COLUMN ] column_name TO new_column_name
+ALTER MATERIALIZED VIEW [ IF EXISTS ] name
+    RENAME TO new_name
+ALTER MATERIALIZED VIEW [ IF EXISTS ] name
+    SET SCHEMA new_schema
+ALTER MATERIALIZED VIEW ALL IN TABLESPACE name [ OWNED BY role_name [, ... ] ]
+    SET TABLESPACE new_tablespace [ NOWAIT ]
+
+where action is one of:
+
+    ALTER [ COLUMN ] column_name SET STATISTICS integer
+    ALTER [ COLUMN ] column_name SET ( attribute_option = value [, ... ] )
+    ALTER [ COLUMN ] column_name RESET ( attribute_option [, ... ] )
+    ALTER [ COLUMN ] column_name SET STORAGE { PLAIN | EXTERNAL | EXTENDED | MAIN }
+    ALTER [ COLUMN ] column_name SET COMPRESSION compression_method
+    CLUSTER ON index_name
+    SET WITHOUT CLUSTER
+    SET TABLESPACE new_tablespace
+    SET ( storage_parameter [= value] [, ... ] )
+    RESET ( storage_parameter [, ... ] )
+    OWNER TO { new_owner | CURRENT_ROLE | CURRENT_USER | SESSION_USER }
+</pre>  <div class="refsect1" id="id-1.9.3.19.5"> <h2>Description</h2> <p><code class="command">ALTER MATERIALIZED VIEW</code> changes various auxiliary properties of an existing materialized view.</p> <p>You must own the materialized view to use <code class="command">ALTER MATERIALIZED VIEW</code>. To change a materialized view's schema, you must also have <code class="literal">CREATE</code> privilege on the new schema. To alter the owner, you must also be a direct or indirect member of the new owning role, and that role must have <code class="literal">CREATE</code> privilege on the materialized view's schema. (These restrictions enforce that altering the owner doesn't do anything you couldn't do by dropping and recreating the materialized view. However, a superuser can alter ownership of any view anyway.)</p> <p>The statement subforms and actions available for <code class="command">ALTER MATERIALIZED VIEW</code> are a subset of those available for <code class="command">ALTER TABLE</code>, and have the same meaning when used for materialized views. See the descriptions for <a class="link" href="sql-altertable" title="ALTER TABLE"><code class="command">ALTER TABLE</code></a> for details.</p> </div> <div class="refsect1" id="id-1.9.3.19.6"> <h2>Parameters</h2> <div class="variablelist"> <dl class="variablelist"> <dt><code>name</code></dt> <dd> <p>The name (optionally schema-qualified) of an existing materialized view.</p> </dd> <dt><code>column_name</code></dt> <dd> <p>Name of a new or existing column.</p> </dd> <dt><code>extension_name</code></dt> <dd> <p>The name of the extension that the materialized view is to depend on (or no longer dependent on, if <code class="literal">NO</code> is specified). A materialized view that's marked as dependent on an extension is automatically dropped when the extension is dropped.</p> </dd> <dt><code>new_column_name</code></dt> <dd> <p>New name for an existing column.</p> </dd> <dt><code>new_owner</code></dt> <dd> <p>The user name of the new owner of the materialized view.</p> </dd> <dt><code>new_name</code></dt> <dd> <p>The new name for the materialized view.</p> </dd> <dt><code>new_schema</code></dt> <dd> <p>The new schema for the materialized view.</p> </dd> </dl> </div> </div> <div class="refsect1" id="id-1.9.3.19.7"> <h2>Examples</h2> <p>To rename the materialized view <code class="literal">foo</code> to <code class="literal">bar</code>:</p> <pre data-language="sql">
+ALTER MATERIALIZED VIEW foo RENAME TO bar;
+</pre> </div> <div class="refsect1" id="id-1.9.3.19.8"> <h2>Compatibility</h2> <p><code class="command">ALTER MATERIALIZED VIEW</code> is a PostgreSQL extension.</p> </div> <div class="refsect1" id="id-1.9.3.19.9"> <h2>See Also</h2>
+<span class="simplelist"><a class="xref" href="sql-creatematerializedview" title="CREATE MATERIALIZED VIEW">CREATE MATERIALIZED VIEW</a>, <a class="xref" href="sql-dropmaterializedview" title="DROP MATERIALIZED VIEW">DROP MATERIALIZED VIEW</a>, <a class="xref" href="sql-refreshmaterializedview" title="REFRESH MATERIALIZED VIEW">REFRESH MATERIALIZED VIEW</a></span> </div>  <div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter">  <table summary="Navigation footer"> <tr> <td width="40%" align="left">
+<a accesskey="p" href="sql-alterlargeobject" title="ALTER LARGE OBJECT">Prev</a> </td> <td width="20%" align="center"><a accesskey="u" href="https://www.postgresql.org/docs/14/sql-commands.html" title="SQL Commands">Up</a></td> <td width="40%" align="right"> <a accesskey="n" href="sql-alteroperator" title="ALTER OPERATOR">Next</a>
+</td> </tr> <tr> <td width="40%" align="left">ALTER LARGE OBJECT </td> <td width="20%" align="center"><a accesskey="h" href="https://www.postgresql.org/docs/14/index.html" title="PostgreSQL 14.5 Documentation">Home</a></td> <td width="40%" align="right"> ALTER OPERATOR</td> </tr> </table> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2022 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/14/sql-altermaterializedview.html" class="_attribution-link">https://www.postgresql.org/docs/14/sql-altermaterializedview.html</a>
+  </p>
+</div>

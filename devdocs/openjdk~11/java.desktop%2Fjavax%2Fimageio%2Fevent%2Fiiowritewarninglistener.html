@@ -1,0 +1,19 @@
+  <main role="main">    <h1>Interface IIOWriteWarningListener</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="../../../../java.base/java/util/eventlistener">EventListener</a></code></dd> </dl>  <pre data-language="java">public interface IIOWriteWarningListener
+extends EventListener</pre> <div>
+<p>An interface used by <code>ImageWriter</code> implementations to notify callers of their image and thumbnail reading methods of warnings (non-fatal errors). Fatal errors cause the relevant read method to throw an <code>IIOException</code>. </p>
+<p> Localization is handled by associating a <code>Locale</code> with each <code>IIOWriteWarningListener</code> as it is registered with an <code>ImageWriter</code>. It is up to the <code>ImageWriter</code> to provide localized messages.</p>
+</div> <dl> <dt>See Also:</dt> <dd>
+<a href="../imagewriter#addIIOWriteWarningListener(javax.imageio.event.IIOWriteWarningListener)"><code>ImageWriter.addIIOWriteWarningListener(javax.imageio.event.IIOWriteWarningListener)</code></a>, <a href="../imagewriter#removeIIOWriteWarningListener(javax.imageio.event.IIOWriteWarningListener)"><code>ImageWriter.removeIIOWriteWarningListener(javax.imageio.event.IIOWriteWarningListener)</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#warningOccurred(javax.imageio.ImageWriter,int,java.lang.String)">warningOccurred</a>​(<a href="../imagewriter">ImageWriter</a> source,
+               int imageIndex,
+               <a href="../../../../java.base/java/lang/string">String</a> warning)</code></th> <td> <p>Reports the occurrence of a non-fatal error in encoding.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="warningOccurred(javax.imageio.ImageWriter,int,java.lang.String)">warningOccurred</h3> <pre data-language="java">void warningOccurred(ImageWriter source,
+                     int imageIndex,
+                     String warning)</pre> <p>Reports the occurrence of a non-fatal error in encoding. Encoding will continue following the call to this method. The application may choose to display a dialog, print the warning to the console, ignore the warning, or take any other action it chooses.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>source</code> - the <code>ImageWriter</code> object calling this method.</dd> <dd>
+<code>imageIndex</code> - the index, starting with 0, of the image generating the warning.</dd> <dd>
+<code>warning</code> - a <code>String</code> containing the warning.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/imageio/event/IIOWriteWarningListener.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/imageio/event/IIOWriteWarningListener.html</a>
+  </p>
+</div>

@@ -1,0 +1,22 @@
+  <main role="main">    <h1>Interface CertPathChecker</h1>     <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="pkixcertpathchecker">PKIXCertPathChecker</a></code>, <code><a href="pkixrevocationchecker">PKIXRevocationChecker</a></code>
+</dd> </dl>  <pre data-language="java">public interface CertPathChecker</pre> <div>
+
+<p>Performs one or more checks on each <code>Certificate</code> of a <code>CertPath</code>. </p>
+<p>A <code>CertPathChecker</code> implementation is typically created to extend a certification path validation algorithm. For example, an implementation may check for and process a critical private extension of each certificate in a certification path.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.8</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#check(java.security.cert.Certificate)">check</a>​(<a href="certificate">Certificate</a> cert)</code></th> <td> <p>Performs the check(s) on the specified certificate using its internal state.</p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#init(boolean)">init</a>​(boolean forward)</code></th> <td> <p>Initializes the internal state of this <code>CertPathChecker</code>.</p> </td> </tr> <tr id="i2"> <td><code>boolean</code></td> <th scope="row"><code><a href="#isForwardCheckingSupported()">isForwardCheckingSupported</a>()</code></th> <td> <p>Indicates if forward checking is supported.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="init(boolean)">init</h3> <pre data-language="java">void init(boolean forward)
+   throws CertPathValidatorException</pre> <div>
+<p>Initializes the internal state of this <code>CertPathChecker</code>. </p>
+<p>The <code>forward</code> flag specifies the order that certificates will be passed to the <a href="#check(java.security.cert.Certificate)"><code>check</code></a> method (forward or reverse).</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>forward</code> - the order that certificates are presented to the <code>check</code> method. If <code>true</code>, certificates are presented from target to trust anchor (forward); if <code>false</code>, from trust anchor to target (reverse).</dd> <dt>Throws:</dt> <dd>
+<code><a href="certpathvalidatorexception">CertPathValidatorException</a></code> - if this <code>CertPathChecker</code> is unable to check certificates in the specified order</dd> </dl>    <h3 id="isForwardCheckingSupported()">isForwardCheckingSupported</h3> <pre data-language="java">boolean isForwardCheckingSupported()</pre> <p>Indicates if forward checking is supported. Forward checking refers to the ability of the <code>CertPathChecker</code> to perform its checks when certificates are presented to the <code>check</code> method in the forward direction (from target to trust anchor).</p> <dl> <dt>Returns:</dt> <dd>
+<code>true</code> if forward checking is supported, <code>false</code> otherwise</dd> </dl>    <h3 id="check(java.security.cert.Certificate)">check</h3> <pre data-language="java">void check(Certificate cert)
+    throws CertPathValidatorException</pre> <p>Performs the check(s) on the specified certificate using its internal state. The certificates are presented in the order specified by the <code>init</code> method.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>cert</code> - the <code>Certificate</code> to be checked</dd> <dt>Throws:</dt> <dd>
+<code><a href="certpathvalidatorexception">CertPathValidatorException</a></code> - if the specified certificate does not pass the check</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/cert/CertPathChecker.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/cert/CertPathChecker.html</a>
+  </p>
+</div>

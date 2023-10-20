@@ -1,0 +1,28 @@
+<h1>Maintenance Policy for Ruby on Rails</h1>
+<div class="_simple"> <p>Support of the Rails framework is divided into four groups: New features, bug fixes, security issues, and severe security issues. They are handled as follows, all versions, except for security releases, in <code>X.Y.Z</code>, format.</p>  <h2 class="chapter">Chapters</h2> <ol class="chapters"> <li><a href="#new-features">New Features</a></li> <li><a href="#bug-fixes">Bug Fixes</a></li> <li><a href="#security-issues">Security Issues</a></li> <li><a href="#severe-security-issues">Severe Security Issues</a></li> <li><a href="#unsupported-release-series">Unsupported Release Series</a></li> </ol>   <p>Rails follows a shifted version of <a href="https://semver.org/">semver</a>:</p>
+<p><strong>Patch <code>Z</code></strong></p>
+<p>Only bug fixes, no API changes, no new features. Except as necessary for security fixes.</p>
+<p><strong>Minor <code>Y</code></strong></p>
+<p>New features, may contain API changes (Serve as major versions of Semver). Breaking changes are paired with deprecation notices in the previous minor or major release.</p>
+<p><strong>Major <code>X</code></strong></p>
+<p>New features, will likely contain API changes. The difference between Rails' minor and major releases is the magnitude of breaking changes, and usually reserved for special occasions.</p>
+<h2 id="new-features"><a class="anchorlink" href="#new-features">1 New Features</a></h2>
+<p>New features are only added to the master branch and will not be made available in point releases.</p>
+<h2 id="bug-fixes"><a class="anchorlink" href="#bug-fixes">2 Bug Fixes</a></h2>
+<p>Only the latest release series will receive bug fixes. When enough bugs are fixed and its deemed worthy to release a new gem, this is the branch it happens from.</p>
+<p>In special situations, where someone from the Core Team agrees to support more series, they are included in the list of supported series.</p>
+<p><strong>Currently included series:</strong> <code>6.1.Z</code>.</p>
+<h2 id="security-issues"><a class="anchorlink" href="#security-issues">3 Security Issues</a></h2>
+<p>The current release series and the next most recent one will receive patches and new versions in case of a security issue.</p>
+<p>These releases are created by taking the last released version, applying the security patches, and releasing. Those patches are then applied to the end of the x-y-stable branch. For example, a theoretical 1.2.2.1 security release would be built from 1.2.2, and then added to the end of 1-2-stable. This means that security releases are easy to upgrade to if you're running the latest version of Rails.</p>
+<p><strong>Currently included series:</strong> <code>6.1.Z</code>, <code>6.0.Z</code>, <code>5.2.Z</code>.</p>
+<h2 id="severe-security-issues"><a class="anchorlink" href="#severe-security-issues">4 Severe Security Issues</a></h2>
+<p>For severe security issues all releases in the current major series, and also the last release in the previous major series will receive patches and new versions. The classification of the security issue is judged by the core team.</p>
+<p><strong>Currently included series:</strong> <code>6.1.Z</code>, <code>6.0.Z</code>, <code>5.2.Z</code>.</p>
+<h2 id="unsupported-release-series"><a class="anchorlink" href="#unsupported-release-series">5 Unsupported Release Series</a></h2>
+<p>When a release series is no longer supported, it's your own responsibility to deal with bugs and security issues. We may provide backports of the fixes and publish them to git, however there will be no new versions released. If you are not comfortable maintaining your own versions, you should upgrade to a supported version.</p> <h2>Feedback</h2> <p> You're encouraged to help improve the quality of this guide. </p> <p> Please contribute if you see any typos or factual errors. To get started, you can read our <a href="https://edgeguides.rubyonrails.org/contributing_to_ruby_on_rails.html#contributing-to-the-rails-documentation">documentation contributions</a> section. </p> <p> You may also find incomplete content or stuff that is not up to date. Please do add any missing documentation for master. Make sure to check <a href="https://edgeguides.rubyonrails.org">Edge Guides</a> first to verify if the issues are already fixed or not on the master branch. Check the <span>Ruby on Rails Guides Guidelines</span> for style and conventions. </p> <p> If for whatever reason you spot something to fix but cannot patch it yourself, please <a href="https://github.com/rails/rails/issues">open an issue</a>. </p> <p>And last but not least, any kind of discussion regarding Ruby on Rails documentation is very welcome on the <a href="https://discuss.rubyonrails.org/c/rubyonrails-docs">rubyonrails-docs mailing list</a>. </p> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.<br>
+    
+  </p>
+</div>

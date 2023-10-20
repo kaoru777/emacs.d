@@ -1,0 +1,24 @@
+  <main role="main">    <h1>Interface WildcardType</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="type">Type</a></code></dd> </dl>  <pre data-language="java">public interface WildcardType
+extends Type</pre> <p>WildcardType represents a wildcard type expression, such as <code>?</code>, <code>? extends Number</code>, or <code>? super Integer</code>.</p> <dl> <dt>Since:</dt> <dd>1.5</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="type">Type</a>[]</code></td> <th scope="row"><code><a href="#getLowerBounds()">getLowerBounds</a>()</code></th> <td> <p>Returns an array of <code>Type</code> objects representing the lower bound(s) of this type variable.</p> </td> </tr> <tr id="i1"> <td><code><a href="type">Type</a>[]</code></td> <th scope="row"><code><a href="#getUpperBounds()">getUpperBounds</a>()</code></th> <td> <p>Returns an array of <code>Type</code> objects representing the upper bound(s) of this type variable.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.java.lang.reflect.Type">Methods declared in interface java.lang.reflect.<a href="type">Type</a>
+</h2> <code><a href="type#getTypeName()">getTypeName</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getUpperBounds()">getUpperBounds</h3> <pre data-language="java">Type[] getUpperBounds()</pre> <div>
+<p>Returns an array of <code>Type</code> objects representing the upper bound(s) of this type variable. If no upper bound is explicitly declared, the upper bound is <code>Object</code>. </p>
+<p>For each upper bound B : </p>
+<ul> <li>if B is a parameterized type or a type variable, it is created, (see <a href="parameterizedtype"><code>ParameterizedType</code></a> for the details of the creation process for parameterized types). </li>
+<li>Otherwise, B is resolved. </li>
+</ul>
+</div> <dl> <dt>Returns:</dt> <dd>an array of Types representing the upper bound(s) of this type variable</dd> <dt>Throws:</dt> <dd>
+<code><a href="../typenotpresentexception">TypeNotPresentException</a></code> - if any of the bounds refers to a non-existent type declaration</dd> <dd>
+<code><a href="malformedparameterizedtypeexception">MalformedParameterizedTypeException</a></code> - if any of the bounds refer to a parameterized type that cannot be instantiated for any reason</dd> </dl>    <h3 id="getLowerBounds()">getLowerBounds</h3> <pre data-language="java">Type[] getLowerBounds()</pre> <div>
+<p>Returns an array of <code>Type</code> objects representing the lower bound(s) of this type variable. If no lower bound is explicitly declared, the lower bound is the type of <code>null</code>. In this case, a zero length array is returned. </p>
+<p>For each lower bound B : </p>
+<ul> <li>if B is a parameterized type or a type variable, it is created, (see <a href="parameterizedtype"><code>ParameterizedType</code></a> for the details of the creation process for parameterized types). </li>
+<li>Otherwise, B is resolved. </li>
+</ul>
+</div> <dl> <dt>Returns:</dt> <dd>an array of Types representing the lower bound(s) of this type variable</dd> <dt>Throws:</dt> <dd>
+<code><a href="../typenotpresentexception">TypeNotPresentException</a></code> - if any of the bounds refers to a non-existent type declaration</dd> <dd>
+<code><a href="malformedparameterizedtypeexception">MalformedParameterizedTypeException</a></code> - if any of the bounds refer to a parameterized type that cannot be instantiated for any reason</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflect/WildcardType.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflect/WildcardType.html</a>
+  </p>
+</div>

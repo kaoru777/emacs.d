@@ -1,0 +1,80 @@
+<h1 title="Module jdk.compiler" class="title">Module jdk.compiler</h1>  <div class="module-signature">module <span class="element-name">jdk.compiler</span>
+</div> <section class="module-description" id="module-description">  <div class="block">Defines the implementation of the <a href="../java.compiler/javax/tools/toolprovider#getSystemJavaCompiler()">system Java compiler</a> and its command line equivalent, <em><span id="javac" class="search-tag-result">javac</span></em>. <h2 style="font-family:'DejaVu Sans Mono', monospace; font-style:italic">javac</h2> <p> This module provides the equivalent of command-line access to <em>javac</em> via the <a href="../java.base/java/util/spi/toolprovider" title="interface in java.util.spi"><code>ToolProvider</code></a> and <a href="../java.compiler/javax/tools/tool" title="interface in javax.tools"><code>Tool</code></a> service provider interfaces (SPIs), and more flexible access via the <a href="../java.compiler/javax/tools/javacompiler" title="interface in javax.tools"><code>JavaCompiler</code></a> SPI.</p> <p> Instances of the tools can be obtained by calling <a href="../java.base/java/util/spi/toolprovider#findFirst(java.lang.String)"><code>ToolProvider.findFirst</code></a> or the <a href="../java.base/java/util/serviceloader" title="class in java.util">service loader</a> with the name <code>"javac"</code>. </p>
+<p> In addition, instances of <a href="../java.compiler/javax/tools/javacompiler.compilationtask" title="interface in javax.tools"><code>JavaCompiler.CompilationTask</code></a> obtained from <a href="../java.compiler/javax/tools/javacompiler" title="interface in javax.tools">JavaCompiler</a> can be downcast to <a href="com/sun/source/util/javactask" title="class in com.sun.source.util"><code>JavacTask</code></a> for access to lower level aspects of <em>javac</em>, such as the <a href="com/sun/source/tree/package-summary"><code>Abstract Syntax Tree</code></a> (AST).</p> <p>This module uses the <a href="../java.base/java/nio/file/spi/filesystemprovider" title="class in java.nio.file.spi"><code>FileSystemProvider</code></a> API to locate file system providers. In particular, this means that a jar file system provider, such as that in the <code>jdk.zipfs</code> module, must be available if the compiler is to be able to read JAR files.</p>
+</div> <dl class="notes">
+<dt>Module Graph:</dt>
+<dd><a class="module-graph" href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.compiler/module-graph.svg"><img style="vertical-align:top" alt="Module graph for jdk.compiler" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8IS0tIEdlbmVyYXRlZCBieSBncmFwaHZpeiB2ZXJzaW9uIDIuMzguMCAoMjAxNDA0MTMuMjA0MSkKIC0tPgo8IS0tIFRpdGxlOiBqZGsuY29tcGlsZXIgUGFnZXM6IDEgLS0+Cjxzdmcgd2lkdGg9IjExOHB0IiBoZWlnaHQ9IjIxN3B0Igogdmlld0JveD0iMC4wMCAwLjAwIDExOC4wMCAyMTcuMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8ZyBpZD0iZ3JhcGgwIiBjbGFzcz0iZ3JhcGgiIHRyYW5zZm9ybT0ic2NhbGUoMSAxKSByb3RhdGUoMCkgdHJhbnNsYXRlKDQgMjEzKSI+Cjx0aXRsZT5qZGsuY29tcGlsZXI8L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJub25lIiBwb2ludHM9Ii00LDQgLTQsLTIxMyAxMTQsLTIxMyAxMTQsNCAtNCw0Ii8+CjwhLS0gamF2YS5jb21waWxlciAtLT4KPGcgaWQ9Im5vZGUxIiBjbGFzcz0ibm9kZSI+PHRpdGxlPmphdmEuY29tcGlsZXI8L3RpdGxlPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI1NSIgeT0iLTEwMS40IiBmb250LWZhbWlseT0iRGVqYVZ1U2FucyIgZm9udC1zaXplPSIxMi4wMCIgZmlsbD0iI2U3NmYwMCI+amF2YS5jb21waWxlcjwvdGV4dD4KPC9nPgo8IS0tIGphdmEuYmFzZSAtLT4KPGcgaWQ9Im5vZGUyIiBjbGFzcz0ibm9kZSI+PHRpdGxlPmphdmEuYmFzZTwvdGl0bGU+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjU1IiB5PSItMTcuNCIgZm9udC1mYW1pbHk9IkRlamFWdVNhbnMiIGZvbnQtc2l6ZT0iMTIuMDAiIGZpbGw9IiNlNzZmMDAiPmphdmEuYmFzZTwvdGV4dD4KPC9nPgo8IS0tIGphdmEuY29tcGlsZXImIzQ1OyZndDtqYXZhLmJhc2UgLS0+CjxnIGlkPSJlZGdlMSIgY2xhc3M9ImVkZ2UiPjx0aXRsZT5qYXZhLmNvbXBpbGVyJiM0NTsmZ3Q7amF2YS5iYXNlPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTk5OTk5IiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik01NSwtODMuNjUwMUM1NSwtNzMuOTgwOCA1NSwtNjIuMTUwMiA1NSwtNTEuNDE1NyIvPgo8cG9seWdvbiBmaWxsPSIjOTk5OTk5IiBzdHJva2U9IiM5OTk5OTkiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRzPSI1NSwtNDEuMTY3MSA1OS41MDAxLC01MS4xNjcxIDU1LjUsLTQ2LjE2NzEgNTUuNTAwMSwtNTEuMTY3MSA1NS4wMDAxLC01MS4xNjcxIDU0LjUwMDEsLTUxLjE2NzEgNTQuNSwtNDYuMTY3MSA1MC41MDAxLC01MS4xNjcyIDU1LC00MS4xNjcxIDU1LC00MS4xNjcxIi8+CjwvZz4KPCEtLSBqZGsuY29tcGlsZXIgLS0+CjxnIGlkPSJub2RlMyIgY2xhc3M9Im5vZGUiPjx0aXRsZT5qZGsuY29tcGlsZXI8L3RpdGxlPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI1NSIgeT0iLTE4NS40IiBmb250LWZhbWlseT0iRGVqYVZ1U2FucyIgZm9udC1zaXplPSIxMi4wMCIgZmlsbD0iIzQzNzI5MSI+amRrLmNvbXBpbGVyPC90ZXh0Pgo8L2c+CjwhLS0gamRrLmNvbXBpbGVyJiM0NTsmZ3Q7amF2YS5jb21waWxlciAtLT4KPGcgaWQ9ImVkZ2UyIiBjbGFzcz0iZWRnZSI+PHRpdGxlPmpkay5jb21waWxlciYjNDU7Jmd0O2phdmEuY29tcGlsZXI8L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiM5OTk5OTkiIHN0cm9rZS13aWR0aD0iMiIgZD0iTTU1LC0xNjcuNjVDNTUsLTE1Ny45ODEgNTUsLTE0Ni4xNSA1NSwtMTM1LjQxNiIvPgo8cG9seWdvbiBmaWxsPSIjOTk5OTk5IiBzdHJva2U9IiM5OTk5OTkiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRzPSI1NSwtMTI1LjE2NyA1OS41MDAxLC0xMzUuMTY3IDU1LjUsLTEzMC4xNjcgNTUuNTAwMSwtMTM1LjE2NyA1NS4wMDAxLC0xMzUuMTY3IDU0LjUwMDEsLTEzNS4xNjcgNTQuNSwtMTMwLjE2NyA1MC41MDAxLC0xMzUuMTY3IDU1LC0xMjUuMTY3IDU1LC0xMjUuMTY3Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K" height="100"><span><img style="border: solid lightgray 1px; vertical-align:top" alt="Module graph for jdk.compiler" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8IS0tIEdlbmVyYXRlZCBieSBncmFwaHZpeiB2ZXJzaW9uIDIuMzguMCAoMjAxNDA0MTMuMjA0MSkKIC0tPgo8IS0tIFRpdGxlOiBqZGsuY29tcGlsZXIgUGFnZXM6IDEgLS0+Cjxzdmcgd2lkdGg9IjExOHB0IiBoZWlnaHQ9IjIxN3B0Igogdmlld0JveD0iMC4wMCAwLjAwIDExOC4wMCAyMTcuMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8ZyBpZD0iZ3JhcGgwIiBjbGFzcz0iZ3JhcGgiIHRyYW5zZm9ybT0ic2NhbGUoMSAxKSByb3RhdGUoMCkgdHJhbnNsYXRlKDQgMjEzKSI+Cjx0aXRsZT5qZGsuY29tcGlsZXI8L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJub25lIiBwb2ludHM9Ii00LDQgLTQsLTIxMyAxMTQsLTIxMyAxMTQsNCAtNCw0Ii8+CjwhLS0gamF2YS5jb21waWxlciAtLT4KPGcgaWQ9Im5vZGUxIiBjbGFzcz0ibm9kZSI+PHRpdGxlPmphdmEuY29tcGlsZXI8L3RpdGxlPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI1NSIgeT0iLTEwMS40IiBmb250LWZhbWlseT0iRGVqYVZ1U2FucyIgZm9udC1zaXplPSIxMi4wMCIgZmlsbD0iI2U3NmYwMCI+amF2YS5jb21waWxlcjwvdGV4dD4KPC9nPgo8IS0tIGphdmEuYmFzZSAtLT4KPGcgaWQ9Im5vZGUyIiBjbGFzcz0ibm9kZSI+PHRpdGxlPmphdmEuYmFzZTwvdGl0bGU+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjU1IiB5PSItMTcuNCIgZm9udC1mYW1pbHk9IkRlamFWdVNhbnMiIGZvbnQtc2l6ZT0iMTIuMDAiIGZpbGw9IiNlNzZmMDAiPmphdmEuYmFzZTwvdGV4dD4KPC9nPgo8IS0tIGphdmEuY29tcGlsZXImIzQ1OyZndDtqYXZhLmJhc2UgLS0+CjxnIGlkPSJlZGdlMSIgY2xhc3M9ImVkZ2UiPjx0aXRsZT5qYXZhLmNvbXBpbGVyJiM0NTsmZ3Q7amF2YS5iYXNlPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTk5OTk5IiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik01NSwtODMuNjUwMUM1NSwtNzMuOTgwOCA1NSwtNjIuMTUwMiA1NSwtNTEuNDE1NyIvPgo8cG9seWdvbiBmaWxsPSIjOTk5OTk5IiBzdHJva2U9IiM5OTk5OTkiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRzPSI1NSwtNDEuMTY3MSA1OS41MDAxLC01MS4xNjcxIDU1LjUsLTQ2LjE2NzEgNTUuNTAwMSwtNTEuMTY3MSA1NS4wMDAxLC01MS4xNjcxIDU0LjUwMDEsLTUxLjE2NzEgNTQuNSwtNDYuMTY3MSA1MC41MDAxLC01MS4xNjcyIDU1LC00MS4xNjcxIDU1LC00MS4xNjcxIi8+CjwvZz4KPCEtLSBqZGsuY29tcGlsZXIgLS0+CjxnIGlkPSJub2RlMyIgY2xhc3M9Im5vZGUiPjx0aXRsZT5qZGsuY29tcGlsZXI8L3RpdGxlPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI1NSIgeT0iLTE4NS40IiBmb250LWZhbWlseT0iRGVqYVZ1U2FucyIgZm9udC1zaXplPSIxMi4wMCIgZmlsbD0iIzQzNzI5MSI+amRrLmNvbXBpbGVyPC90ZXh0Pgo8L2c+CjwhLS0gamRrLmNvbXBpbGVyJiM0NTsmZ3Q7amF2YS5jb21waWxlciAtLT4KPGcgaWQ9ImVkZ2UyIiBjbGFzcz0iZWRnZSI+PHRpdGxlPmpkay5jb21waWxlciYjNDU7Jmd0O2phdmEuY29tcGlsZXI8L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiM5OTk5OTkiIHN0cm9rZS13aWR0aD0iMiIgZD0iTTU1LC0xNjcuNjVDNTUsLTE1Ny45ODEgNTUsLTE0Ni4xNSA1NSwtMTM1LjQxNiIvPgo8cG9seWdvbiBmaWxsPSIjOTk5OTk5IiBzdHJva2U9IiM5OTk5OTkiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRzPSI1NSwtMTI1LjE2NyA1OS41MDAxLC0xMzUuMTY3IDU1LjUsLTEzMC4xNjcgNTUuNTAwMSwtMTM1LjE2NyA1NS4wMDAxLC0xMzUuMTY3IDU0LjUwMDEsLTEzNS4xNjcgNTQuNSwtMTMwLjE2NyA1MC41MDAxLC0xMzUuMTY3IDU1LC0xMjUuMTY3IDU1LC0xMjUuMTY3Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"></span></a></dd>
+<dt>Tool Guides:</dt> <dd><a href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html">javac</a></dd> <dt>Since:</dt> <dd>9</dd> </dl> </section> <section class="summary"> <section class="packages-summary" id="packages-summary">  <h2>Packages</h2> <div id="package-summary-table">  <table class="summary-table two-column-summary">           <tr>
+<th>Package</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="com/sun/source/doctree/package-summary">com.sun.source.doctree</a></td>
+<td> <div class="block">Provides interfaces to represent documentation comments as abstract syntax trees (AST).</div> </td>
+</tr>
+<tr>
+<td><a href="com/sun/source/tree/package-summary">com.sun.source.tree</a></td>
+<td> <div class="block">Provides interfaces to represent source code as abstract syntax trees (AST).</div> </td>
+</tr>
+<tr>
+<td><a href="com/sun/source/util/package-summary">com.sun.source.util</a></td>
+<td> <div class="block">Provides utilities for operations on abstract syntax trees (AST).</div> </td>
+</tr>
+<tr>
+<td><a href="com/sun/tools/javac/package-summary">com.sun.tools.javac</a></td>
+<td> <div class="block">This package provides a legacy entry point for the <em>javac</em> tool.</div> </td>
+</tr>
+</table> </div>  <table class="details-table two-column-summary">     <tr>
+<th>From</th>
+<th>Packages</th>
+</tr>
+<tr>
+<td><a href="../java.compiler/module-summary">java.compiler</a></td>
+<td>
+<a href="../java.compiler/javax/annotation/processing/package-summary">javax.annotation.processing</a> <a href="../java.compiler/javax/lang/model/package-summary">javax.lang.model</a> <a href="../java.compiler/javax/lang/model/element/package-summary">javax.lang.model.element</a> <a href="../java.compiler/javax/lang/model/type/package-summary">javax.lang.model.type</a> <a href="../java.compiler/javax/lang/model/util/package-summary">javax.lang.model.util</a> <a href="../java.compiler/javax/tools/package-summary">javax.tools</a>
+</td>
+</tr>
+</table> </section><section class="modules-summary" id="modules-summary">  <h2>Modules</h2>  <table class="details-table three-column-summary">       <tr>
+<th>Modifier</th>
+<th>Module</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>transitive</td>
+<td><a href="../java.compiler/module-summary">java.compiler</a></td>
+<td> <div class="block">Defines the Language Model, Annotation Processing, and Java Compiler APIs.</div> </td>
+</tr>
+</table> </section><section class="services-summary" id="services-summary">  <h2>Services</h2>  <table class="details-table two-column-summary">         <tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="../java.compiler/javax/tools/javacompiler" title="interface in javax.tools">JavaCompiler</a></td>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../java.compiler/javax/tools/tool" title="interface in javax.tools">Tool</a></td>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../java.base/java/util/spi/toolprovider" title="interface in java.util.spi">ToolProvider</a></td>
+<td> </td>
+</tr>
+</table>  <table class="details-table two-column-summary">       <tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="com/sun/source/util/plugin" title="interface in com.sun.source.util">Plugin</a></td>
+<td> <div class="block">The interface for a javac plug-in.</div> </td>
+</tr>
+<tr>
+<td><a href="../java.compiler/javax/annotation/processing/processor" title="interface in javax.annotation.processing">Processor</a></td>
+<td> <div class="block">The interface for an annotation processor.</div> </td>
+</tr>
+</table> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.compiler/module-summary.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.compiler/module-summary.html</a>
+  </p>
+</div>

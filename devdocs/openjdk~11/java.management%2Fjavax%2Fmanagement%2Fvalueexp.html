@@ -1,0 +1,21 @@
+  <main role="main">    <h1>Interface ValueExp</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="../../../java.base/java/io/serializable">Serializable</a></code></dd> </dl> <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="attributevalueexp">AttributeValueExp</a></code>, <code><a href="stringvalueexp">StringValueExp</a></code>
+</dd> </dl>  <pre data-language="java">public interface ValueExp
+extends Serializable</pre> <p>Represents values that can be passed as arguments to relational expressions. Strings, numbers, attributes are valid values and should be represented by implementations of <code>ValueExp</code>.</p> <dl> <dt>Since:</dt> <dd>1.5</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="valueexp">ValueExp</a></code></td> <th scope="row"><code><a href="#apply(javax.management.ObjectName)">apply</a>​(<a href="objectname">ObjectName</a> name)</code></th> <td> <p>Applies the ValueExp on a MBean.</p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#setMBeanServer(javax.management.MBeanServer)">setMBeanServer</a>​(<a href="mbeanserver">MBeanServer</a> s)</code></th> <td> <p><strong>Deprecated.</strong> <div>This method is not needed because a <code>ValueExp</code> can access the MBean server in which it is being evaluated by using <a href="queryeval#getMBeanServer()"><code>QueryEval.getMBeanServer()</code></a>.</div> </p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="apply(javax.management.ObjectName)">apply</h3> <pre data-language="java">ValueExp apply(ObjectName name)
+        throws BadStringOperationException,
+               BadBinaryOpValueExpException,
+               BadAttributeValueExpException,
+               InvalidApplicationException</pre> <p>Applies the ValueExp on a MBean.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>name</code> - The name of the MBean on which the ValueExp will be applied.</dd> <dt>Returns:</dt> <dd>The <code>ValueExp</code>.</dd> <dt>Throws:</dt> <dd>
+<code><a href="badstringoperationexception">BadStringOperationException</a></code> - when an invalid string operation is passed to a method for constructing a query</dd> <dd>
+<code><a href="badbinaryopvalueexpexception">BadBinaryOpValueExpException</a></code> - when an invalid expression is passed to a method for constructing a query</dd> <dd>
+<code><a href="badattributevalueexpexception">BadAttributeValueExpException</a></code> - when an invalid MBean attribute is passed to a query constructing method</dd> <dd>
+<code><a href="invalidapplicationexception">InvalidApplicationException</a></code> - when an invalid apply is attempted</dd> </dl>    <h3 id="setMBeanServer(javax.management.MBeanServer)">setMBeanServer</h3> <pre data-language="java">@Deprecated
+void setMBeanServer(MBeanServer s)</pre> <div>
+<strong>Deprecated.</strong> <div>This method is not needed because a <code>ValueExp</code> can access the MBean server in which it is being evaluated by using <a href="queryeval#getMBeanServer()"><code>QueryEval.getMBeanServer()</code></a>.</div> </div> <p>Sets the MBean server on which the query is to be performed.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>s</code> - The MBean server on which the query is to be performed.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.management/javax/management/ValueExp.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.management/javax/management/ValueExp.html</a>
+  </p>
+</div>

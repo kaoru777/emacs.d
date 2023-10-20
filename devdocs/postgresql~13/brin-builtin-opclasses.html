@@ -1,0 +1,66 @@
+<h1>67.2. Built-in Operator Classes</h1>    <p>The core PostgreSQL distribution includes the BRIN operator classes shown in <a class="xref" href="brin-builtin-opclasses#BRIN-BUILTIN-OPCLASSES-TABLE" title="Table 67.1. Built-in BRIN Operator Classes">Table 67.1</a>.</p> <p>The <em class="firstterm">minmax</em> operator classes store the minimum and the maximum values appearing in the indexed column within the range. The <em class="firstterm">inclusion</em> operator classes store a value which includes the values in the indexed column within the range.</p> <div class="table" id="BRIN-BUILTIN-OPCLASSES-TABLE"> <p class="title"><strong>Table 67.1. Built-in BRIN Operator Classes</strong></p> <div class="table-contents"> <table class="table" summary="Built-in BRIN Operator Classes"> <colgroup> <col class="col1"> <col class="col2"> <col class="col3"> </colgroup> <thead> <tr> <th>Name</th> <th>Indexed Data Type</th> <th>Indexable Operators</th> </tr> </thead> <tbody> <tr> <td><code class="literal">int8_minmax_ops</code></td> <td><code class="type">bigint</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">bit_minmax_ops</code></td> <td><code class="type">bit</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">varbit_minmax_ops</code></td> <td><code class="type">bit varying</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">box_inclusion_ops</code></td> <td><code class="type">box</code></td> <td>
+<code class="literal">&lt;&lt;</code> <code class="literal">&amp;&lt;</code> <code class="literal">&amp;&amp;</code> <code class="literal">&amp;&gt;</code> <code class="literal">&gt;&gt;</code> <code class="literal">~=</code> <code class="literal">@&gt;</code> <code class="literal">&lt;@</code> <code class="literal">&amp;&lt;|</code> <code class="literal">&lt;&lt;|</code> <code class="literal">|&gt;&gt;</code> <code class="literal">|&amp;&gt;</code>
+</td> </tr> <tr> <td><code class="literal">bytea_minmax_ops</code></td> <td><code class="type">bytea</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">bpchar_minmax_ops</code></td> <td><code class="type">character</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">char_minmax_ops</code></td> <td><code class="type">"char"</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">date_minmax_ops</code></td> <td><code class="type">date</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">float8_minmax_ops</code></td> <td><code class="type">double precision</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">inet_minmax_ops</code></td> <td><code class="type">inet</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">network_inclusion_ops</code></td> <td><code class="type">inet</code></td> <td>
+<code class="literal">&amp;&amp;</code> <code class="literal">&gt;&gt;=</code> <code class="literal">&lt;&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;&gt;</code> <code class="literal">&lt;&lt;</code>
+</td> </tr> <tr> <td><code class="literal">int4_minmax_ops</code></td> <td><code class="type">integer</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">interval_minmax_ops</code></td> <td><code class="type">interval</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">macaddr_minmax_ops</code></td> <td><code class="type">macaddr</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">macaddr8_minmax_ops</code></td> <td><code class="type">macaddr8</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">name_minmax_ops</code></td> <td><code class="type">name</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">numeric_minmax_ops</code></td> <td><code class="type">numeric</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">pg_lsn_minmax_ops</code></td> <td><code class="type">pg_lsn</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">oid_minmax_ops</code></td> <td><code class="type">oid</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">range_inclusion_ops</code></td> <td><code class="type">any range type</code></td> <td>
+<code class="literal">&lt;&lt;</code> <code class="literal">&amp;&lt;</code> <code class="literal">&amp;&amp;</code> <code class="literal">&amp;&gt;</code> <code class="literal">&gt;&gt;</code> <code class="literal">@&gt;</code> <code class="literal">&lt;@</code> <code class="literal">-|-</code> <code class="literal">=</code> <code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;</code> <code class="literal">&gt;=</code>
+</td> </tr> <tr> <td><code class="literal">float4_minmax_ops</code></td> <td><code class="type">real</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">int2_minmax_ops</code></td> <td><code class="type">smallint</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">text_minmax_ops</code></td> <td><code class="type">text</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">tid_minmax_ops</code></td> <td><code class="type">tid</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">timestamp_minmax_ops</code></td> <td><code class="type">timestamp without time zone</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">timestamptz_minmax_ops</code></td> <td><code class="type">timestamp with time zone</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">time_minmax_ops</code></td> <td><code class="type">time without time zone</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">timetz_minmax_ops</code></td> <td><code class="type">time with time zone</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> <tr> <td><code class="literal">uuid_minmax_ops</code></td> <td><code class="type">uuid</code></td> <td>
+<code class="literal">&lt;</code> <code class="literal">&lt;=</code> <code class="literal">=</code> <code class="literal">&gt;=</code> <code class="literal">&gt;</code>
+</td> </tr> </tbody> </table> </div> </div>  <div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter">  <table summary="Navigation footer"> <tr> <td width="40%" align="left">
+<a accesskey="p" href="brin-intro" title="67.1. Introduction">Prev</a> </td> <td width="20%" align="center"><a accesskey="u" href="https://www.postgresql.org/docs/13/brin.html" title="Chapter 67. BRIN Indexes">Up</a></td> <td width="40%" align="right"> <a accesskey="n" href="brin-extensibility" title="67.3. Extensibility">Next</a>
+</td> </tr> <tr> <td width="40%" align="left">67.1. Introduction </td> <td width="20%" align="center"><a accesskey="h" href="https://www.postgresql.org/docs/13/index.html" title="PostgreSQL 13.4 Documentation">Home</a></td> <td width="40%" align="right"> 67.3. Extensibility</td> </tr> </table> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2021 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/13/brin-builtin-opclasses.html" class="_attribution-link">https://www.postgresql.org/docs/13/brin-builtin-opclasses.html</a>
+  </p>
+</div>

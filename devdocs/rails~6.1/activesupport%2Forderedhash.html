@@ -1,0 +1,38 @@
+<h1 id="class-ActiveSupport::OrderedHash" class="class"> class ActiveSupport::OrderedHash </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../hash">Hash</a></dd>
+</dl> <section class="description"> <p>DEPRECATED: <code>ActiveSupport::OrderedHash</code> implements a hash that preserves insertion order.</p> <pre class="ruby" data-language="ruby">oh = ActiveSupport::OrderedHash.new
+oh[:a] = 1
+oh[:b] = 2
+oh.keys # =&gt; [:a, :b], this order is guaranteed
+</pre> <p>Also, maps the <code>omap</code> feature for YAML files (See <a href="https://yaml.org/type/omap.html">yaml.org/type/omap.html</a>) to support ordered items when loading from yaml.</p> <p><code>ActiveSupport::OrderedHash</code> is namespaced to prevent conflicts with other implementations.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-encode_with"> <span class="method-name">encode_with</span><span class="method-args">(coder)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="encode_with-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/ordered_hash.rb, line 29
+def encode_with(coder)
+  coder.represent_seq "!omap", map { |k, v| { k =&gt; v } }
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-extractable_options-3F"> <span class="method-name">extractable_options?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="extractable_options-3F-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/ordered_hash.rb, line 46
+def extractable_options?
+  true
+end</pre> </div> <p>Returns true to make sure that this hash is extractable via <code>Array#extract_options!</code></p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-nested_under_indifferent_access"> <span class="method-name">nested_under_indifferent_access</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="nested_under_indifferent_access-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/ordered_hash.rb, line 41
+def nested_under_indifferent_access
+  self
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-reject"> <span class="method-name">reject</span><span class="method-args">(*args, &amp;block)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="reject-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/ordered_hash.rb, line 37
+def reject(*args, &amp;block)
+  dup.tap { |hash| hash.reject!(*args, &amp;block) }
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-select"> <span class="method-name">select</span><span class="method-args">(*args, &amp;block)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="select-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/ordered_hash.rb, line 33
+def select(*args, &amp;block)
+  dup.tap { |hash| hash.select!(*args, &amp;block) }
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-to_yaml_type"> <span class="method-name">to_yaml_type</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="to_yaml_type-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/ordered_hash.rb, line 25
+def to_yaml_type
+  "!tag:yaml.org,2002:omap"
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

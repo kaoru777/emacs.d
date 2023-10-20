@@ -1,0 +1,94 @@
+<h1>aspect-ratio</h1>
+<div class="section-content"><p>The <code>aspect-ratio</code> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> property sets a <strong>preferred aspect ratio</strong> for the box, which will be used in the calculation of auto sizes and some other layout functions.</p></div>
+<section aria-labelledby="try_it"><h2 id="try_it">Try it</h2>
+<div class="section-content"><iframe class="interactive is-default-height" height="200" src="https://interactive-examples.mdn.mozilla.net/pages/css/aspect-ratio.html" title="MDN Web Docs Interactive Example" loading="lazy"></iframe></div></section><section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 1 / 1<span class="token punctuation">;</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
+
+<span class="token comment">/* Global values */</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> initial<span class="token punctuation">;</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> revert<span class="token punctuation">;</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> revert-layer<span class="token punctuation">;</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> unset<span class="token punctuation">;</span>
+</pre></div></div></section><section aria-labelledby="values"><h3 id="values">Values</h3>
+<div class="section-content"><dl> <dt id="auto"><code>auto</code></dt> <dd> <p><a href="replaced_element">Replaced elements</a> with an intrinsic aspect ratio use <em>that</em> aspect ratio, otherwise the box has no preferred aspect ratio. Size calculations involving intrinsic aspect ratio always work with the content box dimensions.</p> </dd> <dt id="ratio"><a href="ratio"><code>&lt;ratio&gt;</code></a></dt> <dd> <p>The box's preferred aspect ratio is the specified ratio of <code>width</code> / <code>height</code>. If <code>height</code> and the preceding slash character are omitted, <code>height</code> defaults to <code>1</code>. Size calculations involving preferred aspect ratio work with the dimensions of the box specified by <code>box-sizing</code>.</p> </dd> </dl></div></section><section aria-labelledby="formal_definition"><h2 id="formal_definition">Formal definition</h2>
+<div class="section-content"><figure class="table-container"><div class="_table"><table class="properties"><tbody>
+<tr>
+<th scope="row"><a href="initial_value">Initial value</a></th>
+<td><code>auto</code></td>
+</tr>
+<tr>
+<th scope="row">Applies to</th>
+<td>all elements except inline boxes and internal ruby or table boxes</td>
+</tr>
+<tr>
+<th scope="row"><a href="inheritance">Inherited</a></th>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row"><a href="computed_value">Computed value</a></th>
+<td>as specified</td>
+</tr>
+<tr>
+<th scope="row">Animation type</th>
+<td>discrete</td>
+</tr>
+</tbody></table></div></figure></div></section><section aria-labelledby="formal_syntax"><h2 id="formal_syntax">Formal syntax</h2>
+<div class="section-content"><pre class="notranslate"><span class="token property" id="aspect-ratio">aspect-ratio = </span><br>  <span class="token keyword">auto</span>     <a href="value_definition_syntax#double_bar">||</a><br>  <span class="token property">&lt;ratio&gt;</span>  <br><br><span class="token property" id="&lt;ratio&gt;">&lt;ratio&gt; = </span><br>  <a href="number"><span class="token property">&lt;number [0,∞]&gt;</span></a> <a href="value_definition_syntax#brackets">[</a> / <a href="number"><span class="token property">&lt;number [0,∞]&gt;</span></a> <a href="value_definition_syntax#brackets">]</a><a href="value_definition_syntax#question_mark">?</a>  <br><br></pre></div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="examples_of_values_for_aspect-ratio"><h3 id="examples_of_values_for_aspect-ratio">Examples of values for aspect-ratio</h3>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 1 / 1<span class="token punctuation">;</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 16 / 9<span class="token punctuation">;</span>
+<span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 0.5<span class="token punctuation">;</span>
+</pre></div></div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://w3c.github.io/csswg-drafts/css-sizing-4/#aspect-ratio">CSS Box Sizing Module Level 4 <br><small># aspect-ratio</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody><tr>
+<th><code>aspect-ratio</code></th>
+<td class="bc-supports-yes">88</td>
+<td class="bc-supports-yes">88</td>
+<td class="bc-supports-yes">89</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">74</td>
+<td class="bc-supports-yes">15</td>
+<td class="bc-supports-yes">88</td>
+<td class="bc-supports-yes">88</td>
+<td class="bc-supports-yes">89</td>
+<td class="bc-supports-yes">63</td>
+<td class="bc-supports-yes">15</td>
+<td class="bc-supports-yes">15.0</td>
+</tr></tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Performance/Multimedia#rendering_strategy_preventing_jank_when_loading_images">Image aspect-ratio: preventing jank</a></li> <li><a href="https://www.smashingmagazine.com/2019/03/aspect-ratio-unit-css/" target="_blank">Designing an aspect ratio unit for CSS</a></li> <li><a href="https://www.smashingmagazine.com/2020/03/setting-height-width-images-important-again/" target="_blank">Setting Height And Width On Images Is Important Again</a></li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio</a>
+  </p>
+</div>

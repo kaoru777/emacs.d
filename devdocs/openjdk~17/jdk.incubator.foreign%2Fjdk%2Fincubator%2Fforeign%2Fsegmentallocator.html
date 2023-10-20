@@ -1,0 +1,232 @@
+<h1 title="Interface SegmentAllocator" class="title">Interface SegmentAllocator</h1> <section class="class-description" id="class-description"> <dl class="notes"> <dt>Functional Interface:</dt> <dd>This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.</dd> </dl>  <pre class="lang-java" data-language="java">@FunctionalInterface public interface SegmentAllocator</pre> <div class="block">This interface models a memory allocator. Clients implementing this interface must implement the <a href="#allocate(long,long)"><code>allocate(long, long)</code></a> method. This interface defines several default methods which can be useful to create segments from several kinds of Java values such as primitives and arrays. This interface can be seen as a thin wrapper around the basic capabilities for creating native segments (e.g. <a href="memorysegment#allocateNative(long,long,jdk.incubator.foreign.ResourceScope)"><code>MemorySegment.allocateNative(long, long, ResourceScope)</code></a>); since <a href="segmentallocator" title="interface in jdk.incubator.foreign"><code>SegmentAllocator</code></a> is a <em>functional interface</em>, clients can easily obtain a native allocator by using either a lambda expression or a method reference. <p> This interface provides a factory, namely <a href="#ofScope(jdk.incubator.foreign.ResourceScope)"><code>ofScope(ResourceScope)</code></a> which can be used to obtain a <em>scoped</em> allocator, that is, an allocator which creates segment bound by a given scope. This can be useful when working inside a <em>try-with-resources</em> construct: </p>
+<blockquote><pre class="lang-java" data-language="java"><code>
+try (ResourceScope scope = ResourceScope.newConfinedScope()) {
+   SegmentAllocator allocator = SegmentAllocator.ofScope(scope);
+   ...
+}
+ </code></pre></blockquote> In addition, this interface also defines factories for commonly used allocators; for instance <a href="#arenaAllocator(jdk.incubator.foreign.ResourceScope)"><code>arenaAllocator(ResourceScope)</code></a> and <a href="#arenaAllocator(long,jdk.incubator.foreign.ResourceScope)"><code>arenaAllocator(long, ResourceScope)</code></a> are arena-style native allocators. Finally <a href="#ofSegment(jdk.incubator.foreign.MemorySegment)"><code>ofSegment(MemorySegment)</code></a> returns an allocator which wraps a segment (either on-heap or off-heap) and recycles its content upon each new allocation request.</div> </section> <section class="summary"> <section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                                                            <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(long)" class="member-name-link">allocate</a><wbr>(long bytesSize)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given size, with default alignment (1-byte aligned).</div> </td>
+</tr>
+<tr>
+<td><code><a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(long,long)" class="member-name-link">allocate</a><wbr>(long bytesSize,
+ long bytesAlignment)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given size and alignment constraint.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.MemoryLayout)" class="member-name-link">allocate</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> layout)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,byte)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ byte value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given byte value.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,char)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ char value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given char value.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,double)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ double value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given double value.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,float)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ float value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given float value.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,int)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ int value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given int value.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,long)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ long value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given long value.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,short)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ short value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given short value.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocate(jdk.incubator.foreign.ValueLayout,jdk.incubator.foreign.Addressable)" class="member-name-link">allocate</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ <a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a> value)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given address value (expressed as an <a href="addressable" title="interface in jdk.incubator.foreign"><code>Addressable</code></a> instance).</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.MemoryLayout,long)" class="member-name-link">allocateArray</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> elementLayout,
+ long count)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory corresponding to an array with given element layout and size.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,byte%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ byte[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given byte array.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,char%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ char[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given char array.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,double%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ double[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given double array.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,float%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ float[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given float array.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,int%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ int[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given int array.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,long%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ long[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given long array.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,short%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ short[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given short array.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#allocateArray(jdk.incubator.foreign.ValueLayout,jdk.incubator.foreign.Addressable%5B%5D)" class="member-name-link">allocateArray</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> elementLayout,
+ <a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a>[] array)</wbr></code></td>
+<td> <div class="block">Allocate a block of memory with given layout and initialize it with given address array.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="segmentallocator" title="interface in jdk.incubator.foreign">SegmentAllocator</a></code></td>
+<td><code><a href="#arenaAllocator(long,jdk.incubator.foreign.ResourceScope)" class="member-name-link">arenaAllocator</a><wbr>(long size,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Returns a native arena-based allocator which allocates a single memory segment, of given size (using malloc), and then responds to allocation request by returning different slices of that same segment (until no further allocation is possible).</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="segmentallocator" title="interface in jdk.incubator.foreign">SegmentAllocator</a></code></td>
+<td><code><a href="#arenaAllocator(jdk.incubator.foreign.ResourceScope)" class="member-name-link">arenaAllocator</a><wbr>(<a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Returns a native unbounded arena-based allocator.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="segmentallocator" title="interface in jdk.incubator.foreign">SegmentAllocator</a></code></td>
+<td><code><a href="#ofScope(jdk.incubator.foreign.ResourceScope)" class="member-name-link">ofScope</a><wbr>(<a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Returns a native allocator which responds to allocation requests by allocating new segments bound by the given resource scope, using the <a href="memorysegment#allocateNative(long,long,jdk.incubator.foreign.ResourceScope)"><code>MemorySegment.allocateNative(long, long, ResourceScope)</code></a> factory.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="segmentallocator" title="interface in jdk.incubator.foreign">SegmentAllocator</a></code></td>
+<td><code><a href="#ofSegment(jdk.incubator.foreign.MemorySegment)" class="member-name-link">ofSegment</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Returns a segment allocator which responds to allocation requests by recycling a single segment; that is, each new allocation request will return a new slice starting at the segment offset <code>0</code> (alignment constraints are ignored by this allocator).</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,byte)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, byte value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given byte value.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize()</code> does not conform to the size of a byte value.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,char)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, char value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given char value.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize()</code> does not conform to the size of a char value.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,short)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, short value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given short value.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize()</code> does not conform to the size of a short value.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,int)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, int value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given int value.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize()</code> does not conform to the size of a int value.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,float)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, float value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given float value.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize()</code> does not conform to the size of a float value.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,long)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, long value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given long value.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize()</code> does not conform to the size of a long value.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,double)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, double value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given double value.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize()</code> does not conform to the size of a double value.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.ValueLayout,jdk.incubator.foreign.Addressable)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(ValueLayout layout, Addressable value)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given address value (expressed as an <a href="addressable" title="interface in jdk.incubator.foreign"><code>Addressable</code></a> instance). The address value might be narrowed according to the platform address size (see <a href="memorylayouts#ADDRESS"><code>MemoryLayouts.ADDRESS</code></a>).</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dd>
+<code>value</code> - the value to be set on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize() != MemoryLayouts.ADDRESS.byteSize()</code>.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,byte[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, byte[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given byte array.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>elementLayout.byteSize()</code> does not conform to the size of a byte value.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,short[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, short[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given short array.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>elementLayout.byteSize()</code> does not conform to the size of a short value.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,char[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, char[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given char array.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>elementLayout.byteSize()</code> does not conform to the size of a char value.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,int[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, int[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given int array.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>elementLayout.byteSize()</code> does not conform to the size of a int value.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,float[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, float[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given float array.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>elementLayout.byteSize()</code> does not conform to the size of a float value.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,long[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, long[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given long array.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>elementLayout.byteSize()</code> does not conform to the size of a long value.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,double[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, double[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given double array.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>elementLayout.byteSize()</code> does not conform to the size of a double value.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.ValueLayout,jdk.incubator.foreign.Addressable[])"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(ValueLayout elementLayout, Addressable[] array)</pre> <div class="block">Allocate a block of memory with given layout and initialize it with given address array. The address value of each array element might be narrowed according to the platform address size (see <a href="memorylayouts#ADDRESS"><code>MemoryLayouts.ADDRESS</code></a>).</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocateArray(layout, array.length)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the element layout of the array to be allocated.</dd> <dd>
+<code>array</code> - the array to be copied on the newly allocated memory block.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>layout.byteSize() != MemoryLayouts.ADDRESS.byteSize()</code>.</dd> </dl> </section><section class="detail" id="allocate(jdk.incubator.foreign.MemoryLayout)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(MemoryLayout layout)</pre> <div class="block">Allocate a block of memory with given layout.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(layout.byteSize(), layout.byteAlignment())</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the block of memory to be allocated.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> </dl> </section><section class="detail" id="allocateArray(jdk.incubator.foreign.MemoryLayout,long)"> <h3>allocateArray</h3> <pre class="lang-java" data-language="java">default MemorySegment allocateArray(MemoryLayout elementLayout, long count)</pre> <div class="block">Allocate a block of memory corresponding to an array with given element layout and size.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(MemoryLayout.sequenceLayout(count, elementLayout))</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>elementLayout</code> - the array element layout.</dd> <dd>
+<code>count</code> - the array element count.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> </dl> </section><section class="detail" id="allocate(long)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">default MemorySegment allocate(long bytesSize)</pre> <div class="block">Allocate a block of memory with given size, with default alignment (1-byte aligned).</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>the default implementation for this method calls <code>this.allocate(bytesSize, 1)</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>bytesSize</code> - the size (in bytes) of the block of memory to be allocated.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> </dl> </section><section class="detail" id="allocate(long,long)"> <h3>allocate</h3> <pre class="lang-java" data-language="java">MemorySegment allocate(long bytesSize, long bytesAlignment)</pre> <div class="block">Allocate a block of memory with given size and alignment constraint.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>bytesSize</code> - the size (in bytes) of the block of memory to be allocated.</dd> <dd>
+<code>bytesAlignment</code> - the alignment (in bytes) of the block of memory to be allocated.</dd> <dt>Returns:</dt> <dd>a segment for the newly allocated memory block.</dd> </dl> </section><section class="detail" id="arenaAllocator(long,jdk.incubator.foreign.ResourceScope)"> <h3>arenaAllocator</h3> <pre class="lang-java" data-language="java">static SegmentAllocator arenaAllocator(long size, ResourceScope scope)</pre> <div class="block">Returns a native arena-based allocator which allocates a single memory segment, of given size (using malloc), and then responds to allocation request by returning different slices of that same segment (until no further allocation is possible). This can be useful when clients want to perform multiple allocation requests while avoiding the cost associated with allocating a new off-heap memory region upon each allocation request. <p> An allocator associated with a <em>shared</em> resource scope is thread-safe and allocation requests may be performed concurrently; conversely, if the arena allocator is associated with a <em>confined</em> resource scope, allocation requests can only occur from the thread owning the allocator's resource scope. </p>
+<p> The returned allocator might throw an <a href="../../../../java.base/java/lang/outofmemoryerror" title="class in java.lang"><code>OutOfMemoryError</code></a> if an incoming allocation request exceeds the allocator capacity.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>size</code> - the size (in bytes) of the allocation arena.</dd> <dd>
+<code>scope</code> - the scope associated with the segments returned by this allocator.</dd> <dt>Returns:</dt> <dd>a new bounded arena-based allocator</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>size &lt;= 0</code>.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if <code>scope</code> has been already closed, or if access occurs from a thread other than the thread owning <code>scope</code>.</dd> </dl> </section><section class="detail" id="arenaAllocator(jdk.incubator.foreign.ResourceScope)"> <h3>arenaAllocator</h3> <pre class="lang-java" data-language="java">static SegmentAllocator arenaAllocator(ResourceScope scope)</pre> <div class="block">Returns a native unbounded arena-based allocator. <p> The returned allocator allocates a memory segment <code>S</code> of a certain fixed size (using malloc) and then responds to allocation requests in one of the following ways: </p>
+<ul> <li>if the size of the allocation requests is smaller than the size of <code>S</code>, and <code>S</code> has a <em>free</em> slice <code>S'</code> which fits that allocation request, return that <code>S'</code>. </li>
+<li>if the size of the allocation requests is smaller than the size of <code>S</code>, and <code>S</code> has no <em>free</em> slices which fits that allocation request, allocate a new segment <code>S'</code> (using malloc), which has same size as <code>S</code> and set <code>S = S'</code>; the allocator then tries to respond to the same allocation request again. </li>
+<li>if the size of the allocation requests is bigger than the size of <code>S</code>, allocate a new segment <code>S'</code> (using malloc), which has a sufficient size to satisfy the allocation request, and return <code>S'</code>. </li>
+</ul> <p> This segment allocator can be useful when clients want to perform multiple allocation requests while avoiding the cost associated with allocating a new off-heap memory region upon each allocation request. </p>
+<p> An allocator associated with a <em>shared</em> resource scope is thread-safe and allocation requests may be performed concurrently; conversely, if the arena allocator is associated with a <em>confined</em> resource scope, allocation requests can only occur from the thread owning the allocator's resource scope. </p>
+<p> The returned allocator might throw an <a href="../../../../java.base/java/lang/outofmemoryerror" title="class in java.lang"><code>OutOfMemoryError</code></a> if an incoming allocation request exceeds the system capacity.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>scope</code> - the scope associated with the segments returned by this allocator.</dd> <dt>Returns:</dt> <dd>a new unbounded arena-based allocator</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if <code>scope</code> has been already closed, or if access occurs from a thread other than the thread owning <code>scope</code>.</dd> </dl> </section><section class="detail" id="ofSegment(jdk.incubator.foreign.MemorySegment)"> <h3>ofSegment</h3> <pre class="lang-java" data-language="java">static SegmentAllocator ofSegment(MemorySegment segment)</pre> <div class="block">Returns a segment allocator which responds to allocation requests by recycling a single segment; that is, each new allocation request will return a new slice starting at the segment offset <code>0</code> (alignment constraints are ignored by this allocator). This can be useful to limit allocation requests in case a client knows that they have fully processed the contents of the allocated segment before the subsequent allocation request takes place. <p> While the allocator returned by this method is <em>thread-safe</em>, concurrent access on the same recycling allocator might cause a thread to overwrite contents written to the underlying segment by a different thread.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the memory segment to be recycled by the returned allocator.</dd> <dt>Returns:</dt> <dd>an allocator which recycles an existing segment upon each new allocation request.</dd> </dl> </section><section class="detail" id="ofScope(jdk.incubator.foreign.ResourceScope)"> <h3>ofScope</h3> <pre class="lang-java" data-language="java">static SegmentAllocator ofScope(ResourceScope scope)</pre> <div class="block">Returns a native allocator which responds to allocation requests by allocating new segments bound by the given resource scope, using the <a href="memorysegment#allocateNative(long,long,jdk.incubator.foreign.ResourceScope)"><code>MemorySegment.allocateNative(long, long, ResourceScope)</code></a> factory. This code is equivalent (but likely more efficient) to the following: <blockquote><pre class="lang-java" data-language="java"><code>
+    Resource scope = ...
+    SegmentAllocator scoped = (size, align) -&gt; MemorySegment.allocateNative(size, align, scope);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>scope</code> - the resource scope associated with the segments created by the returned allocator.</dd> <dt>Returns:</dt> <dd>an allocator which allocates new memory segment bound by the provided resource scope.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/SegmentAllocator.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/SegmentAllocator.html</a>
+  </p>
+</div>

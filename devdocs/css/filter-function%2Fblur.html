@@ -1,0 +1,65 @@
+<h1>blur()</h1>
+<div class="section-content"><p>The <code>blur()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> <a href="../css_functions">function</a> applies a <a href="https://en.wikipedia.org/wiki/Gaussian_blur" target="_blank">Gaussian blur</a> to the input image. Its result is a <a href="../filter-function"><code>&lt;filter-function&gt;</code></a>.</p></div>
+<section aria-labelledby="try_it"><h2 id="try_it">Try it</h2>
+<div class="section-content"><iframe class="interactive is-default-height" height="200" src="https://interactive-examples.mdn.mozilla.net/pages/css/function-blur.html" title="MDN Web Docs Interactive Example" loading="lazy"></iframe></div></section><section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token function">blur</span><span class="token punctuation">(</span>radius<span class="token punctuation">)</span>
+</pre></div></div></section><section aria-labelledby="parameters"><h3 id="parameters">Parameters</h3>
+<div class="section-content"><dl> <dt id="radius"><code>radius</code></dt> <dd> <p>The radius of the blur, specified as a <a href="../length"><code>&lt;length&gt;</code></a>. It defines the value of the standard deviation to the Gaussian function, i.e., how many pixels on the screen blend into each other; thus, a larger value will create more blur. A value of <code>0</code> leaves the input unchanged. The initial value for <a href="https://developer.mozilla.org/en-US/docs/Glossary/Interpolation">interpolation</a> is <code>0</code>.</p> </dd> </dl></div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="setting_a_blur_with_pixels_and_with_rem"><h3 id="setting_a_blur_with_pixels_and_with_rem">Setting a blur with pixels and with rem</h3>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token function">blur</span><span class="token punctuation">(</span>0<span class="token punctuation">)</span>        <span class="token comment">/* No effect */</span>
+<span class="token function">blur</span><span class="token punctuation">(</span>8px<span class="token punctuation">)</span>      <span class="token comment">/* Blur with 8px radius */</span>
+<span class="token function">blur</span><span class="token punctuation">(</span>1.17rem<span class="token punctuation">)</span>  <span class="token comment">/* Blur with 1.17rem radius */</span>
+</pre></div></div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://drafts.fxtf.org/filter-effects/#funcdef-filter-blur">Filter Effects Module Level 1 <br><small># funcdef-filter-blur</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody><tr>
+<th><code>blur</code></th>
+<td class="bc-supports-yes">18</td>
+<td class="bc-supports-yes">12</td>
+<td class="bc-supports-yes">35</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">15</td>
+<td class="bc-supports-yes">6</td>
+<td class="bc-supports-yes">4.4</td>
+<td class="bc-supports-yes">53</td>
+<td class="bc-supports-yes">35</td>
+<td class="bc-supports-yes">14</td>
+<td class="bc-supports-yes">6</td>
+<td class="bc-supports-yes">6.0</td>
+</tr></tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content">
+<p>The other <a href="../filter-function"><code>&lt;filter-function&gt;</code></a> functions available to be used in values of the <a href="../filter"><code>filter</code></a> and <a href="../backdrop-filter"><code>backdrop-filter</code></a> properties include:</p> <ul> <li><a href="brightness"><code>brightness()</code></a></li> <li><a href="contrast"><code>contrast()</code></a></li> <li><a href="drop-shadow"><code>drop-shadow()</code></a></li> <li><a href="grayscale"><code>grayscale()</code></a></li> <li><a href="hue-rotate"><code>hue-rotate()</code></a></li> <li><a href="invert"><code>invert()</code></a></li> <li><a href="opacity"><code>opacity()</code></a></li> <li><a href="saturate"><code>saturate()</code></a></li> <li><a href="sepia"><code>sepia()</code></a></li> </ul>
+</div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/blur" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/blur</a>
+  </p>
+</div>

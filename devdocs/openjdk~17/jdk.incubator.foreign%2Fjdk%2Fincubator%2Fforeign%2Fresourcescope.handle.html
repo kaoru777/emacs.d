@@ -1,0 +1,16 @@
+<h1 title="Interface ResourceScope.Handle" class="title">Interface ResourceScope.Handle</h1> <section class="class-description" id="class-description"> <dl class="notes"> <dt>Enclosing interface:</dt> <dd><a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a></dd> </dl>  <pre class="lang-java" data-language="java">public static sealed interface ResourceScope.Handle</pre> <div class="block">An abstraction modelling a resource scope handle. A resource scope handle is typically <a href="resourcescope#acquire()">acquired</a> by clients in order to prevent an explicit resource scope from being closed while executing a certain operation. Once obtained, resource scope handles can be <a href="resourcescope#release(jdk.incubator.foreign.ResourceScope.Handle)">ResourceScope.release(Handle)</a> released}; an explicit resource scope can be closed only <em>after</em> all the resource scope handles acquired from it have been released.</div> </section> <section class="summary"> <section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">       <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a></code></td>
+<td><code><a href="#scope()" class="member-name-link">scope</a>()</code></td>
+<td> <div class="block">Returns the resource scope associated with this handle.</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="scope()"> <h3>scope</h3> <pre class="lang-java" data-language="java">ResourceScope scope()</pre> <div class="block">Returns the resource scope associated with this handle.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the resource scope associated with this handle.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/ResourceScope.Handle.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/ResourceScope.Handle.html</a>
+  </p>
+</div>

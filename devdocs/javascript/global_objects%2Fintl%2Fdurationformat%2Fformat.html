@@ -1,0 +1,86 @@
+<h1>Intl.DurationFormat.prototype.format()</h1>
+<div class="section-content">
+<div class="notecard experimental" id="sect1"><p><strong>Experimental:</strong> <strong>This is an <a href="https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Experimental_deprecated_obsolete#experimental">experimental technology</a></strong><br>Check the <a href="#browser_compatibility">Browser compatibility table</a> carefully before using this in production.</p></div> <p>The <code>format()</code> method of <a href="../durationformat"><code>Intl.DurationFormat</code></a> instances formats a duration according to the locale and formatting options of this <a href="../durationformat"><code>Intl.DurationFormat</code></a> object.</p>
+</div>
+<section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="js"><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span>
+</pre></div></div></section><section aria-labelledby="parameters"><h3 id="parameters">Parameters</h3>
+<div class="section-content"><dl> <dt id="duration"><code>duration</code></dt> <dd> <p>The duration object to be formatted. It should include some or all of the following properties: <code>"months"</code>, <code>"weeks"</code>, <code>"days"</code>, <code>"hours"</code>, <code>"minutes"</code>, <code>"seconds"</code>, <code>"milliseconds"</code>, <code>"microseconds"</code>, <code>"nanoseconds"</code>.</p> </dd> </dl></div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="using_format_with_an_object_as_parameter"><h3 id="using_format_with_an_object_as_parameter">Using format with an object as parameter</h3>
+<div class="section-content"><div class="code-example"><pre data-language="js"><span class="token keyword">const</span> duration <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">years</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">months</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">weeks</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">days</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">hours</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">minutes</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">seconds</span><span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">milliseconds</span><span class="token operator">:</span> <span class="token number">7</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">microseconds</span><span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">nanoseconds</span><span class="token operator">:</span> <span class="token number">9</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Without options, style defaults to "short"</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"en"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// "1 yr, 2 mths, 3 wks, 3 days, 4 hr, 5 min, 6 sec, 7 ms, 8 μs, 9 ns"</span>
+
+<span class="token comment">// With style set to "long"</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"en"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">"long"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// "1 year, 2 months, 3 weeks, 3 days, 4 hours, 5 minutes, 6 seconds, 7 milliseconds, 8 microseconds, 9 nanoseconds"</span>
+
+<span class="token comment">// With style set to "narrow"</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"en"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">"narrow"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// "1y 2mo 3w 3d 4h 5m 6s 7ms 8μs 9ns"</span>
+</pre></div></div></section><section aria-labelledby="using_format_with_different_locales_and_styles"><h3 id="using_format_with_different_locales_and_styles">Using format() with different locales and styles</h3>
+<div class="section-content"><div class="code-example"><pre data-language="js"><span class="token keyword">const</span> duration <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">hours</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">minutes</span><span class="token operator">:</span> <span class="token number">46</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">seconds</span><span class="token operator">:</span> <span class="token number">40</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// With style set to "long" and locale "fr-FR"</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"fr-FR"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">"long"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// "1 heure, 46 minutes et 40 secondes"</span>
+
+<span class="token comment">// With style set to "short" and locale set to "en"</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"en"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">"short"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// "1 hr, 46 min and 40 sec"</span>
+
+<span class="token comment">// With style set to "short" and locale set to "pt"</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"pt"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">"narrow"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// "1h 46min 40s"</span>
+
+<span class="token comment">// With style set to "digital" and locale set to "en"</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"en"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">"digital"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// "1:46:40"</span>
+</pre></div></div></section><section aria-labelledby="using_format_with_fractionaldigits_option"><h3 id="using_format_with_fractionaldigits_option">Using format with fractionalDigits option</h3>
+<div class="section-content">
+<p>Use the <code>format</code> getter function for formatting using with fractionalDigits options and setting milliseconds display to <code>narrow</code>.</p> <div class="code-example"><pre data-language="js"><span class="token keyword">const</span> duration <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">seconds</span><span class="token operator">:</span> <span class="token number">12</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">milliseconds</span><span class="token operator">:</span> <span class="token number">345</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">microseconds</span><span class="token operator">:</span> <span class="token number">600</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Example using fractionalDigits</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"en"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">fractionalDigits</span><span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; 12 sec, 345 ms, 600 μs</span>
+
+<span class="token comment">// Example using fractionalDigits and milliseconds set to `long`</span>
+<span class="token keyword">new</span> <span class="token class-name">Intl<span class="token punctuation">.</span>DurationFormat</span><span class="token punctuation">(</span><span class="token string">"en"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">milliseconds</span><span class="token operator">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">fractionalDigits</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; 12 sec, 345 milliseconds, 600 μs</span>
+</pre></div>
+</div></section><h2 id="specifications">Specifications</h2>
+<div class="notecard warning">
+<strong>No specification found</strong><p>No specification data found for <code>javascript.builtins.Intl.DurationFormat.format</code>.<br><a href="#on-github">Check for problems with this page</a> or contribute a missing <code>spec_url</code> to <a href="https://github.com/mdn/browser-compat-data">mdn/browser-compat-data</a>. Also make sure the specification is included in <a href="https://github.com/w3c/browser-specs">w3c/browser-specs</a>.</p>
+</div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li><a href="../durationformat"><code>Intl.DurationFormat</code></a></li> <li><a href="../supportedvaluesof"><code>Intl.supportedValuesOf()</code></a></li> <li><a href="../../intl"><code>Intl</code></a></li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DurationFormat/format" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DurationFormat/format</a>
+  </p>
+</div>

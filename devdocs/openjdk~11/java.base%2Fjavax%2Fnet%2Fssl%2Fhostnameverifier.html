@@ -1,0 +1,15 @@
+  <main role="main">    <h1>Interface HostnameVerifier</h1>      <pre data-language="java">public interface HostnameVerifier</pre> <div>
+<p>This class is the base interface for hostname verification. </p>
+<p> During handshaking, if the URL's hostname and the server's identification hostname mismatch, the verification mechanism can call back to implementers of this interface to determine if this connection should be allowed. </p>
+<p> The policies can be certificate-based or may depend on other authentication schemes. </p>
+<p> These callbacks are used when the default rules for URL hostname verification fail.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.4</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>boolean</code></td> <th scope="row"><code><a href="#verify(java.lang.String,javax.net.ssl.SSLSession)">verify</a>​(<a href="../../../java/lang/string">String</a> hostname,
+      <a href="sslsession">SSLSession</a> session)</code></th> <td> <p>Verify that the host name is an acceptable match with the server's authentication scheme.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="verify(java.lang.String,javax.net.ssl.SSLSession)">verify</h3> <pre data-language="java">boolean verify(String hostname,
+               SSLSession session)</pre> <p>Verify that the host name is an acceptable match with the server's authentication scheme.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>hostname</code> - the host name</dd> <dd>
+<code>session</code> - SSLSession used on the connection to host</dd> <dt>Returns:</dt> <dd>true if the host name is acceptable</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/net/ssl/HostnameVerifier.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/net/ssl/HostnameVerifier.html</a>
+  </p>
+</div>

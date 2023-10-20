@@ -1,0 +1,214 @@
+<h1 id="class-Process::Status" class="class"> class Process::Status </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../object">Object</a></dd>
+</dl> <section class="description"> <p><a href="status"><code>Process::Status</code></a> encapsulates the information on the status of a running or terminated system process. The built-in variable <code>$?</code> is either <code>nil</code> or a <a href="status"><code>Process::Status</code></a> object.</p> <pre class="ruby" data-language="ruby">fork { exit 99 }   #=&gt; 26557
+Process.wait       #=&gt; 26557
+$?.class           #=&gt; Process::Status
+$?.to_i            #=&gt; 25344
+$? &gt;&gt; 8            #=&gt; 99
+$?.stopped?        #=&gt; false
+$?.exited?         #=&gt; true
+$?.exitstatus      #=&gt; 99
+</pre> <p>Posix systems record information on processes using a 16-bit integer. The lower bits record the process status (stopped, exited, signaled) and the upper bits possibly contain additional information (for example the program’s return code in the case of exited processes). Pre Ruby 1.8, these bits were exposed directly to the Ruby program. Ruby now encapsulates these in a <a href="status"><code>Process::Status</code></a> object. To maximize compatibility, however, these objects retain a bit-oriented interface. In the descriptions that follow, when we talk about the integer value of <em>stat</em>, we’re referring to this 16 bit value.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-wait"> <span class="method-callseq"> Process::Status.wait(pid=-1, flags=0) → Process::Status </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="wait-source"> <pre class="c" data-language="c">VALUE
+rb_process_status_waitv(int argc, VALUE *argv, VALUE _)
+{
+    rb_check_arity(argc, 0, 2);
+
+    rb_pid_t pid = -1;
+    int flags = 0;
+
+    if (argc &gt;= 1) {
+        pid = NUM2PIDT(argv[0]);
+    }
+
+    if (argc &gt;= 2) {
+        flags = RB_NUM2INT(argv[1]);
+    }
+
+    return rb_process_status_wait(pid, flags);
+}</pre> </div> <p>Waits for a child process to exit and returns a <a href="status"><code>Process::Status</code></a> object containing information on that process. Which child it waits on depends on the value of <em>pid</em>:</p> <dl class="rdoc-list note-list">
+<dt>&gt; 0 </dt>
+<dd> <p>Waits for the child whose process ID equals <em>pid</em>.</p> </dd>
+<dt>0 </dt>
+<dd> <p>Waits for any child whose process group ID equals that of the calling process.</p> </dd>
+<dt>-1 </dt>
+<dd> <p>Waits for any child process (the default if no <em>pid</em> is given).</p> </dd>
+<dt>&lt; -1 </dt>
+<dd> <p>Waits for any child whose process group ID equals the absolute value of <em>pid</em>.</p> </dd>
+</dl> <p>The <em>flags</em> argument may be a logical or of the flag values Process::WNOHANG (do not block if no child available) or Process::WUNTRACED (return stopped children that haven’t been reported). Not all flags are available on all platforms, but a flag value of zero will work on all platforms.</p> <p>Returns <code>nil</code> if there are no child processes. Not available on all platforms.</p> <p>May invoke the scheduler hook <em>process_wait</em>.</p> <pre class="ruby" data-language="ruby">fork { exit 99 }                              #=&gt; 27429
+Process::Status.wait                          #=&gt; pid 27429 exit 99
+$?                                            #=&gt; nil
+
+pid = fork { sleep 3 }                        #=&gt; 27440
+Time.now                                      #=&gt; 2008-03-08 19:56:16 +0900
+Process::Status.wait(pid, Process::WNOHANG)   #=&gt; nil
+Time.now                                      #=&gt; 2008-03-08 19:56:16 +0900
+Process::Status.wait(pid, 0)                  #=&gt; pid 27440 exit 99
+Time.now                                      #=&gt; 2008-03-08 19:56:19 +0900
+</pre> <p>This is an EXPERIMENTAL FEATURE.</p>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-26"> <span class="method-callseq"> stat &amp; num → integer </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="26-source"> <pre class="c" data-language="c">static VALUE
+pst_bitand(VALUE st1, VALUE st2)
+{
+    int status = PST2INT(st1) &amp; NUM2INT(st2);
+
+    return INT2NUM(status);
+}</pre> </div> <p>Logical AND of the bits in <em>stat</em> with <em>num</em>.</p> <pre class="ruby" data-language="ruby">fork { exit 0x37 }
+Process.wait
+sprintf('%04x', $?.to_i)       #=&gt; "3700"
+sprintf('%04x', $? &amp; 0x1e00)   #=&gt; "1600"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-3D-3D"> <span class="method-callseq"> stat == other → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="3D-3D-source"> <pre class="c" data-language="c">static VALUE
+pst_equal(VALUE st1, VALUE st2)
+{
+    if (st1 == st2) return Qtrue;
+    return rb_equal(pst_to_i(st1), st2);
+}</pre> </div> <p>Returns <code>true</code> if the integer value of <em>stat</em> equals <em>other</em>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-3E-3E"> <span class="method-callseq"> stat &gt;&gt; num → integer </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="3E-3E-source"> <pre class="c" data-language="c">static VALUE
+pst_rshift(VALUE st1, VALUE st2)
+{
+    int status = PST2INT(st1) &gt;&gt; NUM2INT(st2);
+
+    return INT2NUM(status);
+}</pre> </div> <p>Shift the bits in <em>stat</em> right <em>num</em> places.</p> <pre class="ruby" data-language="ruby">fork { exit 99 }   #=&gt; 26563
+Process.wait       #=&gt; 26563
+$?.to_i            #=&gt; 25344
+$? &gt;&gt; 8            #=&gt; 99
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-coredump-3F"> <span class="method-callseq"> coredump? → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="coredump-3F-source"> <pre class="c" data-language="c">static VALUE
+pst_wcoredump(VALUE st)
+{
+#ifdef WCOREDUMP
+    int status = PST2INT(st);
+
+    return RBOOL(WCOREDUMP(status));
+#else
+    return Qfalse;
+#endif
+}</pre> </div> <p>Returns <code>true</code> if <em>stat</em> generated a coredump when it terminated. Not available on all platforms.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-exited-3F"> <span class="method-callseq"> exited? → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="exited-3F-source"> <pre class="c" data-language="c">static VALUE
+pst_wifexited(VALUE st)
+{
+    int status = PST2INT(st);
+
+    return RBOOL(WIFEXITED(status));
+}</pre> </div> <p>Returns <code>true</code> if <em>stat</em> exited normally (for example using an <code>exit()</code> call or finishing the program).</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-exitstatus"> <span class="method-callseq"> exitstatus → integer or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="exitstatus-source"> <pre class="c" data-language="c">static VALUE
+pst_wexitstatus(VALUE st)
+{
+    int status = PST2INT(st);
+
+    if (WIFEXITED(status))
+        return INT2NUM(WEXITSTATUS(status));
+    return Qnil;
+}</pre> </div> <p>Returns the least significant eight bits of the return code of <em>stat</em>. Only available if <a href="status#method-i-exited-3F"><code>exited?</code></a> is <code>true</code>.</p> <pre class="ruby" data-language="ruby">fork { }           #=&gt; 26572
+Process.wait       #=&gt; 26572
+$?.exited?         #=&gt; true
+$?.exitstatus      #=&gt; 0
+
+fork { exit 99 }   #=&gt; 26573
+Process.wait       #=&gt; 26573
+$?.exited?         #=&gt; true
+$?.exitstatus      #=&gt; 99
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-inspect"> <span class="method-callseq"> inspect → string </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="inspect-source"> <pre class="c" data-language="c">static VALUE
+pst_inspect(VALUE st)
+{
+    rb_pid_t pid;
+    int status;
+    VALUE str;
+
+    pid = pst_pid(st);
+    if (!pid) {
+        return rb_sprintf("#&lt;%s: uninitialized&gt;", rb_class2name(CLASS_OF(st)));
+    }
+    status = PST2INT(st);
+
+    str = rb_sprintf("#&lt;%s: ", rb_class2name(CLASS_OF(st)));
+    pst_message(str, pid, status);
+    rb_str_cat2(str, "&gt;");
+    return str;
+}</pre> </div> <p>Override the inspection method.</p> <pre class="ruby" data-language="ruby">system("false")
+p $?.inspect #=&gt; "#&lt;Process::Status: pid 12861 exit 1&gt;"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-pid"> <span class="method-callseq"> pid → integer </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="pid-source"> <pre class="c" data-language="c">static VALUE
+pst_pid_m(VALUE self)
+{
+    rb_pid_t pid = pst_pid(self);
+    return PIDT2NUM(pid);
+}</pre> </div> <p>Returns the process ID that this status object represents.</p> <pre class="ruby" data-language="ruby">fork { exit }   #=&gt; 26569
+Process.wait    #=&gt; 26569
+$?.pid          #=&gt; 26569
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-signaled-3F"> <span class="method-callseq"> signaled? → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="signaled-3F-source"> <pre class="c" data-language="c">static VALUE
+pst_wifsignaled(VALUE st)
+{
+    int status = PST2INT(st);
+
+    return RBOOL(WIFSIGNALED(status));
+}</pre> </div> <p>Returns <code>true</code> if <em>stat</em> terminated because of an uncaught signal.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-stopped-3F"> <span class="method-callseq"> stopped? → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="stopped-3F-source"> <pre class="c" data-language="c">static VALUE
+pst_wifstopped(VALUE st)
+{
+    int status = PST2INT(st);
+
+    return RBOOL(WIFSTOPPED(status));
+}</pre> </div> <p>Returns <code>true</code> if this process is stopped. This is only returned if the corresponding wait call had the Process::WUNTRACED flag set.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-stopsig"> <span class="method-callseq"> stopsig → integer or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="stopsig-source"> <pre class="c" data-language="c">static VALUE
+pst_wstopsig(VALUE st)
+{
+    int status = PST2INT(st);
+
+    if (WIFSTOPPED(status))
+        return INT2NUM(WSTOPSIG(status));
+    return Qnil;
+}</pre> </div> <p>Returns the number of the signal that caused <em>stat</em> to stop (or <code>nil</code> if self is not stopped).</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-success-3F"> <span class="method-callseq"> success? → true, false or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="success-3F-source"> <pre class="c" data-language="c">static VALUE
+pst_success_p(VALUE st)
+{
+    int status = PST2INT(st);
+
+    if (!WIFEXITED(status))
+        return Qnil;
+    return RBOOL(WEXITSTATUS(status) == EXIT_SUCCESS);
+}</pre> </div> <p>Returns <code>true</code> if <em>stat</em> is successful, <code>false</code> if not. Returns <code>nil</code> if <a href="status#method-i-exited-3F"><code>exited?</code></a> is not <code>true</code>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-termsig"> <span class="method-callseq"> termsig → integer or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="termsig-source"> <pre class="c" data-language="c">static VALUE
+pst_wtermsig(VALUE st)
+{
+    int status = PST2INT(st);
+
+    if (WIFSIGNALED(status))
+        return INT2NUM(WTERMSIG(status));
+    return Qnil;
+}</pre> </div> <p>Returns the number of the signal that caused <em>stat</em> to terminate (or <code>nil</code> if self was not terminated by an uncaught signal).</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_i"> <span class="method-callseq"> to_i → integer </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_i-source"> <pre class="c" data-language="c">static VALUE
+pst_to_i(VALUE self)
+{
+    int status = pst_status(self);
+    return RB_INT2NUM(status);
+}</pre> </div> <p>Returns the bits in <em>stat</em> as an <a href="../integer"><code>Integer</code></a>. Poking around in these bits is platform dependent.</p> <pre class="ruby" data-language="ruby">fork { exit 0xab }         #=&gt; 26566
+Process.wait               #=&gt; 26566
+sprintf('%04x', $?.to_i)   #=&gt; "ab00"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_s"> <span class="method-callseq"> to_s → string </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_s-source"> <pre class="c" data-language="c">static VALUE
+pst_to_s(VALUE st)
+{
+    rb_pid_t pid;
+    int status;
+    VALUE str;
+
+    pid = pst_pid(st);
+    status = PST2INT(st);
+
+    str = rb_str_buf_new(0);
+    pst_message(str, pid, status);
+    return str;
+}</pre> </div> <p>Show pid and exit status as a string.</p> <pre class="ruby" data-language="ruby">system("false")
+p $?.to_s         #=&gt; "pid 12766 exit 1"
+</pre>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

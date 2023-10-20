@@ -1,0 +1,39 @@
+  <main role="main">    <h1>Interface RemoteCall</h1>      <pre data-language="java">@Deprecated
+public interface RemoteCall</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement.</div> </div> <p><code>RemoteCall</code> is an abstraction used solely by the RMI runtime (in conjunction with stubs and skeletons of remote objects) to carry out a call to a remote object. The <code>RemoteCall</code> interface is deprecated because it is only used by deprecated methods of <code>java.rmi.server.RemoteRef</code>.</p> <dl> <dt>Since:</dt> <dd>1.1</dd> <dt>See Also:</dt> <dd><a href="remoteref"><code>RemoteRef</code></a></dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#done()">done</a>()</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement</div> </p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#executeCall()">executeCall</a>()</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement</div> </p> </td> </tr> <tr id="i2"> <td><code><a href="../../../../java.base/java/io/objectinput">ObjectInput</a></code></td> <th scope="row"><code><a href="#getInputStream()">getInputStream</a>()</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement</div> </p> </td> </tr> <tr id="i3"> <td><code><a href="../../../../java.base/java/io/objectoutput">ObjectOutput</a></code></td> <th scope="row"><code><a href="#getOutputStream()">getOutputStream</a>()</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement</div> </p> </td> </tr> <tr id="i4"> <td><code><a href="../../../../java.base/java/io/objectoutput">ObjectOutput</a></code></td> <th scope="row"><code><a href="#getResultStream(boolean)">getResultStream</a>​(boolean success)</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement</div> </p> </td> </tr> <tr id="i5"> <td><code>void</code></td> <th scope="row"><code><a href="#releaseInputStream()">releaseInputStream</a>()</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement</div> </p> </td> </tr> <tr id="i6"> <td><code>void</code></td> <th scope="row"><code><a href="#releaseOutputStream()">releaseOutputStream</a>()</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement</div> </p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getOutputStream()">getOutputStream</h3> <pre data-language="java">@Deprecated
+ObjectOutput getOutputStream()
+                      throws IOException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p>Return the output stream the stub/skeleton should put arguments/results into.</p> <dl> <dt>Returns:</dt> <dd>output stream for arguments/results</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - if an I/O error occurs.</dd> <dt>Since:</dt> <dd>1.1</dd> </dl>    <h3 id="releaseOutputStream()">releaseOutputStream</h3> <pre data-language="java">@Deprecated
+void releaseOutputStream()
+                  throws IOException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p>Release the output stream; in some transports this would release the stream.</p> <dl> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - if an I/O error occurs.</dd> <dt>Since:</dt> <dd>1.1</dd> </dl>    <h3 id="getInputStream()">getInputStream</h3> <pre data-language="java">@Deprecated
+ObjectInput getInputStream()
+                    throws IOException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p>Get the InputStream that the stub/skeleton should get results/arguments from.</p> <dl> <dt>Returns:</dt> <dd>input stream for reading arguments/results</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - if an I/O error occurs.</dd> <dt>Since:</dt> <dd>1.1</dd> </dl>    <h3 id="releaseInputStream()">releaseInputStream</h3> <pre data-language="java">@Deprecated
+void releaseInputStream()
+                 throws IOException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p>Release the input stream. This would allow some transports to release the channel early.</p> <dl> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - if an I/O error occurs.</dd> <dt>Since:</dt> <dd>1.1</dd> </dl>    <h3 id="getResultStream(boolean)">getResultStream</h3> <pre data-language="java">@Deprecated
+ObjectOutput getResultStream(boolean success)
+                      throws IOException,
+                             StreamCorruptedException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p>Returns an output stream (may put out header information relating to the success of the call). Should only succeed once per remote call.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>success</code> - If true, indicates normal return, else indicates exceptional return.</dd> <dt>Returns:</dt> <dd>output stream for writing call result</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - if an I/O error occurs.</dd> <dd>
+<code><a href="../../../../java.base/java/io/streamcorruptedexception">StreamCorruptedException</a></code> - If already been called.</dd> <dt>Since:</dt> <dd>1.1</dd> </dl>    <h3 id="executeCall()">executeCall</h3> <pre data-language="java">@Deprecated
+void executeCall()
+          throws Exception</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p>Do whatever it takes to execute the call.</p> <dl> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/exception">Exception</a></code> - if a general exception occurs.</dd> <dt>Since:</dt> <dd>1.1</dd> </dl>    <h3 id="done()">done</h3> <pre data-language="java">@Deprecated
+void done()
+   throws IOException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p>Allow cleanup after the remote call has completed.</p> <dl> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - if an I/O error occurs.</dd> <dt>Since:</dt> <dd>1.1</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.rmi/java/rmi/server/RemoteCall.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.rmi/java/rmi/server/RemoteCall.html</a>
+  </p>
+</div>

@@ -1,0 +1,62 @@
+<h1 title="Interface CLinker.VaList.Builder" class="title">Interface CLinker.VaList.Builder</h1> <section class="class-description" id="class-description"> <dl class="notes"> <dt>Enclosing interface:</dt> <dd><a href="clinker.valist" title="interface in jdk.incubator.foreign">CLinker.VaList</a></dd> </dl>  <pre class="lang-java" data-language="java">public static sealed interface CLinker.VaList.Builder</pre> <div class="block">A builder interface used to construct a C <code>va_list</code>. <p> Unless otherwise specified, passing a <code>null</code> argument, or an array argument containing one or more <code>null</code> elements to a method in this class causes a <a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang"><code>NullPointerException</code></a> to be thrown. </p>
+</div> </section> <section class="summary"> <section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                   <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="clinker.valist.builder" title="interface in jdk.incubator.foreign">CLinker.VaList.Builder</a></code></td>
+<td><code><a href="#vargFromAddress(jdk.incubator.foreign.ValueLayout,jdk.incubator.foreign.Addressable)" class="member-name-link">vargFromAddress</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ <a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a> value)</wbr></code></td>
+<td> <div class="block">Adds a native value represented as a <code>MemoryAddress</code> to the C <code>va_list</code> being constructed.</div> </td>
+</tr>
+<tr>
+<td><code><a href="clinker.valist.builder" title="interface in jdk.incubator.foreign">CLinker.VaList.Builder</a></code></td>
+<td><code><a href="#vargFromDouble(jdk.incubator.foreign.ValueLayout,double)" class="member-name-link">vargFromDouble</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ double value)</wbr></code></td>
+<td> <div class="block">Adds a native value represented as a <code>double</code> to the C <code>va_list</code> being constructed.</div> </td>
+</tr>
+<tr>
+<td><code><a href="clinker.valist.builder" title="interface in jdk.incubator.foreign">CLinker.VaList.Builder</a></code></td>
+<td><code><a href="#vargFromInt(jdk.incubator.foreign.ValueLayout,int)" class="member-name-link">vargFromInt</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ int value)</wbr></code></td>
+<td> <div class="block">Adds a native value represented as an <code>int</code> to the C <code>va_list</code> being constructed.</div> </td>
+</tr>
+<tr>
+<td><code><a href="clinker.valist.builder" title="interface in jdk.incubator.foreign">CLinker.VaList.Builder</a></code></td>
+<td><code><a href="#vargFromLong(jdk.incubator.foreign.ValueLayout,long)" class="member-name-link">vargFromLong</a><wbr>(<a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a> layout,
+ long value)</wbr></code></td>
+<td> <div class="block">Adds a native value represented as a <code>long</code> to the C <code>va_list</code> being constructed.</div> </td>
+</tr>
+<tr>
+<td><code><a href="clinker.valist.builder" title="interface in jdk.incubator.foreign">CLinker.VaList.Builder</a></code></td>
+<td><code><a href="#vargFromSegment(jdk.incubator.foreign.GroupLayout,jdk.incubator.foreign.MemorySegment)" class="member-name-link">vargFromSegment</a><wbr>(<a href="grouplayout" title="class in jdk.incubator.foreign">GroupLayout</a> layout,
+ <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> value)</wbr></code></td>
+<td> <div class="block">Adds a native value represented as a <code>MemorySegment</code> to the C <code>va_list</code> being constructed.</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="vargFromInt(jdk.incubator.foreign.ValueLayout,int)"> <h3>vargFromInt</h3> <pre class="lang-java" data-language="java">CLinker.VaList.Builder vargFromInt(ValueLayout layout, int value)</pre> <div class="block">Adds a native value represented as an <code>int</code> to the C <code>va_list</code> being constructed.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the native layout of the value.</dd> <dd>
+<code>value</code> - the value, represented as an <code>int</code>.</dd> <dt>Returns:</dt> <dd>this builder.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>int</code>
+</dd> </dl> </section><section class="detail" id="vargFromLong(jdk.incubator.foreign.ValueLayout,long)"> <h3>vargFromLong</h3> <pre class="lang-java" data-language="java">CLinker.VaList.Builder vargFromLong(ValueLayout layout, long value)</pre> <div class="block">Adds a native value represented as a <code>long</code> to the C <code>va_list</code> being constructed.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the native layout of the value.</dd> <dd>
+<code>value</code> - the value, represented as a <code>long</code>.</dd> <dt>Returns:</dt> <dd>this builder.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>long</code>
+</dd> </dl> </section><section class="detail" id="vargFromDouble(jdk.incubator.foreign.ValueLayout,double)"> <h3>vargFromDouble</h3> <pre class="lang-java" data-language="java">CLinker.VaList.Builder vargFromDouble(ValueLayout layout, double value)</pre> <div class="block">Adds a native value represented as a <code>double</code> to the C <code>va_list</code> being constructed.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the native layout of the value.</dd> <dd>
+<code>value</code> - the value, represented as a <code>double</code>.</dd> <dt>Returns:</dt> <dd>this builder.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>double</code>
+</dd> </dl> </section><section class="detail" id="vargFromAddress(jdk.incubator.foreign.ValueLayout,jdk.incubator.foreign.Addressable)"> <h3>vargFromAddress</h3> <pre class="lang-java" data-language="java">CLinker.VaList.Builder vargFromAddress(ValueLayout layout, Addressable value)</pre> <div class="block">Adds a native value represented as a <code>MemoryAddress</code> to the C <code>va_list</code> being constructed.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the native layout of the value.</dd> <dd>
+<code>value</code> - the value, represented as a <code>Addressable</code>.</dd> <dt>Returns:</dt> <dd>this builder.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>MemoryAddress</code>
+</dd> </dl> </section><section class="detail" id="vargFromSegment(jdk.incubator.foreign.GroupLayout,jdk.incubator.foreign.MemorySegment)"> <h3>vargFromSegment</h3> <pre class="lang-java" data-language="java">CLinker.VaList.Builder vargFromSegment(GroupLayout layout, MemorySegment value)</pre> <div class="block">Adds a native value represented as a <code>MemorySegment</code> to the C <code>va_list</code> being constructed.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the native layout of the value.</dd> <dd>
+<code>value</code> - the value, represented as a <code>MemorySegment</code>.</dd> <dt>Returns:</dt> <dd>this builder.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>MemorySegment</code>
+</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.VaList.Builder.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.VaList.Builder.html</a>
+  </p>
+</div>

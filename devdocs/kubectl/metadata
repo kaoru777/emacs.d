@@ -1,0 +1,2 @@
+(1 (name . "Kubectl") (slug . "kubectl") (type . "kubectl") (links (home . "https://kubernetes.io/docs/reference/kubectl/") (code . "https://github.com/kubernetes/kubernetes")) (version . "") (release . "1.26") (mtime . 1671963636) (db_size . 332688) (attribution . "&copy; 2022 The Kubernetes Authors | Documentation Distributed under CC BY 4.0 <br>
+      Copyright &copy; 2022 The Linux Foundation ®. All rights reserved."))

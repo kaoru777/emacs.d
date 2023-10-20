@@ -1,0 +1,68 @@
+  <main role="main">    <h1>Class EventFactory</h1>   <ul class="inheritance"> <li><a href="../../../java.base/java/lang/object">java.lang.Object</a></li> <li> <ul class="inheritance"> <li>jdk.jfr.EventFactory</li> </ul> </li> </ul>    <pre data-language="java">public final class EventFactory
+extends Object</pre> <div>
+<p>Class for defining an event at runtime. </p>
+<p> It's highly recommended that the event is defined at compile time, if the field layout is known, so the Java Virtual Machine (JVM) can optimize the code, possibly remove all instrumentation if Flight Recorder is inactive or if the enabled setting for this event is set to <code>false</code>. </p>
+<p> To define an event at compile time, see <a href="event"><code>Event</code></a>. </p>
+<p> The following example shows how to implement a dynamic <code>Event</code> class. </p>
+<pre data-language="java">List&lt;ValueDescriptor&gt; fields = new ArrayList&lt;&gt;();
+ List&lt;AnnotationElement&gt; messageAnnotations = Collections.singletonList(new AnnotationElement(Label.class, "Message"));
+ fields.add(new ValueDescriptor(String.class, "message", messageAnnotations));
+ List&lt;AnnotationElement&gt; numberAnnotations = Collections.singletonList(new AnnotationElement(Label.class, "Number"));
+ fields.add(new ValueDescriptor(int.class, "number", numberAnnotations));
+
+ String[] category = { "Example", "Getting Started" };
+ List&lt;AnnotationElement&gt; eventAnnotations = new ArrayList&lt;&gt;();
+ eventAnnotations.add(new AnnotationElement(Name.class, "com.example.HelloWorld"));
+ eventAnnotations.add(new AnnotationElement(Label.class, "Hello World"));
+ eventAnnotations.add(new AnnotationElement(Description.class, "Helps programmer getting started"));
+ eventAnnotations.add(new AnnotationElement(Category.class, category));
+
+ EventFactory f = EventFactory.create(eventAnnotations, fields);
+
+ Event event = f.newEvent();
+ event.set(0, "hello, world!");
+ event.set(1, 4711);
+ event.commit();</pre>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>static <a href="eventfactory">EventFactory</a></code></td> <th scope="row"><code><a href="#create(java.util.List,java.util.List)">create</a>​(<a href="../../../java.base/java/util/list">List</a>&lt;<a href="annotationelement">AnnotationElement</a>&gt; annotationElements,
+      <a href="../../../java.base/java/util/list">List</a>&lt;<a href="valuedescriptor">ValueDescriptor</a>&gt; fields)</code></th> <td> <p>Creates an <code>EventFactory</code> object.</p> </td> </tr> <tr id="i1"> <td><code><a href="eventtype">EventType</a></code></td> <th scope="row"><code><a href="#getEventType()">getEventType</a>()</code></th> <td> <p>Returns the event type that is associated with this event factory.</p> </td> </tr> <tr id="i2"> <td><code><a href="event">Event</a></code></td> <th scope="row"><code><a href="#newEvent()">newEvent</a>()</code></th> <td> <p>Instantiates an event, so it can be populated with data and written to the Flight Recorder system.</p> </td> </tr> <tr id="i3"> <td><code>void</code></td> <th scope="row"><code><a href="#register()">register</a>()</code></th> <td> <p>Registers an unregistered event.</p> </td> </tr> <tr id="i4"> <td><code>void</code></td> <th scope="row"><code><a href="#unregister()">unregister</a>()</code></th> <td> <p>Unregisters the event that is associated with this event factory.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.java.lang.Object">Methods declared in class java.lang.<a href="../../../java.base/java/lang/object">Object</a>
+</h2> <code><a href="../../../java.base/java/lang/object#clone()">clone</a>, <a href="../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a>, <a href="../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../java.base/java/lang/object#hashCode()">hashCode</a>, <a href="../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../java.base/java/lang/object#toString()">toString</a>, <a href="../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../java.base/java/lang/object#wait(long,int)">wait</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="create(java.util.List,java.util.List)">create</h3> <pre data-language="java">public static EventFactory create(List&lt;AnnotationElement&gt; annotationElements,
+                                  List&lt;ValueDescriptor&gt; fields)</pre> <div>
+<p>Creates an <code>EventFactory</code> object. </p>
+<p> The order of the value descriptors specifies the index to use when setting event values.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>annotationElements</code> - list of annotation elements that describes the annotations on the event, not <code>null</code>
+</dd> <dd>
+<code>fields</code> - list of descriptors that describes the fields of the event, not <code>null</code>
+</dd> <dt>Returns:</dt> <dd>event factory, not <code>null</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - if the input is not valid. For example, input might not be valid if the field type or name is not valid in the Java language or an annotation element references a type that can't be found.</dd> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("registerEvent")</code>
+</dd> <dt>See Also:</dt> <dd><a href="event#set(int,java.lang.Object)"><code>Event.set(int, Object)</code></a></dd> </dl>    <h3 id="newEvent()">newEvent</h3> <pre data-language="java">public Event newEvent()</pre> <div>
+<p>Instantiates an event, so it can be populated with data and written to the Flight Recorder system. </p>
+<p> Use the <a href="event#set(int,java.lang.Object)"><code>Event.set(int, Object)</code></a> method to set a value.</p>
+</div> <dl> <dt>Returns:</dt> <dd>an event instance, not <code>null</code>
+</dd> </dl>    <h3 id="getEventType()">getEventType</h3> <pre data-language="java">public EventType getEventType()</pre> <p>Returns the event type that is associated with this event factory.</p> <dl> <dt>Returns:</dt> <dd>event type that is associated with this event factory, not <code>null</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/illegalstateexception">IllegalStateException</a></code> - if the event factory is created with the <code>Registered(false)</code> annotation and the event class is not manually registered before the invocation of this method</dd> </dl>    <h3 id="register()">register</h3> <pre data-language="java">public void register()</pre> <div>
+<p>Registers an unregistered event. </p>
+<p> By default, the event class associated with this event factory is registered when the event factory is created, unless the event has the <a href="registered"><code>Registered</code></a> annotation. </p>
+<p> A registered event class can write data to Flight Recorder and event metadata can be obtained by invoking <a href="flightrecorder#getEventTypes()"><code>FlightRecorder.getEventTypes()</code></a>. </p>
+<p> If the event class associated with this event factory is already registered, the call to this method is ignored.</p>
+</div> <dl> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("registerEvent")</code>
+</dd> <dt>See Also:</dt> <dd>
+<a href="registered"><code>Registered</code></a>, <a href="flightrecorder#register(java.lang.Class)"><code>FlightRecorder.register(Class)</code></a>
+</dd> </dl>    <h3 id="unregister()">unregister</h3> <pre data-language="java">public void unregister()</pre> <div>
+<p>Unregisters the event that is associated with this event factory. </p>
+<p> A unregistered event class can't write data to Flight Recorder and event metadata can't be obtained by invoking <a href="flightrecorder#getEventTypes()"><code>FlightRecorder.getEventTypes()</code></a>. </p>
+<p> If the event class associated with this event factory is not already registered, the call to this method is ignored.</p>
+</div> <dl> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("registerEvent")</code>
+</dd> <dt>See Also:</dt> <dd>
+<a href="registered"><code>Registered</code></a>, <a href="flightrecorder#unregister(java.lang.Class)"><code>FlightRecorder.unregister(Class)</code></a>
+</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/EventFactory.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/EventFactory.html</a>
+  </p>
+</div>

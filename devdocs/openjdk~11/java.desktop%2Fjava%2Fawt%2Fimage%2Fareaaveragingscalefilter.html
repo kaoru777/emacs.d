@@ -1,0 +1,93 @@
+  <main role="main">    <h1>Class AreaAveragingScaleFilter</h1>   <ul class="inheritance"> <li><a href="../../../../java.base/java/lang/object">java.lang.Object</a></li> <li> <ul class="inheritance"> <li><a href="imagefilter">java.awt.image.ImageFilter</a></li> <li> <ul class="inheritance"> <li><a href="replicatescalefilter">java.awt.image.ReplicateScaleFilter</a></li> <li> <ul class="inheritance"> <li>java.awt.image.AreaAveragingScaleFilter</li> </ul> </li> </ul> </li> </ul> </li> </ul>   <dl> <dt>All Implemented Interfaces:</dt> <dd>
+<code><a href="imageconsumer">ImageConsumer</a></code>, <code><a href="../../../../java.base/java/lang/cloneable">Cloneable</a></code>
+</dd> </dl>  <pre data-language="java">public class AreaAveragingScaleFilter
+extends ReplicateScaleFilter</pre> <div>
+<p>An ImageFilter class for scaling images using a simple area averaging algorithm that produces smoother results than the nearest neighbor algorithm. </p>
+<p>This class extends the basic ImageFilter Class to scale an existing image and provide a source for a new image containing the resampled image. The pixels in the source image are blended to produce pixels for an image of the specified size. The blending process is analogous to scaling up the source image to a multiple of the destination size using pixel replication and then scaling it back down to the destination size by simply averaging all the pixels in the supersized image that fall within a given pixel of the destination image. If the data from the source is not delivered in TopDownLeftRight order then the filter will back off to a simple pixel replication behavior and utilize the requestTopDownLeftRightResend() method to refilter the pixels in a better way at the end. </p>
+<p>It is meant to be used in conjunction with a FilteredImageSource object to produce scaled versions of existing images. Due to implementation dependencies, there may be differences in pixel values of an image filtered on different platforms.</p>
+</div> <dl> <dt>See Also:</dt> <dd>
+<a href="filteredimagesource"><code>FilteredImageSource</code></a>, <a href="replicatescalefilter"><code>ReplicateScaleFilter</code></a>, <a href="imagefilter"><code>ImageFilter</code></a>
+</dd> </dl>      <section role="region">  <h2 id="field.summary">Fields</h2>  <h2 id="fields.inherited.from.class.java.awt.image.ReplicateScaleFilter">Fields declared in class java.awt.image.<a href="replicatescalefilter">ReplicateScaleFilter</a>
+</h2> <code><a href="replicatescalefilter#destHeight">destHeight</a>, <a href="replicatescalefilter#destWidth">destWidth</a>, <a href="replicatescalefilter#outpixbuf">outpixbuf</a>, <a href="replicatescalefilter#srccols">srccols</a>, <a href="replicatescalefilter#srcHeight">srcHeight</a>, <a href="replicatescalefilter#srcrows">srcrows</a>, <a href="replicatescalefilter#srcWidth">srcWidth</a></code>  <h2 id="fields.inherited.from.class.java.awt.image.ImageFilter">Fields declared in class java.awt.image.<a href="imagefilter">ImageFilter</a>
+</h2> <code><a href="imagefilter#consumer">consumer</a></code>  <h2 id="fields.inherited.from.class.java.awt.image.ImageConsumer">Fields declared in interface java.awt.image.<a href="imageconsumer">ImageConsumer</a>
+</h2> <code><a href="imageconsumer#COMPLETESCANLINES">COMPLETESCANLINES</a>, <a href="imageconsumer#IMAGEABORTED">IMAGEABORTED</a>, <a href="imageconsumer#IMAGEERROR">IMAGEERROR</a>, <a href="imageconsumer#RANDOMPIXELORDER">RANDOMPIXELORDER</a>, <a href="imageconsumer#SINGLEFRAME">SINGLEFRAME</a>, <a href="imageconsumer#SINGLEFRAMEDONE">SINGLEFRAMEDONE</a>, <a href="imageconsumer#SINGLEPASS">SINGLEPASS</a>, <a href="imageconsumer#STATICIMAGEDONE">STATICIMAGEDONE</a>, <a href="imageconsumer#TOPDOWNLEFTRIGHT">TOPDOWNLEFTRIGHT</a></code>  </section>  <section role="region">  <h2 id="constructor.summary">Constructors</h2> <table>  <tr> <th scope="col">Constructor</th> <th scope="col">Description</th> </tr> <tr> <th scope="row"><code><a href="#%3Cinit%3E(int,int)">AreaAveragingScaleFilter</a>​(int width,
+                        int height)</code></th> <td> <p>Constructs an AreaAveragingScaleFilter that scales the pixels from its source Image as specified by the width and height parameters.</p> </td> </tr> </table>  </section>  <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#setHints(int)">setHints</a>​(int hints)</code></th> <td> <p>Detect if the data is being delivered with the necessary hints to allow the averaging algorithm to do its work.</p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#setPixels(int,int,int,int,java.awt.image.ColorModel,byte%5B%5D,int,int)">setPixels</a>​(int x,
+         int y,
+         int w,
+         int h,
+         <a href="colormodel">ColorModel</a> model,
+         byte[] pixels,
+         int off,
+         int scansize)</code></th> <td> <p>Combine the components for the delivered byte pixels into the accumulation arrays and send on any averaged data for rows of pixels that are complete.</p> </td> </tr> <tr id="i2"> <td><code>void</code></td> <th scope="row"><code><a href="#setPixels(int,int,int,int,java.awt.image.ColorModel,int%5B%5D,int,int)">setPixels</a>​(int x,
+         int y,
+         int w,
+         int h,
+         <a href="colormodel">ColorModel</a> model,
+         int[] pixels,
+         int off,
+         int scansize)</code></th> <td> <p>Combine the components for the delivered int pixels into the accumulation arrays and send on any averaged data for rows of pixels that are complete.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.java.awt.image.ReplicateScaleFilter">Methods declared in class java.awt.image.<a href="replicatescalefilter">ReplicateScaleFilter</a>
+</h2> <code><a href="replicatescalefilter#setDimensions(int,int)">setDimensions</a>, <a href="replicatescalefilter#setProperties(java.util.Hashtable)">setProperties</a></code>  <h2 id="methods.inherited.from.class.java.awt.image.ImageFilter">Methods declared in class java.awt.image.<a href="imagefilter">ImageFilter</a>
+</h2> <code><a href="imagefilter#clone()">clone</a>, <a href="imagefilter#getFilterInstance(java.awt.image.ImageConsumer)">getFilterInstance</a>, <a href="imagefilter#imageComplete(int)">imageComplete</a>, <a href="imagefilter#resendTopDownLeftRight(java.awt.image.ImageProducer)">resendTopDownLeftRight</a>, <a href="imagefilter#setColorModel(java.awt.image.ColorModel)">setColorModel</a></code>  <h2 id="methods.inherited.from.class.java.lang.Object">Methods declared in class java.lang.<a href="../../../../java.base/java/lang/object">Object</a>
+</h2> <code><a href="../../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a>, <a href="../../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../../java.base/java/lang/object#hashCode()">hashCode</a>, <a href="../../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../../java.base/java/lang/object#toString()">toString</a>, <a href="../../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long,int)">wait</a></code>  </section>   <div>   <section role="region">  <h2 id="constructor.detail">Constructors</h2>   <h3 id="&lt;init&gt;(int,int)">AreaAveragingScaleFilter</h3> <pre data-language="java">public AreaAveragingScaleFilter(int width,
+                                int height)</pre> <p>Constructs an AreaAveragingScaleFilter that scales the pixels from its source Image as specified by the width and height parameters.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>width</code> - the target width to scale the image</dd> <dd>
+<code>height</code> - the target height to scale the image</dd> </dl>   </section>  <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="setHints(int)">setHints</h3> <pre data-language="java">public void setHints(int hints)</pre> <div>
+<p>Detect if the data is being delivered with the necessary hints to allow the averaging algorithm to do its work. </p>
+<p> Note: This method is intended to be called by the <code>ImageProducer</code> of the <code>Image</code> whose pixels are being filtered. Developers using this class to filter pixels from an image should avoid calling this method directly since that operation could interfere with the filtering operation.</p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="imageconsumer#setHints(int)">setHints</a></code> in interface <code><a href="imageconsumer">ImageConsumer</a></code>
+</dd> <dt>Overrides:</dt> <dd>
+<code><a href="imagefilter#setHints(int)">setHints</a></code> in class <code><a href="imagefilter">ImageFilter</a></code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>hints</code> - a set of hints that the ImageConsumer uses to process the pixels</dd> <dt>See Also:</dt> <dd><a href="imageconsumer#setHints(int)"><code>ImageConsumer.setHints(int)</code></a></dd> </dl>    <h3 id="setPixels(int,int,int,int,java.awt.image.ColorModel,byte[],int,int)">setPixels</h3> <pre data-language="java">public void setPixels(int x,
+                      int y,
+                      int w,
+                      int h,
+                      ColorModel model,
+                      byte[] pixels,
+                      int off,
+                      int scansize)</pre> <div>
+<p>Combine the components for the delivered byte pixels into the accumulation arrays and send on any averaged data for rows of pixels that are complete. If the correct hints were not specified in the setHints call then relay the work to our superclass which is capable of scaling pixels regardless of the delivery hints. </p>
+<p> Note: This method is intended to be called by the <code>ImageProducer</code> of the <code>Image</code> whose pixels are being filtered. Developers using this class to filter pixels from an image should avoid calling this method directly since that operation could interfere with the filtering operation.</p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="imageconsumer#setPixels(int,int,int,int,java.awt.image.ColorModel,byte%5B%5D,int,int)">setPixels</a></code> in interface <code><a href="imageconsumer">ImageConsumer</a></code>
+</dd> <dt>Overrides:</dt> <dd>
+<code><a href="replicatescalefilter#setPixels(int,int,int,int,java.awt.image.ColorModel,byte%5B%5D,int,int)">setPixels</a></code> in class <code><a href="replicatescalefilter">ReplicateScaleFilter</a></code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>x</code> - the X coordinate of the upper-left corner of the area of pixels to be set</dd> <dd>
+<code>y</code> - the Y coordinate of the upper-left corner of the area of pixels to be set</dd> <dd>
+<code>w</code> - the width of the area of pixels</dd> <dd>
+<code>h</code> - the height of the area of pixels</dd> <dd>
+<code>model</code> - the specified <code>ColorModel</code>
+</dd> <dd>
+<code>pixels</code> - the array of pixels</dd> <dd>
+<code>off</code> - the offset into the <code>pixels</code> array</dd> <dd>
+<code>scansize</code> - the distance from one row of pixels to the next in the <code>pixels</code> array</dd> <dt>See Also:</dt> <dd><a href="replicatescalefilter"><code>ReplicateScaleFilter</code></a></dd> </dl>    <h3 id="setPixels(int,int,int,int,java.awt.image.ColorModel,int[],int,int)">setPixels</h3> <pre data-language="java">public void setPixels(int x,
+                      int y,
+                      int w,
+                      int h,
+                      ColorModel model,
+                      int[] pixels,
+                      int off,
+                      int scansize)</pre> <div>
+<p>Combine the components for the delivered int pixels into the accumulation arrays and send on any averaged data for rows of pixels that are complete. If the correct hints were not specified in the setHints call then relay the work to our superclass which is capable of scaling pixels regardless of the delivery hints. </p>
+<p> Note: This method is intended to be called by the <code>ImageProducer</code> of the <code>Image</code> whose pixels are being filtered. Developers using this class to filter pixels from an image should avoid calling this method directly since that operation could interfere with the filtering operation.</p>
+</div> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="imageconsumer#setPixels(int,int,int,int,java.awt.image.ColorModel,int%5B%5D,int,int)">setPixels</a></code> in interface <code><a href="imageconsumer">ImageConsumer</a></code>
+</dd> <dt>Overrides:</dt> <dd>
+<code><a href="replicatescalefilter#setPixels(int,int,int,int,java.awt.image.ColorModel,int%5B%5D,int,int)">setPixels</a></code> in class <code><a href="replicatescalefilter">ReplicateScaleFilter</a></code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>x</code> - the X coordinate of the upper-left corner of the area of pixels to be set</dd> <dd>
+<code>y</code> - the Y coordinate of the upper-left corner of the area of pixels to be set</dd> <dd>
+<code>w</code> - the width of the area of pixels</dd> <dd>
+<code>h</code> - the height of the area of pixels</dd> <dd>
+<code>model</code> - the specified <code>ColorModel</code>
+</dd> <dd>
+<code>pixels</code> - the array of pixels</dd> <dd>
+<code>off</code> - the offset into the <code>pixels</code> array</dd> <dd>
+<code>scansize</code> - the distance from one row of pixels to the next in the <code>pixels</code> array</dd> <dt>See Also:</dt> <dd><a href="replicatescalefilter"><code>ReplicateScaleFilter</code></a></dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/image/AreaAveragingScaleFilter.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/image/AreaAveragingScaleFilter.html</a>
+  </p>
+</div>

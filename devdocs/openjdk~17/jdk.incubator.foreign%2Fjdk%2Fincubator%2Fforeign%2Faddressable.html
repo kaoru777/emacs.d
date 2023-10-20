@@ -1,0 +1,18 @@
+<h1 title="Interface Addressable" class="title">Interface Addressable</h1> <section class="class-description" id="class-description"> <dl class="notes"> <dt>All Known Subinterfaces:</dt> <dd>
+<code><a href="clinker.valist" title="interface in jdk.incubator.foreign">CLinker.VaList</a></code>, <code><a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code>, <code><a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code>
+</dd> </dl>  <pre class="lang-java" data-language="java">public interface Addressable</pre> <div class="block">Represents a type which is <em>addressable</em>. An addressable type is one which can be projected down to a memory address instance (see <a href="#address()"><code>address()</code></a>). Examples of addressable types are <a href="memorysegment" title="interface in jdk.incubator.foreign"><code>MemorySegment</code></a>, <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> and <a href="clinker.valist" title="interface in jdk.incubator.foreign"><code>CLinker.VaList</code></a>.</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>Implementations of this interface are <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/doc-files/ValueBased.html">value-based</a>.</dd> </dl> </section> <section class="summary"> <section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">       <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#address()" class="member-name-link">address</a>()</code></td>
+<td> <div class="block">Map this object into a <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> instance.</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="address()"> <h3>address</h3> <pre class="lang-java" data-language="java">MemoryAddress address()</pre> <div class="block">Map this object into a <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> instance.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> instance associated with this object.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/Addressable.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/Addressable.html</a>
+  </p>
+</div>

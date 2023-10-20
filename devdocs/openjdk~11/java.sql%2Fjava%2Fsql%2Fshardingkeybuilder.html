@@ -1,0 +1,20 @@
+  <main role="main">    <h1>Interface ShardingKeyBuilder</h1>      <pre data-language="java">public interface ShardingKeyBuilder</pre> <div>
+<p>A builder created from a <code>DataSource</code> or <code>XADataSource</code> object, used to create a <a href="shardingkey"><code>ShardingKey</code></a> with sub-keys of supported data types. Implementations must support JDBCType.VARCHAR and may also support additional data types. </p>
+<p> The following example illustrates the use of <code>ShardingKeyBuilder</code> to create a <a href="shardingkey"><code>ShardingKey</code></a>: </p>
+<pre data-language="java">DataSource ds = new MyDataSource();
+     ShardingKey shardingKey = ds.createShardingKeyBuilder()
+                           .subkey("abc", JDBCType.VARCHAR)
+                           .subkey(94002, JDBCType.INTEGER)
+                           .build();</pre>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="shardingkey">ShardingKey</a></code></td> <th scope="row"><code><a href="#build()">build</a>()</code></th> <td> <p>Returns an instance of the object defined by this builder.</p> </td> </tr> <tr id="i1"> <td><code><a href="shardingkeybuilder">ShardingKeyBuilder</a></code></td> <th scope="row"><code><a href="#subkey(java.lang.Object,java.sql.SQLType)">subkey</a>​(<a href="../../../java.base/java/lang/object">Object</a> subkey,
+      <a href="sqltype">SQLType</a> subkeyType)</code></th> <td> <p>This method will be called to add a subkey into a Sharding Key object being built.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="subkey(java.lang.Object,java.sql.SQLType)">subkey</h3> <pre data-language="java">ShardingKeyBuilder subkey(Object subkey,
+                          SQLType subkeyType)</pre> <p>This method will be called to add a subkey into a Sharding Key object being built. The order in which subkey method is called is important as it indicates the order of placement of the subkey within the Sharding Key.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>subkey</code> - contains the object that needs to be part of shard sub key</dd> <dd>
+<code>subkeyType</code> - sub-key data type of type java.sql.SQLType</dd> <dt>Returns:</dt> <dd>this builder object</dd> </dl>    <h3 id="build()">build</h3> <pre data-language="java">ShardingKey build()
+           throws SQLException</pre> <p>Returns an instance of the object defined by this builder.</p> <dl> <dt>Returns:</dt> <dd>The built object</dd> <dt>Throws:</dt> <dd>
+<code><a href="sqlexception">SQLException</a></code> - If an error occurs building the object</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/java/sql/ShardingKeyBuilder.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/java/sql/ShardingKeyBuilder.html</a>
+  </p>
+</div>

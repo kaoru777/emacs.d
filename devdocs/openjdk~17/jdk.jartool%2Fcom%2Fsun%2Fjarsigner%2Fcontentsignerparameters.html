@@ -1,0 +1,62 @@
+<h1 title="Interface ContentSignerParameters" class="title">Interface ContentSignerParameters</h1> <section class="class-description" id="class-description">  <pre class="lang-java" data-language="java">@Deprecated(since="9", forRemoval=true) public interface ContentSignerParameters</pre> <div class="deprecation-block">
+<span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span> <div class="deprecation-comment">This class has been deprecated.</div> </div> <div class="block">This interface encapsulates the parameters for a ContentSigner object.</div> <dl class="notes"> <dt>Since:</dt> <dd>1.5</dd> </dl> </section> <section class="summary"> <section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                  <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a>[]</code></td>
+<td><code><a href="#getCommandLine()" class="member-name-link">getCommandLine</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the command-line arguments passed to the jarsigner tool.</div> </td>
+</tr>
+<tr>
+<td><code>byte[]</code></td>
+<td><code><a href="#getContent()" class="member-name-link">getContent</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the content that was signed.</div> </td>
+</tr>
+<tr>
+<td><code>byte[]</code></td>
+<td><code><a href="#getSignature()" class="member-name-link">getSignature</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the JAR file's signature.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#getSignatureAlgorithm()" class="member-name-link">getSignatureAlgorithm</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the name of the signature algorithm.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/security/cert/x509certificate" title="class in java.security.cert">X509Certificate</a>[]</code></td>
+<td><code><a href="#getSignerCertificateChain()" class="member-name-link">getSignerCertificateChain</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the signer's X.509 certificate chain.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/util/zip/zipfile" title="class in java.util.zip">ZipFile</a></code></td>
+<td><code><a href="#getSource()" class="member-name-link">getSource</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the original source ZIP file before it was signed.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/net/uri" title="class in java.net">URI</a></code></td>
+<td><code><a href="#getTimestampingAuthority()" class="member-name-link">getTimestampingAuthority</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the identifier for a Timestamping Authority (TSA).</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/security/cert/x509certificate" title="class in java.security.cert">X509Certificate</a></code></td>
+<td><code><a href="#getTimestampingAuthorityCertificate()" class="member-name-link">getTimestampingAuthorityCertificate</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the certificate for a Timestamping Authority (TSA).</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#getTSADigestAlg()" class="member-name-link">getTSADigestAlg</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retreives the message digest algorithm that is used to generate the message imprint to be sent to the TSA server.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#getTSAPolicyID()" class="member-name-link">getTSAPolicyID</a>()</code></td>
+<td> <div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the TSAPolicyID for a Timestamping Authority (TSA).</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="getCommandLine()"> <h3>getCommandLine</h3> <pre class="lang-java" data-language="java">String[] getCommandLine()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the command-line arguments passed to the jarsigner tool.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The command-line arguments. May be null.</dd> </dl> </section><section class="detail" id="getTimestampingAuthority()"> <h3>getTimestampingAuthority</h3> <pre class="lang-java" data-language="java">URI getTimestampingAuthority()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the identifier for a Timestamping Authority (TSA).</div> <dl class="notes"> <dt>Returns:</dt> <dd>The TSA identifier. May be null.</dd> </dl> </section><section class="detail" id="getTimestampingAuthorityCertificate()"> <h3>getTimestampingAuthorityCertificate</h3> <pre class="lang-java" data-language="java">X509Certificate getTimestampingAuthorityCertificate()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the certificate for a Timestamping Authority (TSA).</div> <dl class="notes"> <dt>Returns:</dt> <dd>The TSA certificate. May be null.</dd> </dl> </section><section class="detail" id="getTSAPolicyID()"> <h3>getTSAPolicyID</h3> <pre class="lang-java" data-language="java">default String getTSAPolicyID()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the TSAPolicyID for a Timestamping Authority (TSA).</div> <dl class="notes"> <dt>Returns:</dt> <dd>The TSAPolicyID. May be null.</dd> </dl> </section><section class="detail" id="getTSADigestAlg()"> <h3>getTSADigestAlg</h3> <pre class="lang-java" data-language="java">default String getTSADigestAlg()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retreives the message digest algorithm that is used to generate the message imprint to be sent to the TSA server.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The non-null string of the message digest algorithm name.</dd> <dt>Since:</dt> <dd>9</dd> </dl> </section><section class="detail" id="getSignature()"> <h3>getSignature</h3> <pre class="lang-java" data-language="java">byte[] getSignature()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the JAR file's signature.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The non-null array of signature bytes.</dd> </dl> </section><section class="detail" id="getSignatureAlgorithm()"> <h3>getSignatureAlgorithm</h3> <pre class="lang-java" data-language="java">String getSignatureAlgorithm()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the name of the signature algorithm.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The non-null string name of the signature algorithm.</dd> </dl> </section><section class="detail" id="getSignerCertificateChain()"> <h3>getSignerCertificateChain</h3> <pre class="lang-java" data-language="java">X509Certificate[] getSignerCertificateChain()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the signer's X.509 certificate chain.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The non-null array of X.509 public-key certificates.</dd> </dl> </section><section class="detail" id="getContent()"> <h3>getContent</h3> <pre class="lang-java" data-language="java">byte[] getContent()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the content that was signed. The content is the JAR file's signature file.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The content bytes. May be null.</dd> </dl> </section><section class="detail" id="getSource()"> <h3>getSource</h3> <pre class="lang-java" data-language="java">ZipFile getSource()</pre> <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div> <div class="block">Retrieves the original source ZIP file before it was signed.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The original ZIP file. May be null.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.jartool/com/sun/jarsigner/ContentSignerParameters.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.jartool/com/sun/jarsigner/ContentSignerParameters.html</a>
+  </p>
+</div>

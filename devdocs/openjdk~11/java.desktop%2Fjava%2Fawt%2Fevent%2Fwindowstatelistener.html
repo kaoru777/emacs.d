@@ -1,0 +1,16 @@
+  <main role="main">    <h1>Interface WindowStateListener</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="../../../../java.base/java/util/eventlistener">EventListener</a></code></dd> </dl> <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="../awteventmulticaster">AWTEventMulticaster</a></code>, <code><a href="../../../javax/swing/plaf/basic/basictoolbarui.framelistener">BasicToolBarUI.FrameListener</a></code>, <code><a href="../../../javax/swing/jmenu.winlistener">JMenu.WinListener</a></code>, <code><a href="windowadapter">WindowAdapter</a></code>
+</dd> </dl>  <pre data-language="java">public interface WindowStateListener
+extends EventListener</pre> <div>
+<p>The listener interface for receiving window state events. </p>
+<p> The class that is interested in processing a window state event either implements this interface (and all the methods it contains) or extends the abstract <code>WindowAdapter</code> class (overriding only the methods of interest). </p>
+<p> The listener object created from that class is then registered with a window using the <code>Window</code>'s <code>addWindowStateListener</code> method. When the window's state changes by virtue of being iconified, maximized etc., the <code>windowStateChanged</code> method in the listener object is invoked, and the <code>WindowEvent</code> is passed to it.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.4</dd> <dt>See Also:</dt> <dd>
+<a href="windowadapter"><code>WindowAdapter</code></a>, <a href="windowevent"><code>WindowEvent</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#windowStateChanged(java.awt.event.WindowEvent)">windowStateChanged</a>​(<a href="windowevent">WindowEvent</a> e)</code></th> <td> <p>Invoked when window state is changed.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="windowStateChanged(java.awt.event.WindowEvent)">windowStateChanged</h3> <pre data-language="java">void windowStateChanged(WindowEvent e)</pre> <p>Invoked when window state is changed.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>e</code> - the event to be processed</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/event/WindowStateListener.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/event/WindowStateListener.html</a>
+  </p>
+</div>

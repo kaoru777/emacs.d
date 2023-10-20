@@ -1,0 +1,29 @@
+<h1 id="module-ActiveRecord::ConnectionAdapters::PostgreSQL::DatabaseStatements" class="module"> module ActiveRecord::ConnectionAdapters::PostgreSQL::DatabaseStatements </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-execute"> <span class="method-name">execute</span><span class="method-args">(sql, name = nil)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="execute-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/connection_adapters/postgresql/database_statements.rb, line 39
+def execute(sql, name = nil)
+  sql = transform_query(sql)
+  check_if_write_query(sql)
+
+  materialize_transactions
+  mark_transaction_written_if_write(sql)
+
+  log(sql, name) do
+    ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+      @connection.async_exec(sql)
+    end
+  end
+end</pre> </div> <p>Executes an SQL statement, returning a PG::Result object on success or raising a PG::Error exception otherwise. Note: the PG::Result object is manually memory managed; if you don't need it specifically, you may want consider the <code>exec_query</code> wrapper.</p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-explain"> <span class="method-name">explain</span><span class="method-args">(arel, binds = [])</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="explain-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/connection_adapters/postgresql/database_statements.rb, line 7
+def explain(arel, binds = [])
+  sql = "EXPLAIN #{to_sql(arel, binds)}"
+  PostgreSQL::ExplainPrettyPrinter.new.pp(exec_query(sql, "EXPLAIN", binds))
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-high_precision_current_timestamp"> <span class="method-name">high_precision_current_timestamp</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="high_precision_current_timestamp-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/connection_adapters/postgresql/database_statements.rb, line 132
+def high_precision_current_timestamp
+  HIGH_PRECISION_CURRENT_TIMESTAMP
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

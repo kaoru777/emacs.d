@@ -1,0 +1,96 @@
+<h1 id="module-File::Constants" class="module"> module File::Constants </h1> <section class="description"> <p><a href="constants"><code>File::Constants</code></a> provides file-related constants. All possible file constants are listed in the documentation but they may not all be present on your platform.</p> <p>If the underlying platform doesn’t define a constant the corresponding Ruby constant is not defined.</p> <p>Your platform documentations (e.g. man open(2)) may describe more detailed information.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section class="constants-list"> <header> <h3>Constants</h3> </header> <dl> <dt id="APPEND">APPEND </dt>
+<dd>
+<p>append on each write</p> </dd>
+<dt id="BINARY">BINARY </dt>
+<dd>
+<p>disable line code conversion</p> </dd>
+<dt id="CREAT">CREAT </dt>
+<dd>
+<p>create file if it does not exist</p> </dd>
+<dt id="DIRECT">DIRECT </dt>
+<dd>
+<p>Try to minimize cache effects of the I/O to and from this file.</p> </dd>
+<dt id="DSYNC">DSYNC </dt>
+<dd>
+<p>any write operation perform synchronously except some meta data</p> </dd>
+<dt id="EXCL">EXCL </dt>
+<dd>
+<p>error if <a href="constants#CREAT"><code>CREAT</code></a> and the file exists</p> </dd>
+<dt id="FNM_CASEFOLD">FNM_CASEFOLD </dt>
+<dd>
+<p>Makes <a href="../file#method-c-fnmatch"><code>File.fnmatch</code></a> patterns case insensitive (but not <a href="../dir#method-c-glob"><code>Dir.glob</code></a> patterns).</p> </dd>
+<dt id="FNM_DOTMATCH">FNM_DOTMATCH </dt>
+<dd>
+<p>The ‘*’ wildcard matches filenames starting with “.” in <a href="../file#method-c-fnmatch"><code>File.fnmatch</code></a> and <a href="../dir#method-c-glob"><code>Dir.glob</code></a> patterns</p> </dd>
+<dt id="FNM_EXTGLOB">FNM_EXTGLOB </dt>
+<dd>
+<p>Allows file globbing through “{a,b}” in <a href="../file#method-c-fnmatch"><code>File.fnmatch</code></a> patterns.</p> </dd>
+<dt id="FNM_NOESCAPE">FNM_NOESCAPE </dt>
+<dd>
+<p>Disables escapes in <a href="../file#method-c-fnmatch"><code>File.fnmatch</code></a> and <a href="../dir#method-c-glob"><code>Dir.glob</code></a> patterns</p> </dd>
+<dt id="FNM_PATHNAME">FNM_PATHNAME </dt>
+<dd>
+<p>Wildcards in <a href="../file#method-c-fnmatch"><code>File.fnmatch</code></a> and <a href="../dir#method-c-glob"><code>Dir.glob</code></a> patterns do not match directory separators</p> </dd>
+<dt id="FNM_SHORTNAME">FNM_SHORTNAME </dt>
+<dd>
+<p>Makes patterns to match short names if existing. Valid only on Microsoft Windows.</p> </dd>
+<dt id="FNM_SYSCASE">FNM_SYSCASE </dt>
+<dd>
+<p>System default case insensitiveness, equals to <a href="constants#FNM_CASEFOLD"><code>FNM_CASEFOLD</code></a> or 0.</p> </dd>
+<dt id="LOCK_EX">LOCK_EX </dt>
+<dd>
+<p>exclusive lock. see <a href="../file#method-i-flock"><code>File#flock</code></a></p> </dd>
+<dt id="LOCK_NB">LOCK_NB </dt>
+<dd>
+<p>non-blocking lock. used with <a href="constants#LOCK_SH"><code>LOCK_SH</code></a> or <a href="constants#LOCK_EX"><code>LOCK_EX</code></a>. see <a href="../file#method-i-flock"><code>File#flock</code></a> </p> </dd>
+<dt id="LOCK_SH">LOCK_SH </dt>
+<dd>
+<p>shared lock. see <a href="../file#method-i-flock"><code>File#flock</code></a></p> </dd>
+<dt id="LOCK_UN">LOCK_UN </dt>
+<dd>
+<p>unlock. see <a href="../file#method-i-flock"><code>File#flock</code></a></p> </dd>
+<dt id="NOATIME">NOATIME </dt>
+<dd>
+<p>do not change atime</p> </dd>
+<dt id="NOCTTY">NOCTTY </dt>
+<dd>
+<p>not to make opened <a href="../io"><code>IO</code></a> the controlling terminal device</p> </dd>
+<dt id="NOFOLLOW">NOFOLLOW </dt>
+<dd>
+<p>do not follow symlinks</p> </dd>
+<dt id="NONBLOCK">NONBLOCK </dt>
+<dd>
+<p>do not block on open or for data to become available</p> </dd>
+<dt id="NULL">NULL </dt>
+<dd>
+<p>Name of the null device</p> </dd>
+<dt id="RDONLY">RDONLY </dt>
+<dd>
+<p>open for reading only</p> </dd>
+<dt id="RDWR">RDWR </dt>
+<dd>
+<p>open for reading and writing</p> </dd>
+<dt id="RSYNC">RSYNC </dt>
+<dd>
+<p>any read operation perform synchronously. used with <a href="constants#SYNC"><code>SYNC</code></a> or <a href="constants#DSYNC"><code>DSYNC</code></a>.</p> </dd>
+<dt id="SHARE_DELETE">SHARE_DELETE </dt>
+<dd>
+<p>can delete opened file</p> </dd>
+<dt id="SYNC">SYNC </dt>
+<dd>
+<p>any write operation perform synchronously</p> </dd>
+<dt id="TMPFILE">TMPFILE </dt>
+<dd>
+<p>Create an unnamed temporary file</p> </dd>
+<dt id="TRUNC">TRUNC </dt>
+<dd>
+<p>truncate size to 0</p> </dd>
+<dt id="WRONLY">WRONLY </dt>
+<dd>
+<p>open for writing only</p> </dd>
+</dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

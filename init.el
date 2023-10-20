@@ -62,7 +62,7 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(beacon-color "#cc6666")
  '(custom-safe-themes
-   '("a53f00556ab4c81a0618ab6589053d9e351312d37d9c9cf544e0c8edac2b63ab" "0feb7052df6cfc1733c1087d3876c26c66410e5f1337b039be44cb406b6187c6" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "7675ffd2f5cb01a7aab53bcdd702fa019b56c764900f2eea0f74ccfc8e854386" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358"))
+   '("b7b9a74d248fdf304bc7207dc78c10b2fd632974e6f2d3d50ea4258859472581" "a53f00556ab4c81a0618ab6589053d9e351312d37d9c9cf544e0c8edac2b63ab" "0feb7052df6cfc1733c1087d3876c26c66410e5f1337b039be44cb406b6187c6" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "7675ffd2f5cb01a7aab53bcdd702fa019b56c764900f2eea0f74ccfc8e854386" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358"))
  '(fci-rule-color "#373b41")
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
  '(frame-background-mode 'dark)
@@ -87,11 +87,11 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(sqlformat lsp-tailwindcss dap-mode lsp-treemacs lsp-ivy helm-lsp lsp-ui lsp-mode paredit moe-theme rust-mode counsel ivy helm lua-mode which-key web-mode web-beautify vterm use-package-ensure-system-package tide slime ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters python-pytest py-autopep8 prettier-js pipenv phpunit perspective paradox org-contrib omnisharp ob-sql-mode ob-restclient magit latex-preview-pane indent-guide hl-todo helm-swoop helm-projectile helm-ag gruvbox-theme graphql-mode gnu-elpa-keyring-update gdscript-mode fzf flycheck-rust flycheck-pycheckers flycheck-pos-tip flycheck-phpstan flycheck-elixir flycheck-checkbashisms flycheck-cask flx expand-region exec-path-from-shell ess elpy dockerfile-mode docker-compose-mode docker csv-mode counsel-projectile cargo ansible amx alchemist ag ace-window))
+   '(flycheck dap-mode lsp-treemacs lsp-ivy helm-lsp lsp-ui lsp-mode highlight-indent-guides dashboard devdocs sqlformat ace-window paredit amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify vterm use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
-     ".cache" "cache" "recentf" "COMMIT_EDITMSG\\'") t)
+     ".cache" "cache" "recentf" "COMMIT_EDITMSG\\'"))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(vc-annotate-background nil)
@@ -125,9 +125,6 @@
  '(git-gutter:added ((((class color) (min-colors 89)) (:weight normal :foreground "#859900" :background "#fdf6e3"))))
  '(git-gutter:deleted ((((class color) (min-colors 89)) (:weight normal :foreground "#dc322f" :background "#fdf6e3"))))
  '(git-gutter:modified ((((class color) (min-colors 89)) (:weight normal :foreground "#268bd2" :background "#fdf6e3")))))
-  (setq paradox-github-token "77941fe252414a944b1485d2d8cc303b61a4296c")
-  (setq paradox-execute-asynchronously t)
-  (setq paradox-automatically-star t)
 
 
 (setq-default
@@ -164,29 +161,6 @@
 (bind-key "<s-return>" 'toggle-frame-fullscreen)
 (setq ns-function-modifier 'hyper)
 
-;; don't truncate long sql lines
-;; https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client
-(add-hook 'sql-interactive-mode-hook
-          (lambda ()
-            (toggle-truncate-lines t)))
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
-(global-subword-mode 1)
-(set-locale-environment "en_US.UTF-8")
-(set-default-coding-systems 'utf-8)
-(set-language-environment 'utf-8)
-(setq locale-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-(set-clipboard-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
-(show-paren-mode 1)
-(electric-pair-mode 1)
-(defun display-startup-echo-area-message ()
-  (message ""))
 
 ;; Show path if names are same
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -213,30 +187,23 @@
 
 (use-package use-package-ensure-system-package)
 
-;; https://github.com/Malabarba/paradox/
-(use-package paradox
-  :config
-  (paradox-enable))
+;; https://www.emacswiki.org/emacs/SqlMode
+(defun my-sql-save-history-hook ()
+  (let ((lval 'sql-input-ring-file-name)
+        (rval 'sql-product))
+    (if (symbol-value rval)
+        (let ((filename 
+               (concat "~/.emacs.d/sql/"
+                       (symbol-name (symbol-value rval))
+                       "-history.sql")))
+          (set (make-local-variable lval) filename))
+      (error
+       (format "SQL history will not be saved because %s is nil"
+               (symbol-name rval))))))
 
-;; C-q < inserts <
-;; (use-package smartparens-config
-;;   :ensure smartparens
-;;   :config (progn (show-smartparens-global-mode t)))
+(add-hook 'sql-interactive-mode-hook 'my-sql-save-history-hook)
 
-;; https://github.com/Fuco1/smartparens
-;; (use-package smartparens
-;;   :hook
-;;   (after-init . smartparens-global-mode)
-;;   :config
-;;   (require 'smartparens-config)
-;;   (sp-pair "=" "=" :actions '(wrap))
-;;   (sp-pair "+" "+" :actions '(wrap))
-;;   (sp-pair "<" ">" :actions '(wrap))
-;;   (sp-pair "$" "$" :actions '(wrap)))
-
-;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-
+;; https://github.com/Wilfred/ag.el
 (use-package ag
   :config
   (setq-default ag-reuse-window 't)
@@ -248,7 +215,7 @@
                            ))
   )
 
-
+;; https://github.com/bbatsov/projectile
 (use-package projectile
   :diminish projectile-mode
   :commands (projectile-mode projectile-switch-project)
@@ -264,8 +231,10 @@
 
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
-  :config
+  :ensure t
+  :init
   (setq exec-path-from-shell-variables '("PATH"))
+  :config
   (exec-path-from-shell-initialize))
 
 (use-package which-key
@@ -273,57 +242,6 @@
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
   :config (which-key-mode))
-
-;; ;; https://github.com/sabof/org-bullets
-;; (use-package org-bullets
-;;   :config
-;;   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
-;; https://github.com/nikclayton/ob-sql-mode
-(use-package ob-sql-mode
-  :config
-  (require 'ob-sql-mode))
-
-;; https://github.com/flycheck/flycheck
-(use-package flycheck
-  :defer t
-  :custom
-  (flycheck-check-syntax-automatically '(save mode-enabled))
-  :init (global-flycheck-mode))
-
-(use-package flycheck-rust
-  :defer t
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
-  (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
-
-(use-package flycheck-checkbashisms
-  :defer t
-  :config
-  (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
-
-(use-package flycheck-pycheckers
-  :defer t
-  :config
-  (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
-
-(use-package flycheck-phpstan
-  :defer t
-  :config
-  (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
-
-(use-package flycheck-cask)
-
-(use-package flycheck-pos-tip
-  :defer t
-  :config
-  (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
-
-
-(use-package flycheck-elixir
-  :defer t
-  :config
-  (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)))
 
 ;; https://magit.vc
 ;; https://github.com/magit/magit
@@ -369,68 +287,11 @@
           company-require-match nil))
 
 
-;; python
-(use-package elpy
-  :init
-  (setq elpy-modules '(elpy-module-company
-                       elpy-module-eldoc
-                       elpy-module-flymake
-                       elpy-module-pyvenv
-                       elpy-module-yasnippet
-                       elpy-module-sane-defaults))
-  (elpy-enable))
-
-;; https://github.com/paetzke/py-autopep8.el
-(use-package py-autopep8
-  :after elpy
-  :hook (elpy-mode . py-autopep8-enable-on-save))
-
-(use-package python-pytest)
-
-(use-package pipenv
-  :hook (python-mode . pipenv-mode)
-  :init
-  (setq
-   pipenv-projectile-after-switch-function
-   #'pipenv-projectile-after-switch-extended))
-
-(use-package prettier-js
-  :config
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook #'(lambda ()
-                               (enable-minor-mode
-                                '("\\.jsx?\\'" . prettier-js-mode))))
-  )
-(setq prettier-js-args '(
-  "--trailing-comma" "none"
-  "--bracket-spacing" "true"
-  "--single-quote" "true"
-  "--no-semi" "true"
-  "--jsx-single-quote" "true"
-  "--jsx-bracket-same-line" "true"
-  "--print-width" "100"))
-;; (use-package pyvenv)
-
-;;(use-package pyenv-mode
-;;  :config
-;;  (pyenv-mode))
-
-;; (use-package pip-requirements)
-
 ;; https://github.com/tarsius/hl-todo
 (use-package hl-todo
   :config
   (setq hl-todo-highlight-punctuation ":")
   (global-hl-todo-mode))
-
-;; ;; https://github.com/Malabarba/aggressive-indent-mode
-;; (use-package aggressive-indent
-;;   :init
-;;   (global-aggressive-indent-mode))
-;;   ;; (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-;;   ;; (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
-;;   ;; (add-hook 'racket-mode-hook #'aggressive-indent-mode))
 
 
 ;; https://github.com/kuanyui/moe-theme.el
@@ -457,15 +318,12 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'yaml-mode-hook #'rainbow-delimiters-mode))
 
-;; https://github.com/Silex/docker.el
-(use-package docker
-  :bind ("C-c d" . docker))
+(use-package prog-mode
+  :ensure nil
+  :hook ((prog-mode . rainbow-delimiters-mode)))
 
 ;; https://github.com/k1LoW/emacs-ansible
 (use-package ansible)
-
-;; https://github.com/jsinglet/latex-preview-pane
-(use-package latex-preview-pane)
 
 ;; https://github.com/jrblevin/markdown-mode
 (use-package markdown-mode
@@ -477,45 +335,11 @@
   :config
   (add-hook 'markdown-mode-hook 'auto-fill-mode))
 
-;; https://github.com/dgutov/diff-hl
-;; (use-package diff-hl)
-
-;; https://github.com/emacs-ess/ESS
-;; https://ess.r-project.org
-(use-package ess)
-
-;; elixir
-(use-package alchemist)
-
-(use-package elixir-mode)
-
-;; php
-;; (use-package php-mode
-;;   :commands php-mode
-;;   :mode "\\.php$"
-;; )
-
-(use-package phpunit)
-
-;; typescript
-(use-package tide
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
-
 ;; https://github.com/bling/fzf.el
 (use-package fzf
   :commands fzf/start
   :bind
   (("C-c f" . fzf)))
-
-;; ;; https://github.com/pashky/restclient.el
-;; (use-package restclient
-;;   :mode (
-;;         ("\\.restclient\\'" . restclient-mode)
-;;         ("\\.http\\'" . restclient-mode)
-;;          ))
 
 ;; web
 (use-package web-mode
@@ -583,47 +407,12 @@
 (setq slime-contribs '(slime-fancy))
 
 
-(use-package slime)
-
-;; emacs lisp
-;; (use-package elisp-mode
-;;   :bind (("C-c C-f" . find-function)
-;;          ("C-c C-v" . find-variable)))
-
-;; latex
-;; (setq TeX-PDF-mode t
-;;     TeX-parse-self t
-;;     TeX-newline-function 'reindent-then-newline-and-indent)
-;; 
-;; (eval-after-load "tex"
-;;     '(setcdr (assoc "LaTeX" TeX-command-list)
-;;          '("%`%l%(mode) -shell-escape%' %t"
-;;               TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX")))
-;; 
-;; (add-hook 'LaTeX-mode-hook
-;;     (lambda ()
-;;         (TeX-fold-mode 1)
-;;         (auto-fill-mode)
-;;         (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
-;;                                             TeX-run-TeX nil t))))
-
-;; haskell
-(use-package haskell-mode
-  :disabled t
-  :config
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
-
-;; sql
-(setq sql-mysql-options '("--local-infile"))
-
-(add-hook 'sql-interactive-mode-hook
-          (lambda ()
-            (toggle-truncate-lines t)))
 
 ;; yaml
 (use-package yaml-mode
     :mode (("\\.yaml$" . yaml-mode))
     )
+
 ;; https://github.com/meqif/docker-compose-mode
 (use-package docker-compose-mode)
 
@@ -638,51 +427,12 @@
   (setq indent-guide-recursive nil)
   ;; (set-face-foreground 'indent-guide-face "cyan")
   (add-hook 'prog-mode-hook 'indent-guide-mode))
-;; clojure
-;; (use-package clojure-mode
-;;   :mode "\\.clojure")
-
-;; ;; (defvar my:jupyter_location (executable-find "jupyter"))
-;; ;; (defvar my:jupyter_start_dir "~/")
-;; ;; (if (and my:jupyter_location
-;; ;;          my:jupyter_start_dir)
-;; ;;     (use-package ein
-;; ;;       :commands (ein:jupyter-server-start)
-;; ;;       :defer 5
-;; ;;       :config
-;; ;;       (require 'ein)
-;; ;;       ;; (require 'ein-notebook)
-;; ;;       ;; (require 'ein-subpackages)
-;; ;;       (defvar my-found-ein-server nil)
-;; ;;       (dolist (my-current-process (process-list))
-;; ;;         (when (string-match "EIN: Jupyter*" (process-name my-current-process))
-;; ;;           (setq my-found-ein-server t))
-;; ;;         )
-;; ;;       (when (not my-found-ein-server)
-;; ;;         (ein:jupyter-server-start my:jupyter_location my:jupyter_start_dir))
-;; ;;       )
-;; ;;   )
-;; 
 
 (use-package expand-region
   :bind ("M-m" . er/expand-region))
 
 (use-package tramp)
 
-;; https://github.com/abo-abo/ace-window
-(use-package ace-window
-  :config
-  (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s))
-  (ace-window-display-mode)
-  :bind ("s-o" . ace-window))
-
-;; https://github.com/davazp/graphql-mode
-;; Once the installation is completed, any file with a .graphql extension will be loaded with this mode.
-(use-package graphql-mode
-  :mode (
-         ("\\.q\\'" . graphql-mode)
-         ("\\.graphql\\'" . graphql-mode)
-         ))
 
 ;; reload files if they have been modified externally
 (use-package autorevert
@@ -694,16 +444,6 @@
 
 (use-package vterm)
 
-;; (use-package auctex
-;; 	:defer t
-;; 	:config
-;; 	(setq TeX-auto-save t)
-;; 	(setq TeX-parse-self t)
-;; 	(setq TeX-save-query nil))
-
-;; (use-package tex-mode
-;;   :ensure nil
-;;   :hook (TeX-mode . latex-electric-env-pair-mode))
 
 (use-package org
   :ensure org-contrib)
@@ -719,11 +459,7 @@
    (lisp . t)
    (scheme . t)
    (shell . t)
-   (sql-mode . t)
-   (sqlite . t)
-   (sql . t)
    (js . t)
-   (restclient . t)
    (ledger . t)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
@@ -731,10 +467,7 @@
   (not (or (string= lang "C")
            (string= lang "java")
            (string= lang "python")
-           (string= lang "emacs-lisp")
-           (string= lang "sql-mode")
-           (string= lang "sql")
-           (string= lang "sqlite"))))
+           (string= lang "emacs-lisp"))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
 (setq org-src-fontify-natively t
@@ -765,8 +498,6 @@
          ("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files)
          ("C-x C-r" . helm-recentf))
-  :init
-  (require 'helm-config)
   :config
   (setq helm-locate-command "mdfind -interpret -name %s %s"
         helm-ff-newfile-prompt-p nil
@@ -793,6 +524,7 @@
    ("C-'" . ivy-avy))
   :config
   (ivy-mode 1)
+  (avy-setup-default)
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
   (setq ivy-use-virtual-buffers t)
   ;; number of result lines to display
@@ -805,8 +537,10 @@
   (setq ivy-re-builders-alist
 	;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
+
 (use-package avy
   :bind ("C-S-s" . avy-goto-char))
+
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
          ("C-x C-r" . counsel-recentf)
@@ -822,41 +556,21 @@
 (use-package swiper
   :bind (("C-c s" . swiper)))
 
-(use-package perspective
-  :config
-  (persp-mode))
-
-;; rust
-(use-package rust-mode)
-(setq rust-format-on-save t)
-
-(use-package cargo
-  :hook (rust-mode . cargo-minor-mode))
 
 ;; Enhance fuzzy matching
 (use-package flx)
 ;; Enhance M-x
 (use-package amx)
 
-(use-package lua-mode
-  :ensure t
-  :mode (("\\.lua\\'" . lua-mode))
-  :config
-  (add-hook 'lua-mode-hook #'company-mode))
-
-(use-package gdscript-mode)
-
-;; (use-package avy
-;; :ensure t
-;; :bind ("M-s" . avy-goto-char))
-
-(use-package avy
-:ensure t
-:config
-(avy-setup-default))
 
 (use-package paredit
   :ensure t)
+
+;; https://github.com/astoff/devdocs.el
+(use-package devdocs
+  :ensure t)
+(global-set-key (kbd "C-h D") 'devdocs-lookup)
+
 
 (defun bjm/kill-this-buffer ()
   "Kill the current buffer."
@@ -905,13 +619,31 @@
     :bind
     (:map sql-mode-map ("C-c b" . sqlformat-buffer)))
 
+;; https://github.com/emacs-dashboard/emacs-dashboard
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+
+
+(use-package highlight-indent-guides
+  :ensure t
+  :delight highlight-indent-guides-mode
+  :init
+  (setq highlight-indent-guides-method 'character
+        ;; default is \x2502 but it is very slow on Mac
+        highlight-indent-guides-character ?\xFFE8
+        highlight-indent-guides-responsive 'top))
+
+
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (python-mode . lsp)
          (ruby-mode . lsp)
+         (python-mode . lsp)
+         (sql-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
@@ -928,6 +660,6 @@
 (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 
-(use-package lsp-tailwindcss
-  :init
-  (setq lsp-tailwindcss-add-on-mode t))
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))

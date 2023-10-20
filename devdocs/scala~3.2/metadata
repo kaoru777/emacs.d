@@ -1,0 +1,2 @@
+(1 (name . "Scala") (slug . "scala~3.2") (type . "scala") (links (home . "https://www.scala-lang.org/") (code . "https://github.com/scala/scala")) (version . "3.2") (release . "3.2.0") (mtime . 1664308179) (db_size . 58058158) (attribution . "&copy; 2002-2022 EPFL, with contributions from Lightbend.<br>
+        Licensed under the Apache License, Version 2.0."))

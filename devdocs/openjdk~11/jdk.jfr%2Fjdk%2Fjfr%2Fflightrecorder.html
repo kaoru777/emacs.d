@@ -1,0 +1,97 @@
+  <main role="main">    <h1>Class FlightRecorder</h1>   <ul class="inheritance"> <li><a href="../../../java.base/java/lang/object">java.lang.Object</a></li> <li> <ul class="inheritance"> <li>jdk.jfr.FlightRecorder</li> </ul> </li> </ul>    <pre data-language="java">public final class FlightRecorder
+extends Object</pre> <div>
+<p>Class for accessing, controlling, and managing Flight Recorder. </p>
+<p> This class provides the methods necessary for creating, starting, stopping, and destroying recordings.</p>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>static void</code></td> <th scope="row"><code><a href="#addListener(jdk.jfr.FlightRecorderListener)">addListener</a>​(<a href="flightrecorderlistener">FlightRecorderListener</a> changeListener)</code></th> <td> <p>Adds a recorder listener and captures the <code>AccessControlContext</code> to use when invoking the listener.</p> </td> </tr> <tr id="i1"> <td><code>static void</code></td> <th scope="row"><code><a href="#addPeriodicEvent(java.lang.Class,java.lang.Runnable)">addPeriodicEvent</a>​(<a href="../../../java.base/java/lang/class">Class</a>&lt;? extends <a href="event">Event</a>&gt; eventClass,
+                <a href="../../../java.base/java/lang/runnable">Runnable</a> hook)</code></th> <td> <p>Adds a hook for a periodic event.</p> </td> </tr> <tr id="i2"> <td><code><a href="../../../java.base/java/util/list">List</a>&lt;<a href="eventtype">EventType</a>&gt;</code></td> <th scope="row"><code><a href="#getEventTypes()">getEventTypes</a>()</code></th> <td> <p>Returns an immutable list that contains all currently registered events.</p> </td> </tr> <tr id="i3"> <td><code>static <a href="flightrecorder">FlightRecorder</a></code></td> <th scope="row"><code><a href="#getFlightRecorder()">getFlightRecorder</a>()</code></th> <td> <p>Returns the Flight Recorder for the platform.</p> </td> </tr> <tr id="i4"> <td><code><a href="../../../java.base/java/util/list">List</a>&lt;<a href="recording">Recording</a>&gt;</code></td> <th scope="row"><code><a href="#getRecordings()">getRecordings</a>()</code></th> <td> <p>Returns an immutable list of the available recordings.</p> </td> </tr> <tr id="i5"> <td><code>static boolean</code></td> <th scope="row"><code><a href="#isAvailable()">isAvailable</a>()</code></th> <td> <p>Returns <code>true</code> if the Java Virtual Machine (JVM) has Flight Recorder capabilities.</p> </td> </tr> <tr id="i6"> <td><code>static boolean</code></td> <th scope="row"><code><a href="#isInitialized()">isInitialized</a>()</code></th> <td> <p>Returns <code>true</code> if Flight Recorder is initialized.</p> </td> </tr> <tr id="i7"> <td><code>static void</code></td> <th scope="row"><code><a href="#register(java.lang.Class)">register</a>​(<a href="../../../java.base/java/lang/class">Class</a>&lt;? extends <a href="event">Event</a>&gt; eventClass)</code></th> <td> <p>Registers an event class.</p> </td> </tr> <tr id="i8"> <td><code>static boolean</code></td> <th scope="row"><code><a href="#removeListener(jdk.jfr.FlightRecorderListener)">removeListener</a>​(<a href="flightrecorderlistener">FlightRecorderListener</a> changeListener)</code></th> <td> <p>Removes a recorder listener.</p> </td> </tr> <tr id="i9"> <td><code>static boolean</code></td> <th scope="row"><code><a href="#removePeriodicEvent(java.lang.Runnable)">removePeriodicEvent</a>​(<a href="../../../java.base/java/lang/runnable">Runnable</a> hook)</code></th> <td> <p>Removes a hook for a periodic event.</p> </td> </tr> <tr id="i10"> <td><code><a href="recording">Recording</a></code></td> <th scope="row"><code><a href="#takeSnapshot()">takeSnapshot</a>()</code></th> <td> <p>Creates a snapshot of all available recorded data.</p> </td> </tr> <tr id="i11"> <td><code>static void</code></td> <th scope="row"><code><a href="#unregister(java.lang.Class)">unregister</a>​(<a href="../../../java.base/java/lang/class">Class</a>&lt;? extends <a href="event">Event</a>&gt; eventClass)</code></th> <td> <p>Unregisters an event class.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.java.lang.Object">Methods declared in class java.lang.<a href="../../../java.base/java/lang/object">Object</a>
+</h2> <code><a href="../../../java.base/java/lang/object#clone()">clone</a>, <a href="../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a>, <a href="../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../java.base/java/lang/object#hashCode()">hashCode</a>, <a href="../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../java.base/java/lang/object#toString()">toString</a>, <a href="../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../java.base/java/lang/object#wait(long,int)">wait</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getRecordings()">getRecordings</h3> <pre data-language="java">public List&lt;Recording&gt; getRecordings()</pre> <div>
+<p>Returns an immutable list of the available recordings. </p>
+<p> A recording becomes available when it is created. It becomes unavailable when it is in the <code>CLOSED</code> state, typically after a call to <a href="recording#close()"><code>Recording.close()</code></a>.</p>
+</div> <dl> <dt>Returns:</dt> <dd>a list of recordings, not <code>null</code>
+</dd> </dl>    <h3 id="takeSnapshot()">takeSnapshot</h3> <pre data-language="java">public Recording takeSnapshot()</pre> <div>
+<p>Creates a snapshot of all available recorded data. </p>
+<p> A snapshot is a synthesized recording in a <code>STOPPPED</code> state. If no data is available, a recording with size <code>0</code> is returned. </p>
+<p> A snapshot provides stable access to data for later operations (for example, operations to change the interval or to reduce the data size). </p>
+<p> The following example shows how to create a snapshot and write a subset of the data to a file. </p>
+<pre data-language="java">try (Recording snapshot = FlightRecorder.getFlightRecorder().takeSnapshot()) {
+   if (snapshot.getSize() &gt; 0) {
+     snapshot.setMaxSize(100_000_000);
+     snapshot.setMaxAge(Duration.ofMinutes(5));
+     snapshot.dump(Paths.get("snapshot.jfr"));
+   }
+ }</pre> The caller must close the recording when access to the data is no longer needed.</div> <dl> <dt>Returns:</dt> <dd>a snapshot of all available recording data, not <code>null</code>
+</dd> </dl>    <h3 id="register(java.lang.Class)">register</h3> <pre data-language="java">public static void register(Class&lt;? extends Event&gt; eventClass)</pre> <div>
+<p>Registers an event class. </p>
+<p> If the event class is already registered, then the invocation of this method is ignored.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>eventClass</code> - the event class to register, not <code>null</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - if class is abstract or not a subclass of <a href="event"><code>Event</code></a>
+</dd> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("registerEvent")</code>
+</dd> </dl>    <h3 id="unregister(java.lang.Class)">unregister</h3> <pre data-language="java">public static void unregister(Class&lt;? extends Event&gt; eventClass)</pre> <div>
+<p>Unregisters an event class. </p>
+<p> If the event class is not registered, then the invocation of this method is ignored.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>eventClass</code> - the event class to unregistered, not <code>null</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - if a class is abstract or not a subclass of <a href="event"><code>Event</code></a>
+</dd> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("registerEvent")</code>
+</dd> </dl>    <h3 id="getFlightRecorder()">getFlightRecorder</h3> <pre data-language="java">public static FlightRecorder getFlightRecorder()
+                                        throws IllegalStateException,
+                                               SecurityException</pre> <p>Returns the Flight Recorder for the platform.</p> <dl> <dt>Returns:</dt> <dd>a Flight Recorder instance, not <code>null</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/illegalstateexception">IllegalStateException</a></code> - if Flight Recorder can't be created (for example, if the Java Virtual Machine (JVM) lacks Flight Recorder support, or if the file repository can't be created or accessed)</dd> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("accessFlightRecorder")</code>
+</dd> </dl>    <h3 id="addPeriodicEvent(java.lang.Class,java.lang.Runnable)">addPeriodicEvent</h3> <pre data-language="java">public static void addPeriodicEvent(Class&lt;? extends Event&gt; eventClass,
+                                    Runnable hook)
+                             throws SecurityException</pre> <div>
+<p>Adds a hook for a periodic event. </p>
+<p> The implementation of the hook should return as soon as possible, to avoid blocking other Flight Recorder operations. The hook should emit one or more events of the specified type. When a hook is added, the interval at which the call is invoked is configurable using the <code>"period"</code> setting.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>eventClass</code> - the class that the hook should run for, not <code>null</code>
+</dd> <dd>
+<code>hook</code> - the hook, not <code>null</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - if a class is not a subclass of <a href="event"><code>Event</code></a>, is abstract, or the hook is already added</dd> <dd>
+<code><a href="../../../java.base/java/lang/illegalstateexception">IllegalStateException</a></code> - if the event class has the <code>Registered(false)</code> annotation and is not registered manually</dd> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("registerEvent")</code>
+</dd> </dl>    <h3 id="removePeriodicEvent(java.lang.Runnable)">removePeriodicEvent</h3> <pre data-language="java">public static boolean removePeriodicEvent(Runnable hook)
+                                   throws SecurityException</pre> <p>Removes a hook for a periodic event.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>hook</code> - the hook to remove, not <code>null</code>
+</dd> <dt>Returns:</dt> <dd>
+<code>true</code> if hook is removed, <code>false</code> otherwise</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("registerEvent")</code>
+</dd> </dl>    <h3 id="getEventTypes()">getEventTypes</h3> <pre data-language="java">public List&lt;EventType&gt; getEventTypes()</pre> <div>
+<p>Returns an immutable list that contains all currently registered events. </p>
+<p> By default, events are registered when they are first used, typically when an event object is allocated. To ensure an event is visible early, registration can be triggered by invoking the <a href="#register(java.lang.Class)"><code>register(Class)</code></a> method.</p>
+</div> <dl> <dt>Returns:</dt> <dd>list of events, not <code>null</code>
+</dd> </dl>    <h3 id="addListener(jdk.jfr.FlightRecorderListener)">addListener</h3> <pre data-language="java">public static void addListener(FlightRecorderListener changeListener)</pre> <div>
+<p>Adds a recorder listener and captures the <code>AccessControlContext</code> to use when invoking the listener. </p>
+<p> If Flight Recorder is already initialized when the listener is added, then the method <a href="flightrecorderlistener#recorderInitialized(jdk.jfr.FlightRecorder)"><code>FlightRecorderListener.recorderInitialized(FlightRecorder)</code></a> method is invoked before returning from this method.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>changeListener</code> - the listener to add, not <code>null</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("accessFlightRecorder")</code>
+</dd> </dl>    <h3 id="removeListener(jdk.jfr.FlightRecorderListener)">removeListener</h3> <pre data-language="java">public static boolean removeListener(FlightRecorderListener changeListener)</pre> <div>
+<p>Removes a recorder listener. </p>
+<p> If the same listener is added multiple times, only one instance is removed.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>changeListener</code> - listener to remove, not <code>null</code>
+</dd> <dt>Returns:</dt> <dd>
+<code>true</code>, if the listener could be removed, <code>false</code> otherwise</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../java.base/java/lang/securityexception">SecurityException</a></code> - if a security manager exists and the caller does not have <code>FlightRecorderPermission("accessFlightRecorder")</code>
+</dd> </dl>    <h3 id="isAvailable()">isAvailable</h3> <pre data-language="java">public static boolean isAvailable()</pre> <div>
+<p>Returns <code>true</code> if the Java Virtual Machine (JVM) has Flight Recorder capabilities. </p>
+<p> This method can quickly check whether Flight Recorder can be initialized, without actually doing the initialization work. The value may change during runtime and it is not safe to cache it.</p>
+</div> <dl> <dt>Returns:</dt> <dd>
+<code>true</code>, if Flight Recorder is available, <code>false</code> otherwise</dd> <dt>See Also:</dt> <dd><a href="flightrecorderlistener"><code>for callback when Flight Recorder is
+      initialized</code></a></dd> </dl>    <h3 id="isInitialized()">isInitialized</h3> <pre data-language="java">public static boolean isInitialized()</pre> <p>Returns <code>true</code> if Flight Recorder is initialized.</p> <dl> <dt>Returns:</dt> <dd>
+<code>true</code>, if Flight Recorder is initialized, <code>false</code> otherwise</dd> <dt>See Also:</dt> <dd><a href="flightrecorderlistener"><code>for callback when Flight Recorder is
+      initialized</code></a></dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/FlightRecorder.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/FlightRecorder.html</a>
+  </p>
+</div>

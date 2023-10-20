@@ -1,0 +1,13 @@
+  <main role="main">    <h1>Annotation Type Registered</h1>      <pre data-language="java">@Target(TYPE)
+@Inherited
+@Retention(RUNTIME)
+public @interface Registered</pre> <div>
+<p>Event annotation, for programmatic event registration. </p>
+<p> Events are automatically registered when they are first used. This annotation can be used to override that registration. To register events programmatically, use <a href="flightrecorder#register(java.lang.Class)"><code>FlightRecorder.register(Class)</code></a>.</p>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="annotation.type.optional.element.summary">Optional Elements</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Optional Element</th> <th scope="col">Description</th> </tr> <tr> <td><code>boolean</code></td> <th scope="row"><code><a href="#value()">value</a></code></th> <td> <p>Returns <code>true</code> if the event is to be registered when the event class is first used, <code>false</code> otherwise.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="annotation.type.element.detail">Elements</h2>   <h3 id="value()">value</h3> <pre data-language="java">boolean value</pre> <p>Returns <code>true</code> if the event is to be registered when the event class is first used, <code>false</code> otherwise.</p> <dl> <dt>Returns:</dt> <dd>
+<code>true</code> if the event is to be registered when the event class is first used, <code>false</code> otherwise.</dd> </dl> <dl> <dt>Default:</dt> <dd>true</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/Registered.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/Registered.html</a>
+  </p>
+</div>

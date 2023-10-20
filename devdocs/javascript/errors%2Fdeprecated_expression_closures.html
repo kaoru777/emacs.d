@@ -1,0 +1,53 @@
+<h1>Warning: expression closures are deprecated</h1>
+<div class="section-content"><p> The JavaScript warning "expression closures are deprecated" occurs when the non-standard expression closure syntax (shorthand function syntax) is used. This syntax is now removed and the warning message is obsolete. </p></div>
+<section aria-labelledby="message"><h2 id="message">Message</h2>
+<div class="section-content"><pre class="notranslate">Warning: expression closures are deprecated
+</pre></div></section><section aria-labelledby="error_type"><h2 id="error_type">Error type</h2>
+<div class="section-content"><p>Warning. JavaScript execution won't be halted.</p></div></section><section aria-labelledby="what_went_wrong"><h2 id="what_went_wrong">What went wrong?</h2>
+<div class="section-content"><p> The non-standard expression closure syntax (shorthand function syntax) is deprecated and shouldn't be used anymore. This syntax has been removed entirely in <a href="https://bugzil.la/1083458" target="_blank">bug 1083458</a> and scripts using it will throw a <a href="../global_objects/syntaxerror"><code>SyntaxError</code></a> in newer versions of Firefox. </p></div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+</section><section aria-labelledby="deprecated_syntax"><h3 id="deprecated_syntax">Deprecated syntax</h3>
+<div class="section-content">
+<p> Expression closures omit curly braces or return statements from function declarations or from method definitions in objects. </p> <div class="code-example"><pre data-language="js"><span class="token keyword">var</span> <span class="token function-variable function">x</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">count</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token number">1</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</pre></div>
+</div></section><section aria-labelledby="standard_syntax"><h3 id="standard_syntax">Standard syntax</h3>
+<div class="section-content">
+<p> To convert the non-standard expression closures syntax to standard ECMAScript syntax, you can add curly braces and return statements. </p> <div class="code-example"><pre data-language="js"><span class="token keyword">const</span> <span class="token function-variable function">x</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</pre></div>
+</div></section><section aria-labelledby="standard_syntax_using_arrow_functions"><h3 id="standard_syntax_using_arrow_functions">Standard syntax using arrow functions</h3>
+<div class="section-content">
+<p>Alternatively, you can use <a href="../functions/arrow_functions">arrow functions</a>:</p> <div class="code-example"><pre data-language="js"><span class="token keyword">const</span> <span class="token function-variable function">x</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+</pre></div>
+</div></section><section aria-labelledby="standard_syntax_using_shorthand_method_syntax"><h3 id="standard_syntax_using_shorthand_method_syntax">Standard syntax using shorthand method syntax</h3>
+<div class="section-content">
+<p>Expression closures can also be found with getter and setter, like this:</p> <div class="code-example"><pre data-language="js"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token keyword">get</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token keyword">set</span> <span class="token function">x</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>v <span class="token operator">=</span> v
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</pre></div> <p>With <a href="../functions/method_definitions">method definitions</a>, this can be converted to:</p> <div class="code-example"><pre data-language="js"><span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token keyword">get</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token keyword">set</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token parameter">v</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>v <span class="token operator">=</span> v<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</pre></div>
+</div></section><section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li><a href="../functions/arrow_functions">Arrow functions</a></li> <li><a href="../functions/method_definitions">Method definitions</a></li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Deprecated_expression_closures" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Deprecated_expression_closures</a>
+  </p>
+</div>

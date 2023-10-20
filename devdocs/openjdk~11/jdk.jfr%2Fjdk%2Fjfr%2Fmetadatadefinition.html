@@ -1,0 +1,38 @@
+  <main role="main">    <h1>Annotation Type MetadataDefinition</h1>      <pre data-language="java">@Retention(RUNTIME)
+@Target(TYPE)
+public @interface MetadataDefinition</pre> <div>
+<p>Meta annotation for defining new types of event metadata. </p>
+<p> In the following example, a transaction event is defined with two user-defined annotations, <code>@Severity</code> and <code>@TransactionId</code>. </p>
+<pre data-language="java">@MetadataDefinition
+@Label("Severity")
+@Description("Value between 0 and 100 that indicates severity. 100 is most severe.")
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE })
+ public @interface @Severity {
+   int value() default 50;
+ }
+
+@MetadataDefinition
+@Label("Transaction Id")
+@Relational
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.FIELD })
+ public @interface @Severity {
+ }
+
+@Severity(80)
+@Label("Transaction Blocked");
+ class TransactionBlocked extends Event {
+  @TransactionId
+  @Label("Transaction");
+   long transactionId;
+
+  @TransactionId
+  @Label("Transaction Blocker");
+   long transactionId;
+ }</pre> Adding <code>@MetadataDefinition</code> to the declaration of <code>@Severity</code> and <code>@TransactionId</code> ensures the information is saved by Flight Recorder.</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>    </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/MetadataDefinition.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/MetadataDefinition.html</a>
+  </p>
+</div>

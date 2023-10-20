@@ -1,0 +1,69 @@
+<h1 id="module-ActiveRecord::TestFixtures::ClassMethods" class="module"> module ActiveRecord::TestFixtures::ClassMethods </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-fixtures"> <span class="method-name">fixtures</span><span class="method-args">(*fixture_set_names)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="fixtures-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/test_fixtures.rb, line 42
+def fixtures(*fixture_set_names)
+  if fixture_set_names.first == :all
+    raise StandardError, "No fixture path found. Please set `#{self}.fixture_path`." if fixture_path.blank?
+    fixture_set_names = Dir[::File.join(fixture_path, "{**,*}/*.{yml}")].uniq
+    fixture_set_names.reject! { |f| f.start_with?(file_fixture_path.to_s) } if defined?(file_fixture_path) &amp;&amp; file_fixture_path
+    fixture_set_names.map! { |f| f[fixture_path.to_s.size..-5].delete_prefix("/") }
+  else
+    fixture_set_names = fixture_set_names.flatten.map(&amp;:to_s)
+  end
+
+  self.fixture_table_names |= fixture_set_names
+  setup_fixture_accessors(fixture_set_names)
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-set_fixture_class"> <span class="method-name">set_fixture_class</span><span class="method-args">(class_names = {})</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="set_fixture_class-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/test_fixtures.rb, line 38
+def set_fixture_class(class_names = {})
+  self.fixture_class_names = fixture_class_names.merge(class_names.stringify_keys)
+end</pre> </div> <p>Sets the model class for a fixture when the class name cannot be inferred from the fixture name.</p> <p>Examples:</p> <pre class="ruby" data-language="ruby">set_fixture_class some_fixture:        SomeModel,
+                  'namespaced/fixture' =&gt; Another::Model
+</pre> <p>The keys must be the fixture names, that coincide with the short paths to the fixture files.</p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-setup_fixture_accessors"> <span class="method-name">setup_fixture_accessors</span><span class="method-args">(fixture_set_names = nil)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="setup_fixture_accessors-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/test_fixtures.rb, line 56
+def setup_fixture_accessors(fixture_set_names = nil)
+  fixture_set_names = Array(fixture_set_names || fixture_table_names)
+  methods = Module.new do
+    fixture_set_names.each do |fs_name|
+      fs_name = fs_name.to_s
+      accessor_name = fs_name.tr("/", "_").to_sym
+
+      define_method(accessor_name) do |*fixture_names|
+        force_reload = fixture_names.pop if fixture_names.last == true || fixture_names.last == :reload
+        return_single_record = fixture_names.size == 1
+        fixture_names = @loaded_fixtures[fs_name].fixtures.keys if fixture_names.empty?
+
+        @fixture_cache[fs_name] ||= {}
+
+        instances = fixture_names.map do |f_name|
+          f_name = f_name.to_s if f_name.is_a?(Symbol)
+          @fixture_cache[fs_name].delete(f_name) if force_reload
+
+          if @loaded_fixtures[fs_name][f_name]
+            @fixture_cache[fs_name][f_name] ||= @loaded_fixtures[fs_name][f_name].find
+          else
+            raise StandardError, "No fixture named '#{f_name}' found for fixture set '#{fs_name}'"
+          end
+        end
+
+        return_single_record ? instances.first : instances
+      end
+      private accessor_name
+    end
+  end
+  include methods
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-uses_transaction"> <span class="method-name">uses_transaction</span><span class="method-args">(*methods)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="uses_transaction-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/test_fixtures.rb, line 89
+def uses_transaction(*methods)
+  @uses_transaction = [] unless defined?(@uses_transaction)
+  @uses_transaction.concat methods.map(&amp;:to_s)
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-uses_transaction-3F"> <span class="method-name">uses_transaction?</span><span class="method-args">(method)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="uses_transaction-3F-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/test_fixtures.rb, line 94
+def uses_transaction?(method)
+  @uses_transaction = [] unless defined?(@uses_transaction)
+  @uses_transaction.include?(method.to_s)
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

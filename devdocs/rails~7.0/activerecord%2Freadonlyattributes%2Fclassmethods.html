@@ -1,0 +1,20 @@
+<h1 id="module-ActiveRecord::ReadonlyAttributes::ClassMethods" class="module"> module ActiveRecord::ReadonlyAttributes::ClassMethods </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-attr_readonly"> <span class="method-name">attr_readonly</span><span class="method-args">(*attributes)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="attr_readonly-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/readonly_attributes.rb, line 25
+def attr_readonly(*attributes)
+  self._attr_readonly = Set.new(attributes.map(&amp;:to_s)) + (_attr_readonly || [])
+end</pre> </div> <p><a href="../attributes"><code>Attributes</code></a> listed as readonly will be used to create a new record but update operations will ignore these fields.</p> <p>You can assign a new value to a readonly attribute, but it will be ignored when the record is updated.</p> <h4 id="method-i-attr_readonly-label-Examples">Examples</h4> <pre class="ruby" data-language="ruby">class Post &lt; ActiveRecord::Base
+  attr_readonly :title
+end
+
+post = Post.create!(title: "Introducing Ruby on Rails!")
+post.update(title: "a different title") # change to title will be ignored
+</pre>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-readonly_attributes"> <span class="method-name">readonly_attributes</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="readonly_attributes-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/readonly_attributes.rb, line 30
+def readonly_attributes
+  _attr_readonly
+end</pre> </div> <p>Returns an array of all the attributes that have been specified as readonly.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

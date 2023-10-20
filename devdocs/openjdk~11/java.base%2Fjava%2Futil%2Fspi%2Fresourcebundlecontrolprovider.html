@@ -1,0 +1,18 @@
+  <main role="main">    <h1>Interface ResourceBundleControlProvider</h1>      <pre data-language="java">public interface ResourceBundleControlProvider</pre> <div>
+<p>An interface for service providers that provide implementations of <a href="../resourcebundle.control"><code>ResourceBundle.Control</code></a>. The <a href="../resourcebundle#default_behavior">default resource bundle loading behavior</a> of the <code>ResourceBundle.getBundle</code> factory methods that take no <a href="../resourcebundle.control"><code>ResourceBundle.Control</code></a> instance can be modified with <code>
+ ResourceBundleControlProvider</code> implementations. </p>
+<p>Provider implementations are loaded from the application's class path using <a href="../serviceloader"><code>ServiceLoader</code></a> at the first invocation of the <code>ResourceBundle.getBundle</code> factory method that takes no <a href="../resourcebundle.control"><code>ResourceBundle.Control</code></a> instance. </p>
+<p>All <code>ResourceBundleControlProvider</code>s are ignored in named modules.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.8</dd> <dt>See Also:</dt> <dd>
+<a href="../resourcebundle#getBundle(java.lang.String,java.util.Locale,java.lang.ClassLoader,java.util.ResourceBundle.Control)"><code>ResourceBundle.getBundle</code></a>, <a href="../serviceloader#load(java.lang.Class)"><code>ServiceLoader.load(Class)</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="../resourcebundle.control">ResourceBundle.Control</a></code></td> <th scope="row"><code><a href="#getControl(java.lang.String)">getControl</a>​(<a href="../../lang/string">String</a> baseName)</code></th> <td> <p>Returns a <code>ResourceBundle.Control</code> instance that is used to handle resource bundle loading for the given <code>
+ baseName</code>.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getControl(java.lang.String)">getControl</h3> <pre data-language="java">ResourceBundle.Control getControl(String baseName)</pre> <p>Returns a <code>ResourceBundle.Control</code> instance that is used to handle resource bundle loading for the given <code>
+ baseName</code>. This method must return <code>null</code> if the given <code>baseName</code> isn't handled by this provider.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>baseName</code> - the base name of the resource bundle</dd> <dt>Returns:</dt> <dd>a <code>ResourceBundle.Control</code> instance, or <code>null</code> if the given <code>baseName</code> is not applicable to this provider.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../lang/nullpointerexception">NullPointerException</a></code> - if <code>baseName</code> is <code>null</code>
+</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/spi/ResourceBundleControlProvider.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/spi/ResourceBundleControlProvider.html</a>
+  </p>
+</div>

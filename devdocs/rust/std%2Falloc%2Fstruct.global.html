@@ -1,0 +1,529 @@
+<h1 class="main-heading">Struct std::alloc::Global</h1>
+<pre class="rust item-decl" data-language="rust">pub struct Global;</pre>
+<span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><p>The global memory allocator.</p> <p>This type implements the <a href="trait.allocator" title="trait std::alloc::Allocator"><code>Allocator</code></a> trait by forwarding calls to the allocator registered with the <code>#[global_allocator]</code> attribute if there is one, or the <code>std</code> crate’s default.</p> <p>Note: while this type is unstable, the functionality it provides can be accessed through the <a href="https://doc.rust-lang.org/alloc/alloc/index.html#functions" title="mod alloc::alloc">free functions in <code>alloc</code></a>.</p> <h2 id="implementations" class="small-section-header">Implementations</h2>
+<div id="implementations-list">
+<summary><section id="impl-Box%3CT,+Global%3E" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#200">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; Box&lt;T, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.new" class="method"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#215">source</a></span><pre class="code-header" data-language="rust">pub fn new(x: T) -&gt; Box&lt;T, Global&gt;</pre></section></summary><div class="docblock">
+<p>Allocates memory on the heap and then places <code>x</code> into it.</p> <p>This doesn’t actually allocate if <code>T</code> is zero-sized.</p> <h5 id="examples">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let five = Box::new(5);</pre></div> </div>
+<summary><section id="method.new_uninit" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#242">source</a><pre class="code-header" data-language="rust">pub fn new_uninit() -&gt; Box&lt;MaybeUninit&lt;T&gt;, Global&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>new_uninit</code> <a href="https://github.com/rust-lang/rust/issues/63291">#63291</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new box with uninitialized contents.</p> <h5 id="examples-1">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(new_uninit)]
+
+let mut five = Box::&lt;u32&gt;::new_uninit();
+
+let five = unsafe {
+    // Deferred initialization:
+    five.as_mut_ptr().write(5);
+
+    five.assume_init()
+};
+
+assert_eq!(*five, 5)</pre></div> </div>
+<summary><section id="method.new_zeroed" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#268">source</a><pre class="code-header" data-language="rust">pub fn new_zeroed() -&gt; Box&lt;MaybeUninit&lt;T&gt;, Global&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>new_uninit</code> <a href="https://github.com/rust-lang/rust/issues/63291">#63291</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new <code>Box</code> with uninitialized contents, with the memory being filled with <code>0</code> bytes.</p> <p>See <a href="../mem/union.maybeuninit#method.zeroed" title="associated function std::mem::MaybeUninit::zeroed"><code>MaybeUninit::zeroed</code></a> for examples of correct and incorrect usage of this method.</p> <h5 id="examples-2">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(new_uninit)]
+
+let zero = Box::&lt;u32&gt;::new_zeroed();
+let zero = unsafe { zero.assume_init() };
+
+assert_eq!(*zero, 0)</pre></div> </div>
+<summary><section id="method.pin" class="method"><span class="rightside"><span class="since" title="Stable since Rust version 1.33.0">1.33.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#283">source</a></span><pre class="code-header" data-language="rust">pub fn pin(x: T) -&gt; Pin&lt;Box&lt;T, Global&gt;&gt;</pre></section></summary><div class="docblock">
+<p>Constructs a new <code>Pin&lt;Box&lt;T&gt;&gt;</code>. If <code>T</code> does not implement <a href="../marker/trait.unpin" title="trait std::marker::Unpin"><code>Unpin</code></a>, then <code>x</code> will be pinned in memory and unable to be moved.</p> <p>Constructing and pinning of the <code>Box</code> can also be done in two steps: <code>Box::pin(x)</code> does the same as <code><a href="../boxed/struct.box#method.into_pin" title="associated function std::boxed::Box::into_pin">Box::into_pin</a>(<a href="../boxed/struct.box#method.new" title="associated function std::boxed::Box::new">Box::new</a>(x))</code>. Consider using <a href="../boxed/struct.box#method.into_pin" title="associated function std::boxed::Box::into_pin"><code>into_pin</code></a> if you already have a <code>Box&lt;T&gt;</code>, or if you want to construct a (pinned) <code>Box</code> in a different way than with <a href="../boxed/struct.box#method.new" title="associated function std::boxed::Box::new"><code>Box::new</code></a>.</p> </div>
+<summary><section id="method.try_new" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#302">source</a><pre class="code-header" data-language="rust">pub fn try_new(x: T) -&gt; Result&lt;Box&lt;T, Global&gt;, AllocError&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Allocates memory on the heap then places <code>x</code> into it, returning an error if the allocation fails</p> <p>This doesn’t actually allocate if <code>T</code> is zero-sized.</p> <h5 id="examples-3">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(allocator_api)]
+
+let five = Box::try_new(5)?;</pre></div> </div>
+<summary><section id="method.try_new_uninit" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#329">source</a><pre class="code-header" data-language="rust">pub fn try_new_uninit() -&gt; Result&lt;Box&lt;MaybeUninit&lt;T&gt;, Global&gt;, AllocError&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new box with uninitialized contents on the heap, returning an error if the allocation fails</p> <h5 id="examples-4">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(allocator_api, new_uninit)]
+
+let mut five = Box::&lt;u32&gt;::try_new_uninit()?;
+
+let five = unsafe {
+    // Deferred initialization:
+    five.as_mut_ptr().write(5);
+
+    five.assume_init()
+};
+
+assert_eq!(*five, 5);</pre></div> </div>
+<summary><section id="method.try_new_zeroed" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#355">source</a><pre class="code-header" data-language="rust">pub fn try_new_zeroed() -&gt; Result&lt;Box&lt;MaybeUninit&lt;T&gt;, Global&gt;, AllocError&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new <code>Box</code> with uninitialized contents, with the memory being filled with <code>0</code> bytes on the heap</p> <p>See <a href="../mem/union.maybeuninit#method.zeroed" title="associated function std::mem::MaybeUninit::zeroed"><code>MaybeUninit::zeroed</code></a> for examples of correct and incorrect usage of this method.</p> <h5 id="examples-5">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(allocator_api, new_uninit)]
+
+let zero = Box::&lt;u32&gt;::try_new_zeroed()?;
+let zero = unsafe { zero.assume_init() };
+
+assert_eq!(*zero, 0);</pre></div> </div>
+</div>
+<summary><section id="impl-Box%3C%5BT%5D,+Global%3E" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#610">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; Box&lt;[T], Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.new_uninit_slice" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#634">source</a><pre class="code-header" data-language="rust">pub fn new_uninit_slice(len: usize) -&gt; Box&lt;[MaybeUninit&lt;T&gt;], Global&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>new_uninit</code> <a href="https://github.com/rust-lang/rust/issues/63291">#63291</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new boxed slice with uninitialized contents.</p> <h5 id="examples-6">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(new_uninit)]
+
+let mut values = Box::&lt;[u32]&gt;::new_uninit_slice(3);
+
+let values = unsafe {
+    // Deferred initialization:
+    values[0].as_mut_ptr().write(1);
+    values[1].as_mut_ptr().write(2);
+    values[2].as_mut_ptr().write(3);
+
+    values.assume_init()
+};
+
+assert_eq!(*values, [1, 2, 3])</pre></div> </div>
+<summary><section id="method.new_zeroed_slice" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#659">source</a><pre class="code-header" data-language="rust">pub fn new_zeroed_slice(len: usize) -&gt; Box&lt;[MaybeUninit&lt;T&gt;], Global&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>new_uninit</code> <a href="https://github.com/rust-lang/rust/issues/63291">#63291</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new boxed slice with uninitialized contents, with the memory being filled with <code>0</code> bytes.</p> <p>See <a href="../mem/union.maybeuninit#method.zeroed" title="associated function std::mem::MaybeUninit::zeroed"><code>MaybeUninit::zeroed</code></a> for examples of correct and incorrect usage of this method.</p> <h5 id="examples-7">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(new_uninit)]
+
+let values = Box::&lt;[u32]&gt;::new_zeroed_slice(3);
+let values = unsafe { values.assume_init() };
+
+assert_eq!(*values, [0, 0, 0])</pre></div> </div>
+<summary><section id="method.try_new_uninit_slice" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#685">source</a><pre class="code-header" data-language="rust">pub fn try_new_uninit_slice(
+    len: usize
+) -&gt; Result&lt;Box&lt;[MaybeUninit&lt;T&gt;], Global&gt;, AllocError&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new boxed slice with uninitialized contents. Returns an error if the allocation fails</p> <h5 id="examples-8">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(allocator_api, new_uninit)]
+
+let mut values = Box::&lt;[u32]&gt;::try_new_uninit_slice(3)?;
+let values = unsafe {
+    // Deferred initialization:
+    values[0].as_mut_ptr().write(1);
+    values[1].as_mut_ptr().write(2);
+    values[2].as_mut_ptr().write(3);
+    values.assume_init()
+};
+
+assert_eq!(*values, [1, 2, 3]);</pre></div> </div>
+<summary><section id="method.try_new_zeroed_slice" class="method"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#719">source</a><pre class="code-header" data-language="rust">pub fn try_new_zeroed_slice(
+    len: usize
+) -&gt; Result&lt;Box&lt;[MaybeUninit&lt;T&gt;], Global&gt;, AllocError&gt;</pre></section><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span></summary><div class="docblock">
+<p>Constructs a new boxed slice with uninitialized contents, with the memory being filled with <code>0</code> bytes. Returns an error if the allocation fails</p> <p>See <a href="../mem/union.maybeuninit#method.zeroed" title="associated function std::mem::MaybeUninit::zeroed"><code>MaybeUninit::zeroed</code></a> for examples of correct and incorrect usage of this method.</p> <h5 id="examples-9">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">#![feature(allocator_api, new_uninit)]
+
+let values = Box::&lt;[u32]&gt;::try_new_zeroed_slice(3)?;
+let values = unsafe { values.assume_init() };
+
+assert_eq!(*values, [0, 0, 0]);</pre></div> </div>
+</div>
+<summary><section id="impl-Box%3CT,+Global%3E-1" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#905">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; Box&lt;T, Global&gt;
+where
+    T: ?Sized,</pre></section></summary><div class="impl-items">
+<summary><section id="method.from_raw" class="method"><span class="rightside"><span class="since" title="Stable since Rust version 1.4.0">1.4.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#950">source</a></span><pre class="code-header" data-language="rust">pub unsafe fn from_raw(raw: *mut T) -&gt; Box&lt;T, Global&gt;</pre></section></summary><div class="docblock">
+<p>Constructs a box from a raw pointer.</p> <p>After calling this function, the raw pointer is owned by the resulting <code>Box</code>. Specifically, the <code>Box</code> destructor will call the destructor of <code>T</code> and free the allocated memory. For this to be safe, the memory must have been allocated in accordance with the <a href="../boxed/index#memory-layout" title="mod std::boxed">memory layout</a> used by <code>Box</code> .</p> <h5 id="safety">Safety</h5> <p>This function is unsafe because improper use may lead to memory problems. For example, a double-free may occur if the function is called twice on the same raw pointer.</p> <p>The safety conditions are described in the <a href="../boxed/index#memory-layout" title="mod std::boxed">memory layout</a> section.</p> <h5 id="examples-10">Examples</h5> <p>Recreate a <code>Box</code> which was previously converted to a raw pointer using <a href="../boxed/struct.box#method.into_raw" title="associated function std::boxed::Box::into_raw"><code>Box::into_raw</code></a>:</p> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let x = Box::new(5);
+let ptr = Box::into_raw(x);
+let x = unsafe { Box::from_raw(ptr) };</pre></div> <p>Manually create a <code>Box</code> from scratch by using the global allocator:</p> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::alloc::{alloc, Layout};
+
+unsafe {
+    let ptr = alloc(Layout::new::&lt;i32&gt;()) as *mut i32;
+    // In general .write is required to avoid attempting to destruct
+    // the (uninitialized) previous contents of `ptr`, though for this
+    // simple example `*ptr = 5` would have worked as well.
+    ptr.write(5);
+    let x = Box::from_raw(ptr);
+}</pre></div> </div>
+</div>
+</div>
+<h2 id="trait-implementations" class="small-section-header">Trait Implementations</h2>
+<div id="trait-implementations-list">
+<summary><section id="impl-Allocator-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#238">source</a><pre class="code-header" data-language="rust">impl Allocator for Global</pre></section></summary><div class="impl-items">
+<summary><section id="method.allocate" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#240">source</a><pre class="code-header" data-language="rust">fn allocate(&amp;self, layout: Layout) -&gt; Result&lt;NonNull&lt;[u8]&gt;, AllocError&gt;</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><div class="docblock">Attempts to allocate a block of memory. <a href="trait.allocator#tymethod.allocate">Read more</a>
+</div>
+<summary><section id="method.allocate_zeroed" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#245">source</a><pre class="code-header" data-language="rust">fn allocate_zeroed(&amp;self, layout: Layout) -&gt; Result&lt;NonNull&lt;[u8]&gt;, AllocError&gt;</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><div class="docblock">Behaves like <code>allocate</code>, but also ensures that the returned memory is zero-initialized. <a href="trait.allocator#method.allocate_zeroed">Read more</a>
+</div>
+<summary><section id="method.deallocate" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#250">source</a><pre class="code-header" data-language="rust">unsafe fn deallocate(&amp;self, ptr: NonNull&lt;u8&gt;, layout: Layout)</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><div class="docblock">Deallocates the memory referenced by <code>ptr</code>. <a href="trait.allocator#tymethod.deallocate">Read more</a>
+</div>
+<summary><section id="method.grow" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#259-264">source</a><pre class="code-header" data-language="rust">unsafe fn grow(
+    &amp;self,
+    ptr: NonNull&lt;u8&gt;,
+    old_layout: Layout,
+    new_layout: Layout
+) -&gt; Result&lt;NonNull&lt;[u8]&gt;, AllocError&gt;</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><div class="docblock">Attempts to extend the memory block. <a href="trait.allocator#method.grow">Read more</a>
+</div>
+<summary><section id="method.grow_zeroed" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#270-275">source</a><pre class="code-header" data-language="rust">unsafe fn grow_zeroed(
+    &amp;self,
+    ptr: NonNull&lt;u8&gt;,
+    old_layout: Layout,
+    new_layout: Layout
+) -&gt; Result&lt;NonNull&lt;[u8]&gt;, AllocError&gt;</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><div class="docblock">Behaves like <code>grow</code>, but also ensures that the new contents are set to zero before being returned. <a href="trait.allocator#method.grow_zeroed">Read more</a>
+</div>
+<summary><section id="method.shrink" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#281-286">source</a><pre class="code-header" data-language="rust">unsafe fn shrink(
+    &amp;self,
+    ptr: NonNull&lt;u8&gt;,
+    old_layout: Layout,
+    new_layout: Layout
+) -&gt; Result&lt;NonNull&lt;[u8]&gt;, AllocError&gt;</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><div class="docblock">Attempts to shrink the memory block. <a href="trait.allocator#method.shrink">Read more</a>
+</div>
+<summary><section id="method.by_ref" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/alloc/mod.rs.html#360-362">source</a><pre class="code-header" data-language="rust">fn by_ref(&amp;self) -&gt; &amp;Self
+where
+    Self: Sized,</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>allocator_api</code> <a href="https://github.com/rust-lang/rust/issues/32838">#32838</a>)</span>
+</div></span><div class="docblock">Creates a “by reference” adapter for this instance of <code>Allocator</code>. <a href="trait.allocator#method.by_ref">Read more</a>
+</div>
+</div>
+<summary><section id="impl-AsyncIterator-for-Box%3CS,+Global%3E" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2148">source</a><pre class="code-header" data-language="rust">impl&lt;S&gt; AsyncIterator for Box&lt;S, Global&gt;
+where
+    S: AsyncIterator + Unpin + ?Sized,</pre></section></summary><div class="impl-items">
+<summary><section id="associatedtype.Item" class="associatedtype trait-impl"><pre class="code-header" data-language="rust">type Item = &lt;S as AsyncIterator&gt;::Item</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>async_iterator</code> <a href="https://github.com/rust-lang/rust/issues/79024">#79024</a>)</span>
+</div></span><div class="docblock">The type of items yielded by the async iterator.</div>
+<summary><section id="method.poll_next" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2151">source</a><pre class="code-header" data-language="rust">fn poll_next(
+    self: Pin&lt;&amp;mut Box&lt;S, Global&gt;&gt;,
+    cx: &amp;mut Context&lt;'_&gt;
+) -&gt; Poll&lt;Option&lt;&lt;Box&lt;S, Global&gt; as AsyncIterator&gt;::Item&gt;&gt;</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>async_iterator</code> <a href="https://github.com/rust-lang/rust/issues/79024">#79024</a>)</span>
+</div></span><div class="docblock">Attempt to pull out the next value of this async iterator, registering the current task for wakeup if the value is not yet available, and returning <code>None</code> if the async iterator is exhausted. <a href="../async_iter/trait.asynciterator#tymethod.poll_next">Read more</a>
+</div>
+<summary><section id="method.size_hint" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2155">source</a><pre class="code-header" data-language="rust">fn size_hint(&amp;self) -&gt; (usize, Option&lt;usize&gt;)</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>async_iterator</code> <a href="https://github.com/rust-lang/rust/issues/79024">#79024</a>)</span>
+</div></span><div class="docblock">Returns the bounds on the remaining length of the async iterator. <a href="../async_iter/trait.asynciterator#method.size_hint">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Clone-for-Box%3CCStr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.29.0">1.29.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#821">source</a></span><pre class="code-header" data-language="rust">impl Clone for Box&lt;CStr, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.clone-2" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#823">source</a><pre class="code-header" data-language="rust">fn clone(&amp;self) -&gt; Box&lt;CStr, Global&gt;</pre></section></summary><div class="docblock">Returns a copy of the value. <a href="../clone/trait.clone#tymethod.clone">Read more</a>
+</div>
+<summary><section id="method.clone_from-2" class="method trait-impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/core/clone.rs.html#169">source</a></span><pre class="code-header" data-language="rust">fn clone_from(&amp;mut self, source: &amp;Self)</pre></section></summary><div class="docblock">Performs copy-assignment from <code>source</code>. <a href="../clone/trait.clone#method.clone_from">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Clone-for-Box%3Cstr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.3.0">1.3.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1327">source</a></span><pre class="code-header" data-language="rust">impl Clone for Box&lt;str, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.clone" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1328">source</a><pre class="code-header" data-language="rust">fn clone(&amp;self) -&gt; Box&lt;str, Global&gt;</pre></section></summary><div class="docblock">Returns a copy of the value. <a href="../clone/trait.clone#tymethod.clone">Read more</a>
+</div>
+<summary><section id="method.clone_from" class="method trait-impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/core/clone.rs.html#169">source</a></span><pre class="code-header" data-language="rust">fn clone_from(&amp;mut self, source: &amp;Self)</pre></section></summary><div class="docblock">Performs copy-assignment from <code>source</code>. <a href="../clone/trait.clone#method.clone_from">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Clone-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#51">source</a><pre class="code-header" data-language="rust">impl Clone for Global</pre></section></summary><div class="impl-items">
+<summary><section id="method.clone-1" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#51">source</a><pre class="code-header" data-language="rust">fn clone(&amp;self) -&gt; Global</pre></section></summary><div class="docblock">Returns a copy of the value. <a href="../clone/trait.clone#tymethod.clone">Read more</a>
+</div>
+<summary><section id="method.clone_from-1" class="method trait-impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/core/clone.rs.html#169">source</a></span><pre class="code-header" data-language="rust">fn clone_from(&amp;mut self, source: &amp;Self)</pre></section></summary><div class="docblock">Performs copy-assignment from <code>source</code>. <a href="../clone/trait.clone#method.clone_from">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Debug-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#51">source</a><pre class="code-header" data-language="rust">impl Debug for Global</pre></section></summary><div class="impl-items">
+<summary><section id="method.fmt" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#51">source</a><pre class="code-header" data-language="rust">fn fmt(&amp;self, f: &amp;mut Formatter&lt;'_&gt;) -&gt; Result&lt;(), Error&gt;</pre></section></summary><div class="docblock">Formats the value using the given formatter. <a href="../fmt/trait.debug#tymethod.fmt">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Default-for-Box%3C%5BT%5D,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1253">source</a></span><pre class="code-header" data-language="rust">impl&lt;T&gt; Default for Box&lt;[T], Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.default" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1255">source</a><pre class="code-header" data-language="rust">fn default() -&gt; Box&lt;[T], Global&gt;</pre></section></summary><div class="docblock">Returns the “default value” for a type. <a href="../default/trait.default#tymethod.default">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Default-for-Box%3CCStr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.17.0">1.17.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#912">source</a></span><pre class="code-header" data-language="rust">impl Default for Box&lt;CStr, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.default-1" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#913">source</a><pre class="code-header" data-language="rust">fn default() -&gt; Box&lt;CStr, Global&gt;</pre></section></summary><div class="docblock">Returns the “default value” for a type. <a href="../default/trait.default#tymethod.default">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Default-for-Box%3CT,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1243">source</a></span><pre class="code-header" data-language="rust">impl&lt;T&gt; Default for Box&lt;T, Global&gt;
+where
+    T: Default,</pre></section></summary><div class="impl-items">
+<summary><section id="method.default-2" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1246">source</a><pre class="code-header" data-language="rust">fn default() -&gt; Box&lt;T, Global&gt;</pre></section></summary><div class="docblock">
+<p>Creates a <code>Box&lt;T&gt;</code>, with the <code>Default</code> value for T.</p> </div>
+</div>
+<summary><section id="impl-Default-for-Box%3Cstr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.17.0">1.17.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1263">source</a></span><pre class="code-header" data-language="rust">impl Default for Box&lt;str, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.default-3" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1265">source</a><pre class="code-header" data-language="rust">fn default() -&gt; Box&lt;str, Global&gt;</pre></section></summary><div class="docblock">Returns the “default value” for a type. <a href="../default/trait.default#tymethod.default">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Default-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#51">source</a><pre class="code-header" data-language="rust">impl Default for Global</pre></section></summary><div class="impl-items">
+<summary><section id="method.default-4" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#51">source</a><pre class="code-header" data-language="rust">fn default() -&gt; Global</pre></section></summary><div class="docblock">Returns the “default value” for a type. <a href="../default/trait.default#tymethod.default">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Error-for-Box%3CT,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.8.0">1.8.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2433">source</a></span><pre class="code-header" data-language="rust">impl&lt;T&gt; Error for Box&lt;T, Global&gt;
+where
+    T: Error,</pre></section></summary><div class="impl-items">
+<summary><section id="method.description" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2435">source</a><pre class="code-header" data-language="rust">fn description(&amp;self) -&gt; &amp;str</pre></section></summary><span class="item-info"><div class="stab deprecated">
+<span class="emoji">👎</span><span>Deprecated since 1.42.0: use the Display impl or to_string()</span>
+</div></span><div class="docblock"> <a href="../error/trait.error#method.description">Read more</a>
+</div>
+<summary><section id="method.cause" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2440">source</a><pre class="code-header" data-language="rust">fn cause(&amp;self) -&gt; Option&lt;&amp;dyn Error&gt;</pre></section></summary><span class="item-info"><div class="stab deprecated">
+<span class="emoji">👎</span><span>Deprecated since 1.33.0: replaced by Error::source, which can support downcasting</span>
+</div></span><summary><section id="method.source" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2444">source</a><pre class="code-header" data-language="rust">fn source(&amp;self) -&gt; Option&lt;&amp;(dyn Error + 'static)&gt;</pre></section></summary><div class="docblock">The lower-level source of this error, if any. <a href="../error/trait.error#method.source">Read more</a>
+</div>
+<summary><section id="method.provide" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/error.rs.html#184">source</a><pre class="code-header" data-language="rust">fn provide&lt;'a&gt;(&amp;'a self, request: &amp;mut Request&lt;'a&gt;)</pre></section></summary><span class="item-info"><div class="stab unstable">
+<span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>error_generic_member_access</code> <a href="https://github.com/rust-lang/rust/issues/99301">#99301</a>)</span>
+</div></span><div class="docblock">Provides type based access to context intended for error reports. <a href="../error/trait.error#method.provide">Read more</a>
+</div>
+</div>
+<summary><section id="impl-From%3C%26%5BT%5D%3E-for-Box%3C%5BT%5D,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.17.0">1.17.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1509">source</a></span><pre class="code-header" data-language="rust">impl&lt;T&gt; From&lt;&amp;[T]&gt; for Box&lt;[T], Global&gt;
+where
+    T: Clone,</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-7" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1524">source</a><pre class="code-header" data-language="rust">fn from(slice: &amp;[T]) -&gt; Box&lt;[T], Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>&amp;[T]</code> into a <code>Box&lt;[T]&gt;</code></p> <p>This conversion allocates on the heap and performs a copy of <code>slice</code> and its contents.</p> <h5 id="examples-15">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">// create a &amp;[u8] which will be used to create a Box&lt;[u8]&gt;
+let slice: &amp;[u8] = &amp;[104, 101, 108, 108, 111];
+let boxed_slice: Box&lt;[u8]&gt; = Box::from(slice);
+
+println!("{boxed_slice:?}");</pre></div> </div>
+</div>
+<summary><section id="impl-From%3C%26CStr%3E-for-Box%3CCStr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.17.0">1.17.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#765">source</a></span><pre class="code-header" data-language="rust">impl From&lt;&amp;CStr&gt; for Box&lt;CStr, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#768">source</a><pre class="code-header" data-language="rust">fn from(s: &amp;CStr) -&gt; Box&lt;CStr, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>&amp;CStr</code> into a <code>Box&lt;CStr&gt;</code>, by copying the contents into a newly allocated <a href="../boxed/struct.box" title="struct std::boxed::Box"><code>Box</code></a>.</p> </div>
+</div>
+<summary><section id="impl-From%3C%26str%3E-for-Box%3Cdyn+Error+%2B+Sync+%2B+Send+%2B+'a,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2345">source</a></span><pre class="code-header" data-language="rust">impl&lt;'a&gt; From&lt;&amp;str&gt; for Box&lt;dyn Error + Sync + Send + 'a, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-5" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2362">source</a><pre class="code-header" data-language="rust">fn from(err: &amp;str) -&gt; Box&lt;dyn Error + Sync + Send + 'a, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <a href="../primitive.str" title="primitive str"><code>str</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a> + <a href="../marker/trait.send" title="trait std::marker::Send"><code>Send</code></a> + <a href="../marker/trait.sync" title="trait std::marker::Sync"><code>Sync</code></a>.</p> <h5 id="examples-14">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::mem;
+
+let a_str_error = "a str error";
+let a_boxed_error = Box::&lt;dyn Error + Send + Sync&gt;::from(a_str_error);
+assert!(
+    mem::size_of::&lt;Box&lt;dyn Error + Send + Sync&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3C%26str%3E-for-Box%3Cdyn+Error,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.6.0">1.6.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2369">source</a></span><pre class="code-header" data-language="rust">impl From&lt;&amp;str&gt; for Box&lt;dyn Error, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-15" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2384">source</a><pre class="code-header" data-language="rust">fn from(err: &amp;str) -&gt; Box&lt;dyn Error, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <a href="../primitive.str" title="primitive str"><code>str</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a>.</p> <h5 id="examples-22">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::mem;
+
+let a_str_error = "a str error";
+let a_boxed_error = Box::&lt;dyn Error&gt;::from(a_str_error);
+assert!(mem::size_of::&lt;Box&lt;dyn Error&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3C%26str%3E-for-Box%3Cstr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.17.0">1.17.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1549">source</a></span><pre class="code-header" data-language="rust">impl From&lt;&amp;str&gt; for Box&lt;str, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-17" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1562">source</a><pre class="code-header" data-language="rust">fn from(s: &amp;str) -&gt; Box&lt;str, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>&amp;str</code> into a <code>Box&lt;str&gt;</code></p> <p>This conversion allocates on the heap and performs a copy of <code>s</code>.</p> <h5 id="examples-24">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let boxed: Box&lt;str&gt; = Box::from("hello");
+println!("{boxed}");</pre></div> </div>
+</div>
+<summary><section id="impl-From%3C%5BT;+N%5D%3E-for-Box%3C%5BT%5D,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.45.0">1.45.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1629">source</a></span><pre class="code-header" data-language="rust">impl&lt;T, const N: usize&gt; From&lt;[T; N]&gt; for Box&lt;[T], Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-9" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1640">source</a><pre class="code-header" data-language="rust">fn from(array: [T; N]) -&gt; Box&lt;[T], Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>[T; N]</code> into a <code>Box&lt;[T]&gt;</code></p> <p>This conversion moves the array to newly heap-allocated memory.</p> <h5 id="examples-17">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let boxed: Box&lt;[u8]&gt; = Box::from([4, 2]);
+println!("{boxed:?}");</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CCString%3E-for-Box%3CCStr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.20.0">1.20.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#829">source</a></span><pre class="code-header" data-language="rust">impl From&lt;CString&gt; for Box&lt;CStr, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-13" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#832">source</a><pre class="code-header" data-language="rust">fn from(s: CString) -&gt; Box&lt;CStr, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <a href="../ffi/struct.cstring" title="struct std::ffi::CString"><code>CString</code></a> into a <code><a href="../boxed/struct.box" title="struct std::boxed::Box">Box</a>&lt;<a href="../ffi/struct.cstr" title="struct std::ffi::CStr">CStr</a>&gt;</code> without copying or allocating.</p> </div>
+</div>
+<summary><section id="impl-From%3CCow%3C'_,+%5BT%5D%3E%3E-for-Box%3C%5BT%5D,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.45.0">1.45.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1531">source</a></span><pre class="code-header" data-language="rust">impl&lt;T&gt; From&lt;Cow&lt;'_, [T]&gt;&gt; for Box&lt;[T], Global&gt;
+where
+    T: Clone,</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-3" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1539">source</a><pre class="code-header" data-language="rust">fn from(cow: Cow&lt;'_, [T]&gt;) -&gt; Box&lt;[T], Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>Cow&lt;'_, [T]&gt;</code> into a <code>Box&lt;[T]&gt;</code></p> <p>When <code>cow</code> is the <code>Cow::Borrowed</code> variant, this conversion allocates on the heap and copies the underlying slice. Otherwise, it will try to reuse the owned <code>Vec</code>’s allocation.</p> </div>
+</div>
+<summary><section id="impl-From%3CCow%3C'_,+CStr%3E%3E-for-Box%3CCStr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.45.0">1.45.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#775">source</a></span><pre class="code-header" data-language="rust">impl From&lt;Cow&lt;'_, CStr&gt;&gt; for Box&lt;CStr, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-6" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/ffi/c_str.rs.html#779">source</a><pre class="code-header" data-language="rust">fn from(cow: Cow&lt;'_, CStr&gt;) -&gt; Box&lt;CStr, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>Cow&lt;'a, CStr&gt;</code> into a <code>Box&lt;CStr&gt;</code>, by copying the contents if they are borrowed.</p> </div>
+</div>
+<summary><section id="impl-From%3CCow%3C'_,+str%3E%3E-for-Box%3Cstr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.45.0">1.45.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1569">source</a></span><pre class="code-header" data-language="rust">impl From&lt;Cow&lt;'_, str&gt;&gt; for Box&lt;str, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-1" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1594">source</a><pre class="code-header" data-language="rust">fn from(cow: Cow&lt;'_, str&gt;) -&gt; Box&lt;str, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>Cow&lt;'_, str&gt;</code> into a <code>Box&lt;str&gt;</code></p> <p>When <code>cow</code> is the <code>Cow::Borrowed</code> variant, this conversion allocates on the heap and copies the underlying <code>str</code>. Otherwise, it will try to reuse the owned <code>String</code>’s allocation.</p> <h5 id="examples-11">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::borrow::Cow;
+
+let unboxed = Cow::Borrowed("hello");
+let boxed: Box&lt;str&gt; = Box::from(unboxed);
+println!("{boxed}");</pre></div> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let unboxed = Cow::Owned("hello".to_string());
+let boxed: Box&lt;str&gt; = Box::from(unboxed);
+println!("{boxed}");</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CCow%3C'a,+str%3E%3E-for-Box%3Cdyn+Error,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.22.0">1.22.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2413">source</a></span><pre class="code-header" data-language="rust">impl&lt;'a&gt; From&lt;Cow&lt;'a, str&gt;&gt; for Box&lt;dyn Error, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-14" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2427">source</a><pre class="code-header" data-language="rust">fn from(err: Cow&lt;'a, str&gt;) -&gt; Box&lt;dyn Error, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <a href="../borrow/enum.cow" title="enum std::borrow::Cow"><code>Cow</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a>.</p> <h5 id="examples-21">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::mem;
+use std::borrow::Cow;
+
+let a_cow_str_error = Cow::from("a str error");
+let a_boxed_error = Box::&lt;dyn Error&gt;::from(a_cow_str_error);
+assert!(mem::size_of::&lt;Box&lt;dyn Error&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CCow%3C'b,+str%3E%3E-for-Box%3Cdyn+Error+%2B+Sync+%2B+Send+%2B+'a,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.22.0">1.22.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2391">source</a></span><pre class="code-header" data-language="rust">impl&lt;'a, 'b&gt; From&lt;Cow&lt;'b, str&gt;&gt; for Box&lt;dyn Error + Sync + Send + 'a, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-16" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2406">source</a><pre class="code-header" data-language="rust">fn from(err: Cow&lt;'b, str&gt;) -&gt; Box&lt;dyn Error + Sync + Send + 'a, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <a href="../borrow/enum.cow" title="enum std::borrow::Cow"><code>Cow</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a> + <a href="../marker/trait.send" title="trait std::marker::Send"><code>Send</code></a> + <a href="../marker/trait.sync" title="trait std::marker::Sync"><code>Sync</code></a>.</p> <h5 id="examples-23">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::mem;
+use std::borrow::Cow;
+
+let a_cow_str_error = Cow::from("a str error");
+let a_boxed_error = Box::&lt;dyn Error + Send + Sync&gt;::from(a_cow_str_error);
+assert!(
+    mem::size_of::&lt;Box&lt;dyn Error + Send + Sync&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CE%3E-for-Box%3Cdyn+Error+%2B+'a,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2207">source</a></span><pre class="code-header" data-language="rust">impl&lt;'a, E&gt; From&lt;E&gt; for Box&lt;dyn Error + 'a, Global&gt;
+where
+    E: Error + 'a,</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-12" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2233">source</a><pre class="code-header" data-language="rust">fn from(err: E) -&gt; Box&lt;dyn Error + 'a, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a type of <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a>.</p> <h5 id="examples-20">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::fmt;
+use std::mem;
+
+#[derive(Debug)]
+struct AnError;
+
+impl fmt::Display for AnError {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+        write!(f, "An error")
+    }
+}
+
+impl Error for AnError {}
+
+let an_error = AnError;
+assert!(0 == mem::size_of_val(&amp;an_error));
+let a_boxed_error = Box::&lt;dyn Error&gt;::from(an_error);
+assert!(mem::size_of::&lt;Box&lt;dyn Error&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CE%3E-for-Box%3Cdyn+Error+%2B+Sync+%2B+Send+%2B+'a,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2240">source</a></span><pre class="code-header" data-language="rust">impl&lt;'a, E&gt; From&lt;E&gt; for Box&lt;dyn Error + Sync + Send + 'a, Global&gt;
+where
+    E: Error + Send + Sync + 'a,</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-8" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2272">source</a><pre class="code-header" data-language="rust">fn from(err: E) -&gt; Box&lt;dyn Error + Sync + Send + 'a, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a type of <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a> + <a href="../marker/trait.send" title="trait std::marker::Send"><code>Send</code></a> + <a href="../marker/trait.sync" title="trait std::marker::Sync"><code>Sync</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a> + <a href="../marker/trait.send" title="trait std::marker::Send"><code>Send</code></a> + <a href="../marker/trait.sync" title="trait std::marker::Sync"><code>Sync</code></a>.</p> <h5 id="examples-16">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::fmt;
+use std::mem;
+
+#[derive(Debug)]
+struct AnError;
+
+impl fmt::Display for AnError {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+        write!(f, "An error")
+    }
+}
+
+impl Error for AnError {}
+
+unsafe impl Send for AnError {}
+
+unsafe impl Sync for AnError {}
+
+let an_error = AnError;
+assert!(0 == mem::size_of_val(&amp;an_error));
+let a_boxed_error = Box::&lt;dyn Error + Send + Sync&gt;::from(an_error);
+assert!(
+    mem::size_of::&lt;Box&lt;dyn Error + Send + Sync&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CString%3E-for-Box%3Cdyn+Error+%2B+Sync+%2B+Send,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2279">source</a></span><pre class="code-header" data-language="rust">impl From&lt;String&gt; for Box&lt;dyn Error + Sync + Send, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-11" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2294">source</a><pre class="code-header" data-language="rust">fn from(err: String) -&gt; Box&lt;dyn Error + Sync + Send, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <a href="../string/struct.string" title="struct std::string::String"><code>String</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a> + <a href="../marker/trait.send" title="trait std::marker::Send"><code>Send</code></a> + <a href="../marker/trait.sync" title="trait std::marker::Sync"><code>Sync</code></a>.</p> <h5 id="examples-19">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::mem;
+
+let a_string_error = "a string error".to_string();
+let a_boxed_error = Box::&lt;dyn Error + Send + Sync&gt;::from(a_string_error);
+assert!(
+    mem::size_of::&lt;Box&lt;dyn Error + Send + Sync&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CString%3E-for-Box%3Cdyn+Error,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.6.0">1.6.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2323">source</a></span><pre class="code-header" data-language="rust">impl From&lt;String&gt; for Box&lt;dyn Error, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-4" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2336">source</a><pre class="code-header" data-language="rust">fn from(str_err: String) -&gt; Box&lt;dyn Error, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <a href="../string/struct.string" title="struct std::string::String"><code>String</code></a> into a box of dyn <a href="../error/trait.error" title="trait std::error::Error"><code>Error</code></a>.</p> <h5 id="examples-13">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">use std::error::Error;
+use std::mem;
+
+let a_string_error = "a string error".to_string();
+let a_boxed_error = Box::&lt;dyn Error&gt;::from(a_string_error);
+assert!(mem::size_of::&lt;Box&lt;dyn Error&gt;&gt;() == mem::size_of_val(&amp;a_boxed_error))</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CString%3E-for-Box%3Cstr,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.20.0">1.20.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/string.rs.html#2663">source</a></span><pre class="code-header" data-language="rust">impl From&lt;String&gt; for Box&lt;str, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-2" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/string.rs.html#2675">source</a><pre class="code-header" data-language="rust">fn from(s: String) -&gt; Box&lt;str, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts the given <a href="../string/struct.string" title="struct std::string::String"><code>String</code></a> to a boxed <code>str</code> slice that is owned.</p> <h5 id="examples-12">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let s1: String = String::from("hello world");
+let s2: Box&lt;str&gt; = Box::from(s1);
+let s3: String = String::from(s2);
+
+assert_eq!("hello world", s3)</pre></div> </div>
+</div>
+<summary><section id="impl-From%3CT%3E-for-Box%3CT,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.6.0">1.6.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1440">source</a></span><pre class="code-header" data-language="rust">impl&lt;T&gt; From&lt;T&gt; for Box&lt;T, Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-10" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1454">source</a><pre class="code-header" data-language="rust">fn from(t: T) -&gt; Box&lt;T, Global&gt;</pre></section></summary><div class="docblock">
+<p>Converts a <code>T</code> into a <code>Box&lt;T&gt;</code></p> <p>The conversion allocates on the heap and moves <code>t</code> from the stack into it.</p> <h5 id="examples-18">Examples</h5> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let x = 5;
+let boxed = Box::new(5);
+
+assert_eq!(Box::from(x), boxed);</pre></div> </div>
+</div>
+<summary><section id="impl-FromIterator%3CI%3E-for-Box%3C%5BI%5D,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.32.0">1.32.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2033">source</a></span><pre class="code-header" data-language="rust">impl&lt;I&gt; FromIterator&lt;I&gt; for Box&lt;[I], Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.from_iter" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2034">source</a><pre class="code-header" data-language="rust">fn from_iter&lt;T&gt;(iter: T) -&gt; Box&lt;[I], Global&gt;
+where
+    T: IntoIterator&lt;Item = I&gt;,</pre></section></summary><div class="docblock">Creates a value from an iterator. <a href="../iter/trait.fromiterator#tymethod.from_iter">Read more</a>
+</div>
+</div>
+<summary><section id="impl-TryFrom%3CBox%3C%5BT%5D,+Global%3E%3E-for-Box%3C%5BT;+N%5D,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.43.0">1.43.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1662">source</a></span><pre class="code-header" data-language="rust">impl&lt;T, const N: usize&gt; TryFrom&lt;Box&lt;[T], Global&gt;&gt; for Box&lt;[T; N], Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.try_from-1" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1674">source</a><pre class="code-header" data-language="rust">fn try_from(
+    boxed_slice: Box&lt;[T], Global&gt;
+) -&gt; Result&lt;Box&lt;[T; N], Global&gt;, &lt;Box&lt;[T; N], Global&gt; as TryFrom&lt;Box&lt;[T], Global&gt;&gt;&gt;::Error&gt;</pre></section></summary><div class="docblock">
+<p>Attempts to convert a <code>Box&lt;[T]&gt;</code> into a <code>Box&lt;[T; N]&gt;</code>.</p> <p>The conversion occurs in-place and does not require a new memory allocation.</p> <h5 id="errors-1">Errors</h5> <p>Returns the old <code>Box&lt;[T]&gt;</code> in the <code>Err</code> variant if <code>boxed_slice.len()</code> does not equal <code>N</code>.</p> </div>
+<summary><section id="associatedtype.Error-1" class="associatedtype trait-impl"><pre class="code-header" data-language="rust">type Error = Box&lt;[T], Global&gt;</pre></section></summary><div class="docblock">The type returned in the event of a conversion error.</div>
+</div>
+<summary><section id="impl-TryFrom%3CVec%3CT,+Global%3E%3E-for-Box%3C%5BT;+N%5D,+Global%3E" class="impl"><span class="rightside"><span class="since" title="Stable since Rust version 1.66.0">1.66.0</span><a class="src" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1685">source</a></span><pre class="code-header" data-language="rust">impl&lt;T, const N: usize&gt; TryFrom&lt;Vec&lt;T, Global&gt;&gt; for Box&lt;[T; N], Global&gt;</pre></section></summary><div class="impl-items">
+<summary><section id="method.try_from" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#1706">source</a><pre class="code-header" data-language="rust">fn try_from(
+    vec: Vec&lt;T, Global&gt;
+) -&gt; Result&lt;Box&lt;[T; N], Global&gt;, &lt;Box&lt;[T; N], Global&gt; as TryFrom&lt;Vec&lt;T, Global&gt;&gt;&gt;::Error&gt;</pre></section></summary><div class="docblock">
+<p>Attempts to convert a <code>Vec&lt;T&gt;</code> into a <code>Box&lt;[T; N]&gt;</code>.</p> <p>Like <a href="../vec/struct.vec#method.into_boxed_slice" title="method std::vec::Vec::into_boxed_slice"><code>Vec::into_boxed_slice</code></a>, this is in-place if <code>vec.capacity() == N</code>, but will require a reallocation otherwise.</p> <h5 id="errors">Errors</h5> <p>Returns the original <code>Vec&lt;T&gt;</code> in the <code>Err</code> variant if <code>boxed_slice.len()</code> does not equal <code>N</code>.</p> <h5 id="examples-25">Examples</h5> <p>This can be used with <a href="../macro.vec" title="macro std::vec"><code>vec!</code></a> to create an array on the heap:</p> <div class="example-wrap"><pre class="rust rust-example-rendered" data-language="rust">let state: Box&lt;[f32; 100]&gt; = vec![1.0; 100].try_into().unwrap();
+assert_eq!(state.len(), 100);</pre></div> </div>
+<summary><section id="associatedtype.Error" class="associatedtype trait-impl"><pre class="code-header" data-language="rust">type Error = Vec&lt;T, Global&gt;</pre></section></summary><div class="docblock">The type returned in the event of a conversion error.</div>
+</div>
+<section id="impl-Copy-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/alloc.rs.html#51">source</a><pre class="code-header" data-language="rust">impl Copy for Global</pre></section><section id="impl-DispatchFromDyn%3CBox%3CU,+Global%3E%3E-for-Box%3CT,+Global%3E" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/boxed.rs.html#2029">source</a><pre class="code-header" data-language="rust">impl&lt;T, U&gt; DispatchFromDyn&lt;Box&lt;U, Global&gt;&gt; for Box&lt;T, Global&gt;
+where
+    T: Unsize&lt;U&gt; + ?Sized,
+    U: ?Sized,</pre></section>
+</div>
+<h2 id="synthetic-implementations" class="small-section-header">Auto Trait Implementations</h2>
+<div id="synthetic-implementations-list">
+<section id="impl-RefUnwindSafe-for-Global" class="impl"><pre class="code-header" data-language="rust">impl RefUnwindSafe for Global</pre></section><section id="impl-Send-for-Global" class="impl"><pre class="code-header" data-language="rust">impl Send for Global</pre></section><section id="impl-Sync-for-Global" class="impl"><pre class="code-header" data-language="rust">impl Sync for Global</pre></section><section id="impl-Unpin-for-Global" class="impl"><pre class="code-header" data-language="rust">impl Unpin for Global</pre></section><section id="impl-UnwindSafe-for-Global" class="impl"><pre class="code-header" data-language="rust">impl UnwindSafe for Global</pre></section>
+</div>
+<h2 id="blanket-implementations" class="small-section-header">Blanket Implementations</h2>
+<div id="blanket-implementations-list">
+<summary><section id="impl-Any-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/any.rs.html#135">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; Any for T
+where
+    T: 'static + ?Sized,</pre></section></summary><div class="impl-items">
+<summary><section id="method.type_id" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/any.rs.html#136">source</a><pre class="code-header" data-language="rust">fn type_id(&amp;self) -&gt; TypeId</pre></section></summary><div class="docblock">Gets the <code>TypeId</code> of <code>self</code>. <a href="../any/trait.any#tymethod.type_id">Read more</a>
+</div>
+</div>
+<summary><section id="impl-Borrow%3CT%3E-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/borrow.rs.html#208">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; Borrow&lt;T&gt; for T
+where
+    T: ?Sized,</pre></section></summary><div class="impl-items">
+<summary><section id="method.borrow" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/borrow.rs.html#210">source</a><pre class="code-header" data-language="rust">fn borrow(&amp;self) -&gt; &amp;T</pre></section></summary><div class="docblock">Immutably borrows from an owned value. <a href="../borrow/trait.borrow#tymethod.borrow">Read more</a>
+</div>
+</div>
+<summary><section id="impl-BorrowMut%3CT%3E-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/borrow.rs.html#216">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; BorrowMut&lt;T&gt; for T
+where
+    T: ?Sized,</pre></section></summary><div class="impl-items">
+<summary><section id="method.borrow_mut" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/borrow.rs.html#217">source</a><pre class="code-header" data-language="rust">fn borrow_mut(&amp;mut self) -&gt; &amp;mut T</pre></section></summary><div class="docblock">Mutably borrows from an owned value. <a href="../borrow/trait.borrowmut#tymethod.borrow_mut">Read more</a>
+</div>
+</div>
+<summary><section id="impl-From%3CT%3E-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#722">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; From&lt;T&gt; for T</pre></section></summary><div class="impl-items">
+<summary><section id="method.from-18" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#725">source</a><pre class="code-header" data-language="rust">fn from(t: T) -&gt; T</pre></section></summary><div class="docblock">
+<p>Returns the argument unchanged.</p> </div>
+</div>
+<summary><section id="impl-Into%3CU%3E-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#706">source</a><pre class="code-header" data-language="rust">impl&lt;T, U&gt; Into&lt;U&gt; for T
+where
+    U: From&lt;T&gt;,</pre></section></summary><div class="impl-items">
+<summary><section id="method.into" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#715">source</a><pre class="code-header" data-language="rust">fn into(self) -&gt; U</pre></section></summary><div class="docblock">
+<p>Calls <code>U::from(self)</code>.</p> <p>That is, this conversion is whatever the implementation of <code><a href="../convert/trait.from" title="trait std::convert::From">From</a>&lt;T&gt; for U</code> chooses to do.</p> </div>
+</div>
+<summary><section id="impl-ToOwned-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/borrow.rs.html#82">source</a><pre class="code-header" data-language="rust">impl&lt;T&gt; ToOwned for T
+where
+    T: Clone,</pre></section></summary><div class="impl-items">
+<summary><section id="associatedtype.Owned" class="associatedtype trait-impl"><pre class="code-header" data-language="rust">type Owned = T</pre></section></summary><div class="docblock">The resulting type after obtaining ownership.</div>
+<summary><section id="method.to_owned" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/borrow.rs.html#87">source</a><pre class="code-header" data-language="rust">fn to_owned(&amp;self) -&gt; T</pre></section></summary><div class="docblock">Creates owned data from borrowed data, usually by cloning. <a href="../borrow/trait.toowned#tymethod.to_owned">Read more</a>
+</div>
+<summary><section id="method.clone_into" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/alloc/borrow.rs.html#91">source</a><pre class="code-header" data-language="rust">fn clone_into(&amp;self, target: &amp;mut T)</pre></section></summary><div class="docblock">Uses borrowed data to replace owned data, usually by cloning. <a href="../borrow/trait.toowned#method.clone_into">Read more</a>
+</div>
+</div>
+<summary><section id="impl-TryFrom%3CU%3E-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#762">source</a><pre class="code-header" data-language="rust">impl&lt;T, U&gt; TryFrom&lt;U&gt; for T
+where
+    U: Into&lt;T&gt;,</pre></section></summary><div class="impl-items">
+<summary><section id="associatedtype.Error-2" class="associatedtype trait-impl"><pre class="code-header" data-language="rust">type Error = Infallible</pre></section></summary><div class="docblock">The type returned in the event of a conversion error.</div>
+<summary><section id="method.try_from-2" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#769">source</a><pre class="code-header" data-language="rust">fn try_from(value: U) -&gt; Result&lt;T, &lt;T as TryFrom&lt;U&gt;&gt;::Error&gt;</pre></section></summary><div class="docblock">Performs the conversion.</div>
+</div>
+<summary><section id="impl-TryInto%3CU%3E-for-Global" class="impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#747">source</a><pre class="code-header" data-language="rust">impl&lt;T, U&gt; TryInto&lt;U&gt; for T
+where
+    U: TryFrom&lt;T&gt;,</pre></section></summary><div class="impl-items">
+<summary><section id="associatedtype.Error-3" class="associatedtype trait-impl"><pre class="code-header" data-language="rust">type Error = &lt;U as TryFrom&lt;T&gt;&gt;::Error</pre></section></summary><div class="docblock">The type returned in the event of a conversion error.</div>
+<summary><section id="method.try_into" class="method trait-impl"><a class="src rightside" href="https://doc.rust-lang.org/src/core/convert/mod.rs.html#754">source</a><pre class="code-header" data-language="rust">fn try_into(self) -&gt; Result&lt;U, &lt;U as TryFrom&lt;T&gt;&gt;::Error&gt;</pre></section></summary><div class="docblock">Performs the conversion.</div>
+</div>
+</div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2010 The Rust Project Developers<br>Licensed under the Apache License, Version 2.0 or the MIT license, at your option.<br>
+    <a href="https://doc.rust-lang.org/std/alloc/struct.Global.html" class="_attribution-link">https://doc.rust-lang.org/std/alloc/struct.Global.html</a>
+  </p>
+</div>

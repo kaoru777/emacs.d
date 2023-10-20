@@ -1,0 +1,26 @@
+  <main role="main">    <h1>Interface SynthIcon</h1>     <dl> <dt>All Superinterfaces:</dt> <dd><code><a href="../../icon">Icon</a></code></dd> </dl>  <pre data-language="java">public interface SynthIcon
+extends Icon</pre> <p>An icon that is passed a <code>SynthContext</code>. Subclasses need only implement the variants that take a <code>SynthContext</code>, but must be prepared for the <code>SynthContext</code> to be null.</p>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>int</code></td> <th scope="row"><code><a href="#getIconHeight(javax.swing.plaf.synth.SynthContext)">getIconHeight</a>​(<a href="synthcontext">SynthContext</a> context)</code></th> <td> <p>Returns the icon's height for the given synth context.</p> </td> </tr> <tr id="i1"> <td><code>int</code></td> <th scope="row"><code><a href="#getIconWidth(javax.swing.plaf.synth.SynthContext)">getIconWidth</a>​(<a href="synthcontext">SynthContext</a> context)</code></th> <td> <p>Returns the icon's width for the given synth context.</p> </td> </tr> <tr id="i2"> <td><code>void</code></td> <th scope="row"><code><a href="#paintIcon(javax.swing.plaf.synth.SynthContext,java.awt.Graphics,int,int,int,int)">paintIcon</a>​(<a href="synthcontext">SynthContext</a> context,
+         <a href="../../../../java/awt/graphics">Graphics</a> g,
+         int x,
+         int y,
+         int width,
+         int height)</code></th> <td> <p>Paints the icon at the specified location for the given synth context.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.javax.swing.Icon">Methods declared in interface javax.swing.<a href="../../icon">Icon</a>
+</h2> <code><a href="../../icon#getIconHeight()">getIconHeight</a>, <a href="../../icon#getIconWidth()">getIconWidth</a>, <a href="../../icon#paintIcon(java.awt.Component,java.awt.Graphics,int,int)">paintIcon</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="paintIcon(javax.swing.plaf.synth.SynthContext,java.awt.Graphics,int,int,int,int)">paintIcon</h3> <pre data-language="java">void paintIcon(SynthContext context,
+               Graphics g,
+               int x,
+               int y,
+               int width,
+               int height)</pre> <p>Paints the icon at the specified location for the given synth context.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>context</code> - identifies hosting region, may be null.</dd> <dd>
+<code>g</code> - the graphics context</dd> <dd>
+<code>x</code> - the x location to paint to</dd> <dd>
+<code>y</code> - the y location to paint to</dd> <dd>
+<code>width</code> - the width of the region to paint to, may be 0</dd> <dd>
+<code>height</code> - the height of the region to paint to, may be 0</dd> </dl>    <h3 id="getIconWidth(javax.swing.plaf.synth.SynthContext)">getIconWidth</h3> <pre data-language="java">int getIconWidth(SynthContext context)</pre> <p>Returns the icon's width for the given synth context.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>context</code> - <code>SynthContext</code> requesting the Icon, may be null.</dd> <dt>Returns:</dt> <dd>an int specifying the width of the icon.</dd> </dl>    <h3 id="getIconHeight(javax.swing.plaf.synth.SynthContext)">getIconHeight</h3> <pre data-language="java">int getIconHeight(SynthContext context)</pre> <p>Returns the icon's height for the given synth context.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>context</code> - <code>SynthContext</code> requesting the Icon, may be null.</dd> <dt>Returns:</dt> <dd>an int specifying the height of the icon.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/plaf/synth/SynthIcon.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/plaf/synth/SynthIcon.html</a>
+  </p>
+</div>

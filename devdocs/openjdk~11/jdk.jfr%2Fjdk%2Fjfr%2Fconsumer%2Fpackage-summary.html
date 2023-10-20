@@ -1,0 +1,44 @@
+ <main role="main">   <h1>Package jdk.jfr.consumer</h1>   <section role="region"> <div id="package.description">
+<p>This package contains classes for consuming Flight Recorder data. </p>
+<p> In the following example, the program prints a histogram of all method samples in a recording. </p>
+<pre data-language="java">public static void main(String[] args) {
+     if (args.length != 0) {
+       System.out.println("Must specify recording file.");
+       return;
+     }
+     try (RecordingFile f = new RecordingFile(Paths.get(args[0]))) {
+       Map&lt;String, SimpleEntry&lt;String, Integer&gt;&gt; histogram = new HashMap&lt;&gt;();
+       int total = 0;
+       while (f.hasMoreEvents()) {
+         RecordedEvent event = f.readEvent();
+         if (event.getEventType().getName().equals("jdk.ExecutionSample")) {
+           RecordedStackTrace s = event.getStackTrace();
+           if (s != null) {
+             RecordedFrame topFrame= s.getFrames().get(0);
+             if (topFrame.isJavaFrame())  {
+               RecordedMethod method = topFrame.getMethod();
+               String methodName = method.getType().getName() + "#" + method.getName() + " " + method.getDescriptor();
+               Entry entry = histogram.computeIfAbsent(methodName, u -&gt; new SimpleEntry&lt;String, Integer&gt;(methodName, 0));
+               entry.setValue(entry.getValue() + 1);
+               total++;
+             }
+           }
+         }
+       }
+       List&lt;SimpleEntry&lt;String, Integer&gt;&gt; entries = new ArrayList&lt;&gt;(histogram.values());
+       entries.sort((u, v) -&gt; v.getValue().compareTo(u.getValue()));
+       for (SimpleEntry&lt;String, Integer&gt; c : entries) {
+         System.out.printf("%2.0f%% %s\n", 100 * (float) c.getValue() / total, c.getKey());
+       }
+       System.out.println("\nSample count: " + total);
+     } catch (IOException ioe) {
+       System.out.println("Error reading file " + args[0] + ". " + ioe.getMessage());
+     }
+   }</pre> <p> <b>Null-handling</b> </p>
+<p> All methods define whether they accept or return <code>null</code> in the Javadoc. Typically this is expressed as <code>"not null"</code>. If a <code>null</code> parameter is used where it is not allowed, a <code>java.lang.NullPointerException</code> is thrown. If a <code>null</code> parameters is passed to a method that throws other exceptions, such as <code>java.io.IOException</code>, the <code>java.lang.NullPointerException</code> takes precedence, unless the Javadoc for the method explicitly states how <code>null</code> is handled, i.e. by throwing <code>java.lang.IllegalArgumentException</code>.</p>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl> </section> <table>  <tr> <th scope="col">Class</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="recordedclass">RecordedClass</a></th> <td> <p>A recorded Java type, such as a class or an interface.</p> </td> </tr> <tr> <th scope="row"><a href="recordedclassloader">RecordedClassLoader</a></th> <td> <p>A recorded Java class loader.</p> </td> </tr> <tr> <th scope="row"><a href="recordedevent">RecordedEvent</a></th> <td> <p>A recorded event.</p> </td> </tr> <tr> <th scope="row"><a href="recordedframe">RecordedFrame</a></th> <td> <p>A recorded frame in a stack trace.</p> </td> </tr> <tr> <th scope="row"><a href="recordedmethod">RecordedMethod</a></th> <td> <p>A recorded method.</p> </td> </tr> <tr> <th scope="row"><a href="recordedobject">RecordedObject</a></th> <td> <p>A complex data type that consists of one or more fields.</p> </td> </tr> <tr> <th scope="row"><a href="recordedstacktrace">RecordedStackTrace</a></th> <td> <p>A recorded stack trace.</p> </td> </tr> <tr> <th scope="row"><a href="recordedthread">RecordedThread</a></th> <td> <p>A recorded thread.</p> </td> </tr> <tr> <th scope="row"><a href="recordedthreadgroup">RecordedThreadGroup</a></th> <td> <p>A recorded Java thread group.</p> </td> </tr> <tr> <th scope="row"><a href="recordingfile">RecordingFile</a></th> <td> <p>A recording file.</p> </td> </tr>  </table>    </main> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/consumer/package-summary.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/consumer/package-summary.html</a>
+  </p>
+</div>

@@ -1,0 +1,127 @@
+<h1>@property</h1>
+<div class="section-content">
+<p>The <code>@property</code> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> <a href="at-rule">at-rule</a> is part of the <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Houdini">CSS Houdini</a> umbrella of APIs, it allows developers to explicitly define their <a href="--*"><code>CSS custom properties</code></a>, allowing for property type checking, setting default values, and define whether a property can inherit values or not.</p> <p>The <code>@property</code> rule represents a custom property registration directly in a stylesheet without having to run any JS. Valid <code>@property</code> rules result in a registered custom property, as if <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS/RegisterProperty"><code>CSS.registerProperty</code></a> had been called with equivalent parameters.</p>
+</div>
+<section aria-labelledby="syntax"><h2 id="syntax">Syntax</h2>
+<div class="section-content"><div class="code-example"><pre data-language="css"><span class="token atrule"><span class="token rule">@property</span> --property-name</span> <span class="token punctuation">{</span>
+  <span class="token property">syntax</span><span class="token punctuation">:</span> <span class="token string">"&lt;color&gt;"</span><span class="token punctuation">;</span>
+  <span class="token property">inherits</span><span class="token punctuation">:</span> false<span class="token punctuation">;</span>
+  <span class="token property">initial-value</span><span class="token punctuation">:</span> #c0ffee<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre></div></div></section><section aria-labelledby="descriptors"><h3 id="descriptors">Descriptors</h3>
+<div class="section-content">
+<dl> <dt id="syntax_2"><a href="@property/syntax"><code>syntax</code></a></dt> <dd> <p>Describes the allowable syntax for the property.</p> </dd> <dt id="inherits"><a href="@property/inherits"><code>inherits</code></a></dt> <dd> <p>Controls whether the custom property registration specified by <code>@property</code> inherits by default.</p> </dd> <dt id="initial-value"><a href="@property/initial-value"><code>initial-value</code></a></dt> <dd> <p>Sets the initial value for the property.</p> </dd> </dl> <p>A valid <code>@property</code> rule represents a custom property registration, with the property name being the serialization of the in the rule's prelude.</p> <p><code>@property</code> rules require a <a href="@property/syntax"><code>syntax</code></a> and <a href="@property/inherits"><code>inherits</code></a> descriptor; if either are missing, the entire rule is invalid and must be ignored. The <a href="@property/initial-value"><code>initial-value</code></a> descriptor is optional only if the syntax is the <a href="https://drafts.css-houdini.org/css-properties-values-api/#universal-syntax-definition" target="_blank">universal syntax definition</a>, otherwise the descriptor is required; if it's missing, the entire rule is invalid and must be ignored.</p> <p>Unknown descriptors are invalid and ignored, but do not invalidate the <code>@property</code> rule.</p>
+</div></section><section aria-labelledby="examples"><h2 id="examples">Examples</h2>
+<div class="section-content">
+<p>Add type checking to <code>--my-color</code> <a href="--*"><code>custom property</code></a>, as a color, a default value, and not allow it to inherit its value:</p> <p>Using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> <a href="@property" aria-current="page"><code>@property</code></a> <a href="at-rule">at-rule</a>:</p> <div class="code-example"><pre data-language="css"><span class="token atrule"><span class="token rule">@property</span> --my-color</span> <span class="token punctuation">{</span>
+  <span class="token property">syntax</span><span class="token punctuation">:</span> <span class="token string">"&lt;color&gt;"</span><span class="token punctuation">;</span>
+  <span class="token property">inherits</span><span class="token punctuation">:</span> false<span class="token punctuation">;</span>
+  <span class="token property">initial-value</span><span class="token punctuation">:</span> #c0ffee<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre></div> <p>Using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a> <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS/RegisterProperty"><code>CSS.registerProperty</code></a>:</p> <div class="code-example"><pre data-language="js">window<span class="token punctuation">.</span><span class="token constant">CSS</span><span class="token punctuation">.</span><span class="token function">registerProperty</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">"--my-color"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">syntax</span><span class="token operator">:</span> <span class="token string">"&lt;color&gt;"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">inherits</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">initialValue</span><span class="token operator">:</span> <span class="token string">"#c0ffee"</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre></div>
+</div></section><section aria-labelledby="formal_syntax"><h2 id="formal_syntax">Formal syntax</h2>
+<div class="section-content"><pre class="notranslate"><span class="token property" id="@property">@property = </span><br>  @property <a href="custom-property-name" class="page-not-created"><span class="token property">&lt;custom-property-name&gt;</span></a> { <a href="declaration-list" class="page-not-created"><span class="token property">&lt;declaration-list&gt;</span></a> }  <br><br></pre></div></section><h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://drafts.css-houdini.org/css-properties-values-api/#at-property-rule">CSS Properties and Values API Level 1 <br><small># at-property-rule</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><code>@property</code></th>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no"><details><summary>No</summary>See <a href="https://bugzil.la/1684605">bug 1684605</a>.</details></td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">71</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no"><details><summary>No</summary>See <a href="https://bugzil.la/1684605">bug 1684605</a>.</details></td>
+<td class="bc-supports-yes">60</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">14.0</td>
+</tr>
+<tr>
+<th><code>inherits</code></th>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">71</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">60</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">14.0</td>
+</tr>
+<tr>
+<th><code>initial-value</code></th>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">71</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">60</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">14.0</td>
+</tr>
+<tr>
+<th><code>syntax</code></th>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">71</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-yes">85</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-yes">60</td>
+<td class="bc-supports-yes">16.4</td>
+<td class="bc-supports-yes">14.0</td>
+</tr>
+</tbody>
+</table></div>
+<section aria-labelledby="see_also"><h2 id="see_also">See also</h2>
+<div class="section-content"><ul> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Properties_and_Values_API">CSS Properties and Values API</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API">CSS Painting API</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Typed_OM_API">CSS Typed Object Model</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Houdini">CSS Houdini</a></li> </ul></div></section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@property" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/@property</a>
+  </p>
+</div>

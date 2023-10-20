@@ -1,0 +1,19 @@
+  <main role="main">    <h1>Interface JMXConnectorProvider</h1>      <pre data-language="java">public interface JMXConnectorProvider</pre> <div>
+
+<p>A provider for creating JMX API connector clients using a given protocol. Instances of this interface are created by <a href="jmxconnectorfactory"><code>JMXConnectorFactory</code></a> as part of its <a href="jmxconnectorfactory#newJMXConnector(javax.management.remote.JMXServiceURL,java.util.Map)"><code>newJMXConnector</code></a> method.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="jmxconnector">JMXConnector</a></code></td> <th scope="row"><code><a href="#newJMXConnector(javax.management.remote.JMXServiceURL,java.util.Map)">newJMXConnector</a>​(<a href="jmxserviceurl">JMXServiceURL</a> serviceURL,
+               <a href="../../../../java.base/java/util/map">Map</a>&lt;<a href="../../../../java.base/java/lang/string">String</a>,​?&gt; environment)</code></th> <td> <p>Creates a new connector client that is ready to connect to the connector server at the given address.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="newJMXConnector(javax.management.remote.JMXServiceURL,java.util.Map)">newJMXConnector</h3> <pre data-language="java">JMXConnector newJMXConnector(JMXServiceURL serviceURL,
+                             Map&lt;String,​?&gt; environment)
+                      throws IOException</pre> <div>
+
+<p>Creates a new connector client that is ready to connect to the connector server at the given address. Each successful call to this method produces a different <code>JMXConnector</code> object.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>serviceURL</code> - the address of the connector server to connect to.</dd> <dd>
+<code>environment</code> - a read-only Map containing named attributes to determine how the connection is made. Keys in this map must be Strings. The appropriate type of each associated value depends on the attribute.</dd> <dt>Returns:</dt> <dd>a <code>JMXConnector</code> representing the new connector client. Each successful call to this method produces a different object.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if <code>serviceURL</code> or <code>environment</code> is null.</dd> <dd>
+<code><a href="../../../../java.base/java/io/ioexception">IOException</a></code> - It is recommended for a provider implementation to throw <code>MalformedURLException</code> if the protocol in the <code>serviceURL</code> is not recognized by this provider, <code>JMXProviderException</code> if this is a provider for the protocol in <code>serviceURL</code> but it cannot be used for some reason or any other <code>IOException</code> if the connection cannot be made because of a communication problem.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.management/javax/management/remote/JMXConnectorProvider.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.management/javax/management/remote/JMXConnectorProvider.html</a>
+  </p>
+</div>

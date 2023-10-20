@@ -1,0 +1,4 @@
+(1 (name . "Node.js") (slug . "node") (type . "node") (links (home . "https://nodejs.org/") (code . "https://github.com/nodejs/node")) (version . "") (release . "20.8.0") (mtime . 1696877022) (db_size . 5187510) (attribution . "&copy; Joyent, Inc. and other Node contributors<br>
+      Licensed under the MIT License.<br>
+      Node.js is a trademark of Joyent, Inc. and is used with its permission.<br>
+      We are not endorsed by or affiliated with Joyent."))

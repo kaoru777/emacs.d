@@ -1,0 +1,10 @@
+  <main role="main">    <h1>Annotation Type Documented</h1>      <pre data-language="java">@Documented
+@Retention(RUNTIME)
+@Target(ANNOTATION_TYPE)
+public @interface Documented</pre> <p>If the annotation <code>@Documented</code> is present on the declaration of an annotation type <i>A</i>, then any <code>@A</code> annotation on an element is considered part of the element's public contract. In more detail, when an annotation type <i>A</i> is annotated with <code>Documented</code>, the presence and value of annotations of type <i>A</i> are a part of the public contract of the elements <i>A</i> annotates. Conversely, if an annotation type <i>B</i> is <em>not</em> annotated with <code>Documented</code>, the presence and value of <i>B</i> annotations are <em>not</em> part of the public contract of the elements <i>B</i> annotates. Concretely, if an annotation type is annotated with <code>
+ Documented</code>, by default a tool like javadoc will display annotations of that type in its output while annotations of annotation types without <code>Documented</code> will not be displayed.</p> <dl> <dt>Since:</dt> <dd>1.5</dd> </dl>    </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Documented.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Documented.html</a>
+  </p>
+</div>

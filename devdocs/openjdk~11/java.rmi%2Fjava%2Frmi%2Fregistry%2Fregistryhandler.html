@@ -1,0 +1,23 @@
+  <main role="main">    <h1>Interface RegistryHandler</h1>      <pre data-language="java">@Deprecated
+public interface RegistryHandler</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement</div> </div> <p><code>RegistryHandler</code> is an interface used internally by the RMI runtime in previous implementation versions. It should never be accessed by application code.</p> <dl> <dt>Since:</dt> <dd>1.1</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="registry">Registry</a></code></td> <th scope="row"><code><a href="#registryImpl(int)">registryImpl</a>​(int port)</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement.</div> </p> </td> </tr> <tr id="i1"> <td><code><a href="registry">Registry</a></code></td> <th scope="row"><code><a href="#registryStub(java.lang.String,int)">registryStub</a>​(<a href="../../../../java.base/java/lang/string">String</a> host,
+            int port)</code></th> <td> <p><strong>Deprecated.</strong> <div>no replacement.</div> </p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="registryStub(java.lang.String,int)">registryStub</h3> <pre data-language="java">@Deprecated
+Registry registryStub(String host,
+                      int port)
+               throws RemoteException,
+                      UnknownHostException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement. As of the Java 2 platform v1.2, RMI no longer uses the <code>RegistryHandler</code> to obtain the registry's stub.</div> </div> <p>Returns a "stub" for contacting a remote registry on the specified host and port.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>host</code> - name of remote registry host</dd> <dd>
+<code>port</code> - remote registry port</dd> <dt>Returns:</dt> <dd>remote registry stub</dd> <dt>Throws:</dt> <dd>
+<code><a href="../remoteexception">RemoteException</a></code> - if a remote error occurs</dd> <dd>
+<code><a href="../unknownhostexception">UnknownHostException</a></code> - if unable to resolve given hostname</dd> </dl>    <h3 id="registryImpl(int)">registryImpl</h3> <pre data-language="java">@Deprecated
+Registry registryImpl(int port)
+               throws RemoteException</pre> <div>
+<strong>Deprecated.</strong> <div>no replacement. As of the Java 2 platform v1.2, RMI no longer uses the <code>RegistryHandler</code> to obtain the registry's implementation.</div> </div> <p>Constructs and exports a Registry on the specified port. The port must be non-zero.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>port</code> - port to export registry on</dd> <dt>Returns:</dt> <dd>registry stub</dd> <dt>Throws:</dt> <dd>
+<code><a href="../remoteexception">RemoteException</a></code> - if a remote error occurs</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.rmi/java/rmi/registry/RegistryHandler.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.rmi/java/rmi/registry/RegistryHandler.html</a>
+  </p>
+</div>

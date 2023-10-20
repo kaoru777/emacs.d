@@ -1,0 +1,117 @@
+<h1 title="Class FunctionDescriptor" class="title">Class FunctionDescriptor</h1> <div class="inheritance" title="Inheritance Tree">
+<a href="../../../../java.base/java/lang/object" title="class in java.lang">java.lang.Object</a> <div class="inheritance">jdk.incubator.foreign.FunctionDescriptor</div> </div> <section class="class-description" id="class-description"> <dl class="notes"> <dt>All Implemented Interfaces:</dt> <dd><code><a href="../../../../java.base/java/lang/constant/constable" title="interface in java.lang.constant">Constable</a></code></dd> </dl>  <pre class="lang-java" data-language="java">public final class FunctionDescriptor extends Object implements Constable</pre> <div class="block">A function descriptor is made up of zero or more argument layouts and zero or one return layout. A function descriptor is used to model the signature of foreign functions. <p> Unless otherwise specified, passing a <code>null</code> argument, or an array argument containing one or more <code>null</code> elements to a method in this class causes a <a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang"><code>NullPointerException</code></a> to be thrown. </p>
+</div> </section> <section class="summary"> <section class="field-summary" id="field-summary"> <h2>Field Summary</h2>  <table class="summary-table three-column-summary">       <tr>
+<th>Modifier and Type</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static final <a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#TRIVIAL_ATTRIBUTE_NAME" class="member-name-link">TRIVIAL_ATTRIBUTE_NAME</a></code></td>
+<td> <div class="block">The name of the function descriptor attribute (see <a href="#attributes()"><code>attributes()</code></a> used to mark trivial functions.</div> </td>
+</tr>
+</table> </section><section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                              <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/util/list" title="interface in java.util">List</a>&lt;<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a>&gt;</code></td>
+<td><code><a href="#argumentLayouts()" class="member-name-link">argumentLayouts</a>()</code></td>
+<td> <div class="block">Returns the argument layouts associated with this function.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/util/optional" title="class in java.util">Optional</a>&lt;<a href="../../../../java.base/java/lang/constant/constable" title="interface in java.lang.constant">Constable</a>&gt;</code></td>
+<td><code><a href="#attribute(java.lang.String)" class="member-name-link">attribute</a><wbr>(<a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a> name)</wbr></code></td>
+<td> <div class="block">Returns the attribute with the given name (if it exists).</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/util/stream/stream" title="interface in java.util.stream">Stream</a>&lt;<a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a>&gt;</code></td>
+<td><code><a href="#attributes()" class="member-name-link">attributes</a>()</code></td>
+<td> <div class="block">Returns a stream of the attribute names associated with this function descriptor.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/util/optional" title="class in java.util">Optional</a>&lt;<a href="../../../../java.base/java/lang/constant/dynamicconstantdesc" title="class in java.lang.constant">DynamicConstantDesc</a>&lt;<a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a>&gt;&gt;</code></td>
+<td><code><a href="#describeConstable()" class="member-name-link">describeConstable</a>()</code></td>
+<td> <div class="block">Returns an <a href="../../../../java.base/java/util/optional" title="class in java.util"><code>Optional</code></a> containing the nominal descriptor for this instance, if one can be constructed, or an empty <a href="../../../../java.base/java/util/optional" title="class in java.util"><code>Optional</code></a> if one cannot be constructed.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a> other)</wbr></code></td>
+<td> <div class="block">Compares the specified object with this function descriptor for equality.</div> </td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></td>
+<td> <div class="block">Returns the hash code value for this function descriptor.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a></code></td>
+<td><code><a href="#of(jdk.incubator.foreign.MemoryLayout,jdk.incubator.foreign.MemoryLayout...)" class="member-name-link">of</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> resLayout,
+ <a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a>... argLayouts)</wbr></code></td>
+<td> <div class="block">Create a function descriptor with given return and argument layouts.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a></code></td>
+<td><code><a href="#ofVoid(jdk.incubator.foreign.MemoryLayout...)" class="member-name-link">ofVoid</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a>... argLayouts)</wbr></code></td>
+<td> <div class="block">Create a function descriptor with given argument layouts and no return layout.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/util/optional" title="class in java.util">Optional</a>&lt;<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a>&gt;</code></td>
+<td><code><a href="#returnLayout()" class="member-name-link">returnLayout</a>()</code></td>
+<td> <div class="block">Returns the return layout associated with this function.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#toString()" class="member-name-link">toString</a>()</code></td>
+<td> <div class="block">Returns a string representation of this function descriptor.</div> </td>
+</tr>
+<tr>
+<td><code><a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a></code></td>
+<td><code><a href="#withAppendedArgumentLayouts(jdk.incubator.foreign.MemoryLayout...)" class="member-name-link">withAppendedArgumentLayouts</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a>... addedLayouts)</wbr></code></td>
+<td> <div class="block">Create a new function descriptor with the given argument layouts appended to the argument layout array of this function descriptor.</div> </td>
+</tr>
+<tr>
+<td><code><a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a></code></td>
+<td><code><a href="#withAttribute(java.lang.String,java.lang.constant.Constable)" class="member-name-link">withAttribute</a><wbr>(<a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a> name,
+ <a href="../../../../java.base/java/lang/constant/constable" title="interface in java.lang.constant">Constable</a> value)</wbr></code></td>
+<td> <div class="block">Returns a new function descriptor which features the same attributes as this descriptor, plus the newly specified attribute.</div> </td>
+</tr>
+<tr>
+<td><code><a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a></code></td>
+<td><code><a href="#withReturnLayout(jdk.incubator.foreign.MemoryLayout)" class="member-name-link">withReturnLayout</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> newReturn)</wbr></code></td>
+<td> <div class="block">Create a new function descriptor with the given memory layout as the new return layout.</div> </td>
+</tr>
+<tr>
+<td><code><a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a></code></td>
+<td><code><a href="#withVoidReturnLayout()" class="member-name-link">withVoidReturnLayout</a>()</code></td>
+<td> <div class="block">Create a new function descriptor with the return layout dropped.</div> </td>
+</tr>
+</table> </div> </div> <div class="inherited-list"> <h3 id="methods-inherited-from-class-java.lang.Object">Methods declared in class java.lang.<a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a>
+</h3> <code><a href="../../../../java.base/java/lang/object#clone()">clone</a>, <a href="../../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long,int)">wait</a></code>
+</div> </section> </section> <section class="details"> <section class="field-details" id="field-detail"> <h2>Field Details</h2>  </section><section class="detail" id="TRIVIAL_ATTRIBUTE_NAME"> <h3>TRIVIAL_ATTRIBUTE_NAME</h3> <pre class="lang-java" data-language="java">public static final String TRIVIAL_ATTRIBUTE_NAME</pre> <div class="block">The name of the function descriptor attribute (see <a href="#attributes()"><code>attributes()</code></a> used to mark trivial functions. The attribute value must be a boolean.</div> <dl class="notes"> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="https://docs.oracle.com/en/java/javase/17/docs/api/constant-values.html#jdk.incubator.foreign.FunctionDescriptor.TRIVIAL_ATTRIBUTE_NAME">Constant Field Values</a></li> </ul> </dd> </dl> </section><section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="attribute(java.lang.String)"> <h3>attribute</h3> <pre class="lang-java" data-language="java">public Optional&lt;Constable&gt; attribute(String name)</pre> <div class="block">Returns the attribute with the given name (if it exists).</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>name</code> - the attribute name.</dd> <dt>Returns:</dt> <dd>the attribute with the given name (if it exists).</dd> </dl> </section><section class="detail" id="attributes()"> <h3>attributes</h3> <pre class="lang-java" data-language="java">public Stream&lt;String&gt; attributes()</pre> <div class="block">Returns a stream of the attribute names associated with this function descriptor.</div> <dl class="notes"> <dt>Returns:</dt> <dd>a stream of the attribute names associated with this function descriptor.</dd> </dl> </section><section class="detail" id="withAttribute(java.lang.String,java.lang.constant.Constable)"> <h3>withAttribute</h3> <pre class="lang-java" data-language="java">public FunctionDescriptor withAttribute(String name, Constable value)</pre> <div class="block">Returns a new function descriptor which features the same attributes as this descriptor, plus the newly specified attribute. If this descriptor already contains an attribute with the same name, the existing attribute value is overwritten in the returned descriptor.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>name</code> - the attribute name.</dd> <dd>
+<code>value</code> - the attribute value.</dd> <dt>Returns:</dt> <dd>a new function descriptor which features the same attributes as this descriptor, plus the newly specified attribute.</dd> </dl> </section><section class="detail" id="returnLayout()"> <h3>returnLayout</h3> <pre class="lang-java" data-language="java">public Optional&lt;MemoryLayout&gt; returnLayout()</pre> <div class="block">Returns the return layout associated with this function.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the return layout.</dd> </dl> </section><section class="detail" id="argumentLayouts()"> <h3>argumentLayouts</h3> <pre class="lang-java" data-language="java">public List&lt;MemoryLayout&gt; argumentLayouts()</pre> <div class="block">Returns the argument layouts associated with this function.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the argument layouts.</dd> </dl> </section><section class="detail" id="of(jdk.incubator.foreign.MemoryLayout,jdk.incubator.foreign.MemoryLayout...)"> <h3>of</h3> <pre class="lang-java" data-language="java">public static FunctionDescriptor of(MemoryLayout resLayout, MemoryLayout... argLayouts)</pre> <div class="block">Create a function descriptor with given return and argument layouts.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>resLayout</code> - the return layout.</dd> <dd>
+<code>argLayouts</code> - the argument layouts.</dd> <dt>Returns:</dt> <dd>the new function descriptor.</dd> </dl> </section><section class="detail" id="ofVoid(jdk.incubator.foreign.MemoryLayout...)"> <h3>ofVoid</h3> <pre class="lang-java" data-language="java">public static FunctionDescriptor ofVoid(MemoryLayout... argLayouts)</pre> <div class="block">Create a function descriptor with given argument layouts and no return layout.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>argLayouts</code> - the argument layouts.</dd> <dt>Returns:</dt> <dd>the new function descriptor.</dd> </dl> </section><section class="detail" id="withAppendedArgumentLayouts(jdk.incubator.foreign.MemoryLayout...)"> <h3>withAppendedArgumentLayouts</h3> <pre class="lang-java" data-language="java">public FunctionDescriptor withAppendedArgumentLayouts(MemoryLayout... addedLayouts)</pre> <div class="block">Create a new function descriptor with the given argument layouts appended to the argument layout array of this function descriptor.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>addedLayouts</code> - the argument layouts to append.</dd> <dt>Returns:</dt> <dd>the new function descriptor.</dd> </dl> </section><section class="detail" id="withReturnLayout(jdk.incubator.foreign.MemoryLayout)"> <h3>withReturnLayout</h3> <pre class="lang-java" data-language="java">public FunctionDescriptor withReturnLayout(MemoryLayout newReturn)</pre> <div class="block">Create a new function descriptor with the given memory layout as the new return layout.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>newReturn</code> - the new return layout.</dd> <dt>Returns:</dt> <dd>the new function descriptor.</dd> </dl> </section><section class="detail" id="withVoidReturnLayout()"> <h3>withVoidReturnLayout</h3> <pre class="lang-java" data-language="java">public FunctionDescriptor withVoidReturnLayout()</pre> <div class="block">Create a new function descriptor with the return layout dropped.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the new function descriptor.</dd> </dl> </section><section class="detail" id="toString()"> <h3>toString</h3> <pre class="lang-java" data-language="java">public String toString()</pre> <div class="block">Returns a string representation of this function descriptor.</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/object#toString()">toString</a></code> in class <code><a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>Returns:</dt> <dd>a string representation of this function descriptor.</dd> </dl> </section><section class="detail" id="equals(java.lang.Object)"> <h3>equals</h3> <pre class="lang-java" data-language="java">public boolean equals(Object other)</pre> <div class="block">Compares the specified object with this function descriptor for equality. Returns <code>true</code> if and only if the specified object is also a function descriptor, and all of the following conditions are met: <ul> <li>the two function descriptors have equals return layouts (see <a href="memorylayout#equals(java.lang.Object)"><code>MemoryLayout.equals(Object)</code></a>), or both have no return layout</li> <li>the two function descriptors have argument layouts that are pair-wise equal (see <a href="memorylayout#equals(java.lang.Object)"><code>MemoryLayout.equals(Object)</code></a>) </li>
+</ul>
+</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a></code> in class <code><a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>other</code> - the object to be compared for equality with this function descriptor.</dd> <dt>Returns:</dt> <dd>
+<code>true</code> if the specified object is equal to this function descriptor.</dd> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="../../../../java.base/java/lang/object#hashCode()"><code>Object.hashCode()</code></a></li> <li><a href="../../../../java.base/java/util/hashmap" title="class in java.util"><code>HashMap</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="hashCode()"> <h3>hashCode</h3> <pre class="lang-java" data-language="java">public int hashCode()</pre> <div class="block">Returns the hash code value for this function descriptor.</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/object#hashCode()">hashCode</a></code> in class <code><a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>Returns:</dt> <dd>the hash code value for this function descriptor.</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="../../../../java.base/java/lang/object#equals(java.lang.Object)"><code>Object.equals(java.lang.Object)</code></a></li> <li><a href="../../../../java.base/java/lang/system#identityHashCode(java.lang.Object)"><code>System.identityHashCode(java.lang.Object)</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="describeConstable()"> <h3>describeConstable</h3> <pre class="lang-java" data-language="java">public Optional&lt;DynamicConstantDesc&lt;FunctionDescriptor&gt;&gt; describeConstable()</pre> <div class="block"><span class="descfrm-type-label">Description copied from interface: <code><a href="../../../../java.base/java/lang/constant/constable#describeConstable()">Constable</a></code></span></div> <div class="block">Returns an <a href="../../../../java.base/java/util/optional" title="class in java.util"><code>Optional</code></a> containing the nominal descriptor for this instance, if one can be constructed, or an empty <a href="../../../../java.base/java/util/optional" title="class in java.util"><code>Optional</code></a> if one cannot be constructed.</div> <dl class="notes"> <dt>Specified by:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/constant/constable#describeConstable()">describeConstable</a></code> in interface <code><a href="../../../../java.base/java/lang/constant/constable" title="interface in java.lang.constant">Constable</a></code>
+</dd> <dt>Returns:</dt> <dd>An <a href="../../../../java.base/java/util/optional" title="class in java.util"><code>Optional</code></a> containing the resulting nominal descriptor, or an empty <a href="../../../../java.base/java/util/optional" title="class in java.util"><code>Optional</code></a> if one cannot be constructed.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/FunctionDescriptor.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/FunctionDescriptor.html</a>
+  </p>
+</div>

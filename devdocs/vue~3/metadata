@@ -1,0 +1,2 @@
+(1 (name . "Vue") (slug . "vue~3") (type . "vue") (links (home . "https://vuejs.org/") (code . "https://github.com/vuejs/core")) (version . "3") (release . "3.3.4") (mtime . 1686473914) (db_size . 1424585) (attribution . "&copy; 2013&ndash;present Yuxi Evan You<br>
+      Licensed under the MIT License."))

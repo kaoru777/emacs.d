@@ -1,0 +1,35 @@
+  <main role="main">    <h1>Interface ConnectionBuilder</h1>      <pre data-language="java">public interface ConnectionBuilder</pre> <div>
+<p>A builder created from a <code>DataSource</code> object, used to establish a connection to the database that the <code>data source</code> object represents. The connection properties that were specified for the <code>data source</code> are used as the default values by the <code>ConnectionBuilder</code>. </p>
+<p>The following example illustrates the use of <code>ConnectionBuilder</code> to create a <a href="connection"><code>Connection</code></a>: </p>
+<pre data-language="java">DataSource ds = new MyDataSource();
+     ShardingKey superShardingKey = ds.createShardingKeyBuilder()
+                           .subkey("EASTERN_REGION", JDBCType.VARCHAR)
+                           .build();
+     ShardingKey shardingKey = ds.createShardingKeyBuilder()
+                           .subkey("PITTSBURGH_BRANCH", JDBCType.VARCHAR)
+                           .build();
+     Connection con = ds.createConnectionBuilder()
+                       .user("rafa")
+                       .password("tennis")
+                       .setShardingKey(shardingKey)
+                       .setSuperShardingKey(superShardingKey)
+                       .build();</pre>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="connection">Connection</a></code></td> <th scope="row"><code><a href="#build()">build</a>()</code></th> <td> <p>Returns an instance of the object defined by this builder.</p> </td> </tr> <tr id="i1"> <td><code><a href="connectionbuilder">ConnectionBuilder</a></code></td> <th scope="row"><code><a href="#password(java.lang.String)">password</a>​(<a href="../../../java.base/java/lang/string">String</a> password)</code></th> <td> <p>Specifies the password to be used when creating a connection</p> </td> </tr> <tr id="i2"> <td><code><a href="connectionbuilder">ConnectionBuilder</a></code></td> <th scope="row"><code><a href="#shardingKey(java.sql.ShardingKey)">shardingKey</a>​(<a href="shardingkey">ShardingKey</a> shardingKey)</code></th> <td> <p>Specifies a <code>shardingKey</code> to be used when creating a connection</p> </td> </tr> <tr id="i3"> <td><code><a href="connectionbuilder">ConnectionBuilder</a></code></td> <th scope="row"><code><a href="#superShardingKey(java.sql.ShardingKey)">superShardingKey</a>​(<a href="shardingkey">ShardingKey</a> superShardingKey)</code></th> <td> <p>Specifies a <code>superShardingKey</code> to be used when creating a connection</p> </td> </tr> <tr id="i4"> <td><code><a href="connectionbuilder">ConnectionBuilder</a></code></td> <th scope="row"><code><a href="#user(java.lang.String)">user</a>​(<a href="../../../java.base/java/lang/string">String</a> username)</code></th> <td> <p>Specifies the username to be used when creating a connection</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="user(java.lang.String)">user</h3> <pre data-language="java">ConnectionBuilder user(String username)</pre> <p>Specifies the username to be used when creating a connection</p> <dl> <dt>Parameters:</dt> <dd>
+<code>username</code> - the database user on whose behalf the connection is being made</dd> <dt>Returns:</dt> <dd>the same <code>ConnectionBuilder</code> instance</dd> </dl>    <h3 id="password(java.lang.String)">password</h3> <pre data-language="java">ConnectionBuilder password(String password)</pre> <p>Specifies the password to be used when creating a connection</p> <dl> <dt>Parameters:</dt> <dd>
+<code>password</code> - the password to use for this connection. May be <code>null</code>
+</dd> <dt>Returns:</dt> <dd>the same <code>ConnectionBuilder</code> instance</dd> </dl>    <h3 id="shardingKey(java.sql.ShardingKey)">shardingKey</h3> <pre data-language="java">ConnectionBuilder shardingKey(ShardingKey shardingKey)</pre> <p>Specifies a <code>shardingKey</code> to be used when creating a connection</p> <dl> <dt>Parameters:</dt> <dd>
+<code>shardingKey</code> - the ShardingKey. May be <code>null</code>
+</dd> <dt>Returns:</dt> <dd>the same <code>ConnectionBuilder</code> instance</dd> <dt>See Also:</dt> <dd>
+<a href="shardingkey"><code>ShardingKey</code></a>, <a href="shardingkeybuilder"><code>ShardingKeyBuilder</code></a>
+</dd> </dl>    <h3 id="superShardingKey(java.sql.ShardingKey)">superShardingKey</h3> <pre data-language="java">ConnectionBuilder superShardingKey(ShardingKey superShardingKey)</pre> <p>Specifies a <code>superShardingKey</code> to be used when creating a connection</p> <dl> <dt>Parameters:</dt> <dd>
+<code>superShardingKey</code> - the SuperShardingKey. May be <code>null</code>
+</dd> <dt>Returns:</dt> <dd>the same <code>ConnectionBuilder</code> instance</dd> <dt>See Also:</dt> <dd>
+<a href="shardingkey"><code>ShardingKey</code></a>, <a href="shardingkeybuilder"><code>ShardingKeyBuilder</code></a>
+</dd> </dl>    <h3 id="build()">build</h3> <pre data-language="java">Connection build()
+          throws SQLException</pre> <p>Returns an instance of the object defined by this builder.</p> <dl> <dt>Returns:</dt> <dd>The built object</dd> <dt>Throws:</dt> <dd>
+<code><a href="sqlexception">SQLException</a></code> - If an error occurs building the object</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/java/sql/ConnectionBuilder.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/java/sql/ConnectionBuilder.html</a>
+  </p>
+</div>

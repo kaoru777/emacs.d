@@ -1,0 +1,8 @@
+<h1 class="main-heading">Function std::alloc::handle_alloc_error</h1>
+<pre class="rust item-decl" data-language="rust">pub fn handle_alloc_error(layout: Layout) -&gt; !</pre>
+<p>Abort on memory allocation error or failure.</p> <p>Callers of memory allocation APIs wishing to abort computation in response to an allocation error are encouraged to call this function, rather than directly invoking <code>panic!</code> or similar.</p> <p>The default behavior of this function is to print a message to standard error and abort the process. It can be replaced with <a href="fn.set_alloc_error_hook"><code>set_alloc_error_hook</code></a> and <a href="fn.take_alloc_error_hook"><code>take_alloc_error_hook</code></a>.</p><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2010 The Rust Project Developers<br>Licensed under the Apache License, Version 2.0 or the MIT license, at your option.<br>
+    <a href="https://doc.rust-lang.org/std/alloc/fn.handle_alloc_error.html" class="_attribution-link">https://doc.rust-lang.org/std/alloc/fn.handle_alloc_error.html</a>
+  </p>
+</div>

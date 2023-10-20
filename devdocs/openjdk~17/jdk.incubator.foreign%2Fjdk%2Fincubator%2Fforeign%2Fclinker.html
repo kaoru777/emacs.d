@@ -1,0 +1,215 @@
+<h1 title="Interface CLinker" class="title">Interface CLinker</h1> <section class="class-description" id="class-description">  <pre class="lang-java" data-language="java">public sealed interface CLinker</pre> <div class="block">A C linker implements the C Application Binary Interface (ABI) calling conventions. Instances of this interface can be used to link foreign functions in native libraries that follow the JVM's target platform C ABI. <p> Linking a foreign function is a process which requires two components: a method type, and a function descriptor. The method type, consists of a set of <em>carrier</em> types, which, together, specify the Java signature which clients must adhere to when calling the underlying foreign function. The function descriptor contains a set of memory layouts which, together, specify the foreign function signature and classification information (via a custom layout attributes, see <a href="clinker.typekind" title="enum class in jdk.incubator.foreign"><code>CLinker.TypeKind</code></a>), so that linking can take place. </p>
+<p> Clients of this API can build function descriptors using the predefined memory layout constants (based on a subset of the built-in types provided by the C language), found in this interface; alternatively, they can also decorate existing value layouts using the required <a href="clinker.typekind" title="enum class in jdk.incubator.foreign"><code>CLinker.TypeKind</code></a> classification attribute (this can be done using the <a href="memorylayout#withAttribute(java.lang.String,java.lang.constant.Constable)"><code>MemoryLayout.withAttribute(String, Constable)</code></a> method). A failure to do so might result in linkage errors, given that linking requires additional classification information to determine, for instance, how arguments should be loaded into registers during a foreign function call. </p>
+<p> Implementations of this interface support the following primitive carrier types: <code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, <code>long</code>, <code>float</code>, and <code>double</code>, as well as <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> for passing pointers, and <a href="memorysegment" title="interface in jdk.incubator.foreign"><code>MemorySegment</code></a> for passing structs and unions. Finally, the <a href="clinker.valist" title="interface in jdk.incubator.foreign"><code>CLinker.VaList</code></a> carrier type can be used to match the native <code>va_list</code> type. </p>
+<p> For the linking process to be successful, some requirements must be satisfied; if <code>M</code> and <code>F</code> are the method type (obtained after dropping any prefix arguments) and the function descriptor, respectively, used during the linking process, then it must be that: </p>
+<ul> <li>The arity of <code>M</code> is the same as that of <code>F</code>;</li> <li>If the return type of <code>M</code> is <code>void</code>, then <code>F</code> should have no return layout (see <a href="functiondescriptor#ofVoid(jdk.incubator.foreign.MemoryLayout...)"><code>FunctionDescriptor.ofVoid(MemoryLayout...)</code></a>);</li> <li>for each pair of carrier type <code>C</code> and layout <code>L</code> in <code>M</code> and <code>F</code>, respectively, where <code>C</code> and <code>L</code> refer to the same argument, or to the return value, the following conditions must hold: <ul> <li>If <code>C</code> is a primitve type, then <code>L</code> must be a <code>ValueLayout</code>, and the size of the layout must match that of the carrier type (see <a href="../../../../java.base/java/lang/integer#SIZE"><code>Integer.SIZE</code></a> and similar fields in other primitive wrapper classes);</li> <li>If <code>C</code> is <code>MemoryAddress.class</code>, then <code>L</code> must be a <code>ValueLayout</code>, and its size must match the platform's address size (see <a href="memorylayouts#ADDRESS"><code>MemoryLayouts.ADDRESS</code></a>). For this purpose, the <a href="#C_POINTER"><code>C_POINTER</code></a> layout constant can be used;</li> <li>If <code>C</code> is <code>MemorySegment.class</code>, then <code>L</code> must be a <code>GroupLayout</code>
+</li> <li>If <code>C</code> is <code>VaList.class</code>, then <code>L</code> must be <a href="#C_VA_LIST"><code>C_VA_LIST</code></a>
+</li> </ul> </li> </ul> <p>Variadic functions, declared in C either with a trailing ellipses (<code>...</code>) at the end of the formal parameter list or with an empty formal parameter list, are not supported directly. It is not possible to create a method handle that takes a variable number of arguments, and neither is it possible to create an upcall stub wrapping a method handle that accepts a variable number of arguments. However, for downcalls only, it is possible to link a native variadic function by using a <em>specialized</em> method type and function descriptor: for each argument that is to be passed as a variadic argument, an explicit, additional, carrier type and memory layout must be present in the method type and function descriptor objects passed to the linker. Furthermore, as memory layouts corresponding to variadic arguments in a function descriptor must contain additional classification information, it is required that <a href="#asVarArg(T)"><code>asVarArg(MemoryLayout)</code></a> is used to create the memory layouts for each parameter corresponding to a variadic argument in a specialized function descriptor. </p>
+<p>On unsupported platforms this class will fail to initialize with an <a href="../../../../java.base/java/lang/exceptionininitializererror" title="class in java.lang"><code>ExceptionInInitializerError</code></a>. </p>
+<p> Unless otherwise specified, passing a <code>null</code> argument, or an array argument containing one or more <code>null</code> elements to a method in this class causes a <a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang"><code>NullPointerException</code></a> to be thrown. </p>
+</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>Implementations of this interface are immutable, thread-safe and <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/doc-files/ValueBased.html">value-based</a>.</dd> </dl> </section> <section class="summary"> <section class="nested-class-summary" id="nested-class-summary"> <h2>Nested Class Summary</h2>  <table class="summary-table three-column-summary">          <tr>
+<th>Modifier and Type</th>
+<th>Interface</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static enum </code></td>
+<td><code><a href="clinker.typekind" class="type-name-link" title="enum class in jdk.incubator.foreign">CLinker.TypeKind</a></code></td>
+<td> <div class="block">A C type kind.</div> </td>
+</tr>
+<tr>
+<td><code>static interface </code></td>
+<td><code><a href="clinker.valist" class="type-name-link" title="interface in jdk.incubator.foreign">CLinker.VaList</a></code></td>
+<td> <div class="block">An interface that models a C <code>va_list</code>.</div> </td>
+</tr>
+</table> </section><section class="field-summary" id="field-summary"> <h2>Field Summary</h2>  <table class="summary-table three-column-summary">                               <tr>
+<th>Modifier and Type</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_CHAR" class="member-name-link">C_CHAR</a></code></td>
+<td> <div class="block">The layout for the <code>char</code> C type</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_DOUBLE" class="member-name-link">C_DOUBLE</a></code></td>
+<td> <div class="block">The layout for the <code>double</code> C type</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_FLOAT" class="member-name-link">C_FLOAT</a></code></td>
+<td> <div class="block">The layout for the <code>float</code> C type</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_INT" class="member-name-link">C_INT</a></code></td>
+<td> <div class="block">The layout for the <code>int</code> C type</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_LONG" class="member-name-link">C_LONG</a></code></td>
+<td> <div class="block">The layout for the <code>long</code> C type</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_LONG_LONG" class="member-name-link">C_LONG_LONG</a></code></td>
+<td> <div class="block">The layout for the <code>long long</code> C type.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_POINTER" class="member-name-link">C_POINTER</a></code></td>
+<td> <div class="block">The <code>T*</code> native type.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#C_SHORT" class="member-name-link">C_SHORT</a></code></td>
+<td> <div class="block">The layout for the <code>short</code> C type</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a></code></td>
+<td><code><a href="#C_VA_LIST" class="member-name-link">C_VA_LIST</a></code></td>
+<td> <div class="block">The layout for the <code>va_list</code> C type</div> </td>
+</tr>
+</table> </section><section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                           <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#allocateMemory(long)" class="member-name-link">allocateMemory</a><wbr>(long size)</wbr></code></td>
+<td> <div class="block">Allocates memory of given size using malloc.</div> </td>
+</tr>
+<tr>
+<td><code>static &lt;T extends <a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a>&gt;<br>T</code></td>
+<td><code><a href="#asVarArg(T)" class="member-name-link">asVarArg</a><wbr>(T layout)</wbr></code></td>
+<td> <div class="block">Returns a memory layout that is suitable to use as the layout for variadic arguments in a specialized function descriptor.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/lang/invoke/methodhandle" title="class in java.lang.invoke">MethodHandle</a></code></td>
+<td><code><a href="#downcallHandle(java.lang.invoke.MethodType,jdk.incubator.foreign.FunctionDescriptor)" class="member-name-link">downcallHandle</a><wbr>(<a href="../../../../java.base/java/lang/invoke/methodtype" title="class in java.lang.invoke">MethodType</a> type,
+ <a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a> function)</wbr></code></td>
+<td> <div class="block">Obtains a foreign method handle, with the given type and featuring the given function descriptor, which can be used to call a target foreign function at an address.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/lang/invoke/methodhandle" title="class in java.lang.invoke">MethodHandle</a></code></td>
+<td><code><a href="#downcallHandle(jdk.incubator.foreign.Addressable,java.lang.invoke.MethodType,jdk.incubator.foreign.FunctionDescriptor)" class="member-name-link">downcallHandle</a><wbr>(<a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a> symbol,
+ <a href="../../../../java.base/java/lang/invoke/methodtype" title="class in java.lang.invoke">MethodType</a> type,
+ <a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a> function)</wbr></code></td>
+<td> <div class="block">Obtains a foreign method handle, with the given type and featuring the given function descriptor, which can be used to call a target foreign function at the given address.</div> </td>
+</tr>
+<tr>
+<td><code><a href="../../../../java.base/java/lang/invoke/methodhandle" title="class in java.lang.invoke">MethodHandle</a></code></td>
+<td><code><a href="#downcallHandle(jdk.incubator.foreign.Addressable,jdk.incubator.foreign.SegmentAllocator,java.lang.invoke.MethodType,jdk.incubator.foreign.FunctionDescriptor)" class="member-name-link">downcallHandle</a><wbr>(<a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a> symbol,
+ <a href="segmentallocator" title="interface in jdk.incubator.foreign">SegmentAllocator</a> allocator,
+ <a href="../../../../java.base/java/lang/invoke/methodtype" title="class in java.lang.invoke">MethodType</a> type,
+ <a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a> function)</wbr></code></td>
+<td> <div class="block">Obtain a foreign method handle, with the given type and featuring the given function descriptor, which can be used to call a target foreign function at the given address.</div> </td>
+</tr>
+<tr>
+<td><code>static void</code></td>
+<td><code><a href="#freeMemory(jdk.incubator.foreign.MemoryAddress)" class="member-name-link">freeMemory</a><wbr>(<a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a> addr)</wbr></code></td>
+<td> <div class="block">Frees the memory pointed by the given memory address.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="clinker" title="interface in jdk.incubator.foreign">CLinker</a></code></td>
+<td><code><a href="#getInstance()" class="member-name-link">getInstance</a>()</code></td>
+<td> <div class="block">Returns the C linker for the current platform.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="symbollookup" title="interface in jdk.incubator.foreign">SymbolLookup</a></code></td>
+<td><code><a href="#systemLookup()" class="member-name-link">systemLookup</a>()</code></td>
+<td> <div class="block">Obtains a system lookup which is suitable to find symbols in the standard C libraries.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#toCString(java.lang.String,jdk.incubator.foreign.ResourceScope)" class="member-name-link">toCString</a><wbr>(<a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a> str,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Converts a Java string into a UTF-8 encoded, null-terminated C string, storing the result into a native memory segment associated with the provided resource scope.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#toCString(java.lang.String,jdk.incubator.foreign.SegmentAllocator)" class="member-name-link">toCString</a><wbr>(<a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a> str,
+ <a href="segmentallocator" title="interface in jdk.incubator.foreign">SegmentAllocator</a> allocator)</wbr></code></td>
+<td> <div class="block">Converts a Java string into a UTF-8 encoded, null-terminated C string, storing the result into a native memory segment allocated using the provided allocator.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#toJavaString(jdk.incubator.foreign.MemoryAddress)" class="member-name-link">toJavaString</a><wbr>(<a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a> addr)</wbr></code></td>
+<td> <div class="block">Converts a UTF-8 encoded, null-terminated C string stored at given address into a Java string.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#toJavaString(jdk.incubator.foreign.MemorySegment)" class="member-name-link">toJavaString</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> addr)</wbr></code></td>
+<td> <div class="block">Converts a UTF-8 encoded, null-terminated C string stored at given address into a Java string.</div> </td>
+</tr>
+<tr>
+<td><code><a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#upcallStub(java.lang.invoke.MethodHandle,jdk.incubator.foreign.FunctionDescriptor,jdk.incubator.foreign.ResourceScope)" class="member-name-link">upcallStub</a><wbr>(<a href="../../../../java.base/java/lang/invoke/methodhandle" title="class in java.lang.invoke">MethodHandle</a> target,
+ <a href="functiondescriptor" title="class in jdk.incubator.foreign">FunctionDescriptor</a> function,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Allocates a native stub with given scope which can be passed to other foreign functions (as a function pointer); calling such a function pointer from native code will result in the execution of the provided method handle.</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="field-details" id="field-detail"> <h2>Field Details</h2>  </section><section class="detail" id="C_CHAR"> <h3>C_CHAR</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_CHAR</pre> <div class="block">The layout for the <code>char</code> C type</div> </section><section class="detail" id="C_SHORT"> <h3>C_SHORT</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_SHORT</pre> <div class="block">The layout for the <code>short</code> C type</div> </section><section class="detail" id="C_INT"> <h3>C_INT</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_INT</pre> <div class="block">The layout for the <code>int</code> C type</div> </section><section class="detail" id="C_LONG"> <h3>C_LONG</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_LONG</pre> <div class="block">The layout for the <code>long</code> C type</div> </section><section class="detail" id="C_LONG_LONG"> <h3>C_LONG_LONG</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_LONG_LONG</pre> <div class="block">The layout for the <code>long long</code> C type.</div> </section><section class="detail" id="C_FLOAT"> <h3>C_FLOAT</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_FLOAT</pre> <div class="block">The layout for the <code>float</code> C type</div> </section><section class="detail" id="C_DOUBLE"> <h3>C_DOUBLE</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_DOUBLE</pre> <div class="block">The layout for the <code>double</code> C type</div> </section><section class="detail" id="C_POINTER"> <h3>C_POINTER</h3> <pre class="lang-java" data-language="java">static final ValueLayout C_POINTER</pre> <div class="block">The <code>T*</code> native type.</div> </section><section class="detail" id="C_VA_LIST"> <h3>C_VA_LIST</h3> <pre class="lang-java" data-language="java">static final MemoryLayout C_VA_LIST</pre> <div class="block">The layout for the <code>va_list</code> C type</div> </section><section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="getInstance()"> <h3>getInstance</h3> <pre class="lang-java" data-language="java">static CLinker getInstance()</pre> <div class="block">Returns the C linker for the current platform. <p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>a linker for this system.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="systemLookup()"> <h3>systemLookup</h3> <pre class="lang-java" data-language="java">static SymbolLookup systemLookup()</pre> <div class="block">Obtains a system lookup which is suitable to find symbols in the standard C libraries. The set of symbols available for lookup is unspecified, as it depends on the platform and on the operating system. <p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>a system-specific library lookup which is suitable to find symbols in the standard C libraries.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="downcallHandle(jdk.incubator.foreign.Addressable,java.lang.invoke.MethodType,jdk.incubator.foreign.FunctionDescriptor)"> <h3>downcallHandle</h3> <pre class="lang-java" data-language="java">MethodHandle downcallHandle(Addressable symbol, MethodType type, FunctionDescriptor function)</pre> <div class="block">Obtains a foreign method handle, with the given type and featuring the given function descriptor, which can be used to call a target foreign function at the given address. <p> If the provided method type's return type is <code>MemorySegment</code>, then the resulting method handle features an additional prefix parameter, of type <a href="segmentallocator" title="interface in jdk.incubator.foreign"><code>SegmentAllocator</code></a>, which will be used by the linker runtime to allocate structs returned by-value.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>symbol</code> - downcall symbol.</dd> <dd>
+<code>type</code> - the method type.</dd> <dd>
+<code>function</code> - the function descriptor.</dd> <dt>Returns:</dt> <dd>the downcall method handle.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - in the case of a method type and function descriptor mismatch, or if the symbol is <a href="memoryaddress#NULL"><code>MemoryAddress.NULL</code></a>
+</dd> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="symbollookup" title="interface in jdk.incubator.foreign"><code>SymbolLookup</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="downcallHandle(jdk.incubator.foreign.Addressable,jdk.incubator.foreign.SegmentAllocator,java.lang.invoke.MethodType,jdk.incubator.foreign.FunctionDescriptor)"> <h3>downcallHandle</h3> <pre class="lang-java" data-language="java">MethodHandle downcallHandle(Addressable symbol, SegmentAllocator allocator, MethodType type, FunctionDescriptor function)</pre> <div class="block">Obtain a foreign method handle, with the given type and featuring the given function descriptor, which can be used to call a target foreign function at the given address. <p> If the provided method type's return type is <code>MemorySegment</code>, then the provided allocator will be used by the linker runtime to allocate structs returned by-value.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>symbol</code> - downcall symbol.</dd> <dd>
+<code>allocator</code> - the segment allocator.</dd> <dd>
+<code>type</code> - the method type.</dd> <dd>
+<code>function</code> - the function descriptor.</dd> <dt>Returns:</dt> <dd>the downcall method handle.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - in the case of a method type and function descriptor mismatch, or if the symbol is <a href="memoryaddress#NULL"><code>MemoryAddress.NULL</code></a>
+</dd> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="symbollookup" title="interface in jdk.incubator.foreign"><code>SymbolLookup</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="downcallHandle(java.lang.invoke.MethodType,jdk.incubator.foreign.FunctionDescriptor)"> <h3>downcallHandle</h3> <pre class="lang-java" data-language="java">MethodHandle downcallHandle(MethodType type, FunctionDescriptor function)</pre> <div class="block">Obtains a foreign method handle, with the given type and featuring the given function descriptor, which can be used to call a target foreign function at an address. The resulting method handle features a prefix parameter (as the first parameter) corresponding to the address, of type <a href="addressable" title="interface in jdk.incubator.foreign"><code>Addressable</code></a>. <p> If the provided method type's return type is <code>MemorySegment</code>, then the resulting method handle features an additional prefix parameter (inserted immediately after the address parameter), of type <a href="segmentallocator" title="interface in jdk.incubator.foreign"><code>SegmentAllocator</code></a>), which will be used by the linker runtime to allocate structs returned by-value. </p>
+<p> The returned method handle will throw an <a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang"><code>IllegalArgumentException</code></a> if the target address passed to it is <a href="memoryaddress#NULL"><code>MemoryAddress.NULL</code></a>, or a <a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang"><code>NullPointerException</code></a> if the target address is <code>null</code>.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>type</code> - the method type.</dd> <dd>
+<code>function</code> - the function descriptor.</dd> <dt>Returns:</dt> <dd>the downcall method handle.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - in the case of a method type and function descriptor mismatch.</dd> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="symbollookup" title="interface in jdk.incubator.foreign"><code>SymbolLookup</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="upcallStub(java.lang.invoke.MethodHandle,jdk.incubator.foreign.FunctionDescriptor,jdk.incubator.foreign.ResourceScope)"> <h3>upcallStub</h3> <pre class="lang-java" data-language="java">MemoryAddress upcallStub(MethodHandle target, FunctionDescriptor function, ResourceScope scope)</pre> <div class="block">Allocates a native stub with given scope which can be passed to other foreign functions (as a function pointer); calling such a function pointer from native code will result in the execution of the provided method handle. <p> The returned memory address is associated with the provided scope. When such scope is closed, the corresponding native stub will be deallocated. </p>
+<p> The target method handle should not throw any exceptions. If the target method handle does throw an exception, the VM will exit with a non-zero exit code. To avoid the VM aborting due to an uncaught exception, clients could wrap all code in the target method handle in a try/catch block that catches any <a href="../../../../java.base/java/lang/throwable" title="class in java.lang"><code>Throwable</code></a>, for instance by using the <a href="../../../../java.base/java/lang/invoke/methodhandles#catchException(java.lang.invoke.MethodHandle,java.lang.Class,java.lang.invoke.MethodHandle)"><code>MethodHandles.catchException(MethodHandle, Class, MethodHandle)</code></a> method handle combinator, and handle exceptions as desired in the corresponding catch block.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>target</code> - the target method handle.</dd> <dd>
+<code>function</code> - the function descriptor.</dd> <dd>
+<code>scope</code> - the upcall stub scope.</dd> <dt>Returns:</dt> <dd>the native stub segment.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the target's method type and the function descriptor mismatch.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if <code>scope</code> has been already closed, or if access occurs from a thread other than the thread owning <code>scope</code>.</dd> </dl> </section><section class="detail" id="asVarArg(T)"> <h3 id="asVarArg(jdk.incubator.foreign.MemoryLayout)">asVarArg</h3> <pre class="lang-java" data-language="java">static &lt;T extends MemoryLayout&gt; T asVarArg(T layout)</pre> <div class="block">Returns a memory layout that is suitable to use as the layout for variadic arguments in a specialized function descriptor.</div> <dl class="notes"> <dt>Type Parameters:</dt> <dd>
+<code>T</code> - the memory layout type</dd> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout the adapt</dd> <dt>Returns:</dt> <dd>a potentially newly created layout with the right attributes</dd> </dl> </section><section class="detail" id="toCString(java.lang.String,jdk.incubator.foreign.SegmentAllocator)"> <h3>toCString</h3> <pre class="lang-java" data-language="java">static MemorySegment toCString(String str, SegmentAllocator allocator)</pre> <div class="block">Converts a Java string into a UTF-8 encoded, null-terminated C string, storing the result into a native memory segment allocated using the provided allocator. <p> This method always replaces malformed-input and unmappable-character sequences with this charset's default replacement byte array. The <a href="../../../../java.base/java/nio/charset/charsetencoder" title="class in java.nio.charset"><code>CharsetEncoder</code></a> class should be used when more control over the encoding process is required.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>str</code> - the Java string to be converted into a C string.</dd> <dd>
+<code>allocator</code> - the allocator to be used for the native segment allocation.</dd> <dt>Returns:</dt> <dd>a new native memory segment containing the converted C string.</dd> </dl> </section><section class="detail" id="toCString(java.lang.String,jdk.incubator.foreign.ResourceScope)"> <h3>toCString</h3> <pre class="lang-java" data-language="java">static MemorySegment toCString(String str, ResourceScope scope)</pre> <div class="block">Converts a Java string into a UTF-8 encoded, null-terminated C string, storing the result into a native memory segment associated with the provided resource scope. <p> This method always replaces malformed-input and unmappable-character sequences with this charset's default replacement byte array. The <a href="../../../../java.base/java/nio/charset/charsetencoder" title="class in java.nio.charset"><code>CharsetEncoder</code></a> class should be used when more control over the encoding process is required.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>str</code> - the Java string to be converted into a C string.</dd> <dd>
+<code>scope</code> - the resource scope to be associated with the returned segment.</dd> <dt>Returns:</dt> <dd>a new native memory segment containing the converted C string.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if <code>scope</code> has been already closed, or if access occurs from a thread other than the thread owning <code>scope</code>.</dd> </dl> </section><section class="detail" id="toJavaString(jdk.incubator.foreign.MemoryAddress)"> <h3>toJavaString</h3> <pre class="lang-java" data-language="java">static String toJavaString(MemoryAddress addr)</pre> <div class="block">Converts a UTF-8 encoded, null-terminated C string stored at given address into a Java string. <p> This method always replaces malformed-input and unmappable-character sequences with this charset's default replacement string. The <a href="../../../../java.base/java/nio/charset/charsetdecoder" title="class in java.nio.charset"><code>CharsetDecoder</code></a> class should be used when more control over the decoding process is required. </p>
+<p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>addr</code> - the address at which the string is stored.</dd> <dt>Returns:</dt> <dd>a Java string with the contents of the null-terminated C string at given address.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the size of the native string is greater than the largest string supported by the platform, or if <code>addr == MemoryAddress.NULL</code>.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="toJavaString(jdk.incubator.foreign.MemorySegment)"> <h3>toJavaString</h3> <pre class="lang-java" data-language="java">static String toJavaString(MemorySegment addr)</pre> <div class="block">Converts a UTF-8 encoded, null-terminated C string stored at given address into a Java string. <p> This method always replaces malformed-input and unmappable-character sequences with this charset's default replacement string. The <a href="../../../../java.base/java/nio/charset/charsetdecoder" title="class in java.nio.charset"><code>CharsetDecoder</code></a> class should be used when more control over the decoding process is required.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>addr</code> - the address at which the string is stored.</dd> <dt>Returns:</dt> <dd>a Java string with the contents of the null-terminated C string at given address.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the size of the native string is greater than the largest string supported by the platform.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the size of the native string is greater than the size of the segment associated with <code>addr</code>, or if <code>addr</code> is associated with a segment that is <em>not alive</em>.</dd> </dl> </section><section class="detail" id="allocateMemory(long)"> <h3>allocateMemory</h3> <pre class="lang-java" data-language="java">static MemoryAddress allocateMemory(long size)</pre> <div class="block">Allocates memory of given size using malloc. <p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>size</code> - memory size to be allocated</dd> <dt>Returns:</dt> <dd>addr memory address of the allocated memory</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/outofmemoryerror" title="class in java.lang">OutOfMemoryError</a></code> - if malloc could not allocate the required amount of native memory.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="freeMemory(jdk.incubator.foreign.MemoryAddress)"> <h3>freeMemory</h3> <pre class="lang-java" data-language="java">static void freeMemory(MemoryAddress addr)</pre> <div class="block">Frees the memory pointed by the given memory address. <p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>addr</code> - memory address of the native memory to be freed</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>addr == MemoryAddress.NULL</code>. <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.html</a>
+  </p>
+</div>

@@ -1,0 +1,15 @@
+<h1>18.11. Registering Event Log on <span class="systemitem">Windows</span>
+</h1>    <p>To register a <span class="systemitem">Windows</span> event log library with the operating system, issue this command:</p> <pre>
+<strong class="userinput">regsvr32 pgsql_library_directory/pgevent.dll</strong>
+</pre> <p>This creates registry entries used by the event viewer, under the default event source named <code class="literal">PostgreSQL</code>.</p> <p>To specify a different event source name (see <a class="xref" href="runtime-config-logging#GUC-EVENT-SOURCE">event_source</a>), use the <code class="literal">/n</code> and <code class="literal">/i</code> options:</p> <pre>
+<strong class="userinput">regsvr32 /n /i:event_source_name pgsql_library_directory/pgevent.dll</strong>
+</pre> <p>To unregister the event log library from the operating system, issue this command:</p> <pre>
+<strong class="userinput">regsvr32 /u [/i:event_source_name] pgsql_library_directory/pgevent.dll</strong>
+</pre> <blockquote class="note"> <h3 class="title">Note</h3> <p>To enable event logging in the database server, modify <a class="xref" href="runtime-config-logging#GUC-LOG-DESTINATION">log_destination</a> to include <code class="literal">eventlog</code> in <code class="filename">postgresql.conf</code>.</p> </blockquote>  <div class="navfooter">  <table summary="Navigation footer"> <tr> <td width="40%" align="left">
+<a accesskey="p" href="ssh-tunnels">Prev</a> </td> <td width="20%" align="center"><a accesskey="u" href="https://www.postgresql.org/docs/11/runtime.html">Up</a></td> <td width="40%" align="right"> <a accesskey="n" href="https://www.postgresql.org/docs/11/runtime-config.html">Next</a>
+</td> </tr> <tr> <td width="40%" align="left">18.10. Secure TCP/IP Connections with SSH Tunnels </td> <td width="20%" align="center"><a accesskey="h" href="https://www.postgresql.org/docs/11/index.html">Home</a></td> <td width="40%" align="right"> Chapter 19. Server Configuration</td> </tr> </table> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2019 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/11/event-log-registration.html" class="_attribution-link">https://www.postgresql.org/docs/11/event-log-registration.html</a>
+  </p>
+</div>

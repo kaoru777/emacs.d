@@ -1,0 +1,16 @@
+<h1>pg_verify_checksums</h1> <p>pg_verify_checksums — verify data checksums in a PostgreSQL database cluster</p>   <h2>Synopsis</h2> <div class="cmdsynopsis"> <p id="id-1.9.5.12.4.1"><code class="command">pg_verify_checksums</code> [<code>option</code>...] [[ <code class="option">-D</code> | <code class="option">--pgdata</code> ] <code>datadir</code>]</p> </div>  <div class="refsect1" id="R1-APP-PG_VERIFY_CHECKSUMS-1"> <h2>Description</h2> <p><code class="command">pg_verify_checksums</code> verifies data checksums in a PostgreSQL cluster. The server must be shut down cleanly before running pg_verify_checksums. The exit status is zero if there are no checksum errors, otherwise nonzero.</p> </div> <div class="refsect1" id="id-1.9.5.12.6"> <h2>Options</h2> <p>The following command-line options are available:</p> <div class="variablelist"> <dl class="variablelist"> <dt>
+<code class="option">-D directory</code><code class="option">--pgdata=directory</code>
+</dt> <dd> <p>Specifies the directory where the database cluster is stored.</p> </dd> <dt>
+<code class="option">-v</code><code class="option">--verbose</code>
+</dt> <dd> <p>Enable verbose output. Lists all checked files.</p> </dd> <dt><code class="option">-r relfilenode</code></dt> <dd> <p>Only validate checksums in the relation with specified relfilenode.</p> </dd> <dt>
+<code class="option">-V</code><code class="option">--version</code>
+</dt> <dd> <p>Print the pg_verify_checksums version and exit.</p> </dd> <dt>
+<code class="option">-?</code><code class="option">--help</code>
+</dt> <dd> <p>Show help about pg_verify_checksums command line arguments, and exit.</p> </dd> </dl> </div> </div> <div class="refsect1" id="id-1.9.5.12.7"> <h2>Environment</h2> <div class="variablelist"> <dl class="variablelist"> <dt><code class="envar">PGDATA</code></dt> <dd> <p>Specifies the directory where the database cluster is stored; can be overridden using the <code class="option">-D</code> option.</p> </dd> </dl> </div> </div>  <div class="navfooter">  <table summary="Navigation footer"> <tr> <td width="40%" align="left">
+<a accesskey="p" href="pgupgrade">Prev</a> </td> <td width="20%" align="center"><a accesskey="u" href="https://www.postgresql.org/docs/11/reference-server.html">Up</a></td> <td width="40%" align="right"> <a accesskey="n" href="pgwaldump">Next</a>
+</td> </tr> <tr> <td width="40%" align="left">pg_upgrade </td> <td width="20%" align="center"><a accesskey="h" href="https://www.postgresql.org/docs/11/index.html">Home</a></td> <td width="40%" align="right"> pg_waldump</td> </tr> </table> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2019 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/11/pgverifychecksums.html" class="_attribution-link">https://www.postgresql.org/docs/11/pgverifychecksums.html</a>
+  </p>
+</div>

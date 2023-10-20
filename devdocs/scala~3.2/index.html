@@ -1,0 +1,40 @@
+<h1>Scala 3</h1>
+
+<p>This is the documentation for the Scala standard library.</p>
+<h2> Package structure </h2>
+<p>The <a href="scala">scala</a> package contains core types like <a href="scala/int"><code>Int</code></a>, <a href="scala/float"><code>Float</code></a>, <a href="scala/array"><code>Array</code></a> or <a href="scala/option"><code>Option</code></a> which are accessible in all Scala compilation units without explicit qualification or imports.</p>
+<p>Notable packages include:</p>
+<ul>
+<li>
+<p><a href="scala/collection"><code>scala.collection</code></a> and its sub-packages contain Scala's collections framework</p>
+<ul>
+<li><p><a href="scala/collection/immutable"><code>scala.collection.immutable</code></a> - Immutable, sequential data-structures such as <a href="scala/collection/immutable/vector"><code>Vector</code></a>, <a href="scala/collection/immutable/list"><code>List</code></a>, <a href="scala/collection/immutable/range"><code>Range</code></a>, <a href="scala/collection/immutable/hashmap"><code>HashMap</code></a> or <a href="scala/collection/immutable/hashset"><code>HashSet</code></a></p></li>
+<li><p><a href="scala/collection/mutable"><code>scala.collection.mutable</code></a> - Mutable, sequential data-structures such as <a href="scala/collection/mutable/arraybuffer"><code>ArrayBuffer</code></a>, <a href="scala/collection/mutable/stringbuilder"><code>StringBuilder</code></a>, <a href="scala/collection/mutable/hashmap"><code>HashMap</code></a> or <a href="scala/collection/mutable/hashset"><code>HashSet</code></a></p></li>
+<li><p><a href="scala/collection/concurrent"><code>scala.collection.concurrent</code></a> - Mutable, concurrent data-structures such as <a href="scala/collection/concurrent/triemap"><code>TrieMap</code></a></p></li>
+</ul>
+</li>
+<li><p><a href="scala/concurrent"><code>scala.concurrent</code></a> - Primitives for concurrent programming such as <a href="scala/concurrent/future"><code>Futures</code></a> and <a href="scala/concurrent/promise"><code>Promises</code></a></p></li>
+<li><p><a href="scala/io"><code>scala.io</code></a> - Input and output operations</p></li>
+<li><p><a href="scala/math"><code>scala.math</code></a> - Basic math functions and additional numeric types like <a href="scala/math/bigint"><code>BigInt</code></a> and <a href="scala/math/bigdecimal"><code>BigDecimal</code></a></p></li>
+<li><p><a href="scala/sys"><code>scala.sys</code></a> - Interaction with other processes and the operating system</p></li>
+<li><p><a href="scala/util/matching"><code>scala.util.matching</code></a> - <a href="scala/util/matching/regex">Regular expressions</a></p></li>
+</ul>
+<p>Other packages exist. See the complete list on the right.</p>
+<p>Additional parts of the standard library are shipped as separate libraries. These include:</p>
+<ul>
+<li><p><a href="https://www.scala-lang.org/api/current/scala-reflect/scala/reflect/index.html"><code>scala.reflect</code></a> - Scala's reflection API (scala-reflect.jar)</p></li>
+<li><p><a href="https://github.com/scala/scala-xml"><code>scala.xml</code></a> - XML parsing, manipulation, and serialization (scala-xml.jar)</p></li>
+<li><p><a href="https://github.com/scala/scala-parallel-collections"><code>scala.collection.parallel</code></a> - Parallel collections (scala-parallel-collections.jar)</p></li>
+<li><p><a href="https://github.com/scala/scala-parser-combinators"><code>scala.util.parsing</code></a> - Parser combinators (scala-parser-combinators.jar)</p></li>
+<li><p><a href="https://github.com/scala/scala-swing"><code>scala.swing</code></a> - A convenient wrapper around Java's GUI framework called Swing (scala-swing.jar)</p></li>
+</ul>
+<h2> Automatic imports </h2>
+<p>Identifiers in the scala package and the <a href="scala/predef%24"><code>scala.Predef</code></a> object are always in scope by default.</p>
+<p>Some of these identifiers are type aliases provided as shortcuts to commonly used classes. For example, <code>List</code> is an alias for <a href="scala/collection/immutable/list"><code>scala.collection.immutable.List</code></a>.</p>
+<p>Other aliases refer to classes provided by the underlying platform. For example, on the JVM, <code>String</code> is an alias for <code>java.lang.String</code>.</p>
+<div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2002-2022 EPFL, with contributions from Lightbend.<br>Licensed under the Apache License, Version 2.0.<br>
+    <a href="https://scala-lang.org/api/3.2.0/index.html" class="_attribution-link">https://scala-lang.org/api/3.2.0/index.html</a>
+  </p>
+</div>

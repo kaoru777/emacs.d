@@ -1,0 +1,72 @@
+  <main role="main">    <h1>Interface Tag</h1>     <dl> <dt>All Known Subinterfaces:</dt> <dd>
+<code><a href="paramtag">ParamTag</a></code>, <code><a href="seetag">SeeTag</a></code>, <code><a href="serialfieldtag">SerialFieldTag</a></code>, <code><a href="throwstag">ThrowsTag</a></code>
+</dd> </dl>  <pre data-language="java">@Deprecated(since="9",
+            forRemoval=true)
+public interface Tag</pre> <div>
+<strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong> <div>The declarations in this package have been superseded by those in the package <code>jdk.javadoc.doclet</code>. For more information, see the <i>Migration Guide</i> in the documentation for that package.</div> </div> <p>Represents a simple documentation tag, such as @since, @author, @version. Given a tag (e.g. "@since 1.2"), holds tag name (e.g. "@since") and tag text (e.g. "1.2"). Tags with structure or which require special processing are handled by subclasses such as ParamTag (for @param), SeeTag (for @see and ), and ThrowsTag (for @throws).</p> <dl> <dt>See Also:</dt> <dd>
+<a href="seetag"><code>SeeTag</code></a>, <a href="paramtag"><code>ParamTag</code></a>, <a href="throwstag"><code>ThrowsTag</code></a>, <a href="serialfieldtag"><code>SerialFieldTag</code></a>, <a href="doc#tags()"><code>Doc.tags()</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="tag">Tag</a>[]</code></td> <th scope="row"><code><a href="#firstSentenceTags()">firstSentenceTags</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Return the first sentence of the comment as an array of tags.</p> </td> </tr> <tr id="i1"> <td><code><a href="doc">Doc</a></code></td> <th scope="row"><code><a href="#holder()">holder</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Return the containing <a href="doc"><code>Doc</code></a> of this Tag element.</p> </td> </tr> <tr id="i2"> <td><code><a href="tag">Tag</a>[]</code></td> <th scope="row"><code><a href="#inlineTags()">inlineTags</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>For a documentation comment with embedded <code>{@link}</code> tags, return an array of <code>Tag</code> objects.</p> </td> </tr> <tr id="i3"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#kind()">kind</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Return the kind of this tag.</p> </td> </tr> <tr id="i4"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#name()">name</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Return the name of this tag.</p> </td> </tr> <tr id="i5"> <td><code><a href="sourceposition">SourcePosition</a></code></td> <th scope="row"><code><a href="#position()">position</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Return the source position of this tag.</p> </td> </tr> <tr id="i6"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#text()">text</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Return the text of this tag, that is, the portion beyond tag name.</p> </td> </tr> <tr id="i7"> <td><code><a href="../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#toString()">toString</a>()</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Convert this object to a string.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="name()">name</h3> <pre data-language="java">String name()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Return the name of this tag. The name is the string starting with "@" that is used in a doc comment, such as <code>@return</code>. For inline tags, such as <code>{@link}</code>, the curly brackets are not part of the name, so in this example the name would be simply <code>@link</code>.</p> <dl> <dt>Returns:</dt> <dd>the name of this tag</dd> </dl>    <h3 id="holder()">holder</h3> <pre data-language="java">Doc holder()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Return the containing <a href="doc"><code>Doc</code></a> of this Tag element.</p> <dl> <dt>Returns:</dt> <dd>the containing <a href="doc"><code>Doc</code></a> of this Tag element</dd> </dl>    <h3 id="kind()">kind</h3> <pre data-language="java">String kind()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Return the kind of this tag. For most tags, <code>kind() == name()</code>; the following table lists those cases where there is more than one tag of a given kind: <table>  <thead> <tr>
+<th scope="col">
+<code>name()  </code> </th>
+<th scope="col">
+<code>kind()      </code> </th>
+</tr>
+</thead>  <tr>
+<th scope="row">
+<code>@exception  </code> </th>
+<td>
+<code>@throws </code> </td>
+</tr>
+<tr>
+<th scope="row">
+<code>@link       </code> </th>
+<td>
+<code>@see    </code> </td>
+</tr>
+<tr>
+<th scope="row">
+<code>@linkplain  </code> </th>
+<td>
+<code>@see    </code> </td>
+</tr>
+<tr>
+<th scope="row">
+<code>@see        </code> </th>
+<td>
+<code>@see    </code> </td>
+</tr>
+<tr>
+<th scope="row">
+<code>@serial     </code> </th>
+<td>
+<code>@serial </code> </td>
+</tr>
+<tr>
+<th scope="row">
+<code>@serialData </code> </th>
+<td>
+<code>@serial </code> </td>
+</tr>
+<tr>
+<th scope="row">
+<code>@throws     </code> </th>
+<td>
+<code>@throws </code> </td>
+</tr> </table></p> <dl> <dt>Returns:</dt> <dd>the kind of this tag.</dd> </dl>    <h3 id="text()">text</h3> <pre data-language="java">String text()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Return the text of this tag, that is, the portion beyond tag name.</p> <dl> <dt>Returns:</dt> <dd>the text of this tag</dd> </dl>    <h3 id="toString()">toString</h3> <pre data-language="java">String toString()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Convert this object to a string.</p> <dl> <dt>Overrides:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/object#toString()">toString</a></code> in class <code><a href="../../../../java.base/java/lang/object">Object</a></code>
+</dd> <dt>Returns:</dt> <dd>a string representation of the object.</dd> </dl>    <h3 id="inlineTags()">inlineTags</h3> <pre data-language="java">Tag[] inlineTags()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <div>
+<p>For a documentation comment with embedded <code>{@link}</code> tags, return an array of <code>Tag</code> objects. The entire doc comment is broken down into strings separated by <code>{@link}</code> tags, where each successive element of the array represents either a string or <code>{@link}</code> tag, in order, from start to end. Each string is represented by a <code>Tag</code> object of name "Text", where <a href="#text()"><code>text()</code></a> returns the string. Each <code>{@link}</code> tag is represented by a <a href="seetag"><code>SeeTag</code></a> of name "@link" and kind "@see". For example, given the following comment tag: </p>
+<p> <code>This is a {@link Doc commentlabel} example.</code> </p>
+<p> return an array of Tag objects: </p>
+<ul> <li> tags[0] is a <a href="tag"><code>Tag</code></a> with name "Text" and text consisting of "This is a " </li>
+<li> tags[1] is a <a href="seetag"><code>SeeTag</code></a> with name "@link", referenced class <code>Doc</code> and label "commentlabel" </li>
+<li> tags[2] is a <a href="tag"><code>Tag</code></a> with name "Text" and text consisting of " example." </li>
+</ul>
+</div> <dl> <dt>Returns:</dt> <dd>Tag[] array of tags</dd> <dt>See Also:</dt> <dd>
+<a href="paramtag"><code>ParamTag</code></a>, <a href="throwstag"><code>ThrowsTag</code></a>
+</dd> </dl>    <h3 id="firstSentenceTags()">firstSentenceTags</h3> <pre data-language="java">Tag[] firstSentenceTags()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Return the first sentence of the comment as an array of tags. Includes inline tags (i.e. {@link <i>reference</i>} tags) but not block tags. Each section of plain text is represented as a <a href="tag"><code>Tag</code></a> of kind "Text". Inline tags are represented as a <a href="seetag"><code>SeeTag</code></a> of kind "@link". If the locale is English language, the first sentence is determined by the rules described in the Java Language Specification (first version): "This sentence ends at the first period that is followed by a blank, tab, or line terminator or at the first tagline.", in addition a line will be terminated by paragraph and section terminating HTML tags: &lt;p&gt; &lt;/p&gt; &lt;h1&gt; &lt;h2&gt; &lt;h3&gt; &lt;h4&gt; &lt;h5&gt; &lt;h6&gt; &lt;hr&gt; &lt;pre&gt; or &lt;/pre&gt;. If the locale is not English, the sentence end will be determined by <a href="../../../../java.base/java/text/breakiterator#getSentenceInstance(java.util.Locale)"><code>BreakIterator.getSentenceInstance(Locale)</code></a>.</p> <dl> <dt>Returns:</dt> <dd>an array of <a href="tag"><code>Tag</code></a> objects representing the first sentence of the comment</dd> </dl>    <h3 id="position()">position</h3> <pre data-language="java">SourcePosition position()</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Return the source position of this tag.</p> <dl> <dt>Returns:</dt> <dd>the source position of this tag.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.javadoc/com/sun/javadoc/Tag.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.javadoc/com/sun/javadoc/Tag.html</a>
+  </p>
+</div>

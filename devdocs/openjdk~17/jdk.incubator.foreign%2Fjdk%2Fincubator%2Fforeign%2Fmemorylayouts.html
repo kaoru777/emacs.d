@@ -1,0 +1,120 @@
+<h1 title="Class MemoryLayouts" class="title">Class MemoryLayouts</h1> <div class="inheritance" title="Inheritance Tree">
+<a href="../../../../java.base/java/lang/object" title="class in java.lang">java.lang.Object</a> <div class="inheritance">jdk.incubator.foreign.MemoryLayouts</div> </div> <section class="class-description" id="class-description">  <pre class="lang-java" data-language="java">public final class MemoryLayouts extends Object</pre> <div class="block">This class defines useful layout constants. Some of the constants defined in this class are explicit in both size and byte order (see <a href="#BITS_64_BE"><code>BITS_64_BE</code></a>), and can therefore be used to explicitly and unambiguously specify the contents of a memory segment. Other constants make implicit byte order assumptions (see <a href="#JAVA_INT"><code>JAVA_INT</code></a>); as such, these constants make it easy to work with other serialization-centric APIs, such as <a href="../../../../java.base/java/nio/bytebuffer" title="class in java.nio"><code>ByteBuffer</code></a>.</div> </section> <section class="summary"> <section class="field-summary" id="field-summary"> <h2>Field Summary</h2>  <table class="summary-table three-column-summary">                                                                <tr>
+<th>Modifier and Type</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#ADDRESS" class="member-name-link">ADDRESS</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a machine address (e.g.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_16_BE" class="member-name-link">BITS_16_BE</a></code></td>
+<td> <div class="block">A value layout constant with size of two bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_16_LE" class="member-name-link">BITS_16_LE</a></code></td>
+<td> <div class="block">A value layout constant with size of two bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_32_BE" class="member-name-link">BITS_32_BE</a></code></td>
+<td> <div class="block">A value layout constant with size of four bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_32_LE" class="member-name-link">BITS_32_LE</a></code></td>
+<td> <div class="block">A value layout constant with size of four bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_64_BE" class="member-name-link">BITS_64_BE</a></code></td>
+<td> <div class="block">A value layout constant with size of eight bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_64_LE" class="member-name-link">BITS_64_LE</a></code></td>
+<td> <div class="block">A value layout constant with size of eight bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_8_BE" class="member-name-link">BITS_8_BE</a></code></td>
+<td> <div class="block">A value layout constant with size of one byte, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#BITS_8_LE" class="member-name-link">BITS_8_LE</a></code></td>
+<td> <div class="block">A value layout constant with size of one byte, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#JAVA_BYTE" class="member-name-link">JAVA_BYTE</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a Java <code>byte</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#JAVA_CHAR" class="member-name-link">JAVA_CHAR</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a Java <code>char</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#JAVA_DOUBLE" class="member-name-link">JAVA_DOUBLE</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a Java <code>double</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#JAVA_FLOAT" class="member-name-link">JAVA_FLOAT</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a Java <code>float</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#JAVA_INT" class="member-name-link">JAVA_INT</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a Java <code>int</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#JAVA_LONG" class="member-name-link">JAVA_LONG</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a Java <code>long</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="valuelayout" title="class in jdk.incubator.foreign">ValueLayout</a></code></td>
+<td><code><a href="#JAVA_SHORT" class="member-name-link">JAVA_SHORT</a></code></td>
+<td> <div class="block">A value layout constant whose size is the same as that of a Java <code>short</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a></code></td>
+<td><code><a href="#PAD_16" class="member-name-link">PAD_16</a></code></td>
+<td> <div class="block">A padding layout constant with size of two bytes.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a></code></td>
+<td><code><a href="#PAD_32" class="member-name-link">PAD_32</a></code></td>
+<td> <div class="block">A padding layout constant with size of four bytes.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a></code></td>
+<td><code><a href="#PAD_64" class="member-name-link">PAD_64</a></code></td>
+<td> <div class="block">A padding layout constant with size of eight bytes.</div> </td>
+</tr>
+<tr>
+<td><code>static final <a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a></code></td>
+<td><code><a href="#PAD_8" class="member-name-link">PAD_8</a></code></td>
+<td> <div class="block">A padding layout constant with size of one byte.</div> </td>
+</tr>
+</table> </section><section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div class="inherited-list"> <h3 id="methods-inherited-from-class-java.lang.Object">Methods declared in class java.lang.<a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a>
+</h3> <code><a href="../../../../java.base/java/lang/object#clone()">clone</a>, <a href="../../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a>, <a href="../../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../../java.base/java/lang/object#hashCode()">hashCode</a>, <a href="../../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../../java.base/java/lang/object#toString()">toString</a>, <a href="../../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long,int)">wait</a></code>
+</div> </section> </section> <section class="details"> <section class="field-details" id="field-detail"> <h2>Field Details</h2>  </section><section class="detail" id="BITS_8_LE"> <h3>BITS_8_LE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_8_LE</pre> <div class="block">A value layout constant with size of one byte, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </section><section class="detail" id="BITS_16_LE"> <h3>BITS_16_LE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_16_LE</pre> <div class="block">A value layout constant with size of two bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </section><section class="detail" id="BITS_32_LE"> <h3>BITS_32_LE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_32_LE</pre> <div class="block">A value layout constant with size of four bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </section><section class="detail" id="BITS_64_LE"> <h3>BITS_64_LE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_64_LE</pre> <div class="block">A value layout constant with size of eight bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#LITTLE_ENDIAN"><code>ByteOrder.LITTLE_ENDIAN</code></a>.</div> </section><section class="detail" id="BITS_8_BE"> <h3>BITS_8_BE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_8_BE</pre> <div class="block">A value layout constant with size of one byte, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </section><section class="detail" id="BITS_16_BE"> <h3>BITS_16_BE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_16_BE</pre> <div class="block">A value layout constant with size of two bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </section><section class="detail" id="BITS_32_BE"> <h3>BITS_32_BE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_32_BE</pre> <div class="block">A value layout constant with size of four bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </section><section class="detail" id="BITS_64_BE"> <h3>BITS_64_BE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout BITS_64_BE</pre> <div class="block">A value layout constant with size of eight bytes, and byte order set to <a href="../../../../java.base/java/nio/byteorder#BIG_ENDIAN"><code>ByteOrder.BIG_ENDIAN</code></a>.</div> </section><section class="detail" id="PAD_8"> <h3>PAD_8</h3> <pre class="lang-java" data-language="java">public static final MemoryLayout PAD_8</pre> <div class="block">A padding layout constant with size of one byte.</div> </section><section class="detail" id="PAD_16"> <h3>PAD_16</h3> <pre class="lang-java" data-language="java">public static final MemoryLayout PAD_16</pre> <div class="block">A padding layout constant with size of two bytes.</div> </section><section class="detail" id="PAD_32"> <h3>PAD_32</h3> <pre class="lang-java" data-language="java">public static final MemoryLayout PAD_32</pre> <div class="block">A padding layout constant with size of four bytes.</div> </section><section class="detail" id="PAD_64"> <h3>PAD_64</h3> <pre class="lang-java" data-language="java">public static final MemoryLayout PAD_64</pre> <div class="block">A padding layout constant with size of eight bytes.</div> </section><section class="detail" id="ADDRESS"> <h3>ADDRESS</h3> <pre class="lang-java" data-language="java">public static final ValueLayout ADDRESS</pre> <div class="block">A value layout constant whose size is the same as that of a machine address (e.g. <code>size_t</code>), and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </section><section class="detail" id="JAVA_BYTE"> <h3>JAVA_BYTE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout JAVA_BYTE</pre> <div class="block">A value layout constant whose size is the same as that of a Java <code>byte</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </section><section class="detail" id="JAVA_CHAR"> <h3>JAVA_CHAR</h3> <pre class="lang-java" data-language="java">public static final ValueLayout JAVA_CHAR</pre> <div class="block">A value layout constant whose size is the same as that of a Java <code>char</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </section><section class="detail" id="JAVA_SHORT"> <h3>JAVA_SHORT</h3> <pre class="lang-java" data-language="java">public static final ValueLayout JAVA_SHORT</pre> <div class="block">A value layout constant whose size is the same as that of a Java <code>short</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </section><section class="detail" id="JAVA_INT"> <h3>JAVA_INT</h3> <pre class="lang-java" data-language="java">public static final ValueLayout JAVA_INT</pre> <div class="block">A value layout constant whose size is the same as that of a Java <code>int</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </section><section class="detail" id="JAVA_LONG"> <h3>JAVA_LONG</h3> <pre class="lang-java" data-language="java">public static final ValueLayout JAVA_LONG</pre> <div class="block">A value layout constant whose size is the same as that of a Java <code>long</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. The alignment of this layout (see <a href="memorylayout#byteAlignment()"><code>MemoryLayout.byteAlignment()</code></a> is platform-dependent, so that the following invariant holds: <blockquote><pre class="lang-java" data-language="java"><code>
+    MemoryLayouts.JAVA_LONG.byteAlignment() == MemoryLayouts.ADDRESS.byteSize();
+ </code></pre></blockquote>
+</div> </section><section class="detail" id="JAVA_FLOAT"> <h3>JAVA_FLOAT</h3> <pre class="lang-java" data-language="java">public static final ValueLayout JAVA_FLOAT</pre> <div class="block">A value layout constant whose size is the same as that of a Java <code>float</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>.</div> </section><section class="detail" id="JAVA_DOUBLE"> <h3>JAVA_DOUBLE</h3> <pre class="lang-java" data-language="java">public static final ValueLayout JAVA_DOUBLE</pre> <div class="block">A value layout constant whose size is the same as that of a Java <code>double</code>, and byte order set to <a href="../../../../java.base/java/nio/byteorder#nativeOrder()"><code>ByteOrder.nativeOrder()</code></a>. The alignment of this layout (see <a href="memorylayout#byteAlignment()"><code>MemoryLayout.byteAlignment()</code></a> is platform-dependent, so that the following invariant holds: <blockquote><pre class="lang-java" data-language="java"><code>
+    MemoryLayouts.JAVA_DOUBLE.byteAlignment() == MemoryLayouts.ADDRESS.byteSize();
+ </code></pre></blockquote>
+</div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemoryLayouts.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemoryLayouts.html</a>
+  </p>
+</div>

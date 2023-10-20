@@ -1,0 +1,75 @@
+ <main role="main">   <h1>Package jdk.jfr</h1>   <section role="region"> <div id="package.description">
+<p>This package provides classes to create events and control Flight Recorder. </p>
+<p> <b>Defining events</b> </p>
+<p> Flight Recorder collects data as events. An event has a time stamp, duration and usually an application-specific payload, useful for diagnosing the running application up to the failure or crash. </p>
+<p> To define a Flight Recorder event, extend <a href="event"><code>Event</code></a> and add fields that matches the data types of the payload. Metadata about fields, such as labels, descriptions and units, can be added by using the annotations available in the <code>jdk.jfr</code> package, or by using a user-defined annotation that has the <a href="metadatadefinition"><code>MetadataDefinition</code></a> annotation. </p>
+<p> After an event class is defined, instances can be created (event objects). Data is stored in the event by assigning data to fields. Event timing can be explicitly controlled by using the <code>begin</code> and <code>end</code> methods available in the <code>Event</code> class. </p>
+<p> Gathering data to store in an event can be expensive. The <a href="event#shouldCommit()"><code>Event.shouldCommit()</code></a> method can be used to verify whether an event instance would actually be written to the system when the <code>Event#commit()</code> method is invoked. If <a href="event#shouldCommit()"><code>Event.shouldCommit()</code></a> returns <code>false</code>, then those operations can be avoided. </p>
+<p> Sometimes the field layout of an event is not known at compile time. In that case, an event can be dynamically defined. However, dynamic events might not have the same level of performance as statically defined ones and tools might not be able to identify and visualize the data without knowing the layout. </p>
+<p> To dynamically define an event, use the <a href="eventfactory"><code>EventFactory</code></a> class and define fields by using the <a href="valuedescriptor"><code>ValueDescriptor</code></a> class, and define annotations by using the <a href="annotationelement"><code>AnnotationElement</code></a> class. Use the factory to allocate an event and the <a href="event#set(int,java.lang.Object)"><code>Event.set(int, Object)</code></a> method to populate it. </p>
+<p> <b>Controlling Flight Recorder</b> </p>
+<p> Flight Recorder can be controlled locally by using the <code>jcmd</code> command line tool or remotely by using the <code>FlightRecorderMXBean</code> interface, registered in the platform MBeanServer. When direct programmatic access is needed, a Flight Recorder instance can be obtained by invoking <a href="flightrecorder#getFlightRecorder()"><code>FlightRecorder.getFlightRecorder()</code></a> and a recording created by using <a href="recording"><code>Recording</code></a> class, from which the amount of data to record is configured. </p>
+<p> <b>Settings and configuration</b> </p>
+<p> A setting consists of a name/value pair, where <em>name</em> specifies the event and setting to configure, and the <em>value</em> specifies what to set it to. </p>
+<p> The name can be formed in the following ways: </p>
+<p> <code>
+   &lt;event-name&gt; + "#" + &lt;setting-name&gt;
+ </code> </p>
+<p> or </p>
+<p> <code>
+   &lt;event-id&gt; + "#" + &lt;setting-name&gt;
+ </code> </p>
+<p> For example, to set the sample interval of the CPU Load event to once every second, use the name <code>"jdk.CPULoad#period"</code> and the value <code>"1 s"</code>. If multiple events use the same name, for example if an event class is loaded in multiple class loaders, and differentiation is needed between them, then the name is <code>"56#period"</code>. The ID for an event is obtained by invoking <a href="eventtype#getId()"><code>EventType.getId()</code></a> method and is valid for the Java Virtual Machine instance that the event is registered in. </p>
+<p> A list of available event names is retrieved by invoking <a href="flightrecorder#getEventTypes()"><code>FlightRecorder.getEventTypes()</code></a> and <a href="eventtype#getName()"><code>EventType.getName()</code></a>. A list of available settings for an event type is obtained by invoking <a href="eventtype#getSettingDescriptors()"><code>EventType.getSettingDescriptors()</code></a> and <a href="valuedescriptor#getName()"><code>ValueDescriptor.getName()</code></a>. </p>
+<p> <b>Predefined settings</b> </p>
+<table>  <thead> <tr> <th scope="col">Name</th> <th scope="col">Description</th> <th scope="col">Default value</th> <th scope="col">Format</th> <th scope="col">Example values</th> </tr> </thead>  <tr> <th scope="row"><code>enabled</code></th> <td>Specifies whether the event is recorded</td> <td><code>"true"</code></td> <td>String representation of a <code>Boolean</code> (<code>"true"</code> or <code>"false"</code>)</td> <td>
+<code>"true"</code><br> <code>"false"</code>
+</td> </tr> <tr> <th scope="row"><code>threshold</code></th> <td>Specifies the duration below which an event is not recorded</td> <td>
+<code>"0"</code> (no limit)</td> <td>
+<code>"0"</code> if no threshold is used, otherwise a string representation of a positive <code>Long</code> followed by a space and one of the following units: <ul style="list-style-type:none"> <li>
+<code>"ns"</code> (nanoseconds) </li>
+<li>
+<code>"us"</code> (microseconds) </li>
+<li>
+<code>"ms"</code> (milliseconds) </li>
+<li>
+<code>"s"</code> (seconds) </li>
+<li>
+<code>"m"</code> (minutes) </li>
+<li>
+<code>"h"</code> (hours) </li>
+<li>
+<code>"d"</code> (days) </li>
+</ul> </td>
+<td>
+<code>"0"</code><br> <code>"10 ms"</code><br> "1 s"</td> </tr> <tr> <th scope="row"><code>period</code></th> <td>Specifies the interval at which the event is emitted, if it is periodic</td> <td><code>"everyChunk"</code></td> <td>
+<code>"everyChunk"</code>, if a periodic event should be emitted with every file rotation, otherwise a string representation of a positive <code>Long</code> value followed by an empty space and one of the following units: <ul style="list-style-type:none"> <li>
+<code>"ns"</code> (nanoseconds) </li>
+<li>
+<code>"us"</code> (microseconds) </li>
+<li>
+<code>"ms"</code> (milliseconds) </li>
+<li>
+<code>"s"</code> (seconds) </li>
+<li>
+<code>"m"</code> (minutes) </li>
+<li>
+<code>"h"</code> (hours) </li>
+<li>
+<code>"d"</code> (days) </li>
+</ul> </td> <td>
+<code>"20 ms"</code><br> <code>"1 s"</code><br> <code>"everyChunk"</code>
+</td> </tr> <tr> <th scope="row"><code>stackTrace</code></th> <td>Specifies whether the stack trace from the <code>Event#commit()</code> method is recorded</td> <td><code>"true"</code></td> <td>String representation of a <code>Boolean</code> (<code>"true"</code> or <code>"false"</code>)</td> <td>
+<code>"true"</code>,<br> <code>"false"</code>
+</td> </tr>  </table> <p> <b>Null-handling</b> </p>
+<p> All methods define whether they accept or return <code>null</code> in the Javadoc. Typically this is expressed as <code>"not null"</code>. If a <code>null</code> parameter is used where it is not allowed, a <code>java.lang.NullPointerException</code> is thrown. If a <code>null</code> parameters is passed to a method that throws other exceptions, such as <code>java.io.IOException</code>, the <code>java.lang.NullPointerException</code> takes precedence, unless the Javadoc for the method explicitly states how <code>null</code> is handled, i.e. by throwing <code>java.lang.IllegalArgumentException</code>.</p>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl> </section> <table>  <tr> <th scope="col">Interface</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="flightrecorderlistener">FlightRecorderListener</a></th> <td> <p>Callback interface to monitor Flight Recorder's life cycle.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Class</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="annotationelement">AnnotationElement</a></th> <td> <p>Describes event metadata, such as labels, descriptions and units.</p> </td> </tr> <tr> <th scope="row"><a href="configuration">Configuration</a></th> <td> <p>A collection of settings and metadata describing the configuration.</p> </td> </tr> <tr> <th scope="row"><a href="event">Event</a></th> <td> <p>Base class for events, to be subclassed in order to define events and their fields.</p> </td> </tr> <tr> <th scope="row"><a href="eventfactory">EventFactory</a></th> <td> <p>Class for defining an event at runtime.</p> </td> </tr> <tr> <th scope="row"><a href="eventsettings">EventSettings</a></th> <td> <p>Convenience class for applying event settings to a recording.</p> </td> </tr> <tr> <th scope="row"><a href="eventtype">EventType</a></th> <td> <p>Describes an event, its fields, settings and annotations.</p> </td> </tr> <tr> <th scope="row"><a href="flightrecorder">FlightRecorder</a></th> <td> <p>Class for accessing, controlling, and managing Flight Recorder.</p> </td> </tr> <tr> <th scope="row"><a href="flightrecorderpermission">FlightRecorderPermission</a></th> <td> <p>Permission for controlling access to Flight Recorder.</p> </td> </tr> <tr> <th scope="row"><a href="recording">Recording</a></th> <td> <p>Provides means to configure, start, stop and dump recording data to disk.</p> </td> </tr> <tr> <th scope="row"><a href="settingcontrol">SettingControl</a></th> <td> <p>Base class to extend to create setting controls.</p> </td> </tr> <tr> <th scope="row"><a href="settingdescriptor">SettingDescriptor</a></th> <td> <p>Describes an event setting.</p> </td> </tr> <tr> <th scope="row"><a href="valuedescriptor">ValueDescriptor</a></th> <td> <p>Describes the event fields and annotation elements.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Enum</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="recordingstate">RecordingState</a></th> <td> <p>Indicates a state in the life cycle of a recording.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Annotation Type</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="booleanflag">BooleanFlag</a></th> <td> <p>Event field annotation, specifies that the value is a boolean flag, a <code>true</code> or <code>false</code> value</p> </td> </tr> <tr> <th scope="row"><a href="category">Category</a></th> <td> <p>Event annotation, to associate the event type with a category, in the format of a human-readable path.</p> </td> </tr> <tr> <th scope="row"><a href="contenttype">ContentType</a></th> <td> <p>Meta annotation, specifies that an annotation represents a content type, such as a time span or a frequency.</p> </td> </tr> <tr> <th scope="row"><a href="dataamount">DataAmount</a></th> <td> <p>Event field annotation, specifies that a value represents an amount of data (for example, bytes).</p> </td> </tr> <tr> <th scope="row"><a href="description">Description</a></th> <td> <p>Annotation that describes an element by using a sentence or two.</p> </td> </tr> <tr> <th scope="row"><a href="enabled">Enabled</a></th> <td> <p>Event annotation, determines if an event should be enabled by default.</p> </td> </tr> <tr> <th scope="row"><a href="experimental">Experimental</a></th> <td> <p>Annotation that specifies that an element is experimental and may change without notice.</p> </td> </tr> <tr> <th scope="row"><a href="frequency">Frequency</a></th> <td> <p>Event field annotation, specifies that the value is a frequency, measured in Hz.</p> </td> </tr> <tr> <th scope="row"><a href="label">Label</a></th> <td> <p>Annotation that sets a human-readable name for an element (for example, <code>"Maximum Throughput"</code>).</p> </td> </tr> <tr> <th scope="row"><a href="memoryaddress">MemoryAddress</a></th> <td> <p>Event field annotation, specifies that the value is a memory address.</p> </td> </tr> <tr> <th scope="row"><a href="metadatadefinition">MetadataDefinition</a></th> <td> <p>Meta annotation for defining new types of event metadata.</p> </td> </tr> <tr> <th scope="row"><a href="name">Name</a></th> <td> <p>Annotation that overrides the default name for an element (for example, when the default package for an event is not appropriate).</p> </td> </tr> <tr> <th scope="row"><a href="percentage">Percentage</a></th> <td> <p>Event field annotation to use on fractions, typically between <code>0.0</code> and <code>1.0</code>, to specify that the value is a percentage.</p> </td> </tr> <tr> <th scope="row"><a href="period">Period</a></th> <td> <p>Event annotation, specifies the default setting value for a periodic event.</p> </td> </tr> <tr> <th scope="row"><a href="registered">Registered</a></th> <td> <p>Event annotation, for programmatic event registration.</p> </td> </tr> <tr> <th scope="row"><a href="relational">Relational</a></th> <td> <p>Meta annotation for relational annotations, to be used on an annotation.</p> </td> </tr> <tr> <th scope="row"><a href="settingdefinition">SettingDefinition</a></th> <td> <p>Annotation that specifies that a method in an event class should be used to filter out events.</p> </td> </tr> <tr> <th scope="row"><a href="stacktrace">StackTrace</a></th> <td> <p>Event annotation, determines whether an event by default has a stack trace or not.</p> </td> </tr> <tr> <th scope="row"><a href="threshold">Threshold</a></th> <td> <p>Event annotation, specifies the default duration below which an event is not recorded (for example, <code>"20 ms"</code>).</p> </td> </tr> <tr> <th scope="row"><a href="timespan">Timespan</a></th> <td> <p>Event field annotation, specifies that the value is a duration.</p> </td> </tr> <tr> <th scope="row"><a href="timestamp">Timestamp</a></th> <td> <p>Event field annotation, specifies that the value is a point in time.</p> </td> </tr> <tr> <th scope="row"><a href="transitionfrom">TransitionFrom</a></th> <td> <p>Event field annotation, specifies that the event transitioned from a thread.</p> </td> </tr> <tr> <th scope="row"><a href="transitionto">TransitionTo</a></th> <td> <p>Event field annotation, specifies that the event will soon transition to a thread.</p> </td> </tr> <tr> <th scope="row"><a href="unsigned">Unsigned</a></th> <td> <p>Event field annotation, specifies that the value is of an unsigned data type.</p> </td> </tr>  </table>
+  </main> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/package-summary.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/package-summary.html</a>
+  </p>
+</div>

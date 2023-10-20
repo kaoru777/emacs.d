@@ -1,0 +1,24 @@
+  <main role="main">    <h1>Interface Reporter</h1>      <pre data-language="java">public interface Reporter</pre> <p>This interface provides error, warning and notice reporting.</p> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#print(javax.tools.Diagnostic.Kind,com.sun.source.util.DocTreePath,java.lang.String)">print</a>​(<a href="../../../../java.compiler/javax/tools/diagnostic.kind">Diagnostic.Kind</a> kind,
+     <a href="../../../../jdk.compiler/com/sun/source/util/doctreepath">DocTreePath</a> path,
+     <a href="../../../../java.base/java/lang/string">String</a> msg)</code></th> <td> <p>Print an error message and increment error count.</p> </td> </tr> <tr id="i1"> <td><code>void</code></td> <th scope="row"><code><a href="#print(javax.tools.Diagnostic.Kind,java.lang.String)">print</a>​(<a href="../../../../java.compiler/javax/tools/diagnostic.kind">Diagnostic.Kind</a> kind,
+     <a href="../../../../java.base/java/lang/string">String</a> msg)</code></th> <td> <p>Print error message and increment error count.</p> </td> </tr> <tr id="i2"> <td><code>void</code></td> <th scope="row"><code><a href="#print(javax.tools.Diagnostic.Kind,javax.lang.model.element.Element,java.lang.String)">print</a>​(<a href="../../../../java.compiler/javax/tools/diagnostic.kind">Diagnostic.Kind</a> kind,
+     <a href="../../../../java.compiler/javax/lang/model/element/element">Element</a> e,
+     <a href="../../../../java.base/java/lang/string">String</a> msg)</code></th> <td> <p>Print an error message and increment error count.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="print(javax.tools.Diagnostic.Kind,java.lang.String)">print</h3> <pre data-language="java">void print(Diagnostic.Kind kind,
+           String msg)</pre> <p>Print error message and increment error count.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>kind</code> - specify the diagnostic kind</dd> <dd>
+<code>msg</code> - message to print</dd> </dl>    <h3 id="print(javax.tools.Diagnostic.Kind,com.sun.source.util.DocTreePath,java.lang.String)">print</h3> <pre data-language="java">void print(Diagnostic.Kind kind,
+           DocTreePath path,
+           String msg)</pre> <p>Print an error message and increment error count.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>kind</code> - specify the diagnostic kind</dd> <dd>
+<code>path</code> - the DocTreePath of item where the error occurs</dd> <dd>
+<code>msg</code> - message to print</dd> </dl>    <h3 id="print(javax.tools.Diagnostic.Kind,javax.lang.model.element.Element,java.lang.String)">print</h3> <pre data-language="java">void print(Diagnostic.Kind kind,
+           Element e,
+           String msg)</pre> <p>Print an error message and increment error count.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>kind</code> - specify the diagnostic kind</dd> <dd>
+<code>e</code> - the Element for which the error occurs</dd> <dd>
+<code>msg</code> - message to print</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.javadoc/jdk/javadoc/doclet/Reporter.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.javadoc/jdk/javadoc/doclet/Reporter.html</a>
+  </p>
+</div>

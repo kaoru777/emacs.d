@@ -1,0 +1,33 @@
+<h1 id="module-ActiveRecord::Type" class="module"> module ActiveRecord::Type </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section class="constants-list"> <header> <h3>Constants</h3> </header> <dl> <dt id="BigInteger">BigInteger </dt>
+
+<dt id="Binary">Binary </dt>
+
+<dt id="Boolean">Boolean </dt>
+<dd>
+<h2 id="label-Active+Model+Type+Boolean">Active Model Type Boolean</h2> <p>A class that behaves like a boolean type, including rules for coercion of user input.</p> <h3 id="label-Coercion">Coercion</h3> <p>Values set from user input will first be coerced into the appropriate ruby type. Coercion behavior is roughly mapped to Ruby's boolean semantics.</p> <ul>
+<li> <p>“false”, “f” , “0”, <code>0</code> or any other value in <code>FALSE_VALUES</code> will be coerced to <code>false</code></p> </li>
+<li> <p>Empty strings are coerced to <code>nil</code></p> </li>
+<li> <p>All other values will be coerced to <code>true</code></p> </li>
+</ul> </dd>
+<dt id="Decimal">Decimal </dt>
+
+<dt id="Float">Float </dt>
+
+<dt id="ImmutableString">ImmutableString </dt>
+
+<dt id="Integer">Integer </dt>
+
+<dt id="String">String </dt>
+
+<dt id="Value">Value </dt>
+
+</dl> </section> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-register"> <span class="method-name">register</span><span class="method-args">(type_name, klass = nil, **options, &amp;block)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="register-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/type.rb, line 37
+def register(type_name, klass = nil, **options, &amp;block)
+  registry.register(type_name, klass, **options, &amp;block)
+end</pre> </div> <p>Add a new type to the registry, allowing it to be referenced as a symbol by <a href="attributes/classmethods#method-i-attribute">ActiveRecord::Base.attribute</a>. If your type is only meant to be used with a specific database adapter, you can do so by passing <code>adapter: :postgresql</code>. If your type has the same name as a native type for the current adapter, an exception will be raised unless you specify an <code>:override</code> option. <code>override: true</code> will cause your type to be used instead of the native type. <code>override: false</code> will cause the native type to be used over yours if one exists.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

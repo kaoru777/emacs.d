@@ -1,0 +1,37 @@
+<h1 id="class-ActionDispatch::PermissionsPolicy::Middleware" class="class"> class ActionDispatch::PermissionsPolicy::Middleware </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../../object">Object</a></dd>
+</dl>  <section id="5Buntitled-5D" class="documentation-section"> <section class="constants-list"> <header> <h3>Constants</h3> </header> <dl> <dt id="CONTENT_TYPE">CONTENT_TYPE </dt>
+
+<dt id="POLICY">POLICY </dt>
+<dd>
+<p>The Feature-Policy header has been renamed to Permissions-Policy. The Permissions-Policy requires a different implementation and isn't yet supported by all browsers. To avoid having to rename this middleware in the future we use the new name for the middleware but keep the old header name and implementation for now.</p> </dd>
+</dl> </section> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(app)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File actionpack/lib/action_dispatch/http/permissions_policy.rb, line 16
+def initialize(app)
+  @app = app
+end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-call"> <span class="method-name">call</span><span class="method-args">(env)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="call-source"> <pre class="ruby" data-language="ruby"># File actionpack/lib/action_dispatch/http/permissions_policy.rb, line 20
+def call(env)
+  request = ActionDispatch::Request.new(env)
+  _, headers, _ = response = @app.call(env)
+
+  return response unless html_response?(headers)
+  return response if policy_present?(headers)
+
+  if policy = request.permissions_policy
+    headers[POLICY] = policy.build(request.controller_instance)
+  end
+
+  if policy_empty?(policy)
+    headers.delete(POLICY)
+  end
+
+  response
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

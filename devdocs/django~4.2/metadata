@@ -1,0 +1,2 @@
+(1 (name . "Django") (slug . "django~4.2") (type . "sphinx") (links (home . "https://www.djangoproject.com/") (code . "https://github.com/django/django")) (version . "4.2") (release . "4.2") (mtime . 1681330932) (db_size . 6717476) (attribution . "&copy; Django Software Foundation and individual contributors<br>
+      Licensed under the BSD License."))

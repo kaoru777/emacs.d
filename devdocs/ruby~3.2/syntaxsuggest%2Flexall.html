@@ -1,0 +1,53 @@
+<h1 id="class-SyntaxSuggest::LexAll" class="class"> class SyntaxSuggest::LexAll </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../object">Object</a></dd>
+<dt>Included modules:</dt>
+<dd class="meta-includes"><a class="include" href="../enumerable">Enumerable</a></dd>
+</dl> <section class="description"> <p><a href="../ripper#method-c-lex"><code>Ripper.lex</code></a> is not guaranteed to lex the entire source document</p> <p>lex = <a href="lexall#method-c-new"><code>LexAll.new</code></a>(source: source) lex.each do |value|</p> <pre class="ruby" data-language="ruby">puts value.line
+</pre> <p>end</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(source:, source_lines: nil)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/lex_all.rb, line 13
+def initialize(source:, source_lines: nil)
+  @lex = Ripper::Lexer.new(source, "-", 1).parse.sort_by(&amp;:pos)
+  lineno = @lex.last.pos.first + 1
+  source_lines ||= source.lines
+  last_lineno = source_lines.length
+
+  until lineno &gt;= last_lineno
+    lines = source_lines[lineno..-1]
+
+    @lex.concat(
+      Ripper::Lexer.new(lines.join, "-", lineno + 1).parse.sort_by(&amp;:pos)
+    )
+    lineno = @lex.last.pos.first + 1
+  end
+
+  last_lex = nil
+  @lex.map! { |elem|
+    last_lex = LexValue.new(elem.pos.first, elem.event, elem.tok, elem.state, last_lex)
+  }
+end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-5B-5D"> <span class="method-name">[]</span><span class="method-args">(index)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="5B-5D-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/lex_all.rb, line 45
+def [](index)
+  @lex[index]
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-each"> <span class="method-name">each</span><span class="method-args">() { |x| ... }</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="each-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/lex_all.rb, line 38
+def each
+  return @lex.each unless block_given?
+  @lex.each do |x|
+    yield x
+  end
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-last"> <span class="method-name">last</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="last-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/lex_all.rb, line 49
+def last
+  @lex.last
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-to_a"> <span class="method-name">to_a</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="to_a-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/lex_all.rb, line 34
+def to_a
+  @lex
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

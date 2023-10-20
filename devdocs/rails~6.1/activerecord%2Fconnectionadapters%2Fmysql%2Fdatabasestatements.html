@@ -1,0 +1,57 @@
+<h1 id="module-ActiveRecord::ConnectionAdapters::MySQL::DatabaseStatements" class="module"> module ActiveRecord::ConnectionAdapters::MySQL::DatabaseStatements </h1>  <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-exec_delete"> <span class="method-name">exec_delete</span><span class="method-args">(sql, name = nil, binds = [])</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="exec_delete-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/connection_adapters/mysql/database_statements.rb, line 73
+def exec_delete(sql, name = nil, binds = [])
+  if without_prepared_statement?(binds)
+    @lock.synchronize do
+      execute_and_free(sql, name) { @connection.affected_rows }
+    end
+  else
+    exec_stmt_and_free(sql, name, binds) { |stmt| stmt.affected_rows }
+  end
+end</pre> </div>  </div> <div class="aliases"> Also aliased as: <a href="databasestatements#method-i-exec_update">exec_update</a> </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-exec_query"> <span class="method-name">exec_query</span><span class="method-args">(sql, name = "SQL", binds = [], prepare: false)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="exec_query-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/connection_adapters/mysql/database_statements.rb, line 53
+def exec_query(sql, name = "SQL", binds = [], prepare: false)
+  if without_prepared_statement?(binds)
+    execute_and_free(sql, name) do |result|
+      if result
+        build_result(columns: result.fields, rows: result.to_a)
+      else
+        build_result(columns: [], rows: [])
+      end
+    end
+  else
+    exec_stmt_and_free(sql, name, binds, cache_stmt: prepare) do |_, result|
+      if result
+        build_result(columns: result.fields, rows: result.to_a)
+      else
+        build_result(columns: [], rows: [])
+      end
+    end
+  end
+end</pre> </div>  </div> </div> <div class="method-detail method-alias"> <div class="method-heading" id="method-i-exec_update"> <span class="method-name">exec_update</span><span class="method-args">(sql, name = nil, binds = [])</span> </div>  <div class="aliases"> Alias for: <a href="databasestatements#method-i-exec_delete">exec_delete</a> </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-execute"> <span class="method-name">execute</span><span class="method-args">(sql, name = nil)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="execute-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/connection_adapters/mysql/database_statements.rb, line 41
+def execute(sql, name = nil)
+  if preventing_writes? &amp;&amp; write_query?(sql)
+    raise ActiveRecord::ReadOnlyError, "Write query attempted while in readonly mode: #{sql}"
+  end
+
+  # make sure we carry over any changes to ActiveRecord::Base.default_timezone that have been
+  # made since we established the connection
+  @connection.query_options[:database_timezone] = ActiveRecord::Base.default_timezone
+
+  super
+end</pre> </div> <p>Executes the SQL statement in the context of this connection.</p> <div class="method-calls-super"> Calls superclass method </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-explain"> <span class="method-name">explain</span><span class="method-args">(arel, binds = [])</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="explain-source"> <pre class="ruby" data-language="ruby"># File activerecord/lib/active_record/connection_adapters/mysql/database_statements.rb, line 31
+def explain(arel, binds = [])
+  sql     = "EXPLAIN #{to_sql(arel, binds)}"
+  start   = Concurrent.monotonic_time
+  result  = exec_query(sql, "EXPLAIN", binds)
+  elapsed = Concurrent.monotonic_time - start
+
+  MySQL::ExplainPrettyPrinter.new.pp(result, elapsed)
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

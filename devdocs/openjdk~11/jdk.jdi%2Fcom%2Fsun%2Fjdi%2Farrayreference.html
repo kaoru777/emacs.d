@@ -1,0 +1,73 @@
+  <main role="main">    <h1>Interface ArrayReference</h1>     <dl> <dt>All Superinterfaces:</dt> <dd>
+<code><a href="mirror">Mirror</a></code>, <code><a href="objectreference">ObjectReference</a></code>, <code><a href="value">Value</a></code>
+</dd> </dl>  <pre data-language="java">public interface ArrayReference
+extends ObjectReference</pre> <p>Provides access to an array object and its components in the target VM. Each array component is mirrored by a <a href="value"><code>Value</code></a> object. The array components, in aggregate, are placed in <a href="../../../../java.base/java/util/list"><code>List</code></a> objects instead of arrays for consistency with the rest of the API and for interoperability with other APIs.</p> <dl> <dt>Since:</dt> <dd>1.3</dd> </dl>      <section role="region">  <h2 id="field.summary">Fields</h2>  <h2 id="fields.inherited.from.class.com.sun.jdi.ObjectReference">Fields declared in interface com.sun.jdi.<a href="objectreference">ObjectReference</a>
+</h2> <code><a href="objectreference#INVOKE_NONVIRTUAL">INVOKE_NONVIRTUAL</a>, <a href="objectreference#INVOKE_SINGLE_THREADED">INVOKE_SINGLE_THREADED</a></code>  </section>  <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="value">Value</a></code></td> <th scope="row"><code><a href="#getValue(int)">getValue</a>​(int index)</code></th> <td> <p>Returns an array component value.</p> </td> </tr> <tr id="i1"> <td><code><a href="../../../../java.base/java/util/list">List</a>&lt;<a href="value">Value</a>&gt;</code></td> <th scope="row"><code><a href="#getValues()">getValues</a>()</code></th> <td> <p>Returns all of the components in this array.</p> </td> </tr> <tr id="i2"> <td><code><a href="../../../../java.base/java/util/list">List</a>&lt;<a href="value">Value</a>&gt;</code></td> <th scope="row"><code><a href="#getValues(int,int)">getValues</a>​(int index,
+         int length)</code></th> <td> <p>Returns a range of array components.</p> </td> </tr> <tr id="i3"> <td><code>int</code></td> <th scope="row"><code><a href="#length()">length</a>()</code></th> <td> <p>Returns the number of components in this array.</p> </td> </tr> <tr id="i4"> <td><code>void</code></td> <th scope="row"><code><a href="#setValue(int,com.sun.jdi.Value)">setValue</a>​(int index,
+        <a href="value">Value</a> value)</code></th> <td> <p>Replaces an array component with another value.</p> </td> </tr> <tr id="i5"> <td><code>void</code></td> <th scope="row"><code><a href="#setValues(int,java.util.List,int,int)">setValues</a>​(int index,
+         <a href="../../../../java.base/java/util/list">List</a>&lt;? extends <a href="value">Value</a>&gt; values,
+         int srcIndex,
+         int length)</code></th> <td> <p>Replaces a range of array components with other values.</p> </td> </tr> <tr id="i6"> <td><code>void</code></td> <th scope="row"><code><a href="#setValues(java.util.List)">setValues</a>​(<a href="../../../../java.base/java/util/list">List</a>&lt;? extends <a href="value">Value</a>&gt; values)</code></th> <td> <p>Replaces all array components with other values.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.com.sun.jdi.Mirror">Methods declared in interface com.sun.jdi.<a href="mirror">Mirror</a>
+</h2> <code><a href="mirror#toString()">toString</a>, <a href="mirror#virtualMachine()">virtualMachine</a></code>  <h2 id="methods.inherited.from.class.com.sun.jdi.ObjectReference">Methods declared in interface com.sun.jdi.<a href="objectreference">ObjectReference</a>
+</h2> <code><a href="objectreference#disableCollection()">disableCollection</a>, <a href="objectreference#enableCollection()">enableCollection</a>, <a href="objectreference#entryCount()">entryCount</a>, <a href="objectreference#equals(java.lang.Object)">equals</a>, <a href="objectreference#getValue(com.sun.jdi.Field)">getValue</a>, <a href="objectreference#getValues(java.util.List)">getValues</a>, <a href="objectreference#hashCode()">hashCode</a>, <a href="objectreference#invokeMethod(com.sun.jdi.ThreadReference,com.sun.jdi.Method,java.util.List,int)">invokeMethod</a>, <a href="objectreference#isCollected()">isCollected</a>, <a href="objectreference#owningThread()">owningThread</a>, <a href="objectreference#referenceType()">referenceType</a>, <a href="objectreference#referringObjects(long)">referringObjects</a>, <a href="objectreference#setValue(com.sun.jdi.Field,com.sun.jdi.Value)">setValue</a>, <a href="objectreference#uniqueID()">uniqueID</a>, <a href="objectreference#waitingThreads()">waitingThreads</a></code>  <h2 id="methods.inherited.from.class.com.sun.jdi.Value">Methods declared in interface com.sun.jdi.<a href="value">Value</a>
+</h2> <code><a href="value#type()">type</a></code>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="length()">length</h3> <pre data-language="java">int length()</pre> <p>Returns the number of components in this array.</p> <dl> <dt>Returns:</dt> <dd>the integer count of components in this array.</dd> </dl>    <h3 id="getValue(int)">getValue</h3> <pre data-language="java">Value getValue(int index)</pre> <p>Returns an array component value.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>index</code> - the index of the component to retrieve</dd> <dt>Returns:</dt> <dd>the <a href="value"><code>Value</code></a> at the given index.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/indexoutofboundsexception">IndexOutOfBoundsException</a></code> - if <code><i>index</i></code> is outside the range of this array, that is, if either of the following are true: <pre data-language="java">index &lt; 0
+    index &gt;= length()</pre>
+</dd> </dl>    <h3 id="getValues()">getValues</h3> <pre data-language="java">List&lt;Value&gt; getValues()</pre> <p>Returns all of the components in this array.</p> <dl> <dt>Returns:</dt> <dd>a list of <a href="value"><code>Value</code></a> objects, one for each array component ordered by array index. For zero length arrays, an empty list is returned.</dd> </dl>    <h3 id="getValues(int,int)">getValues</h3> <pre data-language="java">List&lt;Value&gt; getValues(int index,
+                      int length)</pre> <p>Returns a range of array components.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>index</code> - the index of the first component to retrieve</dd> <dd>
+<code>length</code> - the number of components to retrieve, or -1 to retrieve all components to the end of this array.</dd> <dt>Returns:</dt> <dd>a list of <a href="value"><code>Value</code></a> objects, one for each requested array component ordered by array index. When there are no elements in the specified range (e.g. <code><i>length</i></code> is zero) an empty list is returned</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/indexoutofboundsexception">IndexOutOfBoundsException</a></code> - if the range specified with <code><i>index</i></code> and <code><i>length</i></code> is not within the range of the array, that is, if either of the following are true: <pre data-language="java">index &lt; 0
+    index &gt; length()</pre> or if <code><i>length</i> != -1</code> and either of the following are true: <pre data-language="java">length &lt; 0
+    index + length &gt;  length()</pre>
+</dd> </dl>    <h3 id="setValue(int,com.sun.jdi.Value)">setValue</h3> <pre data-language="java">void setValue(int index,
+              Value value)
+       throws InvalidTypeException,
+              ClassNotLoadedException</pre> <div>
+<p>Replaces an array component with another value. </p>
+<p> Object values must be assignment compatible with the component type (This implies that the component type must be loaded through the declaring class's class loader). Primitive values must be either assignment compatible with the component type or must be convertible to the component type without loss of information. See JLS section 5.2 for more information on assignment compatibility.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>value</code> - the new value</dd> <dd>
+<code>index</code> - the index of the component to set</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/indexoutofboundsexception">IndexOutOfBoundsException</a></code> - if <code><i>index</i></code> is outside the range of this array, that is, if either of the following are true: <pre data-language="java">index &lt; 0
+    index &gt;= length()</pre>
+</dd> <dd>
+<code><a href="invalidtypeexception">InvalidTypeException</a></code> - if the type of <code><i>value</i></code> is not compatible with the declared type of array components.</dd> <dd>
+<code><a href="classnotloadedexception">ClassNotLoadedException</a></code> - if the array component type has not yet been loaded through the appropriate class loader.</dd> <dd>
+<code><a href="vmcannotbemodifiedexception">VMCannotBeModifiedException</a></code> - if the VirtualMachine is read-only - see <a href="virtualmachine#canBeModified()"><code>VirtualMachine.canBeModified()</code></a>.</dd> <dt>See Also:</dt> <dd><a href="arraytype#componentType()"><code>ArrayType.componentType()</code></a></dd> </dl>    <h3 id="setValues(java.util.List)">setValues</h3> <pre data-language="java">void setValues(List&lt;? extends Value&gt; values)
+        throws InvalidTypeException,
+               ClassNotLoadedException</pre> <div>
+<p>Replaces all array components with other values. If the given list is larger in size than the array, the values at the end of the list are ignored. </p>
+<p> Object values must be assignment compatible with the element type (This implies that the component type must be loaded through the enclosing class's class loader). Primitive values must be either assignment compatible with the component type or must be convertible to the component type without loss of information. See JLS section 5.2 for more information on assignment compatibility.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>values</code> - a list of <a href="value"><code>Value</code></a> objects to be placed in this array. If <code><i>values</i>.size()</code> is less that the length of the array, the first <code><i>values</i>.size()</code> elements are set.</dd> <dt>Throws:</dt> <dd>
+<code><a href="invalidtypeexception">InvalidTypeException</a></code> - if any of the new <code><i>values</i></code> is not compatible with the declared type of array components.</dd> <dd>
+<code><a href="classnotloadedexception">ClassNotLoadedException</a></code> - if the array component type has not yet been loaded through the appropriate class loader.</dd> <dd>
+<code><a href="vmcannotbemodifiedexception">VMCannotBeModifiedException</a></code> - if the VirtualMachine is read-only - see <a href="virtualmachine#canBeModified()"><code>VirtualMachine.canBeModified()</code></a>.</dd> <dt>See Also:</dt> <dd><a href="arraytype#componentType()"><code>ArrayType.componentType()</code></a></dd> </dl>    <h3 id="setValues(int,java.util.List,int,int)">setValues</h3> <pre data-language="java">void setValues(int index,
+               List&lt;? extends Value&gt; values,
+               int srcIndex,
+               int length)
+        throws InvalidTypeException,
+               ClassNotLoadedException</pre> <div>
+<p>Replaces a range of array components with other values. </p>
+<p> Object values must be assignment compatible with the component type (This implies that the component type must be loaded through the enclosing class's class loader). Primitive values must be either assignment compatible with the component type or must be convertible to the component type without loss of information. See JLS section 5.2 for more information on assignment compatibility.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>index</code> - the index of the first component to set.</dd> <dd>
+<code>values</code> - a list of <a href="value"><code>Value</code></a> objects to be placed in this array.</dd> <dd>
+<code>srcIndex</code> - the index of the first source value to use.</dd> <dd>
+<code>length</code> - the number of components to set, or -1 to set all components to the end of this array or the end of <code><i>values</i></code> (whichever comes first).</dd> <dt>Throws:</dt> <dd>
+<code><a href="invalidtypeexception">InvalidTypeException</a></code> - if any element of <code><i>values</i></code> is not compatible with the declared type of array components.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/indexoutofboundsexception">IndexOutOfBoundsException</a></code> - if the array range specified with <code><i>index</i></code> and <code><i>length</i></code> is not within the range of the array, or if the source range specified with <code><i>srcIndex</i></code> and <code><i>length</i></code> is not within <code><i>values</i></code>, that is, if any of the following are true: <pre data-language="java">index &lt; 0
+    index &gt; length()
+    srcIndex &lt; 0
+    srcIndex &gt; values.size()</pre> or if <code><i>length</i> != -1</code> and any of the following are true: <pre data-language="java">length &lt; 0
+    index + length &gt; length()
+    srcIndex + length &gt; values.size()</pre>
+</dd> <dd>
+<code><a href="vmcannotbemodifiedexception">VMCannotBeModifiedException</a></code> - if the VirtualMachine is read-only - see <a href="virtualmachine#canBeModified()"><code>VirtualMachine.canBeModified()</code></a>.</dd> <dd><code><a href="classnotloadedexception">ClassNotLoadedException</a></code></dd> <dt>See Also:</dt> <dd><a href="arraytype#componentType()"><code>ArrayType.componentType()</code></a></dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jdi/com/sun/jdi/ArrayReference.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jdi/com/sun/jdi/ArrayReference.html</a>
+  </p>
+</div>

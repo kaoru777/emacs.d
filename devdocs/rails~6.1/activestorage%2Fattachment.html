@@ -1,0 +1,26 @@
+<h1 id="class-ActiveStorage::Attachment" class="class"> class ActiveStorage::Attachment </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent">ActiveStorage::Record</dd>
+</dl> <section class="description"> <p>Attachments associate records with blobs. Usually that's a one record-many blobs relationship, but it is possible to associate many different records with the same blob. A foreign-key constraint on the attachments table prevents blobs from being purged if they’re still attached to any records.</p> <p>Attachments also have access to all methods from <a href="blob"><code>ActiveStorage::Blob</code></a>.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-purge"> <span class="method-name">purge</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="purge-source"> <pre class="ruby" data-language="ruby"># File activestorage/app/models/active_storage/attachment.rb, line 23
+def purge
+  transaction do
+    delete
+    record&amp;.touch
+  end
+  blob&amp;.purge
+end</pre> </div> <p>Synchronously deletes the attachment and <a href="blob#method-i-purge">purges the blob</a>.</p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-purge_later"> <span class="method-name">purge_later</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="purge_later-source"> <pre class="ruby" data-language="ruby"># File activestorage/app/models/active_storage/attachment.rb, line 32
+def purge_later
+  transaction do
+    delete
+    record&amp;.touch
+  end
+  blob&amp;.purge_later
+end</pre> </div> <p>Deletes the attachment and <a href="blob#method-i-purge_later">enqueues a background job</a> to purge the blob.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

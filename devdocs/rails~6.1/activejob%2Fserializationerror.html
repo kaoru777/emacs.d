@@ -1,0 +1,10 @@
+<h1 id="class-ActiveJob::SerializationError" class="class"> class ActiveJob::SerializationError </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent">ArgumentError</dd>
+</dl> <section class="description"> <p>Raised when an unsupported argument type is set as a job argument. We currently support <a href="../string"><code>String</code></a>, <a href="../integer"><code>Integer</code></a>, <span><code>Float</code></span>, <a href="../nilclass"><code>NilClass</code></a>, <a href="../trueclass"><code>TrueClass</code></a>, <a href="../falseclass"><code>FalseClass</code></a>, <span><code>BigDecimal</code></span>, <span><code>Symbol</code></span>, <a href="../date"><code>Date</code></a>, <a href="../time"><code>Time</code></a>, <a href="../datetime"><code>DateTime</code></a>, <a href="../activesupport/timewithzone"><code>ActiveSupport::TimeWithZone</code></a>, <a href="../activesupport/duration"><code>ActiveSupport::Duration</code></a>, <a href="../hash"><code>Hash</code></a>, <a href="../activesupport/hashwithindifferentaccess"><code>ActiveSupport::HashWithIndifferentAccess</code></a>, <a href="../array"><code>Array</code></a> or GlobalID::Identification instances, although this can be extended by adding custom serializers. Raised if you set the key for a <a href="../hash"><code>Hash</code></a> something else than a string or a symbol. Also raised when trying to serialize an object which can't be identified with a GlobalID - such as an unpersisted Active Record model.</p> </section> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

@@ -1,0 +1,41 @@
+<h1 id="class-ActiveSupport::ParameterFilter" class="class"> class ActiveSupport::ParameterFilter </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../object">Object</a></dd>
+</dl> <section class="description"> <p><code>ParameterFilter</code> allows you to specify keys for sensitive data from hash-like object and replace corresponding value. Filtering only certain sub-keys from a hash is possible by using the dot notation: 'credit_card.number'. If a proc is given, each key and value of a hash and all sub-hashes are passed to it, where the value or the key can be replaced using String#replace or similar methods.</p> <pre>ActiveSupport::ParameterFilter.new([:password])
+=&gt; replaces the value to all keys matching /password/i with "[FILTERED]"
+
+ActiveSupport::ParameterFilter.new([:foo, "bar"])
+=&gt; replaces the value to all keys matching /foo|bar/i with "[FILTERED]"
+
+ActiveSupport::ParameterFilter.new([/\Apin\z/i, /\Apin_/i])
+=&gt; replaces the value for the exact (case-insensitive) key 'pin' and all
+(case-insensitive) keys beginning with 'pin_', with "[FILTERED]".
+Does not match keys with 'pin' as a substring, such as 'shipping_id'.
+
+ActiveSupport::ParameterFilter.new(["credit_card.code"])
+=&gt; replaces { credit_card: {code: "xxxx"} } with "[FILTERED]", does not
+change { file: { code: "xxxx"} }
+
+ActiveSupport::ParameterFilter.new([-&gt; (k, v) do
+  v.reverse! if /secret/i.match?(k)
+end])
+=&gt; reverses the value to all keys matching /secret/i</pre> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(filters = [], mask: FILTERED)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/parameter_filter.rb, line 42
+def initialize(filters = [], mask: FILTERED)
+  @filters = filters
+  @mask = mask
+end</pre> </div> <p>Create instance with given filters. Supported type of filters are <code>String</code>, <code>Regexp</code>, and <code>Proc</code>. Other types of filters are treated as <code>String</code> using <code>to_s</code>. For <code>Proc</code> filters, key, value, and optional original hash is passed to block arguments.</p> <h4 id="method-c-new-label-Options">Options</h4> <ul><li> <p><code>:mask</code> - A replaced object when filtered. Defaults to <code>"[FILTERED]"</code>.</p> </li></ul>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-filter"> <span class="method-name">filter</span><span class="method-args">(params)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="filter-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/parameter_filter.rb, line 48
+def filter(params)
+  compiled_filter.call(params)
+end</pre> </div> <p>Mask value of <code>params</code> if key matches one of filters.</p>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-filter_param"> <span class="method-name">filter_param</span><span class="method-args">(key, value)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="filter_param-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/parameter_filter.rb, line 53
+def filter_param(key, value)
+  @filters.empty? ? value : compiled_filter.value_for_key(key, value)
+end</pre> </div> <p>Returns filtered value for given key. For <code>Proc</code> filters, third block argument is not populated.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

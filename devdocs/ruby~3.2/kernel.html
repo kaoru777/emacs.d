@@ -1,0 +1,1963 @@
+<h1 id="module-Kernel" class="module"> module Kernel </h1> <section class="description"> <p>RubyGems adds the <a href="kernel#method-i-gem"><code>gem</code></a> method to allow activation of specific gem versions and overrides the <a href="kernel#method-i-require"><code>require</code></a> method on <a href="kernel"><code>Kernel</code></a> to make gems appear as if they live on the <code>$LOAD_PATH</code>. See the documentation of these methods for further detail.</p> <p>Monkey patch kernel to ensure that all ‘require` calls call the same method</p> <p>The <a href="kernel"><code>Kernel</code></a> module is included by class <a href="object"><code>Object</code></a>, so its methods are available in every Ruby object.</p> <p>The <a href="kernel"><code>Kernel</code></a> instance methods are documented in class <a href="object"><code>Object</code></a> while the module methods are documented here. These methods are called without a receiver and thus can be called in functional form:</p> <pre class="ruby" data-language="ruby">sprintf "%.1f", 1.234 #=&gt; "1.2"
+</pre> <h2 id="module-Kernel-label-What-27s+Here">What’s Here</h2> <p>Module Kernel provides methods that are useful for:</p> <ul>
+<li> <p><a href="kernel#module-Kernel-label-Converting">Converting</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Querying">Querying</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Exiting">Exiting</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Exceptions">Exceptions</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-IO">IO</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Procs">Procs</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Tracing">Tracing</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Subprocesses">Subprocesses</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Loading">Loading</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Yielding">Yielding</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Random+Values">Random Values</a></p> </li>
+<li> <p><a href="kernel#module-Kernel-label-Other">Other</a></p> </li>
+</ul> <h3 id="module-Kernel-label-Converting">Converting</h3> <ul>
+<li> <p><a href="kernel#method-i-Array"><code>Array</code></a>: Returns an <a href="array"><code>Array</code></a> based on the given argument.</p> </li>
+<li> <p><a href="kernel#method-i-Complex"><code>Complex</code></a>: Returns a <a href="complex"><code>Complex</code></a> based on the given arguments.</p> </li>
+<li> <p><a href="kernel#method-i-Float"><code>Float</code></a>: Returns a <a href="float"><code>Float</code></a> based on the given arguments.</p> </li>
+<li> <p><a href="kernel#method-i-Hash"><code>Hash</code></a>: Returns a <a href="hash"><code>Hash</code></a> based on the given argument.</p> </li>
+<li> <p><a href="kernel#method-i-Integer"><code>Integer</code></a>: Returns an <a href="integer"><code>Integer</code></a> based on the given arguments.</p> </li>
+<li> <p><a href="kernel#method-i-Rational"><code>Rational</code></a>: Returns a <a href="rational"><code>Rational</code></a> based on the given arguments.</p> </li>
+<li> <p><a href="kernel#method-i-String"><code>String</code></a>: Returns a <a href="string"><code>String</code></a> based on the given argument.</p> </li>
+</ul> <h3 id="module-Kernel-label-Querying">Querying</h3> <ul>
+<li> <p><a href="kernel#method-i-__callee__"><code>__callee__</code></a>: Returns the called name of the current method as a symbol.</p> </li>
+<li> <p><a href="kernel#method-i-__dir__"><code>__dir__</code></a>: Returns the path to the directory from which the current method is called.</p> </li>
+<li> <p><a href="kernel#method-i-__method__"><code>__method__</code></a>: Returns the name of the current method as a symbol.</p> </li>
+<li> <p><a href="kernel#method-i-autoload-3F"><code>autoload?</code></a>: Returns the file to be loaded when the given module is referenced.</p> </li>
+<li> <p><a href="kernel#method-i-binding"><code>binding</code></a>: Returns a <a href="binding"><code>Binding</code></a> for the context at the point of call.</p> </li>
+<li> <p><a href="kernel#method-i-block_given-3F"><code>block_given?</code></a>: Returns <code>true</code> if a block was passed to the calling method.</p> </li>
+<li> <p><a href="kernel#method-i-caller"><code>caller</code></a>: Returns the current execution stack as an array of strings.</p> </li>
+<li> <p><a href="kernel#method-i-caller_locations"><code>caller_locations</code></a>: Returns the current execution stack as an array of <a href="thread/backtrace/location"><code>Thread::Backtrace::Location</code></a> objects.</p> </li>
+<li> <p><a href="kernel#method-i-class"><code>class</code></a>: Returns the class of <code>self</code>.</p> </li>
+<li> <p><a href="kernel#method-i-frozen-3F"><code>frozen?</code></a>: Returns whether <code>self</code> is frozen.</p> </li>
+<li> <p><a href="kernel#method-i-global_variables"><code>global_variables</code></a>: Returns an array of global variables as symbols.</p> </li>
+<li> <p><a href="kernel#method-i-local_variables"><code>local_variables</code></a>: Returns an array of local variables as symbols.</p> </li>
+<li> <p><a href="kernel#method-i-test"><code>test</code></a>: Performs specified tests on the given single file or pair of files.</p> </li>
+</ul> <h3 id="module-Kernel-label-Exiting">Exiting</h3> <ul>
+<li> <p><a href="kernel#method-i-abort"><code>abort</code></a>: Exits the current process after printing the given arguments.</p> </li>
+<li> <p><a href="kernel#method-i-at_exit"><code>at_exit</code></a>: Executes the given block when the process exits.</p> </li>
+<li> <p><a href="kernel#method-i-exit"><code>exit</code></a>: Exits the current process after calling any registered <code>at_exit</code> handlers.</p> </li>
+<li> <p><a href="kernel#method-i-exit-21"><code>exit!</code></a>: Exits the current process without calling any registered <code>at_exit</code> handlers.</p> </li>
+</ul> <h3 id="module-Kernel-label-Exceptions">Exceptions</h3> <ul>
+<li> <p><a href="kernel#method-i-catch"><code>catch</code></a>: Executes the given block, possibly catching a thrown object.</p> </li>
+<li> <p><a href="kernel#method-i-raise"><code>raise</code></a> (aliased as <a href="kernel#method-i-fail"><code>fail</code></a>): Raises an exception based on the given arguments.</p> </li>
+<li> <p><a href="kernel#method-i-throw"><code>throw</code></a>: Returns from the active catch block waiting for the given tag.</p> </li>
+</ul> <h3 id="module-Kernel-label-IO">IO</h3> <ul>
+<li> <p><a href="kernel#method-c-pp"><code>::pp</code></a>: Prints the given objects in pretty form.</p> </li>
+<li> <p><a href="kernel#method-i-gets"><code>gets</code></a>: Returns and assigns to <code>$_</code> the next line from the current input.</p> </li>
+<li> <p><a href="kernel#method-i-open"><code>open</code></a>: Creates an <a href="io"><code>IO</code></a> object connected to the given stream, file, or subprocess.</p> </li>
+<li> <p><a href="kernel#method-i-p"><code>p</code></a>: Prints the given objects’ inspect output to the standard output.</p> </li>
+<li> <p><a href="kernel#method-i-print"><code>print</code></a>: Prints the given objects to standard output without a newline.</p> </li>
+<li> <p><a href="kernel#method-i-printf"><code>printf</code></a>: Prints the string resulting from applying the given format string to any additional arguments.</p> </li>
+<li> <p><a href="kernel#method-i-putc"><code>putc</code></a>: Equivalent to &lt;tt.$stdout.putc(object)&lt;/tt&gt; for the given object.</p> </li>
+<li> <p><a href="kernel#method-i-puts"><code>puts</code></a>: Equivalent to <code>$stdout.puts(*objects)</code> for the given objects.</p> </li>
+<li> <p><a href="kernel#method-i-readline"><code>readline</code></a>: Similar to <a href="kernel#method-i-gets"><code>gets</code></a>, but raises an exception at the end of file.</p> </li>
+<li> <p><a href="kernel#method-i-readlines"><code>readlines</code></a>: Returns an array of the remaining lines from the current input.</p> </li>
+<li> <p><a href="kernel#method-i-select"><code>select</code></a>: Same as <a href="io#method-c-select"><code>IO.select</code></a>.</p> </li>
+</ul> <h3 id="module-Kernel-label-Procs">Procs</h3> <ul>
+<li> <p><a href="kernel#method-i-lambda"><code>lambda</code></a>: Returns a lambda proc for the given block.</p> </li>
+<li> <p><a href="kernel#method-i-proc"><code>proc</code></a>: Returns a new <a href="proc"><code>Proc</code></a>; equivalent to <a href="proc#method-c-new"><code>Proc.new</code></a>.</p> </li>
+</ul> <h3 id="module-Kernel-label-Tracing">Tracing</h3> <ul>
+<li> <p><a href="kernel#method-i-set_trace_func"><code>set_trace_func</code></a>: Sets the given proc as the handler for tracing, or disables tracing if given <code>nil</code>.</p> </li>
+<li> <p><a href="kernel#method-i-trace_var"><code>trace_var</code></a>: Starts tracing assignments to the given global variable.</p> </li>
+<li> <p><a href="kernel#method-i-untrace_var"><code>untrace_var</code></a>: Disables tracing of assignments to the given global variable.</p> </li>
+</ul> <h3 id="module-Kernel-label-Subprocesses">Subprocesses</h3> <ul>
+<li> <p><a href="kernel#method-i-60">`command`</a>: Returns the standard output of running <code>command</code> in a subshell.</p> </li>
+<li> <p><a href="kernel#method-i-exec"><code>exec</code></a>: Replaces current process with a new process.</p> </li>
+<li> <p><a href="kernel#method-i-fork"><code>fork</code></a>: Forks the current process into two processes.</p> </li>
+<li> <p><a href="kernel#method-i-spawn"><code>spawn</code></a>: Executes the given command and returns its pid without waiting for completion.</p> </li>
+<li> <p><a href="kernel#method-i-system"><code>system</code></a>: Executes the given command in a subshell.</p> </li>
+</ul> <h3 id="module-Kernel-label-Loading">Loading</h3> <ul>
+<li> <p><a href="kernel#method-i-autoload"><code>autoload</code></a>: Registers the given file to be loaded when the given constant is first referenced.</p> </li>
+<li> <p><a href="kernel#method-i-load"><code>load</code></a>: Loads the given Ruby file.</p> </li>
+<li> <p><a href="kernel#method-i-require"><code>require</code></a>: Loads the given Ruby file unless it has already been loaded.</p> </li>
+<li> <p><a href="kernel#method-i-require_relative"><code>require_relative</code></a>: Loads the Ruby file path relative to the calling file, unless it has already been loaded.</p> </li>
+</ul> <h3 id="module-Kernel-label-Yielding">Yielding</h3> <ul>
+<li> <p><a href="kernel#method-i-tap"><code>tap</code></a>: Yields <code>self</code> to the given block; returns <code>self</code>.</p> </li>
+<li> <p><a href="kernel#method-i-then"><code>then</code></a> (aliased as <a href="kernel#method-i-yield_self"><code>yield_self</code></a>): Yields <code>self</code> to the block and returns the result of the block.</p> </li>
+</ul> <h3 id="module-Kernel-label-Random+Values">Random Values</h3> <ul>
+<li> <p><a href="kernel#method-i-rand"><code>rand</code></a>: Returns a pseudo-random floating point number strictly between 0.0 and 1.0.</p> </li>
+<li> <p><a href="kernel#method-i-srand"><code>srand</code></a>: Seeds the pseudo-random number generator with the given number.</p> </li>
+</ul> <h3 id="module-Kernel-label-Other">Other</h3> <ul>
+<li> <p><a href="kernel#method-i-eval"><code>eval</code></a>: Evaluates the given string as Ruby code.</p> </li>
+<li> <p><a href="kernel#method-i-loop"><code>loop</code></a>: Repeatedly executes the given block.</p> </li>
+<li> <p><a href="kernel#method-i-sleep"><code>sleep</code></a>: Suspends the current thread for the given number of seconds.</p> </li>
+<li> <p><a href="kernel#method-i-sprintf"><code>sprintf</code></a> (aliased as <a href="kernel#method-i-format"><code>format</code></a>): Returns the string resulting from applying the given format string to any additional arguments.</p> </li>
+<li> <p><a href="kernel#method-i-syscall"><code>syscall</code></a>: Runs an operating system call.</p> </li>
+<li> <p><a href="kernel#method-i-trap"><code>trap</code></a>: Specifies the handling of system signals.</p> </li>
+<li> <p><a href="kernel#method-i-warn"><code>warn</code></a>: Issue a warning based on the given messages and options.</p> </li>
+</ul> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-URI"> <span class="method-name">URI</span><span class="method-args">(uri)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="URI-source"> <pre class="ruby" data-language="ruby"># File lib/uri/common.rb, line 718
+def URI(uri)
+  if uri.is_a?(URI::Generic)
+    uri
+  elsif uri = String.try_convert(uri)
+    URI.parse(uri)
+  else
+    raise ArgumentError,
+      "bad argument (expected URI object or URI string)"
+  end
+end</pre> </div> <p>Returns <code>uri</code> converted to an <a href="uri"><code>URI</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-c-pp"> <span class="method-name">pp</span><span class="method-args">(*objs)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="pp-source"> <pre class="ruby" data-language="ruby"># File lib/pp.rb, line 644
+def pp(*objs)
+  objs.each {|obj|
+    PP.pp(obj)
+  }
+  objs.size &lt;= 1 ? objs.first : objs
+end</pre> </div> <p>prints arguments in pretty form.</p> <p>pp returns argument(s).</p>  </div> <div class="aliases"> Also aliased as: pp </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-Array"> <span class="method-callseq"> Array(object) → object or new_array </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="Array-source"> <pre class="c" data-language="c">static VALUE
+rb_f_array(VALUE obj, VALUE arg)
+{
+    return rb_Array(arg);
+}</pre> </div> <p>Returns an array converted from <code>object</code>.</p> <p>Tries to convert <code>object</code> to an array using <code>to_ary</code> first and <code>to_a</code> second:</p> <pre class="ruby" data-language="ruby">Array([0, 1, 2])        # =&gt; [0, 1, 2]
+Array({foo: 0, bar: 1}) # =&gt; [[:foo, 0], [:bar, 1]]
+Array(0..4)             # =&gt; [0, 1, 2, 3, 4]
+</pre> <p>Returns <code>object</code> in an array, <code>[object]</code>, if <code>object</code> cannot be converted:</p> <pre class="ruby" data-language="ruby">Array(:foo)             # =&gt; [:foo]
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-BigDecimal"> <span class="method-callseq"> BigDecimal(value, exception: true) → bigdecimal </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> BigDecimal(value, ndigits, exception: true) → bigdecimal </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="BigDecimal-source"> <pre class="c" data-language="c">static VALUE
+f_BigDecimal(int argc, VALUE *argv, VALUE self)
+{
+    VALUE val, digs_v, opts = Qnil;
+    argc = rb_scan_args(argc, argv, "11:", &amp;val, &amp;digs_v, &amp;opts);
+    int exception = opts_exception_p(opts);
+
+    size_t digs = SIZE_MAX; /* this means digs is omitted */
+    if (argc &gt; 1) {
+        digs_v = rb_to_int(digs_v);
+        if (FIXNUM_P(digs_v)) {
+            long n = FIX2LONG(digs_v);
+            if (n &lt; 0)
+                goto negative_digs;
+            digs = (size_t)n;
+        }
+        else {
+            if (RBIGNUM_NEGATIVE_P(digs_v)) {
+              negative_digs:
+                if (!exception)
+                    return Qnil;
+                rb_raise(rb_eArgError, "negative precision");
+            }
+            digs = NUM2SIZET(digs_v);
+        }
+    }
+
+    return rb_convert_to_BigDecimal(val, digs, exception);
+}</pre> </div> <p>Returns the BigDecimal converted from <code>value</code> with a precision of <code>ndigits</code> decimal digits.</p> <p>When <code>ndigits</code> is less than the number of significant digits in the value, the result is rounded to that number of digits, according to the current rounding mode; see <a href="bigdecimal#method-c-mode"><code>BigDecimal.mode</code></a>.</p> <p>When <code>ndigits</code> is 0, the number of digits to correctly represent a float number is determined automatically.</p> <p>Returns <code>value</code> converted to a BigDecimal, depending on the type of <code>value</code>:</p> <ul>
+<li> <p><a href="integer"><code>Integer</code></a>, <a href="float"><code>Float</code></a>, <a href="rational"><code>Rational</code></a>, <a href="complex"><code>Complex</code></a>, or BigDecimal: converted directly:</p> <pre class="ruby" data-language="ruby"># Integer, Complex, or BigDecimal value does not require ndigits; ignored if given.
+BigDecimal(2)                     # =&gt; 0.2e1
+BigDecimal(Complex(2, 0))         # =&gt; 0.2e1
+BigDecimal(BigDecimal(2))         # =&gt; 0.2e1
+# Float or Rational value requires ndigits.
+BigDecimal(2.0, 0)                # =&gt; 0.2e1
+BigDecimal(Rational(2, 1), 0)     # =&gt; 0.2e1
+</pre> </li>
+<li> <p>String: converted by parsing if it contains an integer or floating-point literal; leading and trailing whitespace is ignored:</p> <pre class="ruby" data-language="ruby"># String does not require ndigits; ignored if given.
+BigDecimal('2')     # =&gt; 0.2e1
+BigDecimal('2.0')   # =&gt; 0.2e1
+BigDecimal('0.2e1') # =&gt; 0.2e1
+BigDecimal(' 2.0 ') # =&gt; 0.2e1
+</pre> </li>
+<li> <p>Other type that responds to method <code>:to_str</code>: first converted to a string, then converted to a BigDecimal, as above.</p> </li>
+<li> <p>Other type:</p> <ul>
+<li> <p>Raises an exception if keyword argument <code>exception</code> is <code>true</code>.</p> </li>
+<li> <p>Returns <code>nil</code> if keyword argument <code>exception</code> is <code>true</code>.</p> </li>
+</ul> </li>
+</ul> <p>Raises an exception if <code>value</code> evaluates to a <a href="float"><code>Float</code></a> and <code>digits</code> is larger than Float::DIG + 1.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-Complex"> <span class="method-callseq"> Complex(x[, y], exception: true) → numeric or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="Complex-source"> <pre class="c" data-language="c">static VALUE
+nucomp_f_complex(int argc, VALUE *argv, VALUE klass)
+{
+    VALUE a1, a2, opts = Qnil;
+    int raise = TRUE;
+
+    if (rb_scan_args(argc, argv, "11:", &amp;a1, &amp;a2, &amp;opts) == 1) {
+        a2 = Qundef;
+    }
+    if (!NIL_P(opts)) {
+        raise = rb_opts_exception_p(opts, raise);
+    }
+    if (argc &gt; 0 &amp;&amp; CLASS_OF(a1) == rb_cComplex &amp;&amp; UNDEF_P(a2)) {
+        return a1;
+    }
+    return nucomp_convert(rb_cComplex, a1, a2, raise);
+}</pre> </div> <p>Returns x+i*y;</p> <pre class="ruby" data-language="ruby">Complex(1, 2)    #=&gt; (1+2i)
+Complex('1+2i')  #=&gt; (1+2i)
+Complex(nil)     #=&gt; TypeError
+Complex(1, nil)  #=&gt; TypeError
+
+Complex(1, nil, exception: false)  #=&gt; nil
+Complex('1+2', exception: false)   #=&gt; nil
+</pre> <p>Syntax of string form:</p> <pre>string form = extra spaces , complex , extra spaces ;
+complex = real part | [ sign ] , imaginary part
+        | real part , sign , imaginary part
+        | rational , "@" , rational ;
+real part = rational ;
+imaginary part = imaginary unit | unsigned rational , imaginary unit ;
+rational = [ sign ] , unsigned rational ;
+unsigned rational = numerator | numerator , "/" , denominator ;
+numerator = integer part | fractional part | integer part , fractional part ;
+denominator = digits ;
+integer part = digits ;
+fractional part = "." , digits , [ ( "e" | "E" ) , [ sign ] , digits ] ;
+imaginary unit = "i" | "I" | "j" | "J" ;
+sign = "-" | "+" ;
+digits = digit , { digit | "_" , digit };
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+extra spaces = ? \s* ? ;</pre> <p>See <a href="string#method-i-to_c"><code>String#to_c</code></a>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-Float"> <span class="method-callseq"> Float(arg, exception: true) → float or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="Float-source"> <pre class="ruby" data-language="ruby"># File kernel.rb, line 171
+def Float(arg, exception: true)
+  if Primitive.mandatory_only?
+    Primitive.rb_f_float1(arg)
+  else
+    Primitive.rb_f_float(arg, exception)
+  end
+end</pre> </div> <p>Returns <em>arg</em> converted to a float. <a href="numeric"><code>Numeric</code></a> types are converted directly, and with exception to <a href="string"><code>String</code></a> and <code>nil</code> the rest are converted using <em>arg</em><code>.to_f</code>. Converting a <a href="string"><code>String</code></a> with invalid characters will result in a <a href="argumenterror"><code>ArgumentError</code></a>. Converting <code>nil</code> generates a <a href="typeerror"><code>TypeError</code></a>. Exceptions can be suppressed by passing <code>exception: false</code>.</p> <pre class="ruby" data-language="ruby">Float(1)                 #=&gt; 1.0
+Float("123.456")         #=&gt; 123.456
+Float("123.0_badstring") #=&gt; ArgumentError: invalid value for Float(): "123.0_badstring"
+Float(nil)               #=&gt; TypeError: can't convert nil into Float
+Float("123.0_badstring", exception: false)  #=&gt; nil
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-Hash"> <span class="method-callseq"> Hash(object) → object or new_hash </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="Hash-source"> <pre class="c" data-language="c">static VALUE
+rb_f_hash(VALUE obj, VALUE arg)
+{
+    return rb_Hash(arg);
+}</pre> </div> <p>Returns a hash converted from <code>object</code>.</p> <ul>
+<li> <p>If <code>object</code> is:</p> <ul>
+<li> <p>A hash, returns <code>object</code>.</p> </li>
+<li> <p>An empty array or <code>nil</code>, returns an empty hash.</p> </li>
+</ul> </li>
+<li> <p>Otherwise, if <code>object.to_hash</code> returns a hash, returns that hash.</p> </li>
+<li> <p>Otherwise, returns <a href="typeerror"><code>TypeError</code></a>.</p> </li>
+</ul> <p>Examples:</p> <pre class="ruby" data-language="ruby">Hash({foo: 0, bar: 1}) # =&gt; {:foo=&gt;0, :bar=&gt;1}
+Hash(nil)              # =&gt; {}
+Hash([])               # =&gt; {}
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-Integer"> <span class="method-callseq"> Integer(object, base = 0, exception: true) → integer or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="Integer-source"> <pre class="c" data-language="c">static VALUE
+rb_f_integer(int argc, VALUE *argv, VALUE obj)
+{
+    VALUE arg = Qnil, opts = Qnil;
+    int base = 0;
+
+    if (argc &gt; 1) {
+        int narg = 1;
+        VALUE vbase = rb_check_to_int(argv[1]);
+        if (!NIL_P(vbase)) {
+            base = NUM2INT(vbase);
+            narg = 2;
+        }
+        if (argc &gt; narg) {
+            VALUE hash = rb_check_hash_type(argv[argc-1]);
+            if (!NIL_P(hash)) {
+                opts = rb_extract_keywords(&amp;hash);
+                if (!hash) --argc;
+            }
+        }
+    }
+    rb_check_arity(argc, 1, 2);
+    arg = argv[0];
+
+    return rb_convert_to_integer(arg, base, opts_exception_p(opts));
+}</pre> </div> <p>Returns an integer converted from <code>object</code>.</p> <p>Tries to convert <code>object</code> to an integer using <code>to_int</code> first and <code>to_i</code> second; see below for exceptions.</p> <p>With a non-zero <code>base</code>, <code>object</code> must be a string or convertible to a string.</p> <h4 id="method-i-Integer-label-numeric+objects">numeric objects</h4> <p>With integer argument <code>object</code> given, returns <code>object</code>:</p> <pre class="ruby" data-language="ruby">Integer(1)                # =&gt; 1
+Integer(-1)               # =&gt; -1
+</pre> <p>With floating-point argument <code>object</code> given, returns <code>object</code> truncated to an intger:</p> <pre class="ruby" data-language="ruby">Integer(1.9)              # =&gt; 1  # Rounds toward zero.
+Integer(-1.9)             # =&gt; -1 # Rounds toward zero.
+</pre> <h4 id="method-i-Integer-label-string+objects">string objects</h4> <p>With string argument <code>object</code> and zero <code>base</code> given, returns <code>object</code> converted to an integer in base 10:</p> <pre class="ruby" data-language="ruby">Integer('100')    # =&gt; 100
+Integer('-100')   # =&gt; -100
+</pre> <p>With <code>base</code> zero, string <code>object</code> may contain leading characters to specify the actual base (radix indicator):</p> <pre class="ruby" data-language="ruby">Integer('0100')  # =&gt; 64  # Leading '0' specifies base 8.
+Integer('0b100') # =&gt; 4   # Leading '0b', specifies base 2.
+Integer('0x100') # =&gt; 256 # Leading '0x' specifies base 16.
+</pre> <p>With a positive <code>base</code> (in range 2..36) given, returns <code>object</code> converted to an integer in the given base:</p> <pre class="ruby" data-language="ruby">Integer('100', 2)   # =&gt; 4
+Integer('100', 8)   # =&gt; 64
+Integer('-100', 16) # =&gt; -256
+</pre> <p>With a negative <code>base</code> (in range -36..-2) given, returns <code>object</code> converted to an integer in the radix indicator if exists or <code>-base</code>:</p> <pre class="ruby" data-language="ruby">Integer('0x100', -2)   # =&gt; 256
+Integer('100', -2)     # =&gt; 4
+Integer('0b100', -8)   # =&gt; 4
+Integer('100', -8)     # =&gt; 64
+Integer('0o100', -10)  # =&gt; 64
+Integer('100', -10)    # =&gt; 100
+</pre> <p><code>base</code> -1 is equal the -10 case.</p> <p>When converting strings, surrounding whitespace and embedded underscores are allowed and ignored:</p> <pre class="ruby" data-language="ruby">Integer(' 100 ')      # =&gt; 100
+Integer('-1_0_0', 16) # =&gt; -256
+</pre> <h4 id="method-i-Integer-label-other+classes">other classes</h4> <p>Examples with <code>object</code> of various other classes:</p> <pre class="ruby" data-language="ruby">Integer(Rational(9, 10)) # =&gt; 0  # Rounds toward zero.
+Integer(Complex(2, 0))   # =&gt; 2  # Imaginary part must be zero.
+Integer(Time.now)        # =&gt; 1650974042
+</pre> <h4 id="method-i-Integer-label-keywords">keywords</h4> <p>With optional keyword argument <code>exception</code> given as <code>true</code> (the default):</p> <ul>
+<li> <p>Raises <a href="typeerror"><code>TypeError</code></a> if <code>object</code> does not respond to <code>to_int</code> or <code>to_i</code>.</p> </li>
+<li> <p>Raises <a href="typeerror"><code>TypeError</code></a> if <code>object</code> is <code>nil</code>.</p> </li>
+<li> <p>Raise <a href="argumenterror"><code>ArgumentError</code></a> if <code>object</code> is an invalid string.</p> </li>
+</ul> <p>With <code>exception</code> given as <code>false</code>, an exception of any kind is suppressed and <code>nil</code> is returned.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-Pathname"> <span class="method-callseq"> Pathname(path) → pathname </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="Pathname-source"> <pre class="c" data-language="c">static VALUE
+path_f_pathname(VALUE self, VALUE str)
+{
+    if (CLASS_OF(str) == rb_cPathname)
+        return str;
+    return rb_class_new_instance(1, &amp;str, rb_cPathname);
+}</pre> </div> <p>Creates a new <a href="pathname"><code>Pathname</code></a> object from the given string, <code>path</code>, and returns pathname object.</p> <p>In order to use this constructor, you must first require the <a href="pathname"><code>Pathname</code></a> standard library extension.</p> <pre class="ruby" data-language="ruby">require 'pathname'
+Pathname("/home/zzak")
+#=&gt; #&lt;Pathname:/home/zzak&gt;
+</pre> <p>See also <a href="pathname#method-c-new"><code>Pathname::new</code></a> for more information.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-Rational"> <span class="method-callseq"> Rational(x, y, exception: true) → rational or nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> Rational(arg, exception: true) → rational or nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="Rational-source"> <pre class="c" data-language="c">static VALUE
+nurat_f_rational(int argc, VALUE *argv, VALUE klass)
+{
+    VALUE a1, a2, opts = Qnil;
+    int raise = TRUE;
+
+    if (rb_scan_args(argc, argv, "11:", &amp;a1, &amp;a2, &amp;opts) == 1) {
+        a2 = Qundef;
+    }
+    if (!NIL_P(opts)) {
+        raise = rb_opts_exception_p(opts, raise);
+    }
+    return nurat_convert(rb_cRational, a1, a2, raise);
+}</pre> </div> <p>Returns <code>x/y</code> or <code>arg</code> as a <a href="rational"><code>Rational</code></a>.</p> <pre class="ruby" data-language="ruby">Rational(2, 3)   #=&gt; (2/3)
+Rational(5)      #=&gt; (5/1)
+Rational(0.5)    #=&gt; (1/2)
+Rational(0.3)    #=&gt; (5404319552844595/18014398509481984)
+
+Rational("2/3")  #=&gt; (2/3)
+Rational("0.3")  #=&gt; (3/10)
+
+Rational("10 cents")  #=&gt; ArgumentError
+Rational(nil)         #=&gt; TypeError
+Rational(1, nil)      #=&gt; TypeError
+
+Rational("10 cents", exception: false)  #=&gt; nil
+</pre> <p>Syntax of the string form:</p> <pre>string form = extra spaces , rational , extra spaces ;
+rational = [ sign ] , unsigned rational ;
+unsigned rational = numerator | numerator , "/" , denominator ;
+numerator = integer part | fractional part | integer part , fractional part ;
+denominator = digits ;
+integer part = digits ;
+fractional part = "." , digits , [ ( "e" | "E" ) , [ sign ] , digits ] ;
+sign = "-" | "+" ;
+digits = digit , { digit | "_" , digit } ;
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+extra spaces = ? \s* ? ;</pre> <p>See also <a href="string#method-i-to_r"><code>String#to_r</code></a>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-String"> <span class="method-callseq"> String(object) → object or new_string </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="String-source"> <pre class="c" data-language="c">static VALUE
+rb_f_string(VALUE obj, VALUE arg)
+{
+    return rb_String(arg);
+}</pre> </div> <p>Returns a string converted from <code>object</code>.</p> <p>Tries to convert <code>object</code> to a string using <code>to_str</code> first and <code>to_s</code> second:</p> <pre class="ruby" data-language="ruby">String([0, 1, 2])        # =&gt; "[0, 1, 2]"
+String(0..5)             # =&gt; "0..5"
+String({foo: 0, bar: 1}) # =&gt; "{:foo=&gt;0, :bar=&gt;1}"
+</pre> <p>Raises <code>TypeError</code> if <code>object</code> cannot be converted to a string.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-__callee__"> <span class="method-callseq"> __callee__ → symbol </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="__callee__-source"> <pre class="c" data-language="c">static VALUE
+rb_f_callee_name(VALUE _)
+{
+    ID fname = prev_frame_callee(); /* need *callee* ID */
+
+    if (fname) {
+        return ID2SYM(fname);
+    }
+    else {
+        return Qnil;
+    }
+}</pre> </div> <p>Returns the called name of the current method as a <a href="symbol"><code>Symbol</code></a>. If called outside of a method, it returns <code>nil</code>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-__dir__"> <span class="method-callseq"> __dir__ → string </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="__dir__-source"> <pre class="c" data-language="c">static VALUE
+f_current_dirname(VALUE _)
+{
+    VALUE base = rb_current_realfilepath();
+    if (NIL_P(base)) {
+        return Qnil;
+    }
+    base = rb_file_dirname(base);
+    return base;
+}</pre> </div> <p>Returns the canonicalized absolute path of the directory of the file from which this method is called. It means symlinks in the path is resolved. If <code>__FILE__</code> is <code>nil</code>, it returns <code>nil</code>. The return value equals to <code>File.dirname(File.realpath(__FILE__))</code>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-__method__"> <span class="method-callseq"> __method__ → symbol </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="__method__-source"> <pre class="c" data-language="c">static VALUE
+rb_f_method_name(VALUE _)
+{
+    ID fname = prev_frame_func(); /* need *method* ID */
+
+    if (fname) {
+        return ID2SYM(fname);
+    }
+    else {
+        return Qnil;
+    }
+}</pre> </div> <p>Returns the name at the definition of the current method as a <a href="symbol"><code>Symbol</code></a>. If called outside of a method, it returns <code>nil</code>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-60"> <span class="method-callseq"> `command` → string </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="60-source"> <pre class="c" data-language="c">static VALUE
+rb_f_backquote(VALUE obj, VALUE str)
+{
+    VALUE port;
+    VALUE result;
+    rb_io_t *fptr;
+
+    SafeStringValue(str);
+    rb_last_status_clear();
+    port = pipe_open_s(str, "r", FMODE_READABLE|DEFAULT_TEXTMODE, NULL);
+    if (NIL_P(port)) return rb_str_new(0,0);
+
+    GetOpenFile(port, fptr);
+    result = read_all(fptr, remain_size(fptr), Qnil);
+    rb_io_close(port);
+    RFILE(port)-&gt;fptr = NULL;
+    rb_io_fptr_finalize(fptr);
+    RB_GC_GUARD(port);
+
+    return result;
+}</pre> </div> <p>Returns the <code>$stdout</code> output from running <code>command</code> in a subshell; sets global variable <code>$?</code> to the process status.</p> <p>This method has potential security vulnerabilities if called with untrusted input; see <a href="command_injection_rdoc">Command Injection</a>.</p> <p>Examples:</p> <pre>$ `date`                 # =&gt; "Wed Apr  9 08:56:30 CDT 2003\n"
+$ `echo oops &amp;&amp; exit 99` # =&gt; "oops\n"
+$ $?                     # =&gt; #&lt;Process::Status: pid 17088 exit 99&gt;
+$ $?.status              # =&gt; 99&gt;</pre> <p>The built-in syntax <code>%x{...}</code> uses this method.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-abort"> <span class="method-callseq"> abort </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> Kernel::abort([msg]) </span> </div> <div class="method-heading"> <span class="method-callseq"> abort([msg]) </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="abort-source"> <pre class="c" data-language="c">static VALUE
+f_abort(int c, const VALUE *a, VALUE _)
+{
+    rb_f_abort(c, a);
+    UNREACHABLE_RETURN(Qnil);
+}</pre> </div> <p>Terminate execution immediately, effectively by calling <code>Kernel.exit(false)</code>. If <em>msg</em> is given, it is written to STDERR prior to terminating.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-at_exit"> <span class="method-callseq"> at_exit { block } → proc </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="at_exit-source"> <pre class="c" data-language="c">static VALUE
+rb_f_at_exit(VALUE _)
+{
+    VALUE proc;
+
+    if (!rb_block_given_p()) {
+        rb_raise(rb_eArgError, "called without a block");
+    }
+    proc = rb_block_proc();
+    rb_set_end_proc(rb_call_end_proc, proc);
+    return proc;
+}</pre> </div> <p>Converts <em>block</em> to a <code>Proc</code> object (and therefore binds it at the point of call) and registers it for execution when the program exits. If multiple handlers are registered, they are executed in reverse order of registration.</p> <pre class="ruby" data-language="ruby">def do_at_exit(str1)
+  at_exit { print str1 }
+end
+at_exit { puts "cruel world" }
+do_at_exit("goodbye ")
+exit
+</pre> <p><em>produces:</em></p> <pre class="ruby" data-language="ruby">goodbye cruel world
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-autoload"> <span class="method-callseq"> autoload(const, filename) → nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="autoload-source"> <pre class="c" data-language="c">static VALUE
+rb_f_autoload(VALUE obj, VALUE sym, VALUE file)
+{
+    VALUE klass = rb_class_real(rb_vm_cbase());
+    if (!klass) {
+        rb_raise(rb_eTypeError, "Can not set autoload on singleton class");
+    }
+    return rb_mod_autoload(klass, sym, file);
+}</pre> </div> <pre>Registers _filename_ to be loaded (using Kernel::require)
+the first time that _const_ (which may be a String or
+a symbol) is accessed.
+
+   autoload(:MyModule, "/usr/local/lib/modules/my_module.rb")</pre> <p>If <em>const</em> is defined as autoload, the file name to be loaded is replaced with <em>filename</em>. If <em>const</em> is defined but not as autoload, does nothing.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-autoload-3F"> <span class="method-callseq"> autoload?(name, inherit=true) → String or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="autoload-3F-source"> <pre class="c" data-language="c">static VALUE
+rb_f_autoload_p(int argc, VALUE *argv, VALUE obj)
+{
+    /* use rb_vm_cbase() as same as rb_f_autoload. */
+    VALUE klass = rb_vm_cbase();
+    if (NIL_P(klass)) {
+        return Qnil;
+    }
+    return rb_mod_autoload_p(argc, argv, klass);
+}</pre> </div> <p>Returns <em>filename</em> to be loaded if <em>name</em> is registered as <code>autoload</code>.</p> <pre class="ruby" data-language="ruby">autoload(:B, "b")
+autoload?(:B)            #=&gt; "b"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-binding"> <span class="method-callseq"> binding → a_binding </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="binding-source"> <pre class="c" data-language="c">static VALUE
+rb_f_binding(VALUE self)
+{
+    return rb_binding_new();
+}</pre> </div> <p>Returns a <code>Binding</code> object, describing the variable and method bindings at the point of call. This object can be used when calling <code>eval</code> to execute the evaluated command in this environment. See also the description of class <code>Binding</code>.</p> <pre class="ruby" data-language="ruby">def get_binding(param)
+  binding
+end
+b = get_binding("hello")
+eval("param", b)   #=&gt; "hello"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-block_given-3F"> <span class="method-callseq"> block_given? → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="block_given-3F-source"> <pre class="c" data-language="c">static VALUE
+rb_f_block_given_p(VALUE _)
+{
+    rb_execution_context_t *ec = GET_EC();
+    rb_control_frame_t *cfp = ec-&gt;cfp;
+    cfp = vm_get_ruby_level_caller_cfp(ec, RUBY_VM_PREVIOUS_CONTROL_FRAME(cfp));
+
+    return RBOOL(cfp != NULL &amp;&amp; VM_CF_BLOCK_HANDLER(cfp) != VM_BLOCK_HANDLER_NONE);
+}</pre> </div> <p>Returns <code>true</code> if <code>yield</code> would execute a block in the current context. The <code>iterator?</code> form is mildly deprecated.</p> <pre class="ruby" data-language="ruby">def try
+  if block_given?
+    yield
+  else
+    "no block"
+  end
+end
+try                  #=&gt; "no block"
+try { "hello" }      #=&gt; "hello"
+try do "hello" end   #=&gt; "hello"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-callcc"> <span class="method-callseq"> callcc {|cont| block } → obj </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="callcc-source"> <pre class="c" data-language="c">static VALUE
+rb_callcc(VALUE self)
+{
+    volatile int called;
+    volatile VALUE val = cont_capture(&amp;called);
+
+    if (called) {
+        return val;
+    }
+    else {
+        return rb_yield(val);
+    }
+}</pre> </div> <p>Generates a <a href="continuation"><code>Continuation</code></a> object, which it passes to the associated block. You need to <code>require 'continuation'</code> before using this method. Performing a <em>cont</em><code>.call</code> will cause the <a href="kernel#method-i-callcc"><code>callcc</code></a> to return (as will falling through the end of the block). The value returned by the <a href="kernel#method-i-callcc"><code>callcc</code></a> is the value of the block, or the value passed to <em>cont</em><code>.call</code>. See class <a href="continuation"><code>Continuation</code></a> for more details. Also see <a href="kernel#method-i-throw"><code>Kernel#throw</code></a> for an alternative mechanism for unwinding a call stack.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-caller"> <span class="method-callseq"> caller(start=1, length=nil) → array or nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> caller(range) → array or nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="caller-source"> <pre class="c" data-language="c">static VALUE
+rb_f_caller(int argc, VALUE *argv, VALUE _)
+{
+    return ec_backtrace_to_ary(GET_EC(), argc, argv, 1, 1, 1);
+}</pre> </div> <p>Returns the current execution stack—an array containing strings in the form <code>file:line</code> or <code>file:line: in `method'</code>.</p> <p>The optional <em>start</em> parameter determines the number of initial stack entries to omit from the top of the stack.</p> <p>A second optional <code>length</code> parameter can be used to limit how many entries are returned from the stack.</p> <p>Returns <code>nil</code> if <em>start</em> is greater than the size of current execution stack.</p> <p>Optionally you can pass a range, which will return an array containing the entries within the specified range.</p> <pre class="ruby" data-language="ruby">def a(skip)
+  caller(skip)
+end
+def b(skip)
+  a(skip)
+end
+def c(skip)
+  b(skip)
+end
+c(0)   #=&gt; ["prog:2:in `a'", "prog:5:in `b'", "prog:8:in `c'", "prog:10:in `&lt;main&gt;'"]
+c(1)   #=&gt; ["prog:5:in `b'", "prog:8:in `c'", "prog:11:in `&lt;main&gt;'"]
+c(2)   #=&gt; ["prog:8:in `c'", "prog:12:in `&lt;main&gt;'"]
+c(3)   #=&gt; ["prog:13:in `&lt;main&gt;'"]
+c(4)   #=&gt; []
+c(5)   #=&gt; nil
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-caller_locations"> <span class="method-callseq"> caller_locations(start=1, length=nil) → array or nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> caller_locations(range) → array or nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="caller_locations-source"> <pre class="c" data-language="c">static VALUE
+rb_f_caller_locations(int argc, VALUE *argv, VALUE _)
+{
+    return ec_backtrace_to_ary(GET_EC(), argc, argv, 1, 1, 0);
+}</pre> </div> <p>Returns the current execution stack—an array containing backtrace location objects.</p> <p>See <a href="thread/backtrace/location"><code>Thread::Backtrace::Location</code></a> for more information.</p> <p>The optional <em>start</em> parameter determines the number of initial stack entries to omit from the top of the stack.</p> <p>A second optional <code>length</code> parameter can be used to limit how many entries are returned from the stack.</p> <p>Returns <code>nil</code> if <em>start</em> is greater than the size of current execution stack.</p> <p>Optionally you can pass a range, which will return an array containing the entries within the specified range.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-catch"> <span class="method-callseq"> catch([tag]) {|tag| block } → obj </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="catch-source"> <pre class="c" data-language="c">static VALUE
+rb_f_catch(int argc, VALUE *argv, VALUE self)
+{
+    VALUE tag = rb_check_arity(argc, 0, 1) ? argv[0] : rb_obj_alloc(rb_cObject);
+    return rb_catch_obj(tag, catch_i, 0);
+}</pre> </div> <p><code>catch</code> executes its block. If <code>throw</code> is not called, the block executes normally, and <code>catch</code> returns the value of the last expression evaluated.</p> <pre class="ruby" data-language="ruby">catch(1) { 123 }            # =&gt; 123
+</pre> <p>If <code>throw(tag2, val)</code> is called, Ruby searches up its stack for a <code>catch</code> block whose <code>tag</code> has the same <code>object_id</code> as <em>tag2</em>. When found, the block stops executing and returns <em>val</em> (or <code>nil</code> if no second argument was given to <code>throw</code>).</p> <pre class="ruby" data-language="ruby">catch(1) { throw(1, 456) }  # =&gt; 456
+catch(1) { throw(1) }       # =&gt; nil
+</pre> <p>When <code>tag</code> is passed as the first argument, <code>catch</code> yields it as the parameter of the block.</p> <pre class="ruby" data-language="ruby">catch(1) {|x| x + 2 }       # =&gt; 3
+</pre> <p>When no <code>tag</code> is given, <code>catch</code> yields a new unique object (as from <code>Object.new</code>) as the block parameter. This object can then be used as the argument to <code>throw</code>, and will match the correct <code>catch</code> block.</p> <pre class="ruby" data-language="ruby">catch do |obj_A|
+  catch do |obj_B|
+    throw(obj_B, 123)
+    puts "This puts is not reached"
+  end
+
+  puts "This puts is displayed"
+  456
+end
+
+# =&gt; 456
+
+catch do |obj_A|
+  catch do |obj_B|
+    throw(obj_A, 123)
+    puts "This puts is still not reached"
+  end
+
+  puts "Now this puts is also not reached"
+  456
+end
+
+# =&gt; 123
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-chomp"> <span class="method-callseq"> chomp → $_ </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> chomp(string) → $_ </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="chomp-source"> <pre class="c" data-language="c">static VALUE
+rb_f_chomp(int argc, VALUE *argv, VALUE _)
+{
+    VALUE str = rb_funcall_passing_block(uscore_get(), rb_intern("chomp"), argc, argv);
+    rb_lastline_set(str);
+    return str;
+}</pre> </div> <p>Equivalent to <code>$_ = $_.chomp(<em>string</em>)</code>. See <a href="string#method-i-chomp"><code>String#chomp</code></a>. Available only when -p/-n command line option specified.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-chop"> <span class="method-callseq"> chop → $_ </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="chop-source"> <pre class="c" data-language="c">static VALUE
+rb_f_chop(VALUE _)
+{
+    VALUE str = rb_funcall_passing_block(uscore_get(), rb_intern("chop"), 0, 0);
+    rb_lastline_set(str);
+    return str;
+}</pre> </div> <p>Equivalent to <code>($_.dup).chop!</code>, except <code>nil</code> is never returned. See <a href="string#method-i-chop-21"><code>String#chop!</code></a>. Available only when -p/-n command line option specified.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-class"> <span class="method-callseq"> class → class </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="class-source"> <pre class="ruby" data-language="ruby"># File kernel.rb, line 18
+def class
+  Primitive.attr! 'inline'
+  Primitive.cexpr! 'rb_obj_class(self)'
+end</pre> </div> <p>Returns the class of <em>obj</em>. This method must always be called with an explicit receiver, as <a href="kernel#method-i-class"><code>class</code></a> is also a reserved word in Ruby.</p> <pre class="ruby" data-language="ruby">1.class      #=&gt; Integer
+self.class   #=&gt; Object
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-clone"> <span class="method-callseq"> clone(freeze: nil) → an_object </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="clone-source"> <pre class="ruby" data-language="ruby"># File kernel.rb, line 47
+def clone(freeze: nil)
+  Primitive.rb_obj_clone2(freeze)
+end</pre> </div> <p>Produces a shallow copy of <em>obj</em>—the instance variables of <em>obj</em> are copied, but not the objects they reference. <a href="kernel#method-i-clone"><code>clone</code></a> copies the frozen value state of <em>obj</em>, unless the <code>:freeze</code> keyword argument is given with a false or true value. See also the discussion under <a href="object#method-i-dup"><code>Object#dup</code></a>.</p> <pre class="ruby" data-language="ruby">class Klass
+   attr_accessor :str
+end
+s1 = Klass.new      #=&gt; #&lt;Klass:0x401b3a38&gt;
+s1.str = "Hello"    #=&gt; "Hello"
+s2 = s1.clone       #=&gt; #&lt;Klass:0x401b3998 @str="Hello"&gt;
+s2.str[1,4] = "i"   #=&gt; "i"
+s1.inspect          #=&gt; "#&lt;Klass:0x401b3a38 @str=\"Hi\"&gt;"
+s2.inspect          #=&gt; "#&lt;Klass:0x401b3998 @str=\"Hi\"&gt;"
+</pre> <p>This method may have class-specific behavior. If so, that behavior will be documented under the #<code>initialize_copy</code> method of the class.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-eval"> <span class="method-callseq"> eval(string [, binding [, filename [,lineno]]]) → obj </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="eval-source"> <pre class="c" data-language="c">VALUE
+rb_f_eval(int argc, const VALUE *argv, VALUE self)
+{
+    VALUE src, scope, vfile, vline;
+    VALUE file = Qundef;
+    int line = 1;
+
+    rb_scan_args(argc, argv, "13", &amp;src, &amp;scope, &amp;vfile, &amp;vline);
+    SafeStringValue(src);
+    if (argc &gt;= 3) {
+        StringValue(vfile);
+    }
+    if (argc &gt;= 4) {
+        line = NUM2INT(vline);
+    }
+
+    if (!NIL_P(vfile))
+        file = vfile;
+
+    if (NIL_P(scope))
+        return eval_string_with_cref(self, src, NULL, file, line);
+    else
+        return eval_string_with_scope(scope, src, file, line);
+}</pre> </div> <p>Evaluates the Ruby expression(s) in <em>string</em>. If <em>binding</em> is given, which must be a <a href="binding"><code>Binding</code></a> object, the evaluation is performed in its context. If the optional <em>filename</em> and <em>lineno</em> parameters are present, they will be used when reporting syntax errors.</p> <pre class="ruby" data-language="ruby">def get_binding(str)
+  return binding
+end
+str = "hello"
+eval "str + ' Fred'"                      #=&gt; "hello Fred"
+eval "str + ' Fred'", get_binding("bye")  #=&gt; "bye Fred"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-exec"> <span class="method-callseq"> exec([env,] command... [,options]) </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="exec-source"> <pre class="c" data-language="c">static VALUE
+f_exec(int c, const VALUE *a, VALUE _)
+{
+    rb_f_exec(c, a);
+    UNREACHABLE_RETURN(Qnil);
+}</pre> </div> <p>Replaces the current process by running the given external <em>command</em>, which can take one of the following forms:</p> <dl class="rdoc-list label-list">
+<dt>
+<code>exec(commandline)</code> </dt>
+<dd> <p>command line string which is passed to the standard shell</p> </dd>
+<dt>
+<code>exec(cmdname, arg1, ...)</code> </dt>
+<dd> <p>command name and one or more arguments (no shell)</p> </dd>
+<dt>
+<code>exec([cmdname, argv0], arg1, ...)</code> </dt>
+<dd> <p>command name, <code>argv[0]</code> and zero or more arguments (no shell)</p> </dd>
+</dl> <p>In the first form, the string is taken as a command line that is subject to shell expansion before being executed.</p> <p>The standard shell always means <code>"/bin/sh"</code> on Unix-like systems, otherwise, <code>ENV["RUBYSHELL"]</code> or <code>ENV["COMSPEC"]</code> on Windows and similar. The command is passed as an argument to the <code>"-c"</code> switch to the shell, except in the case of <code>COMSPEC</code>.</p> <p>If the string from the first form (<code>exec("command")</code>) follows these simple rules:</p> <ul>
+<li> <p>no meta characters,</p> </li>
+<li> <p>not starting with shell reserved word or special built-in,</p> </li>
+</ul> <p>Ruby invokes the command directly without shell.</p> <p>You can force shell invocation by adding “;” to the string (because “;” is a meta character).</p> <p>Note that this behavior is observable by pid obtained (return value of spawn() and <a href="io#method-i-pid"><code>IO#pid</code></a> for <a href="io#method-c-popen"><code>IO.popen</code></a>) is the pid of the invoked command, not shell.</p> <p>In the second form (<code>exec("command1", "arg1", ...)</code>), the first is taken as a command name and the rest are passed as parameters to command with no shell expansion.</p> <p>In the third form (<code>exec(["command", "argv0"], "arg1", ...)</code>), starting a two-element array at the beginning of the command, the first element is the command to be executed, and the second argument is used as the <code>argv[0]</code> value, which may show up in process listings.</p> <p>In order to execute the command, one of the <code>exec(2)</code> system calls are used, so the running command may inherit some of the environment of the original program (including open file descriptors).</p> <p>This behavior is modified by the given <code>env</code> and <code>options</code> parameters. See ::spawn for details.</p> <p>If the command fails to execute (typically Errno::ENOENT when it was not found) a <a href="systemcallerror"><code>SystemCallError</code></a> exception is raised.</p> <p>This method modifies process attributes according to given <code>options</code> before <code>exec(2)</code> system call. See ::spawn for more details about the given <code>options</code>.</p> <p>The modified attributes may be retained when <code>exec(2)</code> system call fails.</p> <p>For example, hard resource limits are not restorable.</p> <p>Consider to create a child process using ::spawn or <a href="kernel#method-i-system"><code>Kernel#system</code></a> if this is not acceptable.</p> <pre class="ruby" data-language="ruby">exec "echo *"       # echoes list of files in current directory
+# never get here
+
+exec "echo", "*"    # echoes an asterisk
+# never get here
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-exit"> <span class="method-callseq"> exit(status=true) </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> Kernel::exit(status=true) </span> </div> <div class="method-heading"> <span class="method-callseq"> Process::exit(status=true) </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="exit-source"> <pre class="c" data-language="c">static VALUE
+f_exit(int c, const VALUE *a, VALUE _)
+{
+    rb_f_exit(c, a);
+    UNREACHABLE_RETURN(Qnil);
+}</pre> </div> <p>Initiates the termination of the Ruby script by raising the <a href="systemexit"><code>SystemExit</code></a> exception. This exception may be caught. The optional parameter is used to return a status code to the invoking environment. <code>true</code> and <code>FALSE</code> of <em>status</em> means success and failure respectively. The interpretation of other integer values are system dependent.</p> <pre class="ruby" data-language="ruby">begin
+  exit
+  puts "never get here"
+rescue SystemExit
+  puts "rescued a SystemExit exception"
+end
+puts "after begin block"
+</pre> <p><em>produces:</em></p> <pre>rescued a SystemExit exception
+after begin block</pre> <p>Just prior to termination, Ruby executes any <code>at_exit</code> functions (see Kernel::at_exit) and runs any object finalizers (see <a href="objectspace#method-c-define_finalizer"><code>ObjectSpace::define_finalizer</code></a>).</p> <pre class="ruby" data-language="ruby">at_exit { puts "at_exit function" }
+ObjectSpace.define_finalizer("string",  proc { puts "in finalizer" })
+exit
+</pre> <p><em>produces:</em></p> <pre>at_exit function
+in finalizer</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-exit-21"> <span class="method-callseq"> exit!(status=false) </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="exit-21-source"> <pre class="c" data-language="c">static VALUE
+rb_f_exit_bang(int argc, VALUE *argv, VALUE obj)
+{
+    int istatus;
+
+    if (rb_check_arity(argc, 0, 1) == 1) {
+        istatus = exit_status_code(argv[0]);
+    }
+    else {
+        istatus = EXIT_FAILURE;
+    }
+    _exit(istatus);
+
+    UNREACHABLE_RETURN(Qnil);
+}</pre> </div> <p>Exits the process immediately. No exit handlers are run. <em>status</em> is returned to the underlying system as the exit status.</p> <pre class="ruby" data-language="ruby">Process.exit!(true)
+</pre>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-fail"> <span class="method-callseq"> raise </span> </div> <div class="method-heading"> <span class="method-callseq"> fail </span> </div> <div class="method-heading"> <span class="method-callseq"> fail(string, cause: $!) </span> </div> <div class="method-heading"> <span class="method-callseq"> fail(exception [, string [, array]], cause: $!) </span> </div> </div> <div class="method-description"> <p>With no arguments, raises the exception in <code>$!</code> or raises a <a href="runtimeerror"><code>RuntimeError</code></a> if <code>$!</code> is <code>nil</code>. With a single <code>String</code> argument, raises a <code>RuntimeError</code> with the string as a message. Otherwise, the first parameter should be an <code>Exception</code> class (or another object that returns an <code>Exception</code> object when sent an <code>exception</code> message). The optional second parameter sets the message associated with the exception (accessible via <a href="exception#method-i-message"><code>Exception#message</code></a>), and the third parameter is an array of callback information (accessible via <a href="exception#method-i-backtrace"><code>Exception#backtrace</code></a>). The <code>cause</code> of the generated exception (accessible via <a href="exception#method-i-cause"><code>Exception#cause</code></a>) is automatically set to the “current” exception (<code>$!</code>), if any. An alternative value, either an <code>Exception</code> object or <code>nil</code>, can be specified via the <code>:cause</code> argument.</p> <p>Exceptions are caught by the <code>rescue</code> clause of <code>begin...end</code> blocks.</p> <pre class="ruby" data-language="ruby">raise "Failed to create socket"
+raise ArgumentError, "No parameters", caller
+</pre> </div> <div class="aliases"> Alias for: <a href="kernel#method-i-raise">raise</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-fork"> <span class="method-callseq"> fork [{ block }] → integer or nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> fork [{ block }] → integer or nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="fork-source"> <pre class="c" data-language="c">static VALUE
+rb_f_fork(VALUE obj)
+{
+    rb_pid_t pid;
+
+    pid = rb_call_proc__fork();
+
+    if (pid == 0) {
+        if (rb_block_given_p()) {
+            int status;
+            rb_protect(rb_yield, Qundef, &amp;status);
+            ruby_stop(status);
+        }
+        return Qnil;
+    }
+
+    return PIDT2NUM(pid);
+}</pre> </div> <p>Creates a subprocess. If a block is specified, that block is run in the subprocess, and the subprocess terminates with a status of zero. Otherwise, the <code>fork</code> call returns twice, once in the parent, returning the process ID of the child, and once in the child, returning <em>nil</em>. The child process can exit using <a href="kernel#method-i-exit-21"><code>Kernel.exit!</code></a> to avoid running any <code>at_exit</code> functions. The parent process should use <a href="process#method-c-wait"><code>Process.wait</code></a> to collect the termination statuses of its children or use <a href="process#method-c-detach"><code>Process.detach</code></a> to register disinterest in their status; otherwise, the operating system may accumulate zombie processes.</p> <p>The thread calling fork is the only thread in the created child process. fork doesn’t copy other threads.</p> <p>If fork is not usable, Process.respond_to?(:fork) returns false.</p> <p>Note that fork(2) is not available on some platforms like Windows and NetBSD 4. Therefore you should use spawn() instead of fork().</p>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-format"> <span class="method-name">format</span><span class="method-args">(*args)</span> </div> </div> <div class="method-description"> <p>Returns the string resulting from formatting <code>objects</code> into <code>format_string</code>.</p> <p>For details on <code>format_string</code>, see <a href="format_specifications_rdoc">Format Specifications</a>.</p> <p><a href="kernel#method-i-format"><code>Kernel#format</code></a> is an alias for <a href="kernel#method-i-sprintf"><code>Kernel#sprintf</code></a>.</p> </div> <div class="aliases"> Alias for: <a href="kernel#method-i-sprintf">sprintf</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-frozen-3F"> <span class="method-callseq"> frozen? → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="frozen-3F-source"> <pre class="ruby" data-language="ruby"># File kernel.rb, line 67
+def frozen?
+  Primitive.attr! 'inline'
+  Primitive.cexpr! 'rb_obj_frozen_p(self)'
+end</pre> </div> <p>Returns the freeze status of <em>obj</em>.</p> <pre class="ruby" data-language="ruby">a = [ "a", "b", "c" ]
+a.freeze    #=&gt; ["a", "b", "c"]
+a.frozen?   #=&gt; true
+</pre>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-gem_original_require"> <span class="method-name">gem_original_require</span><span class="method-args">(file)</span> </div> </div>  <div class="aliases"> Alias for: <a href="kernel#method-i-require">require</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-gets"> <span class="method-callseq"> gets(sep=$/ [, getline_args]) → string or nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> gets(limit [, getline_args]) → string or nil </span> </div> <div class="method-heading"> <span class="method-callseq"> gets(sep, limit [, getline_args]) → string or nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="gets-source"> <pre class="c" data-language="c">static VALUE
+rb_f_gets(int argc, VALUE *argv, VALUE recv)
+{
+    if (recv == argf) {
+        return argf_gets(argc, argv, argf);
+    }
+    return forward(argf, idGets, argc, argv);
+}</pre> </div> <p>Returns (and assigns to <code>$_</code>) the next line from the list of files in <code>ARGV</code> (or <code>$*</code>), or from standard input if no files are present on the command line. Returns <code>nil</code> at end of file. The optional argument specifies the record separator. The separator is included with the contents of each record. A separator of <code>nil</code> reads the entire contents, and a zero-length separator reads the input one paragraph at a time, where paragraphs are divided by two consecutive newlines. If the first argument is an integer, or optional second argument is given, the returning string would not be longer than the given value in bytes. If multiple filenames are present in <code>ARGV</code>, <code>gets(nil)</code> will read the contents one file at a time.</p> <pre class="ruby" data-language="ruby">ARGV &lt;&lt; "testfile"
+print while gets
+</pre> <p><em>produces:</em></p> <pre class="ruby" data-language="ruby">This is line one
+This is line two
+This is line three
+And so on...
+</pre> <p>The style of programming using <code>$_</code> as an implicit parameter is gradually losing favor in the Ruby community.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-global_variables"> <span class="method-callseq"> global_variables → array </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="global_variables-source"> <pre class="c" data-language="c">static VALUE
+f_global_variables(VALUE _)
+{
+    return rb_f_global_variables();
+}</pre> </div> <p>Returns an array of the names of global variables. This includes special regexp global variables such as <code>$~</code> and <code>$+</code>, but does not include the numbered regexp global variables (<code>$1</code>, <code>$2</code>, etc.).</p> <pre class="ruby" data-language="ruby">global_variables.grep /std/   #=&gt; [:$stdin, :$stdout, :$stderr]
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-gsub"> <span class="method-callseq"> gsub(pattern, replacement) → $_ </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> gsub(pattern) {|...| block } → $_ </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="gsub-source"> <pre class="c" data-language="c">static VALUE
+rb_f_gsub(int argc, VALUE *argv, VALUE _)
+{
+    VALUE str = rb_funcall_passing_block(uscore_get(), rb_intern("gsub"), argc, argv);
+    rb_lastline_set(str);
+    return str;
+}</pre> </div> <p>Equivalent to <code>$_.gsub...</code>, except that <code>$_</code> will be updated if substitution occurs. Available only when -p/-n command line option specified.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-iterator-3F"> <span class="method-callseq"> iterator? → true or false </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="iterator-3F-source"> <pre class="c" data-language="c">static VALUE
+rb_f_iterator_p(VALUE self)
+{
+    rb_warn_deprecated("iterator?", "block_given?");
+    return rb_f_block_given_p(self);
+}</pre> </div> <p>Deprecated. Use block_given? instead.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-lambda"> <span class="method-callseq"> lambda { |...| block } → a_proc </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="lambda-source"> <pre class="c" data-language="c">static VALUE
+f_lambda(VALUE _)
+{
+    f_lambda_warn();
+    return rb_block_lambda();
+}</pre> </div> <p>Equivalent to <a href="proc#method-c-new"><code>Proc.new</code></a>, except the resulting <a href="proc"><code>Proc</code></a> objects check the number of parameters passed when called.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-load"> <span class="method-name">load</span><span class="method-args">(file, wrap = false)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="load-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/core_ext.rb, line 78
+def load(file, wrap = false)
+  syntax_suggest_original_load(file)
+rescue SyntaxError =&gt; e
+  require "syntax_suggest/api" unless defined?(SyntaxSuggest::DEFAULT_VALUE)
+
+  SyntaxSuggest.handle_error(e)
+end</pre> </div> <p>Loads and executes the Ruby program in the file <em>filename</em>.</p> <p>If the filename is an absolute path (e.g. starts with ‘/’), the file will be loaded directly using the absolute path.</p> <p>If the filename is an explicit relative path (e.g. starts with ‘./’ or ‘../’), the file will be loaded using the relative path from the current directory.</p> <p>Otherwise, the file will be searched for in the library directories listed in <code>$LOAD_PATH</code> (<code>$:</code>). If the file is found in a directory, it will attempt to load the file relative to that directory. If the file is not found in any of the directories in <code>$LOAD_PATH</code>, the file will be loaded using the relative path from the current directory.</p> <p>If the file doesn’t exist when there is an attempt to load it, a <a href="loaderror"><code>LoadError</code></a> will be raised.</p> <p>If the optional <em>wrap</em> parameter is <code>true</code>, the loaded script will be executed under an anonymous module, protecting the calling program’s global namespace. If the optional <em>wrap</em> parameter is a module, the loaded script will be executed under the given module. In no circumstance will any local variables in the loaded file be propagated to the loading environment.</p>  </div> <div class="aliases"> Also aliased as: <a href="kernel#method-i-syntax_suggest_original_load">syntax_suggest_original_load</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-local_variables"> <span class="method-callseq"> local_variables → array </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="local_variables-source"> <pre class="c" data-language="c">static VALUE
+rb_f_local_variables(VALUE _)
+{
+    struct local_var_list vars;
+    rb_execution_context_t *ec = GET_EC();
+    rb_control_frame_t *cfp = vm_get_ruby_level_caller_cfp(ec, RUBY_VM_PREVIOUS_CONTROL_FRAME(ec-&gt;cfp));
+    unsigned int i;
+
+    local_var_list_init(&amp;vars);
+    while (cfp) {
+        if (cfp-&gt;iseq) {
+            for (i = 0; i &lt; ISEQ_BODY(cfp-&gt;iseq)-&gt;local_table_size; i++) {
+                local_var_list_add(&amp;vars, ISEQ_BODY(cfp-&gt;iseq)-&gt;local_table[i]);
+            }
+        }
+        if (!VM_ENV_LOCAL_P(cfp-&gt;ep)) {
+            /* block */
+            const VALUE *ep = VM_CF_PREV_EP(cfp);
+
+            if (vm_collect_local_variables_in_heap(ep, &amp;vars)) {
+                break;
+            }
+            else {
+                while (cfp-&gt;ep != ep) {
+                    cfp = RUBY_VM_PREVIOUS_CONTROL_FRAME(cfp);
+                }
+            }
+        }
+        else {
+            break;
+        }
+    }
+    return local_var_list_finish(&amp;vars);
+}</pre> </div> <p>Returns the names of the current local variables.</p> <pre class="ruby" data-language="ruby">fred = 1
+for i in 1..10
+   # ...
+end
+local_variables   #=&gt; [:fred, :i]
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-loop"> <span class="method-callseq"> loop { block } </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> loop → an_enumerator </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="loop-source"> <pre class="c" data-language="c">static VALUE
+rb_f_loop(VALUE self)
+{
+    RETURN_SIZED_ENUMERATOR(self, 0, 0, rb_f_loop_size);
+    return rb_rescue2(loop_i, (VALUE)0, loop_stop, (VALUE)0, rb_eStopIteration, (VALUE)0);
+}</pre> </div> <p>Repeatedly executes the block.</p> <p>If no block is given, an enumerator is returned instead.</p> <pre class="ruby" data-language="ruby">loop do
+  print "Input: "
+  line = gets
+  break if !line or line =~ /^q/i
+  # ...
+end
+</pre> <p><a href="stopiteration"><code>StopIteration</code></a> raised in the block breaks the loop. In this case, loop returns the “result” value stored in the exception.</p> <pre class="ruby" data-language="ruby">enum = Enumerator.new { |y|
+  y &lt;&lt; "one"
+  y &lt;&lt; "two"
+  :ok
+}
+
+result = loop {
+  puts enum.next
+} #=&gt; :ok
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-open"> <span class="method-callseq"> open(path, mode = 'r', perm = 0666, **opts) → io or nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> open(path, mode = 'r', perm = 0666, **opts) {|io| ... } → obj </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="open-source"> <pre class="c" data-language="c">static VALUE
+rb_f_open(int argc, VALUE *argv, VALUE _)
+{
+    ID to_open = 0;
+    int redirect = FALSE;
+
+    if (argc &gt;= 1) {
+        CONST_ID(to_open, "to_open");
+        if (rb_respond_to(argv[0], to_open)) {
+            redirect = TRUE;
+        }
+        else {
+            VALUE tmp = argv[0];
+            FilePathValue(tmp);
+            if (NIL_P(tmp)) {
+                redirect = TRUE;
+            }
+            else {
+                VALUE cmd = check_pipe_command(tmp);
+                if (!NIL_P(cmd)) {
+                    argv[0] = cmd;
+                    return rb_io_s_popen(argc, argv, rb_cIO);
+                }
+            }
+        }
+    }
+    if (redirect) {
+        VALUE io = rb_funcallv_kw(argv[0], to_open, argc-1, argv+1, RB_PASS_CALLED_KEYWORDS);
+
+        if (rb_block_given_p()) {
+            return rb_ensure(rb_yield, io, io_close, io);
+        }
+        return io;
+    }
+    return rb_io_s_open(argc, argv, rb_cFile);
+}</pre> </div> <p>Creates an <a href="io"><code>IO</code></a> object connected to the given stream, file, or subprocess.</p> <p>Required string argument <code>path</code> determines which of the following occurs:</p> <ul>
+<li> <p>The file at the specified <code>path</code> is opened.</p> </li>
+<li> <p>The process forks.</p> </li>
+<li> <p>A subprocess is created.</p> </li>
+</ul> <p>Each of these is detailed below.</p> <p><strong>File Opened</strong></p> <p>If <code>path</code> does <em>not</em> start with a pipe character (<code>'|'</code>), a file stream is opened with <code>File.open(path, mode, perm, **opts)</code>.</p> <p>With no block given, file stream is returned:</p> <pre class="ruby" data-language="ruby">open('t.txt') # =&gt; #&lt;File:t.txt&gt;
+</pre> <p>With a block given, calls the block with the open file stream, then closes the stream:</p> <pre class="ruby" data-language="ruby">open('t.txt') {|f| p f } # =&gt; #&lt;File:t.txt (closed)&gt;
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">#&lt;File:t.txt&gt;
+</pre> <p>See <a href="file#method-c-open"><code>File.open</code></a> for details.</p> <p><strong>Process Forked</strong></p> <p>If <code>path</code> is the 2-character string <code>'|-'</code>, the process forks and the child process is connected to the parent.</p> <p>With no block given:</p> <pre class="ruby" data-language="ruby">io = open('|-')
+if io
+  $stderr.puts "In parent, child pid is #{io.pid}."
+else
+  $stderr.puts "In child, pid is #{$$}."
+end
+</pre> <p>Output:</p> <pre>In parent, child pid is 27903.
+In child, pid is 27903.</pre> <p>With a block given:</p> <pre class="ruby" data-language="ruby">open('|-') do |io|
+  if io
+    $stderr.puts "In parent, child pid is #{io.pid}."
+  else
+    $stderr.puts "In child, pid is #{$$}."
+  end
+end
+</pre> <p>Output:</p> <pre>In parent, child pid is 28427.
+In child, pid is 28427.</pre> <p><strong>Subprocess Created</strong></p> <p>If <code>path</code> is <code>'|command'</code> (<code>'command' != '-'</code>), a new subprocess runs the command; its open stream is returned. Note that the command may be processed by shell if it contains shell metacharacters.</p> <p>With no block given:</p> <pre class="ruby" data-language="ruby">io = open('|echo "Hi!"') # =&gt; #&lt;IO:fd 12&gt;
+print io.gets
+io.close
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">"Hi!"
+</pre> <p>With a block given, calls the block with the stream, then closes the stream:</p> <pre class="ruby" data-language="ruby">open('|echo "Hi!"') do |io|
+  print io.gets
+end
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">"Hi!"
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-p"> <span class="method-callseq"> p(object) → obj </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> p(*objects) → array of objects </span> </div> <div class="method-heading"> <span class="method-callseq"> p → nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="p-source"> <pre class="c" data-language="c">static VALUE
+rb_f_p(int argc, VALUE *argv, VALUE self)
+{
+    int i;
+    for (i=0; i&lt;argc; i++) {
+        VALUE inspected = rb_obj_as_string(rb_inspect(argv[i]));
+        rb_uninterruptible(rb_p_write, inspected);
+    }
+    return rb_p_result(argc, argv);
+}</pre> </div> <p>For each object <code>obj</code>, executes:</p> <pre class="ruby" data-language="ruby">$stdout.write(obj.inspect, "\n")
+</pre> <p>With one object given, returns the object; with multiple objects given, returns an array containing the objects; with no object given, returns <code>nil</code>.</p> <p>Examples:</p> <pre class="ruby" data-language="ruby">r = Range.new(0, 4)
+p r                 # =&gt; 0..4
+p [r, r, r]         # =&gt; [0..4, 0..4, 0..4]
+p                   # =&gt; nil
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">0..4
+[0..4, 0..4, 0..4]
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-pretty_inspect"> <span class="method-name">pretty_inspect</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="pretty_inspect-source"> <pre class="ruby" data-language="ruby"># File lib/pp.rb, line 637
+def pretty_inspect
+  PP.pp(self, ''.dup)
+end</pre> </div> <p>Returns a pretty printed object as a string.</p> <p>In order to use this method you must first require the <a href="pp"><code>PP</code></a> module:</p> <pre class="ruby" data-language="ruby">require 'pp'
+</pre> <p>See the <a href="pp"><code>PP</code></a> module for more information.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-print"> <span class="method-callseq"> print(*objects) → nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="print-source"> <pre class="c" data-language="c">static VALUE
+rb_f_print(int argc, const VALUE *argv, VALUE _)
+{
+    rb_io_print(argc, argv, rb_ractor_stdout());
+    return Qnil;
+}</pre> </div> <p>Equivalent to <code>$stdout.print(*objects)</code>, this method is the straightforward way to write to <code>$stdout</code>.</p> <p>Writes the given objects to <code>$stdout</code>; returns <code>nil</code>. Appends the output record separator <code>$OUTPUT_RECORD_SEPARATOR</code> <code>$\</code>), if it is not <code>nil</code>.</p> <p>With argument <code>objects</code> given, for each object:</p> <ul>
+<li> <p>Converts via its method <code>to_s</code> if not a string.</p> </li>
+<li> <p>Writes to <code>stdout</code>.</p> </li>
+<li> <p>If not the last object, writes the output field separator <code>$OUTPUT_FIELD_SEPARATOR</code> (<code>$,</code> if it is not <code>nil</code>.</p> </li>
+</ul> <p>With default separators:</p> <pre class="ruby" data-language="ruby">objects = [0, 0.0, Rational(0, 1), Complex(0, 0), :zero, 'zero']
+$OUTPUT_RECORD_SEPARATOR
+$OUTPUT_FIELD_SEPARATOR
+print(*objects)
+</pre> <p>Output:</p> <pre>nil
+nil
+00.00/10+0izerozero</pre> <p>With specified separators:</p> <pre class="ruby" data-language="ruby">$OUTPUT_RECORD_SEPARATOR = "\n"
+$OUTPUT_FIELD_SEPARATOR = ','
+print(*objects)
+</pre> <p>Output:</p> <pre>0,0.0,0/1,0+0i,zero,zero</pre> <p>With no argument given, writes the content of <code>$_</code> (which is usually the most recent user input):</p> <pre class="ruby" data-language="ruby">gets  # Sets $_ to the most recent user input.
+print # Prints $_.
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-printf"> <span class="method-callseq"> printf(format_string, *objects) → nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> printf(io, format_string, *objects) → nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="printf-source"> <pre class="c" data-language="c">static VALUE
+rb_f_printf(int argc, VALUE *argv, VALUE _)
+{
+    VALUE out;
+
+    if (argc == 0) return Qnil;
+    if (RB_TYPE_P(argv[0], T_STRING)) {
+        out = rb_ractor_stdout();
+    }
+    else {
+        out = argv[0];
+        argv++;
+        argc--;
+    }
+    rb_io_write(out, rb_f_sprintf(argc, argv));
+
+    return Qnil;
+}</pre> </div> <p>Equivalent to:</p> <pre class="ruby" data-language="ruby">io.write(sprintf(format_string, *objects))
+</pre> <p>For details on <code>format_string</code>, see <a href="format_specifications_rdoc">Format Specifications</a>.</p> <p>With the single argument <code>format_string</code>, formats <code>objects</code> into the string, then writes the formatted string to $stdout:</p> <pre class="ruby" data-language="ruby">printf('%4.4d %10s %2.2f', 24, 24, 24.0)
+</pre> <p>Output (on $stdout):</p> <pre>0024         24 24.00#</pre> <p>With arguments <code>io</code> and <code>format_string</code>, formats <code>objects</code> into the string, then writes the formatted string to <code>io</code>:</p> <pre class="ruby" data-language="ruby">printf($stderr, '%4.4d %10s %2.2f', 24, 24, 24.0)
+</pre> <p>Output (on $stderr):</p> <pre>0024         24 24.00# =&gt; nil</pre> <p>With no arguments, does nothing.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-proc"> <span class="method-callseq"> proc { |...| block } → a_proc </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="proc-source"> <pre class="c" data-language="c">static VALUE
+f_proc(VALUE _)
+{
+    return proc_new(rb_cProc, FALSE, TRUE);
+}</pre> </div> <p>Equivalent to <a href="proc#method-c-new"><code>Proc.new</code></a>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-putc"> <span class="method-callseq"> putc(int) → int </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="putc-source"> <pre class="c" data-language="c">static VALUE
+rb_f_putc(VALUE recv, VALUE ch)
+{
+    VALUE r_stdout = rb_ractor_stdout();
+    if (recv == r_stdout) {
+        return rb_io_putc(recv, ch);
+    }
+    return forward(r_stdout, rb_intern("putc"), 1, &amp;ch);
+}</pre> </div> <p>Equivalent to:</p> <pre class="ruby" data-language="ruby">$stdout.putc(int)
+</pre> <p>See <a href="io#method-i-putc"><code>IO#putc</code></a> for important information regarding multi-byte characters.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-puts"> <span class="method-callseq"> puts(*objects) → nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="puts-source"> <pre class="c" data-language="c">static VALUE
+rb_f_puts(int argc, VALUE *argv, VALUE recv)
+{
+    VALUE r_stdout = rb_ractor_stdout();
+    if (recv == r_stdout) {
+        return rb_io_puts(argc, argv, recv);
+    }
+    return forward(r_stdout, rb_intern("puts"), argc, argv);
+}</pre> </div> <p>Equivalent to</p> <pre class="ruby" data-language="ruby">$stdout.puts(objects)
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-raise"> <span class="method-callseq"> raise </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> raise(string, cause: $!) </span> </div> <div class="method-heading"> <span class="method-callseq"> raise(exception [, string [, array]], cause: $!) </span> </div> <div class="method-heading"> <span class="method-callseq"> fail </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="raise-source"> <pre class="c" data-language="c">static VALUE
+f_raise(int c, VALUE *v, VALUE _)
+{
+    return rb_f_raise(c, v);
+}</pre> </div> <p>With no arguments, raises the exception in <code>$!</code> or raises a <a href="runtimeerror"><code>RuntimeError</code></a> if <code>$!</code> is <code>nil</code>. With a single <code>String</code> argument, raises a <code>RuntimeError</code> with the string as a message. Otherwise, the first parameter should be an <code>Exception</code> class (or another object that returns an <code>Exception</code> object when sent an <code>exception</code> message). The optional second parameter sets the message associated with the exception (accessible via <a href="exception#method-i-message"><code>Exception#message</code></a>), and the third parameter is an array of callback information (accessible via <a href="exception#method-i-backtrace"><code>Exception#backtrace</code></a>). The <code>cause</code> of the generated exception (accessible via <a href="exception#method-i-cause"><code>Exception#cause</code></a>) is automatically set to the “current” exception (<code>$!</code>), if any. An alternative value, either an <code>Exception</code> object or <code>nil</code>, can be specified via the <code>:cause</code> argument.</p> <p>Exceptions are caught by the <code>rescue</code> clause of <code>begin...end</code> blocks.</p> <pre class="ruby" data-language="ruby">raise "Failed to create socket"
+raise ArgumentError, "No parameters", caller
+</pre>  </div> <div class="aliases"> Also aliased as: <a href="kernel#method-i-fail">fail</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-rand"> <span class="method-callseq"> rand(max=0) → number </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="rand-source"> <pre class="c" data-language="c">static VALUE
+rb_f_rand(int argc, VALUE *argv, VALUE obj)
+{
+    VALUE vmax;
+    rb_random_t *rnd = rand_start(default_rand());
+
+    if (rb_check_arity(argc, 0, 1) &amp;&amp; !NIL_P(vmax = argv[0])) {
+        VALUE v = rand_range(obj, rnd, vmax);
+        if (v != Qfalse) return v;
+        vmax = rb_to_int(vmax);
+        if (vmax != INT2FIX(0)) {
+            v = rand_int(obj, rnd, vmax, 0);
+            if (!NIL_P(v)) return v;
+        }
+    }
+    return DBL2NUM(random_real(obj, rnd, TRUE));
+}</pre> </div> <p>If called without an argument, or if <code>max.to_i.abs == 0</code>, rand returns a pseudo-random floating point number between 0.0 and 1.0, including 0.0 and excluding 1.0.</p> <pre class="ruby" data-language="ruby">rand        #=&gt; 0.2725926052826416
+</pre> <p>When <code>max.abs</code> is greater than or equal to 1, <code>rand</code> returns a pseudo-random integer greater than or equal to 0 and less than <code>max.to_i.abs</code>.</p> <pre class="ruby" data-language="ruby">rand(100)   #=&gt; 12
+</pre> <p>When <code>max</code> is a <a href="range"><code>Range</code></a>, <code>rand</code> returns a random number where <code>range.member?(number) == true</code>.</p> <p>Negative or floating point values for <code>max</code> are allowed, but may give surprising results.</p> <pre class="ruby" data-language="ruby">rand(-100) # =&gt; 87
+rand(-0.5) # =&gt; 0.8130921818028143
+rand(1.9)  # equivalent to rand(1), which is always 0
+</pre> <p><a href="kernel#method-i-srand"><code>Kernel.srand</code></a> may be used to ensure that sequences of random numbers are reproducible between different runs of a program.</p> <p>See also <a href="random#method-c-rand"><code>Random.rand</code></a>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-readline"> <span class="method-callseq"> readline(sep = $/, chomp: false) → string </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> readline(limit, chomp: false) → string </span> </div> <div class="method-heading"> <span class="method-callseq"> readline(sep, limit, chomp: false) → string </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="readline-source"> <pre class="c" data-language="c">static VALUE
+rb_f_readline(int argc, VALUE *argv, VALUE recv)
+{
+    if (recv == argf) {
+        return argf_readline(argc, argv, argf);
+    }
+    return forward(argf, rb_intern("readline"), argc, argv);
+}</pre> </div> <p>Equivalent to method <a href="kernel#method-i-gets"><code>Kernel#gets</code></a>, except that it raises an exception if called at end-of-stream:</p> <pre>$ cat t.txt | ruby -e "p readlines; readline"
+["First line\n", "Second line\n", "\n", "Fourth line\n", "Fifth line\n"]
+in `readline': end of file reached (EOFError)</pre> <p>Optional keyword argument <code>chomp</code> specifies whether line separators are to be omitted.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-readlines"> <span class="method-callseq"> readlines(sep = $/, chomp: false, **enc_opts) → array </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> readlines(limit, chomp: false, **enc_opts) → array </span> </div> <div class="method-heading"> <span class="method-callseq"> readlines(sep, limit, chomp: false, **enc_opts) → array </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="readlines-source"> <pre class="c" data-language="c">static VALUE
+rb_f_readlines(int argc, VALUE *argv, VALUE recv)
+{
+    if (recv == argf) {
+        return argf_readlines(argc, argv, argf);
+    }
+    return forward(argf, rb_intern("readlines"), argc, argv);
+}</pre> </div> <p>Returns an array containing the lines returned by calling <a href="kernel#method-i-gets"><code>Kernel#gets</code></a> until the end-of-stream is reached; (see <a href="io#class-IO-label-Line+IO">Line IO</a>).</p> <p>With only string argument <code>sep</code> given, returns the remaining lines as determined by line separator <code>sep</code>, or <code>nil</code> if none; see <a href="io#class-IO-label-Line+Separator">Line Separator</a>:</p> <pre># Default separator.
+$ cat t.txt | ruby -e "p readlines"
+["First line\n", "Second line\n", "\n", "Fourth line\n", "Fifth line\n"]
+
+# Specified separator.
+$ cat t.txt | ruby -e "p readlines 'li'"
+["First li", "ne\nSecond li", "ne\n\nFourth li", "ne\nFifth li", "ne\n"]
+
+# Get-all separator.
+$ cat t.txt | ruby -e "p readlines nil"
+["First line\nSecond line\n\nFourth line\nFifth line\n"]
+
+# Get-paragraph separator.
+$ cat t.txt | ruby -e "p readlines ''"
+["First line\nSecond line\n\n", "Fourth line\nFifth line\n"]</pre> <p>With only integer argument <code>limit</code> given, limits the number of bytes in the line; see <a href="io#class-IO-label-Line+Limit">Line Limit</a>:</p> <pre>$cat t.txt | ruby -e "p readlines 10"
+["First line", "\n", "Second lin", "e\n", "\n", "Fourth lin", "e\n", "Fifth line", "\n"]
+
+$cat t.txt | ruby -e "p readlines 11"
+["First line\n", "Second line", "\n", "\n", "Fourth line", "\n", "Fifth line\n"]
+
+$cat t.txt | ruby -e "p readlines 12"
+["First line\n", "Second line\n", "\n", "Fourth line\n", "Fifth line\n"]</pre> <p>With arguments <code>sep</code> and <code>limit</code> given, combines the two behaviors; see <a href="io#class-IO-label-Line+Separator+and+Line+Limit">Line Separator and Line Limit</a>.</p> <p>Optional keyword argument <code>chomp</code> specifies whether line separators are to be omitted:</p> <pre>$ cat t.txt | ruby -e "p readlines(chomp: true)"
+["First line", "Second line", "", "Fourth line", "Fifth line"]</pre> <p>Optional keyword arguments <code>enc_opts</code> specify encoding options; see <a href="encodings_rdoc#label-Encoding+Options">Encoding options</a>.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-require"> <span class="method-name">require</span><span class="method-args">(file)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="require-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/core_ext.rb, line 86
+def require(file)
+  syntax_suggest_original_require(file)
+rescue SyntaxError =&gt; e
+  require "syntax_suggest/api" unless defined?(SyntaxSuggest::DEFAULT_VALUE)
+
+  SyntaxSuggest.handle_error(e)
+end</pre> </div> <p>Loads the given <code>name</code>, returning <code>true</code> if successful and <code>false</code> if the feature is already loaded.</p> <p>If the filename neither resolves to an absolute path nor starts with ‘./’ or ‘../’, the file will be searched for in the library directories listed in <code>$LOAD_PATH</code> (<code>$:</code>). If the filename starts with ‘./’ or ‘../’, resolution is based on <a href="dir#method-c-pwd"><code>Dir.pwd</code></a>.</p> <p>If the filename has the extension “.rb”, it is loaded as a source file; if the extension is “.so”, “.o”, or “.dll”, or the default shared library extension on the current platform, Ruby loads the shared library as a Ruby extension. Otherwise, Ruby tries adding “.rb”, “.so”, and so on to the name until found. If the file named cannot be found, a <a href="loaderror"><code>LoadError</code></a> will be raised.</p> <p>For Ruby extensions the filename given may use any shared library extension. For example, on Linux the socket extension is “socket.so” and <code>require 'socket.dll'</code> will load the socket extension.</p> <p>The absolute path of the loaded file is added to <code>$LOADED_FEATURES</code> (<code>$"</code>). A file will not be loaded again if its path already appears in <code>$"</code>. For example, <code>require 'a'; require './a'</code> will not load <code>a.rb</code> again.</p> <pre class="ruby" data-language="ruby">require "my-library.rb"
+require "db-driver"
+</pre> <p>Any constants or globals within the loaded source file will be available in the calling program’s global namespace. However, local variables will not be propagated to the loading environment.</p>  </div> <div class="aliases"> Also aliased as: <a href="kernel#method-i-gem_original_require">gem_original_require</a>, <a href="kernel#method-i-syntax_suggest_original_require">syntax_suggest_original_require</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-require_relative"> <span class="method-name">require_relative</span><span class="method-args">(file)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="require_relative-source"> <pre class="ruby" data-language="ruby"># File lib/syntax_suggest/core_ext.rb, line 94
+def require_relative(file)
+  if Pathname.new(file).absolute?
+    syntax_suggest_original_require file
+  else
+    relative_from = caller_locations(1..1).first
+    relative_from_path = relative_from.absolute_path || relative_from.path
+    syntax_suggest_original_require File.expand_path("../#{file}", relative_from_path)
+  end
+rescue SyntaxError =&gt; e
+  require "syntax_suggest/api" unless defined?(SyntaxSuggest::DEFAULT_VALUE)
+
+  SyntaxSuggest.handle_error(e)
+end</pre> </div> <p>Ruby tries to load the library named <em>string</em> relative to the directory containing the requiring file. If the file does not exist a <a href="loaderror"><code>LoadError</code></a> is raised. Returns <code>true</code> if the file was loaded and <code>false</code> if the file was already loaded before.</p>  </div> <div class="aliases"> Also aliased as: <a href="kernel#method-i-syntax_suggest_original_require_relative">syntax_suggest_original_require_relative</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-select"> <span class="method-callseq"> select(read_ios, write_ios = [], error_ios = [], timeout = nil) → array or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="select-source"> <pre class="c" data-language="c">static VALUE
+rb_f_select(int argc, VALUE *argv, VALUE obj)
+{
+    VALUE scheduler = rb_fiber_scheduler_current();
+    if (scheduler != Qnil) {
+        // It's optionally supported.
+        VALUE result = rb_fiber_scheduler_io_selectv(scheduler, argc, argv);
+        if (!UNDEF_P(result)) return result;
+    }
+
+    VALUE timeout;
+    struct select_args args;
+    struct timeval timerec;
+    int i;
+
+    rb_scan_args(argc, argv, "13", &amp;args.read, &amp;args.write, &amp;args.except, &amp;timeout);
+    if (NIL_P(timeout)) {
+        args.timeout = 0;
+    }
+    else {
+        timerec = rb_time_interval(timeout);
+        args.timeout = &amp;timerec;
+    }
+
+    for (i = 0; i &lt; numberof(args.fdsets); ++i)
+        rb_fd_init(&amp;args.fdsets[i]);
+
+    return rb_ensure(select_call, (VALUE)&amp;args, select_end, (VALUE)&amp;args);
+}</pre> </div> <p>Invokes system call <a href="https://linux.die.net/man/2/select">select(2)</a>, which monitors multiple file descriptors, waiting until one or more of the file descriptors becomes ready for some class of I/O operation.</p> <p>Not implemented on all platforms.</p> <p>Each of the arguments <code>read_ios</code>, <code>write_ios</code>, and <code>error_ios</code> is an array of <a href="io"><code>IO</code></a> objects.</p> <p>Argument <code>timeout</code> is an integer timeout interval in seconds.</p> <p>The method monitors the IO objects given in all three arrays, waiting for some to be ready; returns a 3-element array whose elements are:</p> <ul>
+<li> <p>An array of the objects in <code>read_ios</code> that are ready for reading.</p> </li>
+<li> <p>An array of the objects in <code>write_ios</code> that are ready for writing.</p> </li>
+<li> <p>An array of the objects in <code>error_ios</code> have pending exceptions.</p> </li>
+</ul> <p>If no object becomes ready within the given <code>timeout</code>, <code>nil</code> is returned.</p> <p>IO.select peeks the buffer of IO objects for testing readability. If the IO buffer is not empty, IO.select immediately notifies readability. This “peek” only happens for IO objects. It does not happen for IO-like objects such as <a href="openssl/ssl/sslsocket"><code>OpenSSL::SSL::SSLSocket</code></a>.</p> <p>The best way to use IO.select is invoking it after non-blocking methods such as read_nonblock, write_nonblock, etc. The methods raise an exception which is extended by <a href="io/waitreadable"><code>IO::WaitReadable</code></a> or <a href="io/waitwritable"><code>IO::WaitWritable</code></a>. The modules notify how the caller should wait with IO.select. If <a href="io/waitreadable"><code>IO::WaitReadable</code></a> is raised, the caller should wait for reading. If <a href="io/waitwritable"><code>IO::WaitWritable</code></a> is raised, the caller should wait for writing.</p> <p>So, blocking read (readpartial) can be emulated using read_nonblock and IO.select as follows:</p> <pre class="ruby" data-language="ruby">begin
+  result = io_like.read_nonblock(maxlen)
+rescue IO::WaitReadable
+  IO.select([io_like])
+  retry
+rescue IO::WaitWritable
+  IO.select(nil, [io_like])
+  retry
+end
+</pre> <p>Especially, the combination of non-blocking methods and IO.select is preferred for <a href="io"><code>IO</code></a> like objects such as <a href="openssl/ssl/sslsocket"><code>OpenSSL::SSL::SSLSocket</code></a>. It has to_io method to return underlying <a href="io"><code>IO</code></a> object. <a href="io#method-c-select"><code>IO.select</code></a> calls to_io to obtain the file descriptor to wait.</p> <p>This means that readability notified by IO.select doesn’t mean readability from <a href="openssl/ssl/sslsocket"><code>OpenSSL::SSL::SSLSocket</code></a> object.</p> <p>The most likely situation is that <a href="openssl/ssl/sslsocket"><code>OpenSSL::SSL::SSLSocket</code></a> buffers some data. IO.select doesn’t see the buffer. So IO.select can block when <a href="openssl/buffering#method-i-readpartial"><code>OpenSSL::SSL::SSLSocket#readpartial</code></a> doesn’t block.</p> <p>However, several more complicated situations exist.</p> <p>SSL is a protocol which is sequence of records. The record consists of multiple bytes. So, the remote side of SSL sends a partial record, <a href="io#method-c-select"><code>IO.select</code></a> notifies readability but <a href="openssl/ssl/sslsocket"><code>OpenSSL::SSL::SSLSocket</code></a> cannot decrypt a byte and <a href="openssl/buffering#method-i-readpartial"><code>OpenSSL::SSL::SSLSocket#readpartial</code></a> will block.</p> <p>Also, the remote side can request SSL renegotiation which forces the local SSL engine to write some data. This means <a href="openssl/buffering#method-i-readpartial"><code>OpenSSL::SSL::SSLSocket#readpartial</code></a> may invoke write system call and it can block. In such a situation, <a href="openssl/buffering#method-i-read_nonblock"><code>OpenSSL::SSL::SSLSocket#read_nonblock</code></a> raises <a href="io/waitwritable"><code>IO::WaitWritable</code></a> instead of blocking. So, the caller should wait for ready for writability as above example.</p> <p>The combination of non-blocking methods and IO.select is also useful for streams such as tty, pipe socket socket when multiple processes read from a stream.</p> <p>Finally, Linux kernel developers don’t guarantee that readability of select(2) means readability of following read(2) even for a single process; see <a href="https://linux.die.net/man/2/select">select(2)</a></p> <p>Invoking IO.select before <a href="io#method-i-readpartial"><code>IO#readpartial</code></a> works well as usual. However it is not the best way to use IO.select.</p> <p>The writability notified by select(2) doesn’t show how many bytes are writable. <a href="io#method-i-write"><code>IO#write</code></a> method blocks until given whole string is written. So, <code>IO#write(two or more bytes)</code> can block after writability is notified by IO.select. <a href="io#method-i-write_nonblock"><code>IO#write_nonblock</code></a> is required to avoid the blocking.</p> <p>Blocking write (write) can be emulated using write_nonblock and <a href="io#method-c-select"><code>IO.select</code></a> as follows: <a href="io/waitreadable"><code>IO::WaitReadable</code></a> should also be rescued for SSL renegotiation in <a href="openssl/ssl/sslsocket"><code>OpenSSL::SSL::SSLSocket</code></a>.</p> <pre class="ruby" data-language="ruby">while 0 &lt; string.bytesize
+  begin
+    written = io_like.write_nonblock(string)
+  rescue IO::WaitReadable
+    IO.select([io_like])
+    retry
+  rescue IO::WaitWritable
+    IO.select(nil, [io_like])
+    retry
+  end
+  string = string.byteslice(written..-1)
+end
+</pre> <p>Example:</p> <pre class="ruby" data-language="ruby">rp, wp = IO.pipe
+mesg = "ping "
+100.times {
+  # IO.select follows IO#read.  Not the best way to use IO.select.
+  rs, ws, = IO.select([rp], [wp])
+  if r = rs[0]
+    ret = r.read(5)
+    print ret
+    case ret
+    when /ping/
+      mesg = "pong\n"
+    when /pong/
+      mesg = "ping "
+    end
+  end
+  if w = ws[0]
+    w.write(mesg)
+  end
+}
+</pre> <p>Output:</p> <pre class="ruby" data-language="ruby">ping pong
+ping pong
+ping pong
+(snipped)
+ping
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-set_trace_func"> <span class="method-callseq"> set_trace_func(proc) → proc </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> set_trace_func(nil) → nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="set_trace_func-source"> <pre class="c" data-language="c">static VALUE
+set_trace_func(VALUE obj, VALUE trace)
+{
+    rb_remove_event_hook(call_trace_func);
+
+    if (NIL_P(trace)) {
+        return Qnil;
+    }
+
+    if (!rb_obj_is_proc(trace)) {
+        rb_raise(rb_eTypeError, "trace_func needs to be Proc");
+    }
+
+    rb_add_event_hook(call_trace_func, RUBY_EVENT_ALL, trace);
+    return trace;
+}</pre> </div> <pre>Establishes _proc_ as the handler for tracing, or disables
+tracing if the parameter is +nil+.
+
+*Note:* this method is obsolete, please use TracePoint instead.
+
+_proc_ takes up to six parameters:
+
+*   an event name
+*   a filename
+*   a line number
+*   an object id
+*   a binding
+*   the name of a class
+
+_proc_ is invoked whenever an event occurs.
+
+Events are:
+
++c-call+:: call a C-language routine
++c-return+:: return from a C-language routine
++call+:: call a Ruby method
++class+:: start a class or module definition
++end+:: finish a class or module definition
++line+:: execute code on a new line
++raise+:: raise an exception
++return+:: return from a Ruby method
+
+Tracing is disabled within the context of _proc_.
+
+    class Test
+    def test
+      a = 1
+      b = 2
+    end
+    end
+
+    set_trace_func proc { |event, file, line, id, binding, classname|
+       printf "%8s %s:%-2d %10s %8s\n", event, file, line, id, classname
+    }
+    t = Test.new
+    t.test
+
+      line prog.rb:11               false
+    c-call prog.rb:11        new    Class
+    c-call prog.rb:11 initialize   Object
+  c-return prog.rb:11 initialize   Object
+  c-return prog.rb:11        new    Class
+      line prog.rb:12               false
+      call prog.rb:2        test     Test
+      line prog.rb:3        test     Test
+      line prog.rb:4        test     Test
+    return prog.rb:4        test     Test</pre> <p>Note that for <code>c-call</code> and <code>c-return</code> events, the binding returned is the binding of the nearest Ruby method calling the C method, since C methods themselves do not have bindings.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-sleep"> <span class="method-callseq"> sleep([duration]) → integer </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="sleep-source"> <pre class="c" data-language="c">static VALUE
+rb_f_sleep(int argc, VALUE *argv, VALUE _)
+{
+    time_t beg = time(0);
+    VALUE scheduler = rb_fiber_scheduler_current();
+
+    if (scheduler != Qnil) {
+        rb_fiber_scheduler_kernel_sleepv(scheduler, argc, argv);
+    }
+    else {
+        if (argc == 0) {
+            rb_thread_sleep_forever();
+        }
+        else {
+            rb_check_arity(argc, 0, 1);
+            rb_thread_wait_for(rb_time_interval(argv[0]));
+        }
+    }
+
+    time_t end = time(0) - beg;
+
+    return TIMET2NUM(end);
+}</pre> </div> <p>Suspends the current thread for <em>duration</em> seconds (which may be any number, including a <code>Float</code> with fractional seconds). Returns the actual number of seconds slept (rounded), which may be less than that asked for if another thread calls <a href="thread#method-i-run"><code>Thread#run</code></a>. Called without an argument, sleep() will sleep forever.</p> <pre class="ruby" data-language="ruby">Time.new    #=&gt; 2008-03-08 19:56:19 +0900
+sleep 1.2   #=&gt; 1
+Time.new    #=&gt; 2008-03-08 19:56:20 +0900
+sleep 1.9   #=&gt; 2
+Time.new    #=&gt; 2008-03-08 19:56:22 +0900
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-spawn"> <span class="method-callseq"> spawn([env,] command... [,options]) → pid </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> spawn([env,] command... [,options]) → pid </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="spawn-source"> <pre class="c" data-language="c">static VALUE
+rb_f_spawn(int argc, VALUE *argv, VALUE _)
+{
+    rb_pid_t pid;
+    char errmsg[CHILD_ERRMSG_BUFLEN] = { '\0' };
+    VALUE execarg_obj, fail_str;
+    struct rb_execarg *eargp;
+
+    execarg_obj = rb_execarg_new(argc, argv, TRUE, FALSE);
+    eargp = rb_execarg_get(execarg_obj);
+    fail_str = eargp-&gt;use_shell ? eargp-&gt;invoke.sh.shell_script : eargp-&gt;invoke.cmd.command_name;
+
+    pid = rb_execarg_spawn(execarg_obj, errmsg, sizeof(errmsg));
+
+    if (pid == -1) {
+        int err = errno;
+        rb_exec_fail(eargp, err, errmsg);
+        RB_GC_GUARD(execarg_obj);
+        rb_syserr_fail_str(err, fail_str);
+    }
+#if defined(HAVE_WORKING_FORK) || defined(HAVE_SPAWNV)
+    return PIDT2NUM(pid);
+#else
+    return Qnil;
+#endif
+}</pre> </div> <p>spawn executes specified command and return its pid.</p> <pre class="ruby" data-language="ruby">pid = spawn("tar xf ruby-2.0.0-p195.tar.bz2")
+Process.wait pid
+
+pid = spawn(RbConfig.ruby, "-eputs'Hello, world!'")
+Process.wait pid
+</pre> <p>This method is similar to <a href="kernel#method-i-system"><code>Kernel#system</code></a> but it doesn’t wait for the command to finish.</p> <p>The parent process should use <a href="process#method-c-wait"><code>Process.wait</code></a> to collect the termination status of its child or use <a href="process#method-c-detach"><code>Process.detach</code></a> to register disinterest in their status; otherwise, the operating system may accumulate zombie processes.</p> <p>spawn has bunch of options to specify process attributes:</p> <pre>env: hash
+  name =&gt; val : set the environment variable
+  name =&gt; nil : unset the environment variable
+
+  the keys and the values except for +nil+ must be strings.
+command...:
+  commandline                 : command line string which is passed to the standard shell
+  cmdname, arg1, ...          : command name and one or more arguments (This form does not use the shell. See below for caveats.)
+  [cmdname, argv0], arg1, ... : command name, argv[0] and zero or more arguments (no shell)
+options: hash
+  clearing environment variables:
+    :unsetenv_others =&gt; true   : clear environment variables except specified by env
+    :unsetenv_others =&gt; false  : don't clear (default)
+  process group:
+    :pgroup =&gt; true or 0 : make a new process group
+    :pgroup =&gt; pgid      : join the specified process group
+    :pgroup =&gt; nil       : don't change the process group (default)
+  create new process group: Windows only
+    :new_pgroup =&gt; true  : the new process is the root process of a new process group
+    :new_pgroup =&gt; false : don't create a new process group (default)
+  resource limit: resourcename is core, cpu, data, etc.  See Process.setrlimit.
+    :rlimit_resourcename =&gt; limit
+    :rlimit_resourcename =&gt; [cur_limit, max_limit]
+  umask:
+    :umask =&gt; int
+  redirection:
+    key:
+      FD              : single file descriptor in child process
+      [FD, FD, ...]   : multiple file descriptor in child process
+    value:
+      FD                        : redirect to the file descriptor in parent process
+      string                    : redirect to file with open(string, "r" or "w")
+      [string]                  : redirect to file with open(string, File::RDONLY)
+      [string, open_mode]       : redirect to file with open(string, open_mode, 0644)
+      [string, open_mode, perm] : redirect to file with open(string, open_mode, perm)
+      [:child, FD]              : redirect to the redirected file descriptor
+      :close                    : close the file descriptor in child process
+    FD is one of follows
+      :in     : the file descriptor 0 which is the standard input
+      :out    : the file descriptor 1 which is the standard output
+      :err    : the file descriptor 2 which is the standard error
+      integer : the file descriptor of specified the integer
+      io      : the file descriptor specified as io.fileno
+  file descriptor inheritance: close non-redirected non-standard fds (3, 4, 5, ...) or not
+    :close_others =&gt; false  : inherit
+  current directory:
+    :chdir =&gt; str</pre> <p>The <code>cmdname, arg1, ...</code> form does not use the shell. However, on different OSes, different things are provided as built-in commands. An example of this is +‘echo’+, which is a built-in on Windows, but is a normal program on Linux and Mac OS X. This means that <code>Process.spawn 'echo', '%Path%'</code> will display the contents of the <code>%Path%</code> environment variable on Windows, but <code>Process.spawn 'echo', '$PATH'</code> prints the literal <code>$PATH</code>.</p> <p>If a hash is given as <code>env</code>, the environment is updated by <code>env</code> before <code>exec(2)</code> in the child process. If a pair in <code>env</code> has nil as the value, the variable is deleted.</p> <pre class="ruby" data-language="ruby"># set FOO as BAR and unset BAZ.
+pid = spawn({"FOO"=&gt;"BAR", "BAZ"=&gt;nil}, command)
+</pre> <p>If a hash is given as <code>options</code>, it specifies process group, create new process group, resource limit, current directory, umask and redirects for the child process. Also, it can be specified to clear environment variables.</p> <p>The <code>:unsetenv_others</code> key in <code>options</code> specifies to clear environment variables, other than specified by <code>env</code>.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :unsetenv_others=&gt;true) # no environment variable
+pid = spawn({"FOO"=&gt;"BAR"}, command, :unsetenv_others=&gt;true) # FOO only
+</pre> <p>The <code>:pgroup</code> key in <code>options</code> specifies a process group. The corresponding value should be true, zero, a positive integer, or nil. true and zero cause the process to be a process leader of a new process group. A non-zero positive integer causes the process to join the provided process group. The default value, nil, causes the process to remain in the same process group.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :pgroup=&gt;true) # process leader
+pid = spawn(command, :pgroup=&gt;10) # belongs to the process group 10
+</pre> <p>The <code>:new_pgroup</code> key in <code>options</code> specifies to pass <code>CREATE_NEW_PROCESS_GROUP</code> flag to <code>CreateProcessW()</code> that is Windows API. This option is only for Windows. true means the new process is the root process of the new process group. The new process has CTRL+C disabled. This flag is necessary for <code>Process.kill(:SIGINT, pid)</code> on the subprocess. :new_pgroup is false by default.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :new_pgroup=&gt;true)  # new process group
+pid = spawn(command, :new_pgroup=&gt;false) # same process group
+</pre> <p>The <code>:rlimit_</code><em>foo</em> key specifies a resource limit. <em>foo</em> should be one of resource types such as <code>core</code>. The corresponding value should be an integer or an array which have one or two integers: same as cur_limit and max_limit arguments for <a href="process#method-c-setrlimit"><code>Process.setrlimit</code></a>.</p> <pre class="ruby" data-language="ruby">cur, max = Process.getrlimit(:CORE)
+pid = spawn(command, :rlimit_core=&gt;[0,max]) # disable core temporary.
+pid = spawn(command, :rlimit_core=&gt;max) # enable core dump
+pid = spawn(command, :rlimit_core=&gt;0) # never dump core.
+</pre> <p>The <code>:umask</code> key in <code>options</code> specifies the umask.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :umask=&gt;077)
+</pre> <p>The :in, :out, :err, an integer, an <a href="io"><code>IO</code></a> and an array key specifies a redirection. The redirection maps a file descriptor in the child process.</p> <p>For example, stderr can be merged into stdout as follows:</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :err=&gt;:out)
+pid = spawn(command, 2=&gt;1)
+pid = spawn(command, STDERR=&gt;:out)
+pid = spawn(command, STDERR=&gt;STDOUT)
+</pre> <p>The hash keys specifies a file descriptor in the child process started by <a href="kernel#method-i-spawn"><code>spawn</code></a>. :err, 2 and STDERR specifies the standard error stream (stderr).</p> <p>The hash values specifies a file descriptor in the parent process which invokes <a href="kernel#method-i-spawn"><code>spawn</code></a>. :out, 1 and STDOUT specifies the standard output stream (stdout).</p> <p>In the above example, the standard output in the child process is not specified. So it is inherited from the parent process.</p> <p>The standard input stream (stdin) can be specified by :in, 0 and STDIN.</p> <p>A filename can be specified as a hash value.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :in=&gt;"/dev/null") # read mode
+pid = spawn(command, :out=&gt;"/dev/null") # write mode
+pid = spawn(command, :err=&gt;"log") # write mode
+pid = spawn(command, [:out, :err]=&gt;"/dev/null") # write mode
+pid = spawn(command, 3=&gt;"/dev/null") # read mode
+</pre> <p>For stdout and stderr (and combination of them), it is opened in write mode. Otherwise read mode is used.</p> <p>For specifying flags and permission of file creation explicitly, an array is used instead.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :in=&gt;["file"]) # read mode is assumed
+pid = spawn(command, :in=&gt;["file", "r"])
+pid = spawn(command, :out=&gt;["log", "w"]) # 0644 assumed
+pid = spawn(command, :out=&gt;["log", "w", 0600])
+pid = spawn(command, :out=&gt;["log", File::WRONLY|File::EXCL|File::CREAT, 0600])
+</pre> <p>The array specifies a filename, flags and permission. The flags can be a string or an integer. If the flags is omitted or nil, File::RDONLY is assumed. The permission should be an integer. If the permission is omitted or nil, 0644 is assumed.</p> <p>If an array of IOs and integers are specified as a hash key, all the elements are redirected.</p> <pre class="ruby" data-language="ruby"># stdout and stderr is redirected to log file.
+# The file "log" is opened just once.
+pid = spawn(command, [:out, :err]=&gt;["log", "w"])
+</pre> <p>Another way to merge multiple file descriptors is [:child, fd]. [:child, fd] means the file descriptor in the child process. This is different from fd. For example, :err=&gt;:out means redirecting child stderr to parent stdout. But :err=&gt;[:child, :out] means redirecting child stderr to child stdout. They differ if stdout is redirected in the child process as follows.</p> <pre class="ruby" data-language="ruby"># stdout and stderr is redirected to log file.
+# The file "log" is opened just once.
+pid = spawn(command, :out=&gt;["log", "w"], :err=&gt;[:child, :out])
+</pre> <p>[:child, :out] can be used to merge stderr into stdout in <a href="io#method-c-popen"><code>IO.popen</code></a>. In this case, <a href="io#method-c-popen"><code>IO.popen</code></a> redirects stdout to a pipe in the child process and [:child, :out] refers the redirected stdout.</p> <pre class="ruby" data-language="ruby">io = IO.popen(["sh", "-c", "echo out; echo err &gt;&amp;2", :err=&gt;[:child, :out]])
+p io.read #=&gt; "out\nerr\n"
+</pre> <p>The <code>:chdir</code> key in <code>options</code> specifies the current directory.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :chdir=&gt;"/var/tmp")
+</pre> <p>spawn closes all non-standard unspecified descriptors by default. The “standard” descriptors are 0, 1 and 2. This behavior is specified by :close_others option. :close_others doesn’t affect the standard descriptors which are closed only if :close is specified explicitly.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :close_others=&gt;true)  # close 3,4,5,... (default)
+pid = spawn(command, :close_others=&gt;false) # don't close 3,4,5,...
+</pre> <p>:close_others is false by default for spawn and <a href="io#method-c-popen"><code>IO.popen</code></a>.</p> <p>Note that fds which close-on-exec flag is already set are closed regardless of :close_others option.</p> <p>So <a href="io#method-c-pipe"><code>IO.pipe</code></a> and spawn can be used as <a href="io#method-c-popen"><code>IO.popen</code></a>.</p> <pre class="ruby" data-language="ruby"># similar to r = IO.popen(command)
+r, w = IO.pipe
+pid = spawn(command, :out=&gt;w)   # r, w is closed in the child process.
+w.close
+</pre> <p>:close is specified as a hash value to close a fd individually.</p> <pre class="ruby" data-language="ruby">f = open(foo)
+system(command, f=&gt;:close)        # don't inherit f.
+</pre> <p>If a file descriptor need to be inherited, io=&gt;io can be used.</p> <pre class="ruby" data-language="ruby"># valgrind has --log-fd option for log destination.
+# log_w=&gt;log_w indicates log_w.fileno inherits to child process.
+log_r, log_w = IO.pipe
+pid = spawn("valgrind", "--log-fd=#{log_w.fileno}", "echo", "a", log_w=&gt;log_w)
+log_w.close
+p log_r.read
+</pre> <p>It is also possible to exchange file descriptors.</p> <pre class="ruby" data-language="ruby">pid = spawn(command, :out=&gt;:err, :err=&gt;:out)
+</pre> <p>The hash keys specify file descriptors in the child process. The hash values specifies file descriptors in the parent process. So the above specifies exchanging stdout and stderr. Internally, <code>spawn</code> uses an extra file descriptor to resolve such cyclic file descriptor mapping.</p> <p>See <a href="kernel#method-i-exec"><code>Kernel.exec</code></a> for the standard shell.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-sprintf"> <span class="method-callseq"> sprintf(format_string *objects) → string </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="sprintf-source"> <pre class="c" data-language="c">static VALUE
+f_sprintf(int c, const VALUE *v, VALUE _)
+{
+    return rb_f_sprintf(c, v);
+}</pre> </div> <p>Returns the string resulting from formatting <code>objects</code> into <code>format_string</code>.</p> <p>For details on <code>format_string</code>, see <a href="format_specifications_rdoc">Format Specifications</a>.</p> <p><a href="kernel#method-i-format"><code>Kernel#format</code></a> is an alias for <a href="kernel#method-i-sprintf"><code>Kernel#sprintf</code></a>.</p>  </div> <div class="aliases"> Also aliased as: <a href="kernel#method-i-format">format</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-srand"> <span class="method-callseq"> srand(number = Random.new_seed) → old_seed </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="srand-source"> <pre class="c" data-language="c">static VALUE
+rb_f_srand(int argc, VALUE *argv, VALUE obj)
+{
+    VALUE seed, old;
+    rb_random_mt_t *r = rand_mt_start(default_rand());
+
+    if (rb_check_arity(argc, 0, 1) == 0) {
+        seed = random_seed(obj);
+    }
+    else {
+        seed = rb_to_int(argv[0]);
+    }
+    old = r-&gt;base.seed;
+    rand_init(&amp;random_mt_if, &amp;r-&gt;base, seed);
+    r-&gt;base.seed = seed;
+
+    return old;
+}</pre> </div> <p>Seeds the system pseudo-random number generator, with <code>number</code>. The previous seed value is returned.</p> <p>If <code>number</code> is omitted, seeds the generator using a source of entropy provided by the operating system, if available (/dev/urandom on Unix systems or the RSA cryptographic provider on Windows), which is then combined with the time, the process id, and a sequence number.</p> <p>srand may be used to ensure repeatable sequences of pseudo-random numbers between different runs of the program. By setting the seed to a known value, programs can be made deterministic during testing.</p> <pre class="ruby" data-language="ruby">srand 1234               # =&gt; 268519324636777531569100071560086917274
+[ rand, rand ]           # =&gt; [0.1915194503788923, 0.6221087710398319]
+[ rand(10), rand(1000) ] # =&gt; [4, 664]
+srand 1234               # =&gt; 1234
+[ rand, rand ]           # =&gt; [0.1915194503788923, 0.6221087710398319]
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-sub"> <span class="method-callseq"> sub(pattern, replacement) → $_ </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> sub(pattern) {|...| block } → $_ </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="sub-source"> <pre class="c" data-language="c">static VALUE
+rb_f_sub(int argc, VALUE *argv, VALUE _)
+{
+    VALUE str = rb_funcall_passing_block(uscore_get(), rb_intern("sub"), argc, argv);
+    rb_lastline_set(str);
+    return str;
+}</pre> </div> <p>Equivalent to <code>$_.sub(<em>args</em>)</code>, except that <code>$_</code> will be updated if substitution occurs. Available only when -p/-n command line option specified.</p>  </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-syntax_suggest_original_load"> <span class="method-name">syntax_suggest_original_load</span><span class="method-args">(file, wrap = false)</span> </div> </div>  <div class="aliases"> Alias for: <a href="kernel#method-i-load">load</a> </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-syntax_suggest_original_require"> <span class="method-name">syntax_suggest_original_require</span><span class="method-args">(file)</span> </div> </div>  <div class="aliases"> Alias for: <a href="kernel#method-i-require">require</a> </div> </div> <div class="method-detail method-alias"> <div class="method-header"> <div class="method-heading" id="method-i-syntax_suggest_original_require_relative"> <span class="method-name">syntax_suggest_original_require_relative</span><span class="method-args">(file)</span> </div> </div>  <div class="aliases"> Alias for: <a href="kernel#method-i-require_relative">require_relative</a> </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-syscall"> <span class="method-callseq"> syscall(integer_callno, *arguments) → integer </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="syscall-source"> <pre class="c" data-language="c">static VALUE
+rb_f_syscall(int argc, VALUE *argv, VALUE _)
+{
+    VALUE arg[8];
+#if SIZEOF_VOIDP == 8 &amp;&amp; defined(HAVE___SYSCALL) &amp;&amp; SIZEOF_INT != 8 /* mainly *BSD */
+# define SYSCALL __syscall
+# define NUM2SYSCALLID(x) NUM2LONG(x)
+# define RETVAL2NUM(x) LONG2NUM(x)
+# if SIZEOF_LONG == 8
+    long num, retval = -1;
+# elif SIZEOF_LONG_LONG == 8
+    long long num, retval = -1;
+# else
+#  error ----&gt;&gt; it is asserted that __syscall takes the first argument and returns retval in 64bit signed integer. &lt;&lt;----
+# endif
+#elif defined(__linux__)
+# define SYSCALL syscall
+# define NUM2SYSCALLID(x) NUM2LONG(x)
+# define RETVAL2NUM(x) LONG2NUM(x)
+    /*
+     * Linux man page says, syscall(2) function prototype is below.
+     *
+     *     int syscall(int number, ...);
+     *
+     * But, it's incorrect. Actual one takes and returned long. (see unistd.h)
+     */
+    long num, retval = -1;
+#else
+# define SYSCALL syscall
+# define NUM2SYSCALLID(x) NUM2INT(x)
+# define RETVAL2NUM(x) INT2NUM(x)
+    int num, retval = -1;
+#endif
+    int i;
+
+    if (RTEST(ruby_verbose)) {
+        rb_category_warning(RB_WARN_CATEGORY_DEPRECATED,
+            "We plan to remove a syscall function at future release. DL(Fiddle) provides safer alternative.");
+    }
+
+    if (argc == 0)
+        rb_raise(rb_eArgError, "too few arguments for syscall");
+    if (argc &gt; numberof(arg))
+        rb_raise(rb_eArgError, "too many arguments for syscall");
+    num = NUM2SYSCALLID(argv[0]); ++argv;
+    for (i = argc - 1; i--; ) {
+        VALUE v = rb_check_string_type(argv[i]);
+
+        if (!NIL_P(v)) {
+            SafeStringValue(v);
+            rb_str_modify(v);
+            arg[i] = (VALUE)StringValueCStr(v);
+        }
+        else {
+            arg[i] = (VALUE)NUM2LONG(argv[i]);
+        }
+    }
+
+    switch (argc) {
+      case 1:
+        retval = SYSCALL(num);
+        break;
+      case 2:
+        retval = SYSCALL(num, arg[0]);
+        break;
+      case 3:
+        retval = SYSCALL(num, arg[0],arg[1]);
+        break;
+      case 4:
+        retval = SYSCALL(num, arg[0],arg[1],arg[2]);
+        break;
+      case 5:
+        retval = SYSCALL(num, arg[0],arg[1],arg[2],arg[3]);
+        break;
+      case 6:
+        retval = SYSCALL(num, arg[0],arg[1],arg[2],arg[3],arg[4]);
+        break;
+      case 7:
+        retval = SYSCALL(num, arg[0],arg[1],arg[2],arg[3],arg[4],arg[5]);
+        break;
+      case 8:
+        retval = SYSCALL(num, arg[0],arg[1],arg[2],arg[3],arg[4],arg[5],arg[6]);
+        break;
+    }
+
+    if (retval == -1)
+        rb_sys_fail(0);
+    return RETVAL2NUM(retval);
+#undef SYSCALL
+#undef NUM2SYSCALLID
+#undef RETVAL2NUM
+}</pre> </div> <p>Invokes Posix system call <a href="https://linux.die.net/man/2/syscall">syscall(2)</a>, which calls a specified function.</p> <p>Calls the operating system function identified by <code>integer_callno</code>; returns the result of the function or raises <a href="systemcallerror"><code>SystemCallError</code></a> if it failed. The effect of the call is platform-dependent. The arguments and returned value are platform-dependent.</p> <p>For each of <code>arguments</code>: if it is an integer, it is passed directly; if it is a string, it is interpreted as a binary sequence of bytes. There may be as many as nine such arguments.</p> <p>Arguments <code>integer_callno</code> and <code>argument</code>, as well as the returned value, are platform-dependent.</p> <p>Note: <a href="method"><code>Method</code></a> <code>syscall</code> is essentially unsafe and unportable. The DL (<a href="fiddle"><code>Fiddle</code></a>) library is preferred for safer and a bit more portable programming.</p> <p>Not implemented on all platforms.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-system"> <span class="method-callseq"> system([env,] command... [,options], exception: false) → true, false or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="system-source"> <pre class="c" data-language="c">static VALUE
+rb_f_system(int argc, VALUE *argv, VALUE _)
+{
+    VALUE execarg_obj = rb_execarg_new(argc, argv, TRUE, TRUE);
+    struct rb_execarg *eargp = rb_execarg_get(execarg_obj);
+
+    struct rb_process_status status = {0};
+    eargp-&gt;status = &amp;status;
+
+    rb_last_status_clear();
+
+    // This function can set the thread's last status.
+    // May be different from waitpid_state.pid on exec failure.
+    rb_pid_t pid = rb_execarg_spawn(execarg_obj, 0, 0);
+
+    if (pid &gt; 0) {
+        VALUE status = rb_process_status_wait(pid, 0);
+        struct rb_process_status *data = RTYPEDDATA_DATA(status);
+
+        // Set the last status:
+        rb_obj_freeze(status);
+        GET_THREAD()-&gt;last_status = status;
+
+        if (data-&gt;status == EXIT_SUCCESS) {
+            return Qtrue;
+        }
+
+        if (data-&gt;error != 0) {
+            if (eargp-&gt;exception) {
+                VALUE command = eargp-&gt;invoke.sh.shell_script;
+                RB_GC_GUARD(execarg_obj);
+                rb_syserr_fail_str(data-&gt;error, command);
+            }
+            else {
+                return Qnil;
+            }
+        }
+        else if (eargp-&gt;exception) {
+            VALUE command = eargp-&gt;invoke.sh.shell_script;
+            VALUE str = rb_str_new_cstr("Command failed with");
+            rb_str_cat_cstr(pst_message_status(str, data-&gt;status), ": ");
+            rb_str_append(str, command);
+            RB_GC_GUARD(execarg_obj);
+            rb_exc_raise(rb_exc_new_str(rb_eRuntimeError, str));
+        }
+        else {
+            return Qfalse;
+        }
+
+        RB_GC_GUARD(status);
+    }
+
+    if (eargp-&gt;exception) {
+        VALUE command = eargp-&gt;invoke.sh.shell_script;
+        RB_GC_GUARD(execarg_obj);
+        rb_syserr_fail_str(errno, command);
+    }
+    else {
+        return Qnil;
+    }
+}</pre> </div> <p>Executes <em>command…</em> in a subshell. <em>command…</em> is one of following forms.</p> <p>This method has potential security vulnerabilities if called with untrusted input; see <a href="command_injection_rdoc">Command Injection</a>.</p> <dl class="rdoc-list label-list">
+<dt>
+<code>commandline</code> </dt>
+<dd> <p>command line string which is passed to the standard shell</p> </dd>
+<dt>
+<code>cmdname, arg1, ...</code> </dt>
+<dd> <p>command name and one or more arguments (no shell)</p> </dd>
+<dt>
+<code>[cmdname, argv0], arg1, ...</code> </dt>
+<dd> <p>command name, <code>argv[0]</code> and zero or more arguments (no shell)</p> </dd>
+</dl> <p>system returns <code>true</code> if the command gives zero exit status, <code>false</code> for non zero exit status. Returns <code>nil</code> if command execution fails. An error status is available in <code>$?</code>.</p> <p>If the <code>exception: true</code> argument is passed, the method raises an exception instead of returning <code>false</code> or <code>nil</code>.</p> <p>The arguments are processed in the same way as for <a href="kernel#method-i-spawn"><code>Kernel#spawn</code></a>.</p> <p>The hash arguments, env and options, are same as <a href="kernel#method-i-exec"><code>exec</code></a> and <a href="kernel#method-i-spawn"><code>spawn</code></a>. See <a href="kernel#method-i-spawn"><code>Kernel#spawn</code></a> for details.</p> <pre class="ruby" data-language="ruby">system("echo *")
+system("echo", "*")
+</pre> <p><em>produces:</em></p> <pre>config.h main.rb
+*</pre> <p>Error handling:</p> <pre class="ruby" data-language="ruby">system("cat nonexistent.txt")
+# =&gt; false
+system("catt nonexistent.txt")
+# =&gt; nil
+
+system("cat nonexistent.txt", exception: true)
+# RuntimeError (Command failed with exit 1: cat)
+system("catt nonexistent.txt", exception: true)
+# Errno::ENOENT (No such file or directory - catt)
+</pre> <p>See <a href="kernel#method-i-exec"><code>Kernel#exec</code></a> for the standard shell.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-tap"> <span class="method-callseq"> tap {|x| block } → obj </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="tap-source"> <pre class="ruby" data-language="ruby"># File kernel.rb, line 89
+def tap
+  yield(self)
+  self
+end</pre> </div> <p>Yields self to the block, and then returns self. The primary purpose of this method is to “tap into” a method chain, in order to perform operations on intermediate results within the chain.</p> <pre class="ruby" data-language="ruby">(1..10)                  .tap {|x| puts "original: #{x}" }
+  .to_a                  .tap {|x| puts "array:    #{x}" }
+  .select {|x| x.even? } .tap {|x| puts "evens:    #{x}" }
+  .map {|x| x*x }        .tap {|x| puts "squares:  #{x}" }
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-test"> <span class="method-callseq"> test(cmd, file1 [, file2] ) → obj </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="test-source"> <pre class="c" data-language="c">static VALUE
+rb_f_test(int argc, VALUE *argv, VALUE _)
+{
+    int cmd;
+
+    if (argc == 0) rb_check_arity(argc, 2, 3);
+    cmd = NUM2CHR(argv[0]);
+    if (cmd == 0) {
+        goto unknown;
+    }
+    if (strchr("bcdefgGkloOprRsSuwWxXz", cmd)) {
+        CHECK(1);
+        switch (cmd) {
+          case 'b':
+            return rb_file_blockdev_p(0, argv[1]);
+
+          case 'c':
+            return rb_file_chardev_p(0, argv[1]);
+
+          case 'd':
+            return rb_file_directory_p(0, argv[1]);
+
+          case 'e':
+            return rb_file_exist_p(0, argv[1]);
+
+          case 'f':
+            return rb_file_file_p(0, argv[1]);
+
+          case 'g':
+            return rb_file_sgid_p(0, argv[1]);
+
+          case 'G':
+            return rb_file_grpowned_p(0, argv[1]);
+
+          case 'k':
+            return rb_file_sticky_p(0, argv[1]);
+
+          case 'l':
+            return rb_file_symlink_p(0, argv[1]);
+
+          case 'o':
+            return rb_file_owned_p(0, argv[1]);
+
+          case 'O':
+            return rb_file_rowned_p(0, argv[1]);
+
+          case 'p':
+            return rb_file_pipe_p(0, argv[1]);
+
+          case 'r':
+            return rb_file_readable_p(0, argv[1]);
+
+          case 'R':
+            return rb_file_readable_real_p(0, argv[1]);
+
+          case 's':
+            return rb_file_size_p(0, argv[1]);
+
+          case 'S':
+            return rb_file_socket_p(0, argv[1]);
+
+          case 'u':
+            return rb_file_suid_p(0, argv[1]);
+
+          case 'w':
+            return rb_file_writable_p(0, argv[1]);
+
+          case 'W':
+            return rb_file_writable_real_p(0, argv[1]);
+
+          case 'x':
+            return rb_file_executable_p(0, argv[1]);
+
+          case 'X':
+            return rb_file_executable_real_p(0, argv[1]);
+
+          case 'z':
+            return rb_file_zero_p(0, argv[1]);
+        }
+    }
+
+    if (strchr("MAC", cmd)) {
+        struct stat st;
+        VALUE fname = argv[1];
+
+        CHECK(1);
+        if (rb_stat(fname, &amp;st) == -1) {
+            int e = errno;
+            FilePathValue(fname);
+            rb_syserr_fail_path(e, fname);
+        }
+
+        switch (cmd) {
+          case 'A':
+            return stat_atime(&amp;st);
+          case 'M':
+            return stat_mtime(&amp;st);
+          case 'C':
+            return stat_ctime(&amp;st);
+        }
+    }
+
+    if (cmd == '-') {
+        CHECK(2);
+        return rb_file_identical_p(0, argv[1], argv[2]);
+    }
+
+    if (strchr("=&lt;&gt;", cmd)) {
+        struct stat st1, st2;
+        struct timespec t1, t2;
+
+        CHECK(2);
+        if (rb_stat(argv[1], &amp;st1) &lt; 0) return Qfalse;
+        if (rb_stat(argv[2], &amp;st2) &lt; 0) return Qfalse;
+
+        t1 = stat_mtimespec(&amp;st1);
+        t2 = stat_mtimespec(&amp;st2);
+
+        switch (cmd) {
+          case '=':
+            if (t1.tv_sec == t2.tv_sec &amp;&amp; t1.tv_nsec == t2.tv_nsec) return Qtrue;
+            return Qfalse;
+
+          case '&gt;':
+            if (t1.tv_sec &gt; t2.tv_sec) return Qtrue;
+            if (t1.tv_sec == t2.tv_sec &amp;&amp; t1.tv_nsec &gt; t2.tv_nsec) return Qtrue;
+            return Qfalse;
+
+          case '&lt;':
+            if (t1.tv_sec &lt; t2.tv_sec) return Qtrue;
+            if (t1.tv_sec == t2.tv_sec &amp;&amp; t1.tv_nsec &lt; t2.tv_nsec) return Qtrue;
+            return Qfalse;
+        }
+    }
+  unknown:
+    /* unknown command */
+    if (ISPRINT(cmd)) {
+        rb_raise(rb_eArgError, "unknown command '%s%c'", cmd == '\'' || cmd == '\\' ? "\\" : "", cmd);
+    }
+    else {
+        rb_raise(rb_eArgError, "unknown command \"\\x%02X\"", cmd);
+    }
+    UNREACHABLE_RETURN(Qundef);
+}</pre> </div> <p>Uses the character <code>cmd</code> to perform various tests on <code>file1</code> (first table below) or on <code>file1</code> and <code>file2</code> (second table).</p> <p><a href="file"><code>File</code></a> tests on a single file:</p> <pre>Cmd    Returns   Meaning
+"A"  | Time    | Last access time for file1
+"b"  | boolean | True if file1 is a block device
+"c"  | boolean | True if file1 is a character device
+"C"  | Time    | Last change time for file1
+"d"  | boolean | True if file1 exists and is a directory
+"e"  | boolean | True if file1 exists
+"f"  | boolean | True if file1 exists and is a regular file
+"g"  | boolean | True if file1 has the setgid bit set
+"G"  | boolean | True if file1 exists and has a group
+     |         | ownership equal to the caller's group
+"k"  | boolean | True if file1 exists and has the sticky bit set
+"l"  | boolean | True if file1 exists and is a symbolic link
+"M"  | Time    | Last modification time for file1
+"o"  | boolean | True if file1 exists and is owned by
+     |         | the caller's effective uid
+"O"  | boolean | True if file1 exists and is owned by
+     |         | the caller's real uid
+"p"  | boolean | True if file1 exists and is a fifo
+"r"  | boolean | True if file1 is readable by the effective
+     |         | uid/gid of the caller
+"R"  | boolean | True if file is readable by the real
+     |         | uid/gid of the caller
+"s"  | int/nil | If file1 has nonzero size, return the size,
+     |         | otherwise return nil
+"S"  | boolean | True if file1 exists and is a socket
+"u"  | boolean | True if file1 has the setuid bit set
+"w"  | boolean | True if file1 exists and is writable by
+     |         | the effective uid/gid
+"W"  | boolean | True if file1 exists and is writable by
+     |         | the real uid/gid
+"x"  | boolean | True if file1 exists and is executable by
+     |         | the effective uid/gid
+"X"  | boolean | True if file1 exists and is executable by
+     |         | the real uid/gid
+"z"  | boolean | True if file1 exists and has a zero length</pre> <p>Tests that take two files:</p> <pre>"-"  | boolean | True if file1 and file2 are identical
+"="  | boolean | True if the modification times of file1
+     |         | and file2 are equal
+"&lt;"  | boolean | True if the modification time of file1
+     |         | is prior to that of file2
+"&gt;"  | boolean | True if the modification time of file1
+     |         | is after that of file2</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-then"> <span class="method-callseq"> then {|x| block } → an_object </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="then-source"> <pre class="ruby" data-language="ruby"># File kernel.rb, line 120
+def then
+  unless Primitive.block_given_p
+    return Primitive.cexpr! 'SIZED_ENUMERATOR(self, 0, 0, rb_obj_size)'
+  end
+  yield(self)
+end</pre> </div> <p>Yields self to the block and returns the result of the block.</p> <pre class="ruby" data-language="ruby">3.next.then {|x| x**x }.to_s             #=&gt; "256"
+</pre> <p>Good usage for <code>then</code> is value piping in method chains:</p> <pre class="ruby" data-language="ruby">require 'open-uri'
+require 'json'
+
+construct_url(arguments).
+  then {|url| URI(url).read }.
+  then {|response| JSON.parse(response) }
+</pre> <p>When called without block, the method returns <code>Enumerator</code>, which can be used, for example, for conditional circuit-breaking:</p> <pre class="ruby" data-language="ruby"># meets condition, no-op
+1.then.detect(&amp;:odd?)            # =&gt; 1
+# does not meet condition, drop value
+2.then.detect(&amp;:odd?)            # =&gt; nil
+</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-throw"> <span class="method-callseq"> throw(tag [, obj]) </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="throw-source"> <pre class="c" data-language="c">static VALUE
+rb_f_throw(int argc, VALUE *argv, VALUE _)
+{
+    VALUE tag, value;
+
+    rb_scan_args(argc, argv, "11", &amp;tag, &amp;value);
+    rb_throw_obj(tag, value);
+    UNREACHABLE_RETURN(Qnil);
+}</pre> </div> <p>Transfers control to the end of the active <code>catch</code> block waiting for <em>tag</em>. Raises <code>UncaughtThrowError</code> if there is no <code>catch</code> block for the <em>tag</em>. The optional second parameter supplies a return value for the <code>catch</code> block, which otherwise defaults to <code>nil</code>. For examples, see Kernel::catch.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-trace_var"> <span class="method-callseq"> trace_var(symbol, cmd ) → nil </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> trace_var(symbol) {|val| block } → nil </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="trace_var-source"> <pre class="c" data-language="c">static VALUE
+f_trace_var(int c, const VALUE *a, VALUE _)
+{
+    return rb_f_trace_var(c, a);
+}</pre> </div> <p>Controls tracing of assignments to global variables. The parameter <code>symbol</code> identifies the variable (as either a string name or a symbol identifier). <em>cmd</em> (which may be a string or a <code>Proc</code> object) or block is executed whenever the variable is assigned. The block or <code>Proc</code> object receives the variable’s new value as a parameter. Also see Kernel::untrace_var.</p> <pre class="ruby" data-language="ruby">trace_var :$_, proc {|v| puts "$_ is now '#{v}'" }
+$_ = "hello"
+$_ = ' there'
+</pre> <p><em>produces:</em></p> <pre>$_ is now 'hello'
+$_ is now ' there'</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-trap"> <span class="method-callseq"> trap( signal, command ) → obj </span> <a class="method-click-advice">Show source</a> </div> <div class="method-heading"> <span class="method-callseq"> trap( signal ) {| | block } → obj </span> </div> </div> <div class="method-description">
+<div class="method-source-code" id="trap-source"> <pre class="c" data-language="c">static VALUE
+sig_trap(int argc, VALUE *argv, VALUE _)
+{
+    int sig;
+    sighandler_t func;
+    VALUE cmd;
+
+    rb_check_arity(argc, 1, 2);
+
+    sig = trap_signm(argv[0]);
+    if (reserved_signal_p(sig)) {
+        const char *name = signo2signm(sig);
+        if (name)
+            rb_raise(rb_eArgError, "can't trap reserved signal: SIG%s", name);
+        else
+            rb_raise(rb_eArgError, "can't trap reserved signal: %d", sig);
+    }
+
+    if (argc == 1) {
+        cmd = rb_block_proc();
+        func = sighandler;
+    }
+    else {
+        cmd = argv[1];
+        func = trap_handler(&amp;cmd, sig);
+    }
+
+    if (rb_obj_is_proc(cmd) &amp;&amp;
+        !rb_ractor_main_p() &amp;&amp; !rb_ractor_shareable_p(cmd)) {
+        cmd = rb_proc_isolate(cmd);
+    }
+
+    return trap(sig, func, cmd);
+}</pre> </div> <p>Specifies the handling of signals. The first parameter is a signal name (a string such as “SIGALRM”, “SIGUSR1”, and so on) or a signal number. The characters “SIG” may be omitted from the signal name. The command or block specifies code to be run when the signal is raised. If the command is the string “IGNORE” or “SIG_IGN”, the signal will be ignored. If the command is “DEFAULT” or “SIG_DFL”, the Ruby’s default handler will be invoked. If the command is “EXIT”, the script will be terminated by the signal. If the command is “SYSTEM_DEFAULT”, the operating system’s default handler will be invoked. Otherwise, the given command or block will be run. The special signal name “EXIT” or signal number zero will be invoked just prior to program termination. trap returns the previous handler for the given signal.</p> <pre class="ruby" data-language="ruby">Signal.trap(0, proc { puts "Terminating: #{$$}" })
+Signal.trap("CLD")  { puts "Child died" }
+fork &amp;&amp; Process.wait
+</pre> <p>produces:</p> <pre>Terminating: 27461
+Child died
+Terminating: 27460</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-untrace_var"> <span class="method-callseq"> untrace_var(symbol [, cmd] ) → array or nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="untrace_var-source"> <pre class="c" data-language="c">static VALUE
+f_untrace_var(int c, const VALUE *a, VALUE _)
+{
+    return rb_f_untrace_var(c, a);
+}</pre> </div> <p>Removes tracing for the specified command on the given global variable and returns <code>nil</code>. If no command is specified, removes all tracing for that variable and returns an array containing the commands actually removed.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-warn"> <span class="method-callseq"> warn(*msgs, uplevel: nil, category: nil) → nil </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="warn-source"> <pre class="ruby" data-language="ruby"># File warning.rb, line 50
+def warn(*msgs, uplevel: nil, category: nil)
+  Primitive.rb_warn_m(msgs, uplevel, category)
+end</pre> </div> <p>If warnings have been disabled (for example with the <code>-W0</code> flag), does nothing. Otherwise, converts each of the messages to strings, appends a newline character to the string if the string does not end in a newline, and calls <a href="warning#method-i-warn"><code>Warning.warn</code></a> with the string.</p> <pre>  warn("warning 1", "warning 2")
+
+&lt;em&gt;produces:&lt;/em&gt;
+
+  warning 1
+  warning 2</pre> <p>If the <code>uplevel</code> keyword argument is given, the string will be prepended with information for the given caller frame in the same format used by the <code>rb_warn</code> C function.</p> <pre>  # In baz.rb
+  def foo
+    warn("invalid call to foo", uplevel: 1)
+  end
+
+  def bar
+    foo
+  end
+
+  bar
+
+&lt;em&gt;produces:&lt;/em&gt;
+
+  baz.rb:6: warning: invalid call to foo</pre> <p>If <code>category</code> keyword argument is given, passes the category to <code>Warning.warn</code>. The category given must be be one of the following categories:</p> <dl class="rdoc-list note-list">
+<dt>:deprecated </dt>
+<dd> <p>Used for warning for deprecated functionality that may be removed in the future.</p> </dd>
+<dt>:experimental </dt>
+<dd> <p>Used for experimental features that may change in future releases.</p> </dd>
+</dl>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-yield_self"> <span class="method-callseq"> yield_self {|x| block } → an_object </span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="yield_self-source"> <pre class="ruby" data-language="ruby"># File kernel.rb, line 144
+def yield_self
+  unless Primitive.block_given_p
+    return Primitive.cexpr! 'SIZED_ENUMERATOR(self, 0, 0, rb_obj_size)'
+  end
+  yield(self)
+end</pre> </div> <p>Yields self to the block and returns the result of the block.</p> <pre class="ruby" data-language="ruby">"my string".yield_self {|s| s.upcase }   #=&gt; "MY STRING"
+</pre> <p>Good usage for <code>then</code> is value piping in method chains:</p> <pre class="ruby" data-language="ruby">require 'open-uri'
+require 'json'
+
+construct_url(arguments).
+  then {|url| URI(url).read }.
+  then {|response| JSON.parse(response) }
+</pre>  </div> </div> </section> <section id="private-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Private Instance Methods</h3> </header> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-JSON"> <span class="method-name">JSON</span><span class="method-args">(object, *args)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="JSON-source"> <pre class="ruby" data-language="ruby"># File ext/json/lib/json/common.rb, line 685
+def JSON(object, *args)
+  if object.respond_to? :to_str
+    JSON.parse(object.to_str, args.first)
+  else
+    JSON.generate(object, args.first)
+  end
+end</pre> </div> <p>If <em>object</em> is string-like, parse the string and return the parsed result as a Ruby data structure. Otherwise, generate a <a href="json"><code>JSON</code></a> text from the Ruby data structure object and return it.</p> <p>The <em>opts</em> argument is passed through to generate/parse respectively. See generate and parse for their documentation.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-URI"> <span class="method-name">URI</span><span class="method-args">(uri)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="URI-source"> <pre class="ruby" data-language="ruby"># File lib/uri/common.rb, line 718
+def URI(uri)
+  if uri.is_a?(URI::Generic)
+    uri
+  elsif uri = String.try_convert(uri)
+    URI.parse(uri)
+  else
+    raise ArgumentError,
+      "bad argument (expected URI object or URI string)"
+  end
+end</pre> </div> <p>Returns <code>uri</code> converted to an <a href="uri"><code>URI</code></a> object.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-gem"> <span class="method-name">gem</span><span class="method-args">(gem_name, *requirements)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="gem-source"> <pre class="ruby" data-language="ruby"># File lib/rubygems/core_ext/kernel_gem.rb, line 41
+def gem(gem_name, *requirements) # :doc:
+  skip_list = (ENV["GEM_SKIP"] || "").split(/:/)
+  raise Gem::LoadError, "skipping #{gem_name}" if skip_list.include? gem_name
+
+  if gem_name.kind_of? Gem::Dependency
+    unless Gem::Deprecate.skip
+      warn "#{Gem.location_of_caller.join ':'}:Warning: Kernel.gem no longer "\
+        "accepts a Gem::Dependency object, please pass the name "\
+        "and requirements directly"
+    end
+
+    requirements = gem_name.requirement
+    gem_name = gem_name.name
+  end
+
+  dep = Gem::Dependency.new(gem_name, *requirements)
+
+  loaded = Gem.loaded_specs[gem_name]
+
+  return false if loaded &amp;&amp; dep.matches_spec?(loaded)
+
+  spec = dep.to_spec
+
+  if spec
+    if Gem::LOADED_SPECS_MUTEX.owned?
+      spec.activate
+    else
+      Gem::LOADED_SPECS_MUTEX.synchronize { spec.activate }
+    end
+  end
+end</pre> </div> <p>Use <a href="kernel#method-i-gem"><code>Kernel#gem</code></a> to activate a specific version of <code>gem_name</code>.</p> <p><code>requirements</code> is a list of version requirements that the specified gem must match, most commonly “= example.version.number”. See <span><code>Gem::Requirement</code></span> for how to specify a version requirement.</p> <p>If you will be activating the latest version of a gem, there is no need to call <a href="kernel#method-i-gem"><code>Kernel#gem</code></a>, <a href="kernel#method-i-require"><code>Kernel#require</code></a> will do the right thing for you.</p> <p><a href="kernel#method-i-gem"><code>Kernel#gem</code></a> returns true if the gem was activated, otherwise false. If the gem could not be found, didn’t match the version requirements, or a different version was already activated, an exception will be raised.</p> <p><a href="kernel#method-i-gem"><code>Kernel#gem</code></a> should be called <strong>before</strong> any require statements (otherwise RubyGems may load a conflicting library version).</p> <p><a href="kernel#method-i-gem"><code>Kernel#gem</code></a> only loads prerelease versions when prerelease <code>requirements</code> are given:</p> <pre class="ruby" data-language="ruby">gem 'rake', '&gt;= 1.1.a', '&lt; 2'
+</pre> <p>In older RubyGems versions, the environment variable GEM_SKIP could be used to skip activation of specified gems, for example to test out changes that haven’t been installed yet. Now RubyGems defers to -I and the RUBYLIB environment variable to skip activation of a gem.</p> <p>Example:</p> <pre>GEM_SKIP=libA:libB ruby -I../libA -I../libB ./mycode.rb</pre>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-j"> <span class="method-name">j</span><span class="method-args">(*objs)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="j-source"> <pre class="ruby" data-language="ruby"># File ext/json/lib/json/common.rb, line 663
+def j(*objs)
+  objs.each do |obj|
+    puts JSON::generate(obj, :allow_nan =&gt; true, :max_nesting =&gt; false)
+  end
+  nil
+end</pre> </div> <p>Outputs <em>objs</em> to STDOUT as <a href="json"><code>JSON</code></a> strings in the shortest form, that is in one line.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-jj"> <span class="method-name">jj</span><span class="method-args">(*objs)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="jj-source"> <pre class="ruby" data-language="ruby"># File ext/json/lib/json/common.rb, line 672
+def jj(*objs)
+  objs.each do |obj|
+    puts JSON::pretty_generate(obj, :allow_nan =&gt; true, :max_nesting =&gt; false)
+  end
+  nil
+end</pre> </div> <p>Outputs <em>objs</em> to STDOUT as <a href="json"><code>JSON</code></a> strings in a pretty format, with indentation and over many lines.</p>  </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-pp"> <span class="method-name">pp</span><span class="method-args">(*objs)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="pp-source"> <pre class="ruby" data-language="ruby"># File lib/pp.rb, line 644
+def pp(*objs)
+  objs.each {|obj|
+    PP.pp(obj)
+  }
+  objs.size &lt;= 1 ? objs.first : objs
+end</pre> </div> <p>prints arguments in pretty form.</p> <p>pp returns argument(s).</p>  </div> <div class="aliases"> Also aliased as: pp </div> </div> <div class="method-detail "> <div class="method-header"> <div class="method-heading" id="method-i-y"> <span class="method-name">y</span><span class="method-args">(*objects)</span> <a class="method-click-advice">Show source</a> </div> </div> <div class="method-description">
+<div class="method-source-code" id="y-source"> <pre class="ruby" data-language="ruby"># File ext/psych/lib/psych/y.rb, line 5
+def y *objects
+  puts Psych.dump_stream(*objects)
+end</pre> </div> <p>An alias for <a href="psych#method-c-dump_stream"><code>Psych.dump_stream</code></a> meant to be used with <span><code>IRB</code></span>.</p>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>Licensed under the Ruby License.<br>Ruby Standard Library &copy; contributors<br>Licensed under their own licenses.<br>
+    
+  </p>
+</div>

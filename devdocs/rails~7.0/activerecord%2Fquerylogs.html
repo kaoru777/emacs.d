@@ -1,0 +1,33 @@
+<h1 id="module-ActiveRecord::QueryLogs" class="module"> module ActiveRecord::QueryLogs </h1> <section class="description"> <h1 id="module-ActiveRecord::QueryLogs-label-Active+Record+Query+Logs">Active Record Query Logs</h1> <p>Automatically tag SQL queries with runtime information.</p> <p>Default tags available for use:</p> <ul>
+<li> <p><code>application</code></p> </li>
+<li> <p><code>pid</code></p> </li>
+<li> <p><code>socket</code></p> </li>
+<li> <p><code>db_host</code></p> </li>
+<li> <p><code>database</code></p> </li>
+</ul> <p>_Action Controller and Active Job tags are also defined when used in Rails:_</p> <ul>
+<li> <p><code>controller</code></p> </li>
+<li> <p><code>action</code></p> </li>
+<li> <p><code>job</code></p> </li>
+</ul> <p>The tags used in a query can be configured directly:</p> <pre class="ruby" data-language="ruby">ActiveRecord::QueryLogs.tags = [ :application, :controller, :action, :job ]
+</pre> <p>or via Rails configuration:</p> <pre class="ruby" data-language="ruby">config.active_record.query_log_tags = [ :application, :controller, :action, :job ]
+</pre> <p>To add new comment tags, add a hash to the tags array containing the keys and values you want to add to the comment. Dynamic content can be created by setting a proc or lambda value in a hash, and can reference any value stored in the <code>context</code> object.</p> <p>Example:</p> <pre class="ruby" data-language="ruby">tags = [
+  :application,
+  {
+    custom_tag: -&gt;(context) { context[:controller]&amp;.controller_name },
+    custom_value: -&gt; { Custom.value },
+  }
+]
+ActiveRecord::QueryLogs.tags = tags
+</pre> <p>The <a href="querylogs"><code>QueryLogs</code></a> <code>context</code> can be manipulated via the <code>ActiveSupport::ExecutionContext.set</code> method.</p> <p>Temporary updates limited to the execution of a block:</p> <pre class="ruby" data-language="ruby">ActiveSupport::ExecutionContext.set(foo: Bar.new) do
+  posts = Post.all
+end
+</pre> <p>Direct updates to a context value:</p> <pre class="ruby" data-language="ruby">ActiveSupport::ExecutionContext[:foo] = Bar.new
+</pre> <p>Tag comments can be prepended to the query:</p> <pre class="ruby" data-language="ruby">ActiveRecord::QueryLogs.prepend_comment = true
+</pre> <p>For applications where the content will not change during the lifetime of the request or job execution, the tags can be cached for reuse in every query:</p> <pre class="ruby" data-language="ruby">ActiveRecord::QueryLogs.cache_query_log_tags = true
+</pre> <p>This option can be set during application configuration or in a Rails initializer:</p> <pre class="ruby" data-language="ruby">config.active_record.cache_query_log_tags = true
+</pre> </section> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

@@ -1,0 +1,17 @@
+  <main role="main">    <h1>Interface PublicKey</h1>     <dl> <dt>All Superinterfaces:</dt> <dd>
+<code><a href="key">Key</a></code>, <code><a href="../io/serializable">Serializable</a></code>
+</dd> </dl> <dl> <dt>All Known Subinterfaces:</dt> <dd>
+<code><a href="../../javax/crypto/interfaces/dhpublickey">DHPublicKey</a></code>, <code><a href="interfaces/dsapublickey">DSAPublicKey</a></code>, <code><a href="interfaces/ecpublickey">ECPublicKey</a></code>, <code><a href="interfaces/rsapublickey">RSAPublicKey</a></code>, <code><a href="interfaces/xecpublickey">XECPublicKey</a></code>
+</dd> </dl>  <pre data-language="java">public interface PublicKey
+extends Key</pre> <div>
+
+<p>A public key. This interface contains no methods or constants. It merely serves to group (and provide type safety for) all public key interfaces. Note: The specialized public key interfaces extend this interface. See, for example, the DSAPublicKey interface in <code>java.security.interfaces</code>.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.1</dd> <dt>See Also:</dt> <dd>
+<a href="key"><code>Key</code></a>, <a href="privatekey"><code>PrivateKey</code></a>, <a href="certificate"><code>Certificate</code></a>, <a href="signature#initVerify(java.security.PublicKey)"><code>Signature.initVerify(java.security.PublicKey)</code></a>, <a href="interfaces/dsapublickey"><code>DSAPublicKey</code></a>, <a href="interfaces/rsapublickey"><code>RSAPublicKey</code></a>
+</dd> </dl>      <section role="region">  <h2 id="field.summary">Fields</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Field</th> <th scope="col">Description</th> </tr> <tr> <td><code>static long</code></td> <th scope="row"><code><a href="#serialVersionUID">serialVersionUID</a></code></th> <td> <p>The class fingerprint that is set to indicate serialization compatibility with a previous version of the class.</p> </td> </tr> </table>  </section>  <section role="region">  <h2 id="method.summary">Methods</h2>  <h2 id="methods.inherited.from.class.java.security.Key">Methods declared in interface java.security.<a href="key">Key</a>
+</h2> <code><a href="key#getAlgorithm()">getAlgorithm</a>, <a href="key#getEncoded()">getEncoded</a>, <a href="key#getFormat()">getFormat</a></code>  </section>   <div>   <section role="region">  <h2 id="field.detail">Fields</h2>   <h3 id="serialVersionUID">serialVersionUID</h3> <pre data-language="java">static final long serialVersionUID</pre> <p>The class fingerprint that is set to indicate serialization compatibility with a previous version of the class.</p> <dl> <dt>See Also:</dt> <dd><a href="https://docs.oracle.com/en/java/javase/11/docs/api/constant-values.html#java.security.PublicKey.serialVersionUID">Constant Field Values</a></dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/PublicKey.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/PublicKey.html</a>
+  </p>
+</div>

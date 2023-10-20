@@ -1,0 +1,36 @@
+ <main role="main">   <h1>Package javax.smartcardio</h1>   <section role="region"> <div id="package.description">
+<p><h2>Java™ Smart Card I/O API</h2> This specification describes the Java Smart Card I/O API defined by <a href="http://jcp.org/en/jsr/detail?id=268">JSR 268</a>. It defines a Java API for communication with Smart Cards using ISO/IEC 7816-4 APDUs. It thereby allows Java applications to interact with applications running on the Smart Card, to store and retrieve data on the card, etc. </p>
+<p> The API is defined by classes in the package <code>javax.smartcardio</code>. They can be classified as follows: </p>
+<dl> <dt>Classes describing the corresponding Smart Card structures </dt>
+<dd> <a href="atr">ATR</a>, <a href="commandapdu">CommandAPDU</a>, <a href="responseapdu">ResponseAPDU</a> </dd>
+<dt>Factory to obtain implementations </dt>
+<dd> <a href="terminalfactory">TerminalFactory</a> </dd>
+<dt>Main classes for card and terminal functions </dt>
+<dd> <a href="cardterminals">CardTerminals</a>, <a href="cardterminal">CardTerminal</a>, <a href="card">Card</a>, <a href="cardchannel">CardChannel</a> </dd>
+<dt>Supporting permission and exception classes </dt>
+<dd> <a href="cardpermission">CardPermission</a>, <a href="cardexception">CardException</a>, <a href="cardnotpresentexception">CardNotPresentException</a> </dd>
+<dt>Service provider interface, not accessed directly by applications </dt>
+<dd> <a href="terminalfactoryspi">TerminalFactorySpi</a> </dd>
+</dl> <h2>API Example</h2> A simple example of using the API is: <pre data-language="java">// show the list of available terminals
+        TerminalFactory factory = TerminalFactory.getDefault();
+        List&lt;CardTerminal&gt; terminals = factory.terminals().list();
+        System.out.println("Terminals: " + terminals);
+        // get the first terminal
+        CardTerminal terminal = terminals.get(0);
+        // establish a connection with the card
+        Card card = terminal.connect("T=0");
+        System.out.println("card: " + card);
+        CardChannel channel = card.getBasicChannel();
+        ResponseAPDU r = channel.transmit(new CommandAPDU(c1));
+        System.out.println("response: " + toString(r.getBytes()));
+        // disconnect
+        card.disconnect(false);</pre>
+</div> <dl> <dt>Since:</dt> <dd>1.6</dd> </dl> </section> <table>  <tr> <th scope="col">Class</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="atr">ATR</a></th> <td> <p>A Smart Card's answer-to-reset bytes.</p> </td> </tr> <tr> <th scope="row"><a href="card">Card</a></th> <td> <p>A Smart Card with which a connection has been established.</p> </td> </tr> <tr> <th scope="row"><a href="cardchannel">CardChannel</a></th> <td> <p>A logical channel connection to a Smart Card.</p> </td> </tr> <tr> <th scope="row"><a href="cardpermission">CardPermission</a></th> <td> <p>A permission for Smart Card operations.</p> </td> </tr> <tr> <th scope="row"><a href="cardterminal">CardTerminal</a></th> <td> <p>A Smart Card terminal, sometimes referred to as a Smart Card Reader.</p> </td> </tr> <tr> <th scope="row"><a href="cardterminals">CardTerminals</a></th> <td> <p>The set of terminals supported by a TerminalFactory.</p> </td> </tr> <tr> <th scope="row"><a href="commandapdu">CommandAPDU</a></th> <td> <p>A command APDU following the structure defined in ISO/IEC 7816-4.</p> </td> </tr> <tr> <th scope="row"><a href="responseapdu">ResponseAPDU</a></th> <td> <p>A response APDU as defined in ISO/IEC 7816-4.</p> </td> </tr> <tr> <th scope="row"><a href="terminalfactory">TerminalFactory</a></th> <td> <p>A factory for CardTerminal objects.</p> </td> </tr> <tr> <th scope="row"><a href="terminalfactoryspi">TerminalFactorySpi</a></th> <td> <p>The TerminalFactorySpi class defines the service provider interface.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Enum</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="cardterminals.state">CardTerminals.State</a></th> <td> <p>Enumeration of attributes of a CardTerminal.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Exception</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="cardexception">CardException</a></th> <td> <p>Exception for errors that occur during communication with the Smart Card stack or the card itself.</p> </td> </tr> <tr> <th scope="row"><a href="cardnotpresentexception">CardNotPresentException</a></th> <td> <p>Exception thrown when an application tries to establish a connection with a terminal that has no card present.</p> </td> </tr>  </table>
+  </main> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.smartcardio/javax/smartcardio/package-summary.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.smartcardio/javax/smartcardio/package-summary.html</a>
+  </p>
+</div>

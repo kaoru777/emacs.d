@@ -1,0 +1,2 @@
+(1 (name . "PostgreSQL") (slug . "postgresql~14") (type . "postgres") (links (home . "https://www.postgresql.org/") (code . "https://git.postgresql.org/gitweb/?p=postgresql.git")) (version . "14") (release . "14.5") (mtime . 1663709571) (db_size . 8069442) (attribution . "&copy; 1996&ndash;2023 The PostgreSQL Global Development Group<br>
+      Licensed under the PostgreSQL License."))

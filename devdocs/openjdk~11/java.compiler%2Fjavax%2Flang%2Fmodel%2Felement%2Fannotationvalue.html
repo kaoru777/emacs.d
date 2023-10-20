@@ -1,0 +1,21 @@
+  <main role="main">    <h1>Interface AnnotationValue</h1>      <pre data-language="java">public interface AnnotationValue</pre> <p>Represents a value of an annotation type element. A value is of one of the following types: <ul>
+<li> a wrapper class (such as <a href="../../../../../java.base/java/lang/integer"><code>Integer</code></a>) for a primitive type </li>
+<li> <code>String</code> </li>
+<li> <code>TypeMirror</code> </li>
+<li> <code>VariableElement</code> (representing an enum constant) </li>
+<li> <code>AnnotationMirror</code> </li>
+<li> <code>List&lt;? extends AnnotationValue&gt;</code> (representing the elements, in declared order, if the value is an array) </li>
+</ul></p> <dl> <dt>Since:</dt> <dd>1.6</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>&lt;R,​P&gt;<br>R</code></td> <th scope="row"><code><a href="#accept(javax.lang.model.element.AnnotationValueVisitor,P)">accept</a>​(<a href="annotationvaluevisitor">AnnotationValueVisitor</a>&lt;R,​P&gt; v,
+      P p)</code></th> <td> <p>Applies a visitor to this value.</p> </td> </tr> <tr id="i1"> <td><code><a href="../../../../../java.base/java/lang/object">Object</a></code></td> <th scope="row"><code><a href="#getValue()">getValue</a>()</code></th> <td> <p>Returns the value.</p> </td> </tr> <tr id="i2"> <td><code><a href="../../../../../java.base/java/lang/string">String</a></code></td> <th scope="row"><code><a href="#toString()">toString</a>()</code></th> <td> <p>Returns a string representation of this value.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getValue()">getValue</h3> <pre data-language="java">Object getValue()</pre> <p>Returns the value.</p> <dl> <dt>Returns:</dt> <dd>the value</dd> </dl>    <h3 id="toString()">toString</h3> <pre data-language="java">String toString()</pre> <p>Returns a string representation of this value. This is returned in a form suitable for representing this value in the source code of an annotation.</p> <dl> <dt>Overrides:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/object#toString()">toString</a></code> in class <code><a href="../../../../../java.base/java/lang/object">Object</a></code>
+</dd> <dt>Returns:</dt> <dd>a string representation of this value</dd> </dl>    <h3 id="accept(javax.lang.model.element.AnnotationValueVisitor,java.lang.Object)">accept</h3> <pre data-language="java">&lt;R,P&gt; R accept​(AnnotationValueVisitor&lt;R,​P&gt; v,
+                     P p)</pre> <p>Applies a visitor to this value.</p> <dl> <dt>Type Parameters:</dt> <dd>
+<code>R</code> - the return type of the visitor's methods</dd> <dd>
+<code>P</code> - the type of the additional parameter to the visitor's methods</dd> <dt>Parameters:</dt> <dd>
+<code>v</code> - the visitor operating on this value</dd> <dd>
+<code>p</code> - additional parameter to the visitor</dd> <dt>Returns:</dt> <dd>a visitor-specified result</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.compiler/javax/lang/model/element/AnnotationValue.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.compiler/javax/lang/model/element/AnnotationValue.html</a>
+  </p>
+</div>

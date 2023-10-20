@@ -1,0 +1,155 @@
+<h1 title="Interface CLinker.VaList" class="title">Interface CLinker.VaList</h1> <section class="class-description" id="class-description"> <dl class="notes"> <dt>All Superinterfaces:</dt> <dd><code><a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a></code></dd> </dl> <dl class="notes"> <dt>Enclosing interface:</dt> <dd><a href="clinker" title="interface in jdk.incubator.foreign">CLinker</a></dd> </dl>  <pre class="lang-java" data-language="java">public static sealed interface CLinker.VaList extends Addressable</pre> <div class="block">An interface that models a C <code>va_list</code>. <p> A va list is a stateful cursor used to iterate over a set of variadic arguments. </p>
+<p> Per the C specification (see C standard 6.5.2.2 Function calls - item 6), arguments to variadic calls are erased by way of 'default argument promotions', which erases integral types by way of integer promotion (see C standard 6.3.1.1 - item 2), and which erases all <code>float</code> arguments to <code>double</code>. </p>
+<p> As such, this interface only supports reading <code>int</code>, <code>double</code>, and any other type that fits into a <code>long</code>. </p>
+<p> Unless otherwise specified, passing a <code>null</code> argument, or an array argument containing one or more <code>null</code> elements to a method in this class causes a <a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang"><code>NullPointerException</code></a> to be thrown. </p>
+</div> </section> <section class="summary"> <section class="nested-class-summary" id="nested-class-summary"> <h2>Nested Class Summary</h2>  <table class="summary-table three-column-summary">       <tr>
+<th>Modifier and Type</th>
+<th>Interface</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static interface </code></td>
+<td><code><a href="clinker.valist.builder" class="type-name-link" title="interface in jdk.incubator.foreign">CLinker.VaList.Builder</a></code></td>
+<td> <div class="block">A builder interface used to construct a C <code>va_list</code>.</div> </td>
+</tr>
+</table> </section><section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                              <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#address()" class="member-name-link">address</a>()</code></td>
+<td> <div class="block">Returns the memory address of the C <code>va_list</code> associated with this instance.</div> </td>
+</tr>
+<tr>
+<td><code><a href="clinker.valist" title="interface in jdk.incubator.foreign">CLinker.VaList</a></code></td>
+<td><code><a href="#copy()" class="member-name-link">copy</a>()</code></td>
+<td> <div class="block">Copies this C <code>va_list</code> at its current position.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="clinker.valist" title="interface in jdk.incubator.foreign">CLinker.VaList</a></code></td>
+<td><code><a href="#empty()" class="member-name-link">empty</a>()</code></td>
+<td> <div class="block">Returns an empty C <code>va_list</code> constant.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="clinker.valist" title="interface in jdk.incubator.foreign">CLinker.VaList</a></code></td>
+<td><code><a href="#make(java.util.function.Consumer,jdk.incubator.foreign.ResourceScope)" class="member-name-link">make</a><wbr>(<a href="../../../../java.base/java/util/function/consumer" title="interface in java.util.function">Consumer</a>&lt;<a href="clinker.valist.builder" title="interface in jdk.incubator.foreign">CLinker.VaList.Builder</a>&gt; actions,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Constructs a new <code>VaList</code> using a builder (see <a href="clinker.valist.builder" title="interface in jdk.incubator.foreign"><code>CLinker.VaList.Builder</code></a>), associated with a given <a href="resourcescope" title="interface in jdk.incubator.foreign">resource scope</a>.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="clinker.valist" title="interface in jdk.incubator.foreign">CLinker.VaList</a></code></td>
+<td><code><a href="#ofAddress(jdk.incubator.foreign.MemoryAddress)" class="member-name-link">ofAddress</a><wbr>(<a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a> address)</wbr></code></td>
+<td> <div class="block">Constructs a new <code>VaList</code> instance out of a memory address pointing to an existing C <code>va_list</code>, backed by the <a href="resourcescope#globalScope()">global</a> resource scope.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="clinker.valist" title="interface in jdk.incubator.foreign">CLinker.VaList</a></code></td>
+<td><code><a href="#ofAddress(jdk.incubator.foreign.MemoryAddress,jdk.incubator.foreign.ResourceScope)" class="member-name-link">ofAddress</a><wbr>(<a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a> address,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Constructs a new <code>VaList</code> instance out of a memory address pointing to an existing C <code>va_list</code>, with given resource scope.</div> </td>
+</tr>
+<tr>
+<td><code><a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a></code></td>
+<td><code><a href="#scope()" class="member-name-link">scope</a>()</code></td>
+<td> <div class="block">Returns the resource scope associated with this instance.</div> </td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td><code><a href="#skip(jdk.incubator.foreign.MemoryLayout...)" class="member-name-link">skip</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a>... layouts)</wbr></code></td>
+<td> <div class="block">Skips a number of elements with the given memory layouts, and advances this va list's position.</div> </td>
+</tr>
+<tr>
+<td><code><a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#vargAsAddress(jdk.incubator.foreign.MemoryLayout)" class="member-name-link">vargAsAddress</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> layout)</wbr></code></td>
+<td> <div class="block">Reads the next value as a <code>MemoryAddress</code> and advances this va list's position.</div> </td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td><code><a href="#vargAsDouble(jdk.incubator.foreign.MemoryLayout)" class="member-name-link">vargAsDouble</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> layout)</wbr></code></td>
+<td> <div class="block">Reads the next value as a <code>double</code> and advances this va list's position.</div> </td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code><a href="#vargAsInt(jdk.incubator.foreign.MemoryLayout)" class="member-name-link">vargAsInt</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> layout)</wbr></code></td>
+<td> <div class="block">Reads the next value as an <code>int</code> and advances this va list's position.</div> </td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td><code><a href="#vargAsLong(jdk.incubator.foreign.MemoryLayout)" class="member-name-link">vargAsLong</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> layout)</wbr></code></td>
+<td> <div class="block">Reads the next value as a <code>long</code> and advances this va list's position.</div> </td>
+</tr>
+<tr>
+<td><code><a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#vargAsSegment(jdk.incubator.foreign.MemoryLayout,jdk.incubator.foreign.ResourceScope)" class="member-name-link">vargAsSegment</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> layout,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Reads the next value as a <code>MemorySegment</code>, and advances this va list's position.</div> </td>
+</tr>
+<tr>
+<td><code><a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#vargAsSegment(jdk.incubator.foreign.MemoryLayout,jdk.incubator.foreign.SegmentAllocator)" class="member-name-link">vargAsSegment</a><wbr>(<a href="memorylayout" title="interface in jdk.incubator.foreign">MemoryLayout</a> layout,
+ <a href="segmentallocator" title="interface in jdk.incubator.foreign">SegmentAllocator</a> allocator)</wbr></code></td>
+<td> <div class="block">Reads the next value as a <code>MemorySegment</code>, and advances this va list's position.</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="vargAsInt(jdk.incubator.foreign.MemoryLayout)"> <h3>vargAsInt</h3> <pre class="lang-java" data-language="java">int vargAsInt(MemoryLayout layout)</pre> <div class="block">Reads the next value as an <code>int</code> and advances this va list's position.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the value</dd> <dt>Returns:</dt> <dd>the value read as an <code>int</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>int</code>
+</dd> </dl> </section><section class="detail" id="vargAsLong(jdk.incubator.foreign.MemoryLayout)"> <h3>vargAsLong</h3> <pre class="lang-java" data-language="java">long vargAsLong(MemoryLayout layout)</pre> <div class="block">Reads the next value as a <code>long</code> and advances this va list's position.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the value</dd> <dt>Returns:</dt> <dd>the value read as an <code>long</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>long</code>
+</dd> </dl> </section><section class="detail" id="vargAsDouble(jdk.incubator.foreign.MemoryLayout)"> <h3>vargAsDouble</h3> <pre class="lang-java" data-language="java">double vargAsDouble(MemoryLayout layout)</pre> <div class="block">Reads the next value as a <code>double</code> and advances this va list's position.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the value</dd> <dt>Returns:</dt> <dd>the value read as an <code>double</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>double</code>
+</dd> </dl> </section><section class="detail" id="vargAsAddress(jdk.incubator.foreign.MemoryLayout)"> <h3>vargAsAddress</h3> <pre class="lang-java" data-language="java">MemoryAddress vargAsAddress(MemoryLayout layout)</pre> <div class="block">Reads the next value as a <code>MemoryAddress</code> and advances this va list's position.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the value</dd> <dt>Returns:</dt> <dd>the value read as an <code>MemoryAddress</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>MemoryAddress</code>
+</dd> </dl> </section><section class="detail" id="vargAsSegment(jdk.incubator.foreign.MemoryLayout,jdk.incubator.foreign.SegmentAllocator)"> <h3>vargAsSegment</h3> <pre class="lang-java" data-language="java">MemorySegment vargAsSegment(MemoryLayout layout, SegmentAllocator allocator)</pre> <div class="block">Reads the next value as a <code>MemorySegment</code>, and advances this va list's position. <p> The memory segment returned by this method will be allocated using the given <a href="segmentallocator" title="interface in jdk.incubator.foreign"><code>SegmentAllocator</code></a>.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the value</dd> <dd>
+<code>allocator</code> - the allocator to be used for the native segment allocation</dd> <dt>Returns:</dt> <dd>the value read as an <code>MemorySegment</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>MemorySegment</code>
+</dd> </dl> </section><section class="detail" id="vargAsSegment(jdk.incubator.foreign.MemoryLayout,jdk.incubator.foreign.ResourceScope)"> <h3>vargAsSegment</h3> <pre class="lang-java" data-language="java">MemorySegment vargAsSegment(MemoryLayout layout, ResourceScope scope)</pre> <div class="block">Reads the next value as a <code>MemorySegment</code>, and advances this va list's position. <p> The memory segment returned by this method will be associated with the given <a href="resourcescope" title="interface in jdk.incubator.foreign"><code>ResourceScope</code></a>.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layout</code> - the layout of the value</dd> <dd>
+<code>scope</code> - the resource scope to be associated with the returned segment</dd> <dt>Returns:</dt> <dd>the value read as an <code>MemorySegment</code>
+</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if the given memory layout is not compatible with <code>MemorySegment</code>
+</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if <code>scope</code> has been already closed, or if access occurs from a thread other than the thread owning <code>scope</code>.</dd> </dl> </section><section class="detail" id="skip(jdk.incubator.foreign.MemoryLayout...)"> <h3>skip</h3> <pre class="lang-java" data-language="java">void skip(MemoryLayout... layouts)</pre> <div class="block">Skips a number of elements with the given memory layouts, and advances this va list's position.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>layouts</code> - the layout of the value</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> </dl> </section><section class="detail" id="scope()"> <h3>scope</h3> <pre class="lang-java" data-language="java">ResourceScope scope()</pre> <div class="block">Returns the resource scope associated with this instance.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the resource scope associated with this instance.</dd> </dl> </section><section class="detail" id="copy()"> <h3>copy</h3> <pre class="lang-java" data-language="java">CLinker.VaList copy()</pre> <div class="block">Copies this C <code>va_list</code> at its current position. Copying is useful to traverse the va list's elements starting from the current position, without affecting the state of the original va list, essentially allowing the elements to be traversed multiple times. <p> Any native resource required by the execution of this method will be allocated in the resource scope associated with this instance (see <a href="#scope()"><code>scope()</code></a>). </p>
+<p> This method only copies the va list cursor itself and not the memory that may be attached to the va list which holds its elements. That means that if this va list was created with the <a href="#make(java.util.function.Consumer,jdk.incubator.foreign.ResourceScope)"><code>make(Consumer, ResourceScope)</code></a> method, closing this va list will also release the native memory that holds its elements, making the copy unusable.</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>a copy of this C <code>va_list</code>.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the resource scope associated with this instance has been closed (see <a href="#scope()"><code>scope()</code></a>).</dd> </dl> </section><section class="detail" id="address()"> <h3>address</h3> <pre class="lang-java" data-language="java">MemoryAddress address()</pre> <div class="block">Returns the memory address of the C <code>va_list</code> associated with this instance. The returned memory address is associated with same resource scope as that associated with this instance.</div> <dl class="notes"> <dt>Specified by:</dt> <dd>
+<code><a href="addressable#address()">address</a></code> in interface <code><a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a></code>
+</dd> <dt>Returns:</dt> <dd>the memory address of the C <code>va_list</code> associated with this instance.</dd> </dl> </section><section class="detail" id="ofAddress(jdk.incubator.foreign.MemoryAddress)"> <h3>ofAddress</h3> <pre class="lang-java" data-language="java">static CLinker.VaList ofAddress(MemoryAddress address)</pre> <div class="block">Constructs a new <code>VaList</code> instance out of a memory address pointing to an existing C <code>va_list</code>, backed by the <a href="resourcescope#globalScope()">global</a> resource scope. <p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>address</code> - a memory address pointing to an existing C <code>va_list</code>.</dd> <dt>Returns:</dt> <dd>a new <code>VaList</code> instance backed by the C <code>va_list</code> at <code>address</code>.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="ofAddress(jdk.incubator.foreign.MemoryAddress,jdk.incubator.foreign.ResourceScope)"> <h3>ofAddress</h3> <pre class="lang-java" data-language="java">static CLinker.VaList ofAddress(MemoryAddress address, ResourceScope scope)</pre> <div class="block">Constructs a new <code>VaList</code> instance out of a memory address pointing to an existing C <code>va_list</code>, with given resource scope. <p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>address</code> - a memory address pointing to an existing C <code>va_list</code>.</dd> <dd>
+<code>scope</code> - the resource scope to be associated with the returned <code>VaList</code> instance.</dd> <dt>Returns:</dt> <dd>a new <code>VaList</code> instance backed by the C <code>va_list</code> at <code>address</code>.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if <code>scope</code> has been already closed, or if access occurs from a thread other than the thread owning <code>scope</code>.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="make(java.util.function.Consumer,jdk.incubator.foreign.ResourceScope)"> <h3>make</h3> <pre class="lang-java" data-language="java">static CLinker.VaList make(Consumer&lt;CLinker.VaList.Builder&gt; actions, ResourceScope scope)</pre> <div class="block">Constructs a new <code>VaList</code> using a builder (see <a href="clinker.valist.builder" title="interface in jdk.incubator.foreign"><code>CLinker.VaList.Builder</code></a>), associated with a given <a href="resourcescope" title="interface in jdk.incubator.foreign">resource scope</a>. <p> If this method needs to allocate native memory, such memory will be managed by the given <a href="resourcescope" title="interface in jdk.incubator.foreign">resource scope</a>, and will be released when the resource scope is <a href="resourcescope#close()">closed</a>. </p>
+<p> Note that when there are no elements added to the created va list, this method will return the same as <a href="#empty()"><code>empty()</code></a>.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>actions</code> - a consumer for a builder (see <a href="clinker.valist.builder" title="interface in jdk.incubator.foreign"><code>CLinker.VaList.Builder</code></a>) which can be used to specify the elements of the underlying C <code>va_list</code>.</dd> <dd>
+<code>scope</code> - the scope to be used for the valist allocation.</dd> <dt>Returns:</dt> <dd>a new <code>VaList</code> instance backed by a fresh C <code>va_list</code>.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if <code>scope</code> has been already closed, or if access occurs from a thread other than the thread owning <code>scope</code>.</dd> </dl> </section><section class="detail" id="empty()"> <h3>empty</h3> <pre class="lang-java" data-language="java">static CLinker.VaList empty()</pre> <div class="block">Returns an empty C <code>va_list</code> constant. <p> The returned <code>VaList</code> can not be closed.</p>
+</div> <dl class="notes"> <dt>Returns:</dt> <dd>a <code>VaList</code> modelling an empty C <code>va_list</code>.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.VaList.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.VaList.html</a>
+  </p>
+</div>

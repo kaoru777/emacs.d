@@ -1,0 +1,10 @@
+  <main role="main">    <h1>Interface ECField</h1>     <dl> <dt>All Known Implementing Classes:</dt> <dd>
+<code><a href="ecfieldf2m">ECFieldF2m</a></code>, <code><a href="ecfieldfp">ECFieldFp</a></code>
+</dd> </dl>  <pre data-language="java">public interface ECField</pre> <p>This interface represents an elliptic curve (EC) finite field. All specialized EC fields must implements this interface.</p> <dl> <dt>Since:</dt> <dd>1.5</dd> <dt>See Also:</dt> <dd>
+<a href="ecfieldfp"><code>ECFieldFp</code></a>, <a href="ecfieldf2m"><code>ECFieldF2m</code></a>
+</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>int</code></td> <th scope="row"><code><a href="#getFieldSize()">getFieldSize</a>()</code></th> <td> <p>Returns the field size in bits.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="getFieldSize()">getFieldSize</h3> <pre data-language="java">int getFieldSize()</pre> <p>Returns the field size in bits. Note: For prime finite field ECFieldFp, size of prime p in bits is returned. For characteristic 2 finite field ECFieldF2m, m is returned.</p> <dl> <dt>Returns:</dt> <dd>the field size in bits.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/spec/ECField.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/spec/ECField.html</a>
+  </p>
+</div>

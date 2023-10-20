@@ -1,0 +1,30 @@
+<h1 id="module-ActiveModel::Model" class="module"> module ActiveModel::Model </h1>
+<dl class="meta">
+<dt>Included modules:</dt>
+<dd class="meta-includes"><a class="include" href="api">ActiveModel::API</a></dd>
+</dl> <section class="description"> <h2 id="module-ActiveModel::Model-label-Active+Model+Basic+Model">Active Model Basic Model</h2> <p>Allows implementing models similar to <code>ActiveRecord::Base</code>. Includes <code>ActiveModel::API</code> for the required interface for an object to interact with Action Pack and Action View, but can be extended with other functionalities.</p> <p>A minimal implementation could be:</p> <pre class="ruby" data-language="ruby">class Person
+  include ActiveModel::Model
+  attr_accessor :name, :age
+end
+
+person = Person.new(name: 'bob', age: '18')
+person.name # =&gt; "bob"
+person.age  # =&gt; "18"
+</pre> <p>If for some reason you need to run code on <code>initialize</code>, make sure you call <code>super</code> if you want the attributes hash initialization to happen.</p> <pre class="ruby" data-language="ruby">class Person
+  include ActiveModel::Model
+  attr_accessor :id, :name, :omg
+
+  def initialize(attributes={})
+    super
+    @omg ||= true
+  end
+end
+
+person = Person.new(id: 1, name: 'bob')
+person.omg # =&gt; true
+</pre> <p>For more detailed information on other functionalities available, please refer to the specific modules included in <code>ActiveModel::Model</code> (see below).</p> </section> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

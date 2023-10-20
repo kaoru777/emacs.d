@@ -1,0 +1,31 @@
+<h1 id="class-ActiveStorage::VariantWithRecord" class="class"> class ActiveStorage::VariantWithRecord </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent"><a href="../object">Object</a></dd>
+</dl> <section class="description"> <p>Like an <a href="variant"><code>ActiveStorage::Variant</code></a>, but keeps detail about the variant in the database as an <span><code>ActiveStorage::VariantRecord</code></span>. This is only used if `ActiveStorage.track_variants` is enabled.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section class="attribute-method-details"> <header> <h3>Attributes</h3> </header> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-blob"> <span class="method-name">blob</span><span class="attribute-access-type">[R]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-variation"> <span class="method-name">variation</span><span class="attribute-access-type">[R]</span> </div>  </div> </section> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(blob, variation)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File activestorage/app/models/active_storage/variant_with_record.rb, line 9
+def initialize(blob, variation)
+  @blob, @variation = blob, ActiveStorage::Variation.wrap(variation)
+end</pre> </div>  </div> </div> </section> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-image"> <span class="method-name">image</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="image-source"> <pre class="ruby" data-language="ruby"># File activestorage/app/models/active_storage/variant_with_record.rb, line 26
+def image
+  record&amp;.image
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-process"> <span class="method-name">process</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="process-source"> <pre class="ruby" data-language="ruby"># File activestorage/app/models/active_storage/variant_with_record.rb, line 18
+def process
+  transform_blob { |image| create_or_find_record(image: image) } unless processed?
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-processed"> <span class="method-name">processed</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="processed-source"> <pre class="ruby" data-language="ruby"># File activestorage/app/models/active_storage/variant_with_record.rb, line 13
+def processed
+  process
+  self
+end</pre> </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-processed-3F"> <span class="method-name">processed?</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="processed-3F-source"> <pre class="ruby" data-language="ruby"># File activestorage/app/models/active_storage/variant_with_record.rb, line 22
+def processed?
+  record.present?
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

@@ -1,0 +1,120 @@
+<h1 title="Interface MemoryAddress" class="title">Interface MemoryAddress</h1> <section class="class-description" id="class-description"> <dl class="notes"> <dt>All Superinterfaces:</dt> <dd><code><a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a></code></dd> </dl>  <pre class="lang-java" data-language="java">public sealed interface MemoryAddress extends Addressable</pre> <div class="block">A memory address models a reference into a memory location. Memory addresses are typically obtained using the <a href="memorysegment#address()"><code>MemorySegment.address()</code></a> method, and can refer to either off-heap or on-heap memory. Off-heap memory addresses are referred to as <em>native</em> memory addresses (see <a href="#isNative()"><code>isNative()</code></a>). Native memory addresses allow clients to obtain a raw memory address (expressed as a long value) which can then be used e.g. when interacting with native code. <p> Given an address, it is possible to compute its offset relative to a given segment, which can be useful when performing memory dereference operations using a memory access var handle (see <a href="memoryhandles" title="class in jdk.incubator.foreign"><code>MemoryHandles</code></a>). </p>
+<p> A memory address is associated with a <a href="resourcescope" title="interface in jdk.incubator.foreign">resource scope</a>; the resource scope determines the lifecycle of the memory address, and whether the address can be used from multiple threads. Memory addresses obtained from <a href="#ofLong(long)">numeric values</a>, or from native code, are associated with the <a href="resourcescope#globalScope()">global resource scope</a>. Memory addresses obtained from segments are associated with the same scope as the segment from which they have been obtained. </p>
+<p> All implementations of this interface must be <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/doc-files/ValueBased.html">value-based</a>; programmers should treat instances that are <a href="#equals(java.lang.Object)">equal</a> as interchangeable and should not use instances for synchronization, or unpredictable behavior may occur. For example, in a future release, synchronization may fail. The <code>equals</code> method should be used for comparisons. </p>
+<p> Non-platform classes should not implement <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a> directly. </p>
+<p> Unless otherwise specified, passing a <code>null</code> argument, or an array argument containing one or more <code>null</code> elements to a method in this class causes a <a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang"><code>NullPointerException</code></a> to be thrown. </p>
+</div> <dl class="notes"> <dt>Implementation Requirements:</dt> <dd>Implementations of this interface are immutable, thread-safe and <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/doc-files/ValueBased.html">value-based</a>.</dd> </dl> </section> <section class="summary"> <section class="field-summary" id="field-summary"> <h2>Field Summary</h2>  <table class="summary-table three-column-summary">       <tr>
+<th>Modifier and Type</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static final <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#NULL" class="member-name-link">NULL</a></code></td>
+<td> <div class="block">The native memory address instance modelling the <code>NULL</code> address, associated with the <a href="resourcescope#globalScope()">global</a> resource scope.</div> </td>
+</tr>
+</table> </section><section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                                     <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#addOffset(long)" class="member-name-link">addOffset</a><wbr>(long offset)</wbr></code></td>
+<td> <div class="block">Creates a new memory address with given offset (in bytes), which might be negative, from current one.</div> </td>
+</tr>
+<tr>
+<td><code>default <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#address()" class="member-name-link">address</a>()</code></td>
+<td> <div class="block">Map this object into a <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> instance.</div> </td>
+</tr>
+<tr>
+<td><code><a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#asSegment(long,java.lang.Runnable,jdk.incubator.foreign.ResourceScope)" class="member-name-link">asSegment</a><wbr>(long bytesSize,
+ <a href="../../../../java.base/java/lang/runnable" title="interface in java.lang">Runnable</a> cleanupAction,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Returns a new native memory segment with given size and resource scope (replacing the scope already associated with this address), and whose base address is this address.</div> </td>
+</tr>
+<tr>
+<td><code><a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a></code></td>
+<td><code><a href="#asSegment(long,jdk.incubator.foreign.ResourceScope)" class="member-name-link">asSegment</a><wbr>(long bytesSize,
+ <a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a> scope)</wbr></code></td>
+<td> <div class="block">Returns a new native memory segment with given size and resource scope (replacing the scope already associated with this address), and whose base address is this address.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a> that)</wbr></code></td>
+<td> <div class="block">Compares the specified object with this address for equality.</div> </td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></td>
+<td> <div class="block">Returns the hash code value for this address.</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isNative()" class="member-name-link">isNative</a>()</code></td>
+<td> <div class="block">Is this an off-heap memory address?</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="memoryaddress" title="interface in jdk.incubator.foreign">MemoryAddress</a></code></td>
+<td><code><a href="#ofLong(long)" class="member-name-link">ofLong</a><wbr>(long value)</wbr></code></td>
+<td> <div class="block">Obtain a native memory address instance from given long address.</div> </td>
+</tr>
+<tr>
+<td><code><a href="resourcescope" title="interface in jdk.incubator.foreign">ResourceScope</a></code></td>
+<td><code><a href="#scope()" class="member-name-link">scope</a>()</code></td>
+<td> <div class="block">Returns the resource scope associated with this memory address.</div> </td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td><code><a href="#segmentOffset(jdk.incubator.foreign.MemorySegment)" class="member-name-link">segmentOffset</a><wbr>(<a href="memorysegment" title="interface in jdk.incubator.foreign">MemorySegment</a> segment)</wbr></code></td>
+<td> <div class="block">Returns the offset of this memory address into the given segment.</div> </td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td><code><a href="#toRawLongValue()" class="member-name-link">toRawLongValue</a>()</code></td>
+<td> <div class="block">Returns the raw long value associated with this native memory address.</div> </td>
+</tr>
+</table> </div> </div> </section> </section> <section class="details"> <section class="field-details" id="field-detail"> <h2>Field Details</h2>  </section><section class="detail" id="NULL"> <h3>NULL</h3> <pre class="lang-java" data-language="java">static final MemoryAddress NULL</pre> <div class="block">The native memory address instance modelling the <code>NULL</code> address, associated with the <a href="resourcescope#globalScope()">global</a> resource scope.</div> </section><section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="address()"> <h3>address</h3> <pre class="lang-java" data-language="java">default MemoryAddress address()</pre> <div class="block"><span class="descfrm-type-label">Description copied from interface: <code><a href="addressable#address()">Addressable</a></code></span></div> <div class="block">Map this object into a <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> instance.</div> <dl class="notes"> <dt>Specified by:</dt> <dd>
+<code><a href="addressable#address()">address</a></code> in interface <code><a href="addressable" title="interface in jdk.incubator.foreign">Addressable</a></code>
+</dd> <dt>Returns:</dt> <dd>the <a href="memoryaddress" title="interface in jdk.incubator.foreign"><code>MemoryAddress</code></a> instance associated with this object.</dd> </dl> </section><section class="detail" id="addOffset(long)"> <h3>addOffset</h3> <pre class="lang-java" data-language="java">MemoryAddress addOffset(long offset)</pre> <div class="block">Creates a new memory address with given offset (in bytes), which might be negative, from current one.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>offset</code> - specified offset (in bytes), relative to this address, which should be used to create the new address.</dd> <dt>Returns:</dt> <dd>a new memory address with given offset from current one.</dd> </dl> </section><section class="detail" id="scope()"> <h3>scope</h3> <pre class="lang-java" data-language="java">ResourceScope scope()</pre> <div class="block">Returns the resource scope associated with this memory address.</div> <dl class="notes"> <dt>Returns:</dt> <dd>the resource scope associated with this memory address.</dd> </dl> </section><section class="detail" id="segmentOffset(jdk.incubator.foreign.MemorySegment)"> <h3>segmentOffset</h3> <pre class="lang-java" data-language="java">long segmentOffset(MemorySegment segment)</pre> <div class="block">Returns the offset of this memory address into the given segment. More specifically, if both the segment's base address and this address are native addresses, the result is computed as <code>this.toRawLongValue() - segment.address().toRawLongValue()</code>. Otherwise, if both addresses in the form <code>(B, O1)</code>, <code>(B, O2)</code>, where <code>B</code> is the same base heap object and <code>O1</code>, <code>O2</code> are byte offsets (relative to the base object) associated with this address and the segment's base address, the result is computed as <code>O1 - O2</code>. <p> If the segment's base address and this address are both heap addresses, but with different base objects, the result is undefined and an exception is thrown. Similarly, if the segment's base address is an heap address (resp. off-heap) and this address is an off-heap (resp. heap) address, the result is undefined and an exception is thrown. Otherwise, the result is a byte offset <code>SO</code>. If this address falls within the spatial bounds of the given segment, then <code>0 &lt;= SO &lt; segment.byteSize()</code>; otherwise, <code>SO &lt; 0 || SO &gt; segment.byteSize()</code>.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>segment</code> - the segment relative to which this address offset should be computed</dd> <dt>Returns:</dt> <dd>the offset of this memory address into the given segment.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>segment</code> is not compatible with this address; this can happen, for instance, when <code>segment</code> models an heap memory region, while this address is a <a href="#isNative()">native</a> address.</dd> </dl> </section><section class="detail" id="asSegment(long,jdk.incubator.foreign.ResourceScope)"> <h3>asSegment</h3> <pre class="lang-java" data-language="java">MemorySegment asSegment(long bytesSize, ResourceScope scope)</pre> <div class="block">Returns a new native memory segment with given size and resource scope (replacing the scope already associated with this address), and whose base address is this address. This method can be useful when interacting with custom native memory sources (e.g. custom allocators), where an address to some underlying memory region is typically obtained from native code (often as a plain <code>long</code> value). The returned segment is not read-only (see <a href="memorysegment#isReadOnly()"><code>MemorySegment.isReadOnly()</code></a>), and is associated with the provided resource scope. <p> Clients should ensure that the address and bounds refers to a valid region of memory that is accessible for reading and, if appropriate, writing; an attempt to access an invalid memory location from Java code will either return an arbitrary value, have no visible effect, or cause an unspecified exception to be thrown. </p>
+<p> This method is equivalent to the following code: </p>
+<pre class="lang-java" data-language="java"><code>
+    asSegment(byteSize, null, scope);
+ </code></pre> <p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>bytesSize</code> - the desired size.</dd> <dd>
+<code>scope</code> - the native segment scope.</dd> <dt>Returns:</dt> <dd>a new native memory segment with given base address, size and scope.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>bytesSize &lt;= 0</code>.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if either the scope associated with this address or the provided scope have been already closed, or if access occurs from a thread other than the thread owning either scopes.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/unsupportedoperationexception" title="class in java.lang">UnsupportedOperationException</a></code> - if this address is not a <a href="#isNative()">native</a> address.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="asSegment(long,java.lang.Runnable,jdk.incubator.foreign.ResourceScope)"> <h3>asSegment</h3> <pre class="lang-java" data-language="java">MemorySegment asSegment(long bytesSize, Runnable cleanupAction, ResourceScope scope)</pre> <div class="block">Returns a new native memory segment with given size and resource scope (replacing the scope already associated with this address), and whose base address is this address. This method can be useful when interacting with custom native memory sources (e.g. custom allocators), where an address to some underlying memory region is typically obtained from native code (often as a plain <code>long</code> value). The returned segment is associated with the provided resource scope. <p> Clients should ensure that the address and bounds refers to a valid region of memory that is accessible for reading and, if appropriate, writing; an attempt to access an invalid memory location from Java code will either return an arbitrary value, have no visible effect, or cause an unspecified exception to be thrown. </p>
+<p> Calling <a href="resourcescope#close()"><code>ResourceScope.close()</code></a> on the scope associated with the returned segment will result in calling the provided cleanup action (if any). </p>
+<p> This method is <a href="package-summary#restricted"><em>restricted</em></a>. Restricted methods are unsafe, and, if used incorrectly, their use might crash the JVM or, worse, silently result in memory corruption. Thus, clients should refrain from depending on restricted methods, and use safe and supported functionalities, where possible.</p>
+</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>bytesSize</code> - the desired size.</dd> <dd>
+<code>cleanupAction</code> - the cleanup action; can be <code>null</code>.</dd> <dd>
+<code>scope</code> - the native segment scope.</dd> <dt>Returns:</dt> <dd>a new native memory segment with given base address, size and scope.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if <code>bytesSize &lt;= 0</code>.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if either the scope associated with this address or the provided scope have been already closed, or if access occurs from a thread other than the thread owning either scopes.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/unsupportedoperationexception" title="class in java.lang">UnsupportedOperationException</a></code> - if this address is not a <a href="#isNative()">native</a> address.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalcallerexception" title="class in java.lang">IllegalCallerException</a></code> - if access to this method occurs from a module <code>M</code> and the command line option <code>--enable-native-access</code> is either absent, or does not mention the module name <code>M</code>, or <code>ALL-UNNAMED</code> in case <code>M</code> is an unnamed module.</dd> </dl> </section><section class="detail" id="isNative()"> <h3>isNative</h3> <pre class="lang-java" data-language="java">boolean isNative()</pre> <div class="block">Is this an off-heap memory address?</div> <dl class="notes"> <dt>Returns:</dt> <dd>true, if this is an off-heap memory address.</dd> </dl> </section><section class="detail" id="toRawLongValue()"> <h3>toRawLongValue</h3> <pre class="lang-java" data-language="java">long toRawLongValue()</pre> <div class="block">Returns the raw long value associated with this native memory address.</div> <dl class="notes"> <dt>Returns:</dt> <dd>The raw long value associated with this native memory address.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/unsupportedoperationexception" title="class in java.lang">UnsupportedOperationException</a></code> - if this memory address is not a <a href="#isNative()">native</a> address.</dd> <dd>
+<code><a href="../../../../java.base/java/lang/illegalstateexception" title="class in java.lang">IllegalStateException</a></code> - if the scope associated with this segment has been already closed, or if access occurs from a thread other than the thread owning either segment.</dd> </dl> </section><section class="detail" id="equals(java.lang.Object)"> <h3>equals</h3> <pre class="lang-java" data-language="java">boolean equals(Object that)</pre> <div class="block">Compares the specified object with this address for equality. Returns <code>true</code> if and only if the specified object is also an address, and it refers to the same memory location as this address.</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a></code> in class <code><a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>API Note:</dt> <dd>two addresses might be considered equal despite their associated resource scopes differ. This can happen, for instance, if the same memory address is used to create memory segments with different scopes (using <a href="#asSegment(long,jdk.incubator.foreign.ResourceScope)"><code>asSegment(long, ResourceScope)</code></a>), and the base address of the resulting segments is then compared.</dd> <dt>Parameters:</dt> <dd>
+<code>that</code> - the object to be compared for equality with this address.</dd> <dt>Returns:</dt> <dd>
+<code>true</code> if the specified object is equal to this address.</dd> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="../../../../java.base/java/lang/object#hashCode()"><code>Object.hashCode()</code></a></li> <li><a href="../../../../java.base/java/util/hashmap" title="class in java.util"><code>HashMap</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="hashCode()"> <h3>hashCode</h3> <pre class="lang-java" data-language="java">int hashCode()</pre> <div class="block">Returns the hash code value for this address.</div> <dl class="notes"> <dt>Overrides:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/object#hashCode()">hashCode</a></code> in class <code><a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a></code>
+</dd> <dt>Returns:</dt> <dd>the hash code value for this address.</dd> <dt>See Also:</dt> <dd> <ul class="see-list-long"> <li><a href="../../../../java.base/java/lang/object#equals(java.lang.Object)"><code>Object.equals(java.lang.Object)</code></a></li> <li><a href="../../../../java.base/java/lang/system#identityHashCode(java.lang.Object)"><code>System.identityHashCode(java.lang.Object)</code></a></li> </ul> </dd> </dl> </section><section class="detail" id="ofLong(long)"> <h3>ofLong</h3> <pre class="lang-java" data-language="java">static MemoryAddress ofLong(long value)</pre> <div class="block">Obtain a native memory address instance from given long address. The returned address is associated with the <a href="resourcescope#globalScope()">global</a> resource scope.</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>value</code> - the long address.</dd> <dt>Returns:</dt> <dd>the new memory address instance.</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemoryAddress.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemoryAddress.html</a>
+  </p>
+</div>

@@ -1,0 +1,64 @@
+ <main role="main">   <h1>Package com.sun.net.httpserver</h1>   <section role="region"> <div id="package.description">
+<p>Provides a simple high-level Http server API, which can be used to build embedded HTTP servers. Both "http" and "https" are supported. The API provides a partial implementation of RFC <a href="http://www.ietf.org/rfc/rfc2616.txt">2616</a> (HTTP 1.1) and RFC <a href="http://www.ietf.org/rfc/rfc2818.txt">2818</a> (HTTP over TLS). Any HTTP functionality not provided by this API can be implemented by application code using the API. </p>
+<p> Programmers must implement the <a href="httphandler"><code>HttpHandler</code></a> interface. This interface provides a callback which is invoked to handle incoming requests from clients. A HTTP request and its response is known as an exchange. HTTP exchanges are represented by the <a href="httpexchange"><code>HttpExchange</code></a> class. The <a href="httpserver"><code>HttpServer</code></a> class is used to listen for incoming TCP connections and it dispatches requests on these connections to handlers which have been registered with the server. </p>
+<p> A minimal Http server example is shown below: </p>
+<pre data-language="java">class MyHandler implements HttpHandler {
+    public void handle(HttpExchange t) throws IOException {
+        InputStream is = t.getRequestBody();
+        read(is); // .. read the request body
+        String response = "This is the response";
+        t.sendResponseHeaders(200, response.length());
+        OutputStream os = t.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
+    }
+}
+...
+
+HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+server.createContext("/applications/myapp", new MyHandler());
+server.setExecutor(null); // creates a default executor
+server.start();</pre> <p>The example above creates a simple HttpServer which uses the calling application thread to invoke the handle() method for incoming http requests directed to port 8000, and to the path /applications/myapp/. </p>
+<p> The <a href="httpexchange"><code>HttpExchange</code></a> class encapsulates everything an application needs to process incoming requests and to generate appropriate responses. </p>
+<p> Registering a handler with a HttpServer creates a <a href="httpcontext"><code>HttpContext</code></a> object and <a href="filter"><code>Filter</code></a> objects can be added to the returned context. Filters are used to perform automatic pre- and post-processing of exchanges before they are passed to the exchange handler. </p>
+<p> For sensitive information, a <a href="httpsserver"><code>HttpsServer</code></a> can be used to process "https" requests secured by the SSL or TLS protocols. A HttpsServer must be provided with a <a href="httpsconfigurator"><code>HttpsConfigurator</code></a> object, which contains an initialized <a href="../../../../../java.base/javax/net/ssl/sslcontext"><code>SSLContext</code></a>. HttpsConfigurator can be used to configure the cipher suites and other SSL operating parameters. A simple example SSLContext could be created as follows: </p>
+<pre data-language="java">char[] passphrase = "passphrase".toCharArray();
+KeyStore ks = KeyStore.getInstance("JKS");
+ks.load(new FileInputStream("testkeys"), passphrase);
+
+KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+kmf.init(ks, passphrase);
+
+TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+tmf.init(ks);
+
+SSLContext ssl = SSLContext.getInstance("TLS");
+ssl.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);</pre> <p> In the example above, a keystore file called "testkeys", created with the keytool utility is used as a certificate store for client and server certificates. The following code shows how the SSLContext is then used in a HttpsConfigurator and how the SSLContext and HttpsConfigurator are linked to the HttpsServer. </p>
+<pre data-language="java">server.setHttpsConfigurator (new HttpsConfigurator(sslContext) {
+    public void configure (HttpsParameters params) {
+
+    // get the remote address if needed
+    InetSocketAddress remote = params.getClientAddress();
+
+    SSLContext c = getSSLContext();
+
+    // get the default parameters
+    SSLParameters sslparams = c.getDefaultSSLParameters();
+    if (remote.equals (...) ) {
+        // modify the default set for client x
+    }
+
+    params.setSSLParameters(sslparams);
+    // statement above could throw IAE if any params invalid.
+    // eg. if app has a UI and parameters supplied by a user.
+
+    }
+});</pre>
+</div> <dl> <dt>Since:</dt> <dd>1.6</dd> </dl> </section> <table>  <tr> <th scope="col">Interface</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="httphandler">HttpHandler</a></th> <td> <p>A handler which is invoked to process HTTP exchanges.</p> </td> </tr>  </table>
+<table>  <tr> <th scope="col">Class</th> <th scope="col">Description</th> </tr>  <tr> <th scope="row"><a href="authenticator">Authenticator</a></th> <td> <p>Authenticator represents an implementation of an HTTP authentication mechanism.</p> </td> </tr> <tr> <th scope="row"><a href="authenticator.failure">Authenticator.Failure</a></th> <td> <p>Indicates an authentication failure.</p> </td> </tr> <tr> <th scope="row"><a href="authenticator.result">Authenticator.Result</a></th> <td> <p>Base class for return type from authenticate() method</p> </td> </tr> <tr> <th scope="row"><a href="authenticator.retry">Authenticator.Retry</a></th> <td> <p>Indicates an authentication must be retried.</p> </td> </tr> <tr> <th scope="row"><a href="authenticator.success">Authenticator.Success</a></th> <td> <p>Indicates an authentication has succeeded and the authenticated user principal can be acquired by calling getPrincipal().</p> </td> </tr> <tr> <th scope="row"><a href="basicauthenticator">BasicAuthenticator</a></th> <td> <p>BasicAuthenticator provides an implementation of HTTP Basic authentication.</p> </td> </tr> <tr> <th scope="row"><a href="filter">Filter</a></th> <td> <p>A filter used to pre- and post-process incoming requests.</p> </td> </tr> <tr> <th scope="row"><a href="filter.chain">Filter.Chain</a></th> <td> <p>a chain of filters associated with a HttpServer.</p> </td> </tr> <tr> <th scope="row"><a href="headers">Headers</a></th> <td> <p>HTTP request and response headers are represented by this class which implements the interface <a href="../../../../../java.base/java/util/map"><code>Map</code></a>&lt;<a href="../../../../../java.base/java/lang/string"><code>String</code></a>, <a href="../../../../../java.base/java/util/list"><code>List</code></a> &lt;<a href="../../../../../java.base/java/lang/string"><code>String</code></a>&gt;&gt;.</p> </td> </tr> <tr> <th scope="row"><a href="httpcontext">HttpContext</a></th> <td> <p>HttpContext represents a mapping between the root URI path of an application to a <a href="httphandler"><code>HttpHandler</code></a> which is invoked to handle requests destined for that path on the associated HttpServer or HttpsServer.</p> </td> </tr> <tr> <th scope="row"><a href="httpexchange">HttpExchange</a></th> <td> <p>This class encapsulates a HTTP request received and a response to be generated in one exchange.</p> </td> </tr> <tr> <th scope="row"><a href="httpprincipal">HttpPrincipal</a></th> <td> <p>Represents a user authenticated by HTTP Basic or Digest authentication.</p> </td> </tr> <tr> <th scope="row"><a href="httpsconfigurator">HttpsConfigurator</a></th> <td> <p>This class is used to configure the https parameters for each incoming https connection on a HttpsServer.</p> </td> </tr> <tr> <th scope="row"><a href="httpserver">HttpServer</a></th> <td> <p>This class implements a simple HTTP server.</p> </td> </tr> <tr> <th scope="row"><a href="httpsexchange">HttpsExchange</a></th> <td> <p>This class encapsulates a HTTPS request received and a response to be generated in one exchange and defines the extensions to HttpExchange that are specific to the HTTPS protocol.</p> </td> </tr> <tr> <th scope="row"><a href="httpsparameters">HttpsParameters</a></th> <td> <p>Represents the set of parameters for each https connection negotiated with clients.</p> </td> </tr> <tr> <th scope="row"><a href="httpsserver">HttpsServer</a></th> <td> <p>This class is an extension of <a href="httpserver"><code>HttpServer</code></a> which provides support for HTTPS.</p> </td> </tr>  </table>
+  </main> <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.httpserver/com/sun/net/httpserver/package-summary.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.httpserver/com/sun/net/httpserver/package-summary.html</a>
+  </p>
+</div>

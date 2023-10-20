@@ -1,0 +1,27 @@
+<h1 id="class-ActiveSupport::Concurrency::LoadInterlockAwareMonitor" class="class"> class ActiveSupport::Concurrency::LoadInterlockAwareMonitor </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent">Monitor</dd>
+</dl> <section class="description"> <p>A monitor that will permit dependency loading while blocked waiting for the lock.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section id="public-instance-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Instance Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-i-mon_enter"> <span class="method-name">mon_enter</span><span class="method-args">()</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="mon_enter-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/concurrency/load_interlock_aware_monitor.rb, line 15
+def mon_enter
+  mon_try_enter ||
+    ActiveSupport::Dependencies.interlock.permit_concurrent_loads { super }
+end</pre> </div> <p>Enters an exclusive section, but allows dependency loading while blocked</p> <div class="method-calls-super"> Calls superclass method </div>  </div> </div> <div class="method-detail "> <div class="method-heading" id="method-i-synchronize"> <span class="method-name">synchronize</span><span class="method-args">(&amp;block)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="synchronize-source"> <pre class="ruby" data-language="ruby"># File activesupport/lib/active_support/concurrency/load_interlock_aware_monitor.rb, line 20
+def synchronize(&amp;block)
+  Thread.handle_interrupt(EXCEPTION_NEVER) do
+    mon_enter
+
+    begin
+      Thread.handle_interrupt(EXCEPTION_IMMEDIATE, &amp;block)
+    ensure
+      mon_exit
+    end
+  end
+end</pre> </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2021 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

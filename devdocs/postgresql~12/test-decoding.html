@@ -1,0 +1,21 @@
+<h1>F.40. test_decoding</h1>    <p><code class="filename">test_decoding</code> is an example of a logical decoding output plugin. It doesn't do anything especially useful, but can serve as a starting point for developing your own output plugin.</p> <p><code class="filename">test_decoding</code> receives WAL through the logical decoding mechanism and decodes it into text representations of the operations performed.</p> <p>Typical output from this plugin, used over the SQL logical decoding interface, might be:</p> <pre data-language="sql">
+postgres=# SELECT * FROM pg_logical_slot_get_changes('test_slot', NULL, NULL, 'include-xids', '0');
+   lsn     | xid |                       data
+-----------+-----+--------------------------------------------------
+ 0/16D30F8 | 691 | BEGIN
+ 0/16D32A0 | 691 | table public.data: INSERT: id[int4]:2 data[text]:'arg'
+ 0/16D32A0 | 691 | table public.data: INSERT: id[int4]:3 data[text]:'demo'
+ 0/16D32A0 | 691 | COMMIT
+ 0/16D32D8 | 692 | BEGIN
+ 0/16D3398 | 692 | table public.data: DELETE: id[int4]:2
+ 0/16D3398 | 692 | table public.data: DELETE: id[int4]:3
+ 0/16D3398 | 692 | COMMIT
+(8 rows)
+</pre>  <div class="navfooter">  <table summary="Navigation footer"> <tr> <td width="40%" align="left">
+<a accesskey="p" href="tcn">Prev</a> </td> <td width="20%" align="center"><a accesskey="u" href="https://www.postgresql.org/docs/12/contrib.html">Up</a></td> <td width="40%" align="right"> <a accesskey="n" href="tsm-system-rows">Next</a>
+</td> </tr> <tr> <td width="40%" align="left">F.39. tcn </td> <td width="20%" align="center"><a accesskey="h" href="https://www.postgresql.org/docs/12/index.html">Home</a></td> <td width="40%" align="right"> F.41. tsm_system_rows</td> </tr> </table> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2019 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/12/test-decoding.html" class="_attribution-link">https://www.postgresql.org/docs/12/test-decoding.html</a>
+  </p>
+</div>

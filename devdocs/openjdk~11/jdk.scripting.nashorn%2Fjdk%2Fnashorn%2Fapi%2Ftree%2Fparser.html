@@ -1,0 +1,78 @@
+  <main role="main">    <h1>Interface Parser</h1>      <pre data-language="java">@Deprecated(since="11",
+            forRemoval=true)
+public interface Parser</pre> <div>
+<strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong> <div>Nashorn JavaScript script engine and APIs, and the jjs tool are deprecated with the intent to remove them in a future release.</div> </div> <p>Represents nashorn ECMAScript parser instance.</p> <dl> <dt>Since:</dt> <dd>9</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>static <a href="parser">Parser</a></code></td> <th scope="row"><code><a href="#create(java.lang.String...)">create</a>​(<a href="../../../../../java.base/java/lang/string">String</a>... options)</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Factory method to create a new instance of Parser.</p> </td> </tr> <tr id="i1"> <td><code><a href="compilationunittree">CompilationUnitTree</a></code></td> <th scope="row"><code><a href="#parse(java.io.File,jdk.nashorn.api.tree.DiagnosticListener)">parse</a>​(<a href="../../../../../java.base/java/io/file">File</a> file,
+     <a href="diagnosticlistener">DiagnosticListener</a> listener)</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Parses the source file and returns compilation unit tree</p> </td> </tr> <tr id="i2"> <td><code><a href="compilationunittree">CompilationUnitTree</a></code></td> <th scope="row"><code><a href="#parse(java.lang.String,java.io.Reader,jdk.nashorn.api.tree.DiagnosticListener)">parse</a>​(<a href="../../../../../java.base/java/lang/string">String</a> name,
+     <a href="../../../../../java.base/java/io/reader">Reader</a> reader,
+     <a href="diagnosticlistener">DiagnosticListener</a> listener)</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Parses the reader and returns compilation unit tree</p> </td> </tr> <tr id="i3"> <td><code><a href="compilationunittree">CompilationUnitTree</a></code></td> <th scope="row"><code><a href="#parse(java.lang.String,java.lang.String,jdk.nashorn.api.tree.DiagnosticListener)">parse</a>​(<a href="../../../../../java.base/java/lang/string">String</a> name,
+     <a href="../../../../../java.base/java/lang/string">String</a> code,
+     <a href="diagnosticlistener">DiagnosticListener</a> listener)</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Parses the string source and returns compilation unit tree</p> </td> </tr> <tr id="i4"> <td><code><a href="compilationunittree">CompilationUnitTree</a></code></td> <th scope="row"><code><a href="#parse(java.net.URL,jdk.nashorn.api.tree.DiagnosticListener)">parse</a>​(<a href="../../../../../java.base/java/net/url">URL</a> url,
+     <a href="diagnosticlistener">DiagnosticListener</a> listener)</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Parses the source url and returns compilation unit tree</p> </td> </tr> <tr id="i5"> <td><code><a href="compilationunittree">CompilationUnitTree</a></code></td> <th scope="row"><code><a href="#parse(java.nio.file.Path,jdk.nashorn.api.tree.DiagnosticListener)">parse</a>​(<a href="../../../../../java.base/java/nio/file/path">Path</a> path,
+     <a href="diagnosticlistener">DiagnosticListener</a> listener)</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Parses the source Path and returns compilation unit tree</p> </td> </tr> <tr id="i6"> <td><code><a href="compilationunittree">CompilationUnitTree</a></code></td> <th scope="row"><code><a href="#parse(jdk.nashorn.api.scripting.ScriptObjectMirror,jdk.nashorn.api.tree.DiagnosticListener)">parse</a>​(<a href="../scripting/scriptobjectmirror">ScriptObjectMirror</a> scriptObj,
+     <a href="diagnosticlistener">DiagnosticListener</a> listener)</code></th> <td> <p><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></p> <p>Parses the source from script object and returns compilation unit tree</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="parse(java.io.File,jdk.nashorn.api.tree.DiagnosticListener)">parse</h3> <pre data-language="java">CompilationUnitTree parse(File file,
+                          DiagnosticListener listener)
+                   throws IOException,
+                          NashornException</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Parses the source file and returns compilation unit tree</p> <dl> <dt>Parameters:</dt> <dd>
+<code>file</code> - source file to parse</dd> <dd>
+<code>listener</code> - to receive diagnostic messages from the parser. This can be null. if null is passed, a NashornException is thrown on the first parse error.</dd> <dt>Returns:</dt> <dd>compilation unit tree</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if file is null</dd> <dd>
+<code><a href="../../../../../java.base/java/io/ioexception">IOException</a></code> - if parse source read fails</dd> <dd>
+<code><a href="../scripting/nashornexception">NashornException</a></code> - is thrown if no listener is supplied and parser encounters error</dd> </dl>    <h3 id="parse(java.nio.file.Path,jdk.nashorn.api.tree.DiagnosticListener)">parse</h3> <pre data-language="java">CompilationUnitTree parse(Path path,
+                          DiagnosticListener listener)
+                   throws IOException,
+                          NashornException</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Parses the source Path and returns compilation unit tree</p> <dl> <dt>Parameters:</dt> <dd>
+<code>path</code> - source Path to parse</dd> <dd>
+<code>listener</code> - to receive diagnostic messages from the parser. This can be null. if null is passed, a NashornException is thrown on the first parse error.</dd> <dt>Returns:</dt> <dd>compilation unit tree</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if path is null</dd> <dd>
+<code><a href="../../../../../java.base/java/io/ioexception">IOException</a></code> - if parse source read fails</dd> <dd>
+<code><a href="../scripting/nashornexception">NashornException</a></code> - is thrown if no listener is supplied and parser encounters error</dd> </dl>    <h3 id="parse(java.net.URL,jdk.nashorn.api.tree.DiagnosticListener)">parse</h3> <pre data-language="java">CompilationUnitTree parse(URL url,
+                          DiagnosticListener listener)
+                   throws IOException,
+                          NashornException</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Parses the source url and returns compilation unit tree</p> <dl> <dt>Parameters:</dt> <dd>
+<code>url</code> - source file to parse</dd> <dd>
+<code>listener</code> - to receive diagnostic messages from the parser. This can be null. if null is passed, a NashornException is thrown on the first parse error.</dd> <dt>Returns:</dt> <dd>compilation unit tree</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if url is null</dd> <dd>
+<code><a href="../../../../../java.base/java/io/ioexception">IOException</a></code> - if parse source read fails</dd> <dd>
+<code><a href="../scripting/nashornexception">NashornException</a></code> - is thrown if no listener is supplied and parser encounters error</dd> </dl>    <h3 id="parse(java.lang.String,java.io.Reader,jdk.nashorn.api.tree.DiagnosticListener)">parse</h3> <pre data-language="java">CompilationUnitTree parse(String name,
+                          Reader reader,
+                          DiagnosticListener listener)
+                   throws IOException,
+                          NashornException</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Parses the reader and returns compilation unit tree</p> <dl> <dt>Parameters:</dt> <dd>
+<code>name</code> - name of the source file to parse</dd> <dd>
+<code>reader</code> - from which source is read</dd> <dd>
+<code>listener</code> - to receive diagnostic messages from the parser. This can be null. if null is passed, a NashornException is thrown on the first parse error.</dd> <dt>Returns:</dt> <dd>compilation unit tree</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if name or reader is null</dd> <dd>
+<code><a href="../../../../../java.base/java/io/ioexception">IOException</a></code> - if parse source read fails</dd> <dd>
+<code><a href="../scripting/nashornexception">NashornException</a></code> - is thrown if no listener is supplied and parser encounters error</dd> </dl>    <h3 id="parse(java.lang.String,java.lang.String,jdk.nashorn.api.tree.DiagnosticListener)">parse</h3> <pre data-language="java">CompilationUnitTree parse(String name,
+                          String code,
+                          DiagnosticListener listener)
+                   throws NashornException</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Parses the string source and returns compilation unit tree</p> <dl> <dt>Parameters:</dt> <dd>
+<code>name</code> - of the source</dd> <dd>
+<code>code</code> - string source</dd> <dd>
+<code>listener</code> - to receive diagnostic messages from the parser. This can be null. if null is passed, a NashornException is thrown on the first parse error.</dd> <dt>Returns:</dt> <dd>compilation unit tree</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if name or code is null</dd> <dd>
+<code><a href="../scripting/nashornexception">NashornException</a></code> - is thrown if no listener is supplied and parser encounters error</dd> </dl>    <h3 id="parse(jdk.nashorn.api.scripting.ScriptObjectMirror,jdk.nashorn.api.tree.DiagnosticListener)">parse</h3> <pre data-language="java">CompilationUnitTree parse(ScriptObjectMirror scriptObj,
+                          DiagnosticListener listener)
+                   throws NashornException</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Parses the source from script object and returns compilation unit tree</p> <dl> <dt>Parameters:</dt> <dd>
+<code>scriptObj</code> - script object whose script and name properties are used for script source</dd> <dd>
+<code>listener</code> - to receive diagnostic messages from the parser. This can be null. if null is passed, a NashornException is thrown on the first parse error.</dd> <dt>Returns:</dt> <dd>compilation unit tree</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if scriptObj is null</dd> <dd>
+<code><a href="../scripting/nashornexception">NashornException</a></code> - is thrown if no listener is supplied and parser encounters error</dd> </dl>    <h3 id="create(java.lang.String...)">create</h3> <pre data-language="java">static Parser create(String... options)
+              throws IllegalArgumentException</pre> <div><strong>Deprecated, for removal: This API element is subject to removal in a future version.</strong></div> <p>Factory method to create a new instance of Parser.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>options</code> - configuration options to initialize the Parser. Currently the following options are supported: <dl> <dt>"--const-as-var"</dt>
+<dd>treat "const" declaration as "var"</dd> <dt>"-dump-on-error" or "-doe"</dt>
+<dd>dump stack trace on error</dd> <dt>"--empty-statements"</dt>
+<dd>include empty statement nodes</dd> <dt>"--no-syntax-extensions" or "-nse"</dt>
+<dd>disable ECMAScript syntax extensions</dd> <dt>"-scripting"</dt>
+<dd>enable scripting mode extensions</dd> <dt>"-strict"</dt>
+<dd>enable ECMAScript strict mode</dd> <dt>"--language=es6"</dt>
+<dd>enable ECMAScript 6 parsing mode</dd> <dt>"--es6-module"</dt>
+<dd>enable ECMAScript 6 module parsing mode. This option implies --language=es6</dd> </dl>
+</dd> <dt>Returns:</dt> <dd>a new Parser instance.</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../../java.base/java/lang/nullpointerexception">NullPointerException</a></code> - if options array or any of its element is null</dd> <dd>
+<code><a href="../../../../../java.base/java/lang/illegalargumentexception">IllegalArgumentException</a></code> - on unsupported option value.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.scripting.nashorn/jdk/nashorn/api/tree/Parser.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.scripting.nashorn/jdk/nashorn/api/tree/Parser.html</a>
+  </p>
+</div>

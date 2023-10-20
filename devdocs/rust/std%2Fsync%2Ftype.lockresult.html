@@ -1,0 +1,8 @@
+<h1 class="main-heading">Type Definition std::sync::LockResult</h1>
+<pre class="rust item-decl" data-language="rust">pub type LockResult&lt;Guard&gt; = Result&lt;Guard, PoisonError&lt;Guard&gt;&gt;;</pre>
+<p>A type alias for the result of a lock method which can be poisoned.</p> <p>The <a href="../result/enum.result#variant.Ok" title="variant std::result::Result::Ok"><code>Ok</code></a> variant of this result indicates that the primitive was not poisoned, and the <code>Guard</code> is contained within. The <a href="../result/enum.result#variant.Err" title="variant std::result::Result::Err"><code>Err</code></a> variant indicates that the primitive was poisoned. Note that the <a href="../result/enum.result#variant.Err" title="variant std::result::Result::Err"><code>Err</code></a> variant <em>also</em> carries the associated guard, and it can be acquired through the <a href="struct.poisonerror#method.into_inner" title="method std::sync::PoisonError::into_inner"><code>into_inner</code></a> method.</p><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2010 The Rust Project Developers<br>Licensed under the Apache License, Version 2.0 or the MIT license, at your option.<br>
+    <a href="https://doc.rust-lang.org/std/sync/type.LockResult.html" class="_attribution-link">https://doc.rust-lang.org/std/sync/type.LockResult.html</a>
+  </p>
+</div>

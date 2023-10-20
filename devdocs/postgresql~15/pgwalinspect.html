@@ -1,0 +1,49 @@
+<h1>F.37. pg_walinspect</h1>    <div class="toc"> <dl class="toc"> <dt><a href="pgwalinspect#id-1.11.7.46.8">F.37.1. General Functions</a></dt> <dt><a href="pgwalinspect#id-1.11.7.46.9">F.37.2. Author</a></dt> </dl> </div> <p>The <code class="filename">pg_walinspect</code> module provides SQL functions that allow you to inspect the contents of write-ahead log of a running PostgreSQL database cluster at a low level, which is useful for debugging, analytical, reporting or educational purposes. It is similar to <a class="xref" href="pgwaldump" title="pg_waldump">pg_waldump</a>, but accessible through SQL rather than a separate utility.</p> <p>All the functions of this module will provide the WAL information using the current server's timeline ID.</p> <p>All the functions of this module will try to find the first valid WAL record that is at or after the given <code>in_lsn</code> or <code>start_lsn</code> and will emit error if no such record is available. Similarly, the <code>end_lsn</code> must be available, and if it falls in the middle of a record, the entire record must be available.</p> <blockquote class="note"> <h3 class="title">Note</h3> <p>Some functions, such as <code class="function"><a class="link" href="functions-admin#PG-LOGICAL-EMIT-MESSAGE">pg_logical_emit_message</a></code>, return the LSN <span class="emphasis"><em>after</em></span> the record just inserted. Therefore, if you pass that LSN as <code>in_lsn</code> or <code>start_lsn</code> to one of these functions, it will return the <span class="emphasis"><em>next</em></span> record.</p> </blockquote> <p>By default, use of these functions is restricted to superusers and members of the <code class="literal">pg_read_server_files</code> role. Access may be granted by superusers to others using <code class="command">GRANT</code>.</p> <div class="sect2" id="id-1.11.7.46.8">    <h2 class="title">F.37.1. General Functions</h2>    <div class="variablelist"> <dl class="variablelist"> <dt><code class="function">pg_get_wal_record_info(in_lsn pg_lsn) returns record</code></dt> <dd> <p>Gets WAL record information of a given LSN. If the given LSN isn't at the start of a WAL record, it gives the information of the next available valid WAL record; or an error if no such record is found. For example, usage of the function is as follows:</p> <pre>
+postgres=# SELECT * FROM pg_get_wal_record_info('0/1E826E98');
+-[ RECORD 1 ]----+----------------------------------------------------
+start_lsn        | 0/1E826F20
+end_lsn          | 0/1E826F60
+prev_lsn         | 0/1E826C80
+xid              | 0
+resource_manager | Heap2
+record_type      | PRUNE
+record_length    | 58
+main_data_length | 8
+fpi_length       | 0
+description      | snapshotConflictHorizon 33748 nredirected 0 ndead 2
+block_ref        | blkref #0: rel 1663/5/60221 fork main blk 2
+</pre> </dd> <dt><code class="function">pg_get_wal_records_info(start_lsn pg_lsn, end_lsn pg_lsn) returns setof record</code></dt> <dd> <p>Gets information of all the valid WAL records between <code>start_lsn</code> and <code>end_lsn</code>. Returns one row per WAL record. If <code>start_lsn</code> or <code>end_lsn</code> are not yet available, the function will raise an error. For example:</p> <pre>
+postgres=# SELECT * FROM pg_get_wal_records_info('0/1E913618', '0/1E913740') LIMIT 1;
+-[ RECORD 1 ]----+--------------------------------------------------------------
+start_lsn        | 0/1E913618
+end_lsn          | 0/1E913650
+prev_lsn         | 0/1E9135A0
+xid              | 0
+resource_manager | Standby
+record_type      | RUNNING_XACTS
+record_length    | 50
+main_data_length | 24
+fpi_length       | 0
+description      | nextXid 33775 latestCompletedXid 33774 oldestRunningXid 33775
+block_ref        |
+</pre> </dd> <dt><code class="function">pg_get_wal_records_info_till_end_of_wal(start_lsn pg_lsn) returns setof record</code></dt> <dd> <p>This function is the same as <code class="function">pg_get_wal_records_info()</code>, except that it gets information of all the valid WAL records from <code>start_lsn</code> till the end of WAL.</p> </dd> <dt><code class="function">pg_get_wal_stats(start_lsn pg_lsn, end_lsn pg_lsn, per_record boolean DEFAULT false) returns setof record</code></dt> <dd> <p>Gets statistics of all the valid WAL records between <code>start_lsn</code> and <code>end_lsn</code>. By default, it returns one row per <code>resource_manager</code> type. When <code>per_record</code> is set to <code class="literal">true</code>, it returns one row per <code>record_type</code>. If <code>start_lsn</code> or <code>end_lsn</code> are not yet available, the function will raise an error. For example:</p> <pre>
+postgres=# SELECT * FROM pg_get_wal_stats('0/1E847D00', '0/1E84F500')
+           WHERE count &gt; 0 AND
+                 "resource_manager/record_type" = 'Transaction'
+           LIMIT 1;
+-[ RECORD 1 ]----------------+-------------------
+resource_manager/record_type | Transaction
+count                        | 2
+count_percentage             | 8
+record_size                  | 875
+record_size_percentage       | 41.23468426013195
+fpi_size                     | 0
+fpi_size_percentage          | 0
+combined_size                | 875
+combined_size_percentage     | 2.8634072910530795
+</pre> </dd> <dt><code class="function">pg_get_wal_stats_till_end_of_wal(start_lsn pg_lsn, per_record boolean DEFAULT false) returns setof record</code></dt> <dd> <p>This function is the same as <code class="function">pg_get_wal_stats()</code>, except that it gets statistics of all the valid WAL records from <code>start_lsn</code> till end of WAL.</p> </dd> </dl> </div> </div> <div class="sect2" id="id-1.11.7.46.9">    <h2 class="title">F.37.2. Author</h2>    <p>Bharath Rupireddy <code class="email">&lt;<a class="email" href="mailto:bharath.rupireddyforpostgres@gmail.com">bharath.rupireddyforpostgres@gmail.com</a>&gt;</code></p> </div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1996&ndash;2023 The PostgreSQL Global Development Group<br>Licensed under the PostgreSQL License.<br>
+    <a href="https://www.postgresql.org/docs/15/pgwalinspect.html" class="_attribution-link">https://www.postgresql.org/docs/15/pgwalinspect.html</a>
+  </p>
+</div>

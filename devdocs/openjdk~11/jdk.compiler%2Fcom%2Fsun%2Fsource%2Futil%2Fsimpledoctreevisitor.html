@@ -1,0 +1,269 @@
+  <main role="main">    <h1>Class SimpleDocTreeVisitor&lt;R,​P&gt;</h1>   <ul class="inheritance"> <li><a href="../../../../../java.base/java/lang/object">java.lang.Object</a></li> <li> <ul class="inheritance"> <li>com.sun.source.util.SimpleDocTreeVisitor&lt;R,​P&gt;</li> </ul> </li> </ul>   <dl> <dt>Type Parameters:</dt> <dd>
+<code>R</code> - the return type of this visitor's methods. Use <a href="../../../../../java.base/java/lang/void"><code>Void</code></a> for visitors that do not need to return results.</dd> <dd>
+<code>P</code> - the type of the additional parameter to this visitor's methods. Use <code>Void</code> for visitors that do not need an additional parameter.</dd> </dl> <dl> <dt>All Implemented Interfaces:</dt> <dd><code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;R,​P&gt;</code></dd> </dl>  <pre data-language="java">public class SimpleDocTreeVisitor&lt;R,P&gt;
+extends Object
+implements DocTreeVisitor&lt;R,​P&gt;</pre> <p>A simple visitor for tree nodes.</p> <dl> <dt>Since:</dt> <dd>1.8</dd> </dl>      <section role="region">  <h2 id="field.summary">Fields</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Field</th> <th scope="col">Description</th> </tr> <tr> <td><code>protected <a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#DEFAULT_VALUE">DEFAULT_VALUE</a></code></th> <td> <p>The default value, returned by the <a href="#defaultAction(com.sun.source.doctree.DocTree,P)"><code>default action</code></a>.</p> </td> </tr> </table>  </section>  <section role="region">  <h2 id="constructor.summary">Constructors</h2> <table>  <tr> <th scope="col">Modifier</th> <th scope="col">Constructor</th> <th scope="col">Description</th> </tr> <tr> <td><code>protected </code></td> <th scope="row"><code><a href="#%3Cinit%3E()">SimpleDocTreeVisitor</a>()</code></th> <td> <p>Creates a visitor, with a DEFAULT_VALUE of <code>null</code>.</p> </td> </tr> <tr> <td><code>protected </code></td> <th scope="row"><code><a href="#%3Cinit%3E(R)">SimpleDocTreeVisitor</a>​(<a href="simpledoctreevisitor">R</a> defaultValue)</code></th> <td> <p>Creates a visitor, with a specified DEFAULT_VALUE.</p> </td> </tr> </table>  </section>  <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>protected <a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#defaultAction(com.sun.source.doctree.DocTree,P)">defaultAction</a>​(<a href="../doctree/doctree">DocTree</a> node,
+             <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>The default action, used by all visit methods that are not overridden.</p> </td> </tr> <tr id="i1"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visit(com.sun.source.doctree.DocTree,P)">visit</a>​(<a href="../doctree/doctree">DocTree</a> node,
+     <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Invokes the appropriate visit method specific to the type of the node.</p> </td> </tr> <tr id="i2"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visit(java.lang.Iterable,P)">visit</a>​(<a href="../../../../../java.base/java/lang/iterable">Iterable</a>&lt;? extends <a href="../doctree/doctree">DocTree</a>&gt; nodes,
+     <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Invokes the appropriate visit method on each of a sequence of nodes.</p> </td> </tr> <tr id="i3"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitAttribute(com.sun.source.doctree.AttributeTree,P)">visitAttribute</a>​(<a href="../doctree/attributetree">AttributeTree</a> node,
+              <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an AttributeTree node.</p> </td> </tr> <tr id="i4"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitAuthor(com.sun.source.doctree.AuthorTree,P)">visitAuthor</a>​(<a href="../doctree/authortree">AuthorTree</a> node,
+           <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an AuthorTree node.</p> </td> </tr> <tr id="i5"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitComment(com.sun.source.doctree.CommentTree,P)">visitComment</a>​(<a href="../doctree/commenttree">CommentTree</a> node,
+            <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a CommentTree node.</p> </td> </tr> <tr id="i6"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitDeprecated(com.sun.source.doctree.DeprecatedTree,P)">visitDeprecated</a>​(<a href="../doctree/deprecatedtree">DeprecatedTree</a> node,
+               <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a DeprecatedTree node.</p> </td> </tr> <tr id="i7"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitDocComment(com.sun.source.doctree.DocCommentTree,P)">visitDocComment</a>​(<a href="../doctree/doccommenttree">DocCommentTree</a> node,
+               <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a DocCommentTree node.</p> </td> </tr> <tr id="i8"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitDocRoot(com.sun.source.doctree.DocRootTree,P)">visitDocRoot</a>​(<a href="../doctree/docroottree">DocRootTree</a> node,
+            <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a DocRootTree node.</p> </td> </tr> <tr id="i9"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitDocType(com.sun.source.doctree.DocTypeTree,P)">visitDocType</a>​(<a href="../doctree/doctypetree">DocTypeTree</a> node,
+            <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a DocTypeTree node.</p> </td> </tr> <tr id="i10"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitEndElement(com.sun.source.doctree.EndElementTree,P)">visitEndElement</a>​(<a href="../doctree/endelementtree">EndElementTree</a> node,
+               <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an EndElementTree node.</p> </td> </tr> <tr id="i11"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitEntity(com.sun.source.doctree.EntityTree,P)">visitEntity</a>​(<a href="../doctree/entitytree">EntityTree</a> node,
+           <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an EntityTree node.</p> </td> </tr> <tr id="i12"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitErroneous(com.sun.source.doctree.ErroneousTree,P)">visitErroneous</a>​(<a href="../doctree/erroneoustree">ErroneousTree</a> node,
+              <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an ErroneousTree node.</p> </td> </tr> <tr id="i13"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitHidden(com.sun.source.doctree.HiddenTree,P)">visitHidden</a>​(<a href="../doctree/hiddentree">HiddenTree</a> node,
+           <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a HiddenTree node.</p> </td> </tr> <tr id="i14"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitIdentifier(com.sun.source.doctree.IdentifierTree,P)">visitIdentifier</a>​(<a href="../doctree/identifiertree">IdentifierTree</a> node,
+               <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an IdentifierTree node.</p> </td> </tr> <tr id="i15"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitIndex(com.sun.source.doctree.IndexTree,P)">visitIndex</a>​(<a href="../doctree/indextree">IndexTree</a> node,
+          <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an IndexTree node.</p> </td> </tr> <tr id="i16"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitInheritDoc(com.sun.source.doctree.InheritDocTree,P)">visitInheritDoc</a>​(<a href="../doctree/inheritdoctree">InheritDocTree</a> node,
+               <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an InheritDocTree node.</p> </td> </tr> <tr id="i17"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitLink(com.sun.source.doctree.LinkTree,P)">visitLink</a>​(<a href="../doctree/linktree">LinkTree</a> node,
+         <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a LinkTree node.</p> </td> </tr> <tr id="i18"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitLiteral(com.sun.source.doctree.LiteralTree,P)">visitLiteral</a>​(<a href="../doctree/literaltree">LiteralTree</a> node,
+            <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an LiteralTree node.</p> </td> </tr> <tr id="i19"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitOther(com.sun.source.doctree.DocTree,P)">visitOther</a>​(<a href="../doctree/doctree">DocTree</a> node,
+          <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an unknown type of DocTree node.</p> </td> </tr> <tr id="i20"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitParam(com.sun.source.doctree.ParamTree,P)">visitParam</a>​(<a href="../doctree/paramtree">ParamTree</a> node,
+          <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a ParamTree node.</p> </td> </tr> <tr id="i21"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitProvides(com.sun.source.doctree.ProvidesTree,P)">visitProvides</a>​(<a href="../doctree/providestree">ProvidesTree</a> node,
+             <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a ProvidesTree node.</p> </td> </tr> <tr id="i22"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitReference(com.sun.source.doctree.ReferenceTree,P)">visitReference</a>​(<a href="../doctree/referencetree">ReferenceTree</a> node,
+              <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a ReferenceTree node.</p> </td> </tr> <tr id="i23"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitReturn(com.sun.source.doctree.ReturnTree,P)">visitReturn</a>​(<a href="../doctree/returntree">ReturnTree</a> node,
+           <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a ReturnTree node.</p> </td> </tr> <tr id="i24"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSee(com.sun.source.doctree.SeeTree,P)">visitSee</a>​(<a href="../doctree/seetree">SeeTree</a> node,
+        <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a SeeTree node.</p> </td> </tr> <tr id="i25"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSerial(com.sun.source.doctree.SerialTree,P)">visitSerial</a>​(<a href="../doctree/serialtree">SerialTree</a> node,
+           <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a SerialTree node.</p> </td> </tr> <tr id="i26"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSerialData(com.sun.source.doctree.SerialDataTree,P)">visitSerialData</a>​(<a href="../doctree/serialdatatree">SerialDataTree</a> node,
+               <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a SerialDataTree node.</p> </td> </tr> <tr id="i27"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSerialField(com.sun.source.doctree.SerialFieldTree,P)">visitSerialField</a>​(<a href="../doctree/serialfieldtree">SerialFieldTree</a> node,
+                <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a SerialFieldTree node.</p> </td> </tr> <tr id="i28"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSince(com.sun.source.doctree.SinceTree,P)">visitSince</a>​(<a href="../doctree/sincetree">SinceTree</a> node,
+          <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a SinceTree node.</p> </td> </tr> <tr id="i29"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitStartElement(com.sun.source.doctree.StartElementTree,P)">visitStartElement</a>​(<a href="../doctree/startelementtree">StartElementTree</a> node,
+                 <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a StartElementTree node.</p> </td> </tr> <tr id="i30"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitSummary(com.sun.source.doctree.SummaryTree,P)">visitSummary</a>​(<a href="../doctree/summarytree">SummaryTree</a> node,
+            <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a SummaryTree node.</p> </td> </tr> <tr id="i31"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitText(com.sun.source.doctree.TextTree,P)">visitText</a>​(<a href="../doctree/texttree">TextTree</a> node,
+         <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a TextTree node.</p> </td> </tr> <tr id="i32"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitThrows(com.sun.source.doctree.ThrowsTree,P)">visitThrows</a>​(<a href="../doctree/throwstree">ThrowsTree</a> node,
+           <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a ThrowsTree node.</p> </td> </tr> <tr id="i33"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitUnknownBlockTag(com.sun.source.doctree.UnknownBlockTagTree,P)">visitUnknownBlockTag</a>​(<a href="../doctree/unknownblocktagtree">UnknownBlockTagTree</a> node,
+                    <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an UnknownBlockTagTree node.</p> </td> </tr> <tr id="i34"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitUnknownInlineTag(com.sun.source.doctree.UnknownInlineTagTree,P)">visitUnknownInlineTag</a>​(<a href="../doctree/unknowninlinetagtree">UnknownInlineTagTree</a> node,
+                     <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits an UnknownInlineTagTree node.</p> </td> </tr> <tr id="i35"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitUses(com.sun.source.doctree.UsesTree,P)">visitUses</a>​(<a href="../doctree/usestree">UsesTree</a> node,
+         <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a UsesTree node.</p> </td> </tr> <tr id="i36"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitValue(com.sun.source.doctree.ValueTree,P)">visitValue</a>​(<a href="../doctree/valuetree">ValueTree</a> node,
+          <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a ValueTree node.</p> </td> </tr> <tr id="i37"> <td><code><a href="simpledoctreevisitor">R</a></code></td> <th scope="row"><code><a href="#visitVersion(com.sun.source.doctree.VersionTree,P)">visitVersion</a>​(<a href="../doctree/versiontree">VersionTree</a> node,
+            <a href="simpledoctreevisitor">P</a> p)</code></th> <td> <p>Visits a VersionTreeTree node.</p> </td> </tr> </table>  <h2 id="methods.inherited.from.class.java.lang.Object">Methods declared in class java.lang.<a href="../../../../../java.base/java/lang/object">Object</a>
+</h2> <code><a href="../../../../../java.base/java/lang/object#clone()">clone</a>, <a href="../../../../../java.base/java/lang/object#equals(java.lang.Object)">equals</a>, <a href="../../../../../java.base/java/lang/object#finalize()">finalize</a>, <a href="../../../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../../../java.base/java/lang/object#hashCode()">hashCode</a>, <a href="../../../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../../../java.base/java/lang/object#toString()">toString</a>, <a href="../../../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../../../java.base/java/lang/object#wait(long,int)">wait</a></code>  </section>   <div>   <section role="region">  <h2 id="field.detail">Fields</h2>   <h3 id="DEFAULT_VALUE">DEFAULT_VALUE</h3> <pre data-language="java">protected final R DEFAULT_VALUE</pre> <p>The default value, returned by the <a href="#defaultAction(com.sun.source.doctree.DocTree,P)"><code>default action</code></a>.</p>   </section>  <section role="region">  <h2 id="constructor.detail">Constructors</h2>   <h3 id="&lt;init&gt;()">SimpleDocTreeVisitor</h3> <pre data-language="java">protected SimpleDocTreeVisitor()</pre> <p>Creates a visitor, with a DEFAULT_VALUE of <code>null</code>.</p>    <h3 id="&lt;init&gt;(java.lang.Object)">SimpleDocTreeVisitor</h3> <pre data-language="java">protected SimpleDocTreeVisitor(R defaultValue)</pre> <p>Creates a visitor, with a specified DEFAULT_VALUE.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>defaultValue</code> - the default value to be returned by the default action.</dd> </dl>   </section>  <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="defaultAction(com.sun.source.doctree.DocTree,java.lang.Object)">defaultAction</h3> <pre data-language="java">protected R defaultAction(DocTree node,
+                          P p)</pre> <p>The default action, used by all visit methods that are not overridden.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - the parameter value passed to the visit method</dd> <dt>Returns:</dt> <dd>the result value to be returned from the visit method</dd> </dl>    <h3 id="visit(com.sun.source.doctree.DocTree,java.lang.Object)">visit</h3> <pre data-language="java">public final R visit(DocTree node,
+                     P p)</pre> <p>Invokes the appropriate visit method specific to the type of the node.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node on which to dispatch</dd> <dd>
+<code>p</code> - a parameter to be passed to the appropriate visit method</dd> <dt>Returns:</dt> <dd>the value returns from the appropriate visit method</dd> </dl>    <h3 id="visit(java.lang.Iterable,java.lang.Object)">visit</h3> <pre data-language="java">public final R visit(Iterable&lt;? extends DocTree&gt; nodes,
+                     P p)</pre> <p>Invokes the appropriate visit method on each of a sequence of nodes.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>nodes</code> - the nodes on which to dispatch</dd> <dd>
+<code>p</code> - a parameter value to be passed to each appropriate visit method</dd> <dt>Returns:</dt> <dd>the value return from the last of the visit methods, or null if none were called.</dd> </dl>    <h3 id="visitAttribute(com.sun.source.doctree.AttributeTree,java.lang.Object)">visitAttribute</h3> <pre data-language="java">public R visitAttribute(AttributeTree node,
+                        P p)</pre> <p>Visits an AttributeTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitAttribute(com.sun.source.doctree.AttributeTree,P)">visitAttribute</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitAuthor(com.sun.source.doctree.AuthorTree,java.lang.Object)">visitAuthor</h3> <pre data-language="java">public R visitAuthor(AuthorTree node,
+                     P p)</pre> <p>Visits an AuthorTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitAuthor(com.sun.source.doctree.AuthorTree,P)">visitAuthor</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitComment(com.sun.source.doctree.CommentTree,java.lang.Object)">visitComment</h3> <pre data-language="java">public R visitComment(CommentTree node,
+                      P p)</pre> <p>Visits a CommentTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitComment(com.sun.source.doctree.CommentTree,P)">visitComment</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitDeprecated(com.sun.source.doctree.DeprecatedTree,java.lang.Object)">visitDeprecated</h3> <pre data-language="java">public R visitDeprecated(DeprecatedTree node,
+                         P p)</pre> <p>Visits a DeprecatedTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitDeprecated(com.sun.source.doctree.DeprecatedTree,P)">visitDeprecated</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitDocComment(com.sun.source.doctree.DocCommentTree,java.lang.Object)">visitDocComment</h3> <pre data-language="java">public R visitDocComment(DocCommentTree node,
+                         P p)</pre> <p>Visits a DocCommentTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitDocComment(com.sun.source.doctree.DocCommentTree,P)">visitDocComment</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitDocRoot(com.sun.source.doctree.DocRootTree,java.lang.Object)">visitDocRoot</h3> <pre data-language="java">public R visitDocRoot(DocRootTree node,
+                      P p)</pre> <p>Visits a DocRootTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitDocRoot(com.sun.source.doctree.DocRootTree,P)">visitDocRoot</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitDocType(com.sun.source.doctree.DocTypeTree,java.lang.Object)">visitDocType</h3> <pre data-language="java">public R visitDocType(DocTypeTree node,
+                      P p)</pre> <p>Visits a DocTypeTree node.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitDocType(com.sun.source.doctree.DocTypeTree,P)">visitDocType</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Implementation Requirements:</dt> <dd>This implementation calls <code>defaultAction</code>.</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> <dt>Since:</dt> <dd>10</dd> </dl>    <h3 id="visitEndElement(com.sun.source.doctree.EndElementTree,java.lang.Object)">visitEndElement</h3> <pre data-language="java">public R visitEndElement(EndElementTree node,
+                         P p)</pre> <p>Visits an EndElementTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitEndElement(com.sun.source.doctree.EndElementTree,P)">visitEndElement</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitEntity(com.sun.source.doctree.EntityTree,java.lang.Object)">visitEntity</h3> <pre data-language="java">public R visitEntity(EntityTree node,
+                     P p)</pre> <p>Visits an EntityTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitEntity(com.sun.source.doctree.EntityTree,P)">visitEntity</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitErroneous(com.sun.source.doctree.ErroneousTree,java.lang.Object)">visitErroneous</h3> <pre data-language="java">public R visitErroneous(ErroneousTree node,
+                        P p)</pre> <p>Visits an ErroneousTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitErroneous(com.sun.source.doctree.ErroneousTree,P)">visitErroneous</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitHidden(com.sun.source.doctree.HiddenTree,java.lang.Object)">visitHidden</h3> <pre data-language="java">public R visitHidden(HiddenTree node,
+                     P p)</pre> <p>Visits a HiddenTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitHidden(com.sun.source.doctree.HiddenTree,P)">visitHidden</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> <dt>Since:</dt> <dd>9</dd> </dl>    <h3 id="visitIdentifier(com.sun.source.doctree.IdentifierTree,java.lang.Object)">visitIdentifier</h3> <pre data-language="java">public R visitIdentifier(IdentifierTree node,
+                         P p)</pre> <p>Visits an IdentifierTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitIdentifier(com.sun.source.doctree.IdentifierTree,P)">visitIdentifier</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitIndex(com.sun.source.doctree.IndexTree,java.lang.Object)">visitIndex</h3> <pre data-language="java">public R visitIndex(IndexTree node,
+                    P p)</pre> <p>Visits an IndexTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitIndex(com.sun.source.doctree.IndexTree,P)">visitIndex</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> <dt>Since:</dt> <dd>9</dd> </dl>    <h3 id="visitInheritDoc(com.sun.source.doctree.InheritDocTree,java.lang.Object)">visitInheritDoc</h3> <pre data-language="java">public R visitInheritDoc(InheritDocTree node,
+                         P p)</pre> <p>Visits an InheritDocTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitInheritDoc(com.sun.source.doctree.InheritDocTree,P)">visitInheritDoc</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitLink(com.sun.source.doctree.LinkTree,java.lang.Object)">visitLink</h3> <pre data-language="java">public R visitLink(LinkTree node,
+                   P p)</pre> <p>Visits a LinkTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitLink(com.sun.source.doctree.LinkTree,P)">visitLink</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitLiteral(com.sun.source.doctree.LiteralTree,java.lang.Object)">visitLiteral</h3> <pre data-language="java">public R visitLiteral(LiteralTree node,
+                      P p)</pre> <p>Visits an LiteralTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitLiteral(com.sun.source.doctree.LiteralTree,P)">visitLiteral</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitParam(com.sun.source.doctree.ParamTree,java.lang.Object)">visitParam</h3> <pre data-language="java">public R visitParam(ParamTree node,
+                    P p)</pre> <p>Visits a ParamTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitParam(com.sun.source.doctree.ParamTree,P)">visitParam</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitProvides(com.sun.source.doctree.ProvidesTree,java.lang.Object)">visitProvides</h3> <pre data-language="java">public R visitProvides(ProvidesTree node,
+                       P p)</pre> <p>Visits a ProvidesTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitProvides(com.sun.source.doctree.ProvidesTree,P)">visitProvides</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> <dt>Since:</dt> <dd>9</dd> </dl>    <h3 id="visitReference(com.sun.source.doctree.ReferenceTree,java.lang.Object)">visitReference</h3> <pre data-language="java">public R visitReference(ReferenceTree node,
+                        P p)</pre> <p>Visits a ReferenceTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitReference(com.sun.source.doctree.ReferenceTree,P)">visitReference</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitReturn(com.sun.source.doctree.ReturnTree,java.lang.Object)">visitReturn</h3> <pre data-language="java">public R visitReturn(ReturnTree node,
+                     P p)</pre> <p>Visits a ReturnTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitReturn(com.sun.source.doctree.ReturnTree,P)">visitReturn</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitSee(com.sun.source.doctree.SeeTree,java.lang.Object)">visitSee</h3> <pre data-language="java">public R visitSee(SeeTree node,
+                  P p)</pre> <p>Visits a SeeTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitSee(com.sun.source.doctree.SeeTree,P)">visitSee</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitSerial(com.sun.source.doctree.SerialTree,java.lang.Object)">visitSerial</h3> <pre data-language="java">public R visitSerial(SerialTree node,
+                     P p)</pre> <p>Visits a SerialTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitSerial(com.sun.source.doctree.SerialTree,P)">visitSerial</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitSerialData(com.sun.source.doctree.SerialDataTree,java.lang.Object)">visitSerialData</h3> <pre data-language="java">public R visitSerialData(SerialDataTree node,
+                         P p)</pre> <p>Visits a SerialDataTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitSerialData(com.sun.source.doctree.SerialDataTree,P)">visitSerialData</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitSerialField(com.sun.source.doctree.SerialFieldTree,java.lang.Object)">visitSerialField</h3> <pre data-language="java">public R visitSerialField(SerialFieldTree node,
+                          P p)</pre> <p>Visits a SerialFieldTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitSerialField(com.sun.source.doctree.SerialFieldTree,P)">visitSerialField</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitSince(com.sun.source.doctree.SinceTree,java.lang.Object)">visitSince</h3> <pre data-language="java">public R visitSince(SinceTree node,
+                    P p)</pre> <p>Visits a SinceTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitSince(com.sun.source.doctree.SinceTree,P)">visitSince</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitStartElement(com.sun.source.doctree.StartElementTree,java.lang.Object)">visitStartElement</h3> <pre data-language="java">public R visitStartElement(StartElementTree node,
+                           P p)</pre> <p>Visits a StartElementTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitStartElement(com.sun.source.doctree.StartElementTree,P)">visitStartElement</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitSummary(com.sun.source.doctree.SummaryTree,java.lang.Object)">visitSummary</h3> <pre data-language="java">public R visitSummary(SummaryTree node,
+                      P p)</pre> <p>Visits a SummaryTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitSummary(com.sun.source.doctree.SummaryTree,P)">visitSummary</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> <dt>Since:</dt> <dd>10</dd> </dl>    <h3 id="visitText(com.sun.source.doctree.TextTree,java.lang.Object)">visitText</h3> <pre data-language="java">public R visitText(TextTree node,
+                   P p)</pre> <p>Visits a TextTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitText(com.sun.source.doctree.TextTree,P)">visitText</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitThrows(com.sun.source.doctree.ThrowsTree,java.lang.Object)">visitThrows</h3> <pre data-language="java">public R visitThrows(ThrowsTree node,
+                     P p)</pre> <p>Visits a ThrowsTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitThrows(com.sun.source.doctree.ThrowsTree,P)">visitThrows</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitUnknownBlockTag(com.sun.source.doctree.UnknownBlockTagTree,java.lang.Object)">visitUnknownBlockTag</h3> <pre data-language="java">public R visitUnknownBlockTag(UnknownBlockTagTree node,
+                              P p)</pre> <p>Visits an UnknownBlockTagTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitUnknownBlockTag(com.sun.source.doctree.UnknownBlockTagTree,P)">visitUnknownBlockTag</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitUnknownInlineTag(com.sun.source.doctree.UnknownInlineTagTree,java.lang.Object)">visitUnknownInlineTag</h3> <pre data-language="java">public R visitUnknownInlineTag(UnknownInlineTagTree node,
+                               P p)</pre> <p>Visits an UnknownInlineTagTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitUnknownInlineTag(com.sun.source.doctree.UnknownInlineTagTree,P)">visitUnknownInlineTag</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitUses(com.sun.source.doctree.UsesTree,java.lang.Object)">visitUses</h3> <pre data-language="java">public R visitUses(UsesTree node,
+                   P p)</pre> <p>Visits a UsesTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitUses(com.sun.source.doctree.UsesTree,P)">visitUses</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> <dt>Since:</dt> <dd>9</dd> </dl>    <h3 id="visitValue(com.sun.source.doctree.ValueTree,java.lang.Object)">visitValue</h3> <pre data-language="java">public R visitValue(ValueTree node,
+                    P p)</pre> <p>Visits a ValueTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitValue(com.sun.source.doctree.ValueTree,P)">visitValue</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitVersion(com.sun.source.doctree.VersionTree,java.lang.Object)">visitVersion</h3> <pre data-language="java">public R visitVersion(VersionTree node,
+                      P p)</pre> <p>Visits a VersionTreeTree node. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitVersion(com.sun.source.doctree.VersionTree,P)">visitVersion</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>    <h3 id="visitOther(com.sun.source.doctree.DocTree,java.lang.Object)">visitOther</h3> <pre data-language="java">public R visitOther(DocTree node,
+                    P p)</pre> <p>Visits an unknown type of DocTree node. This can occur if the set of tags evolves and new kinds of nodes are added to the <code>DocTree</code> hierarchy. This implementation calls <code>defaultAction</code>.</p> <dl> <dt>Specified by:</dt> <dd>
+<code><a href="../doctree/doctreevisitor#visitOther(com.sun.source.doctree.DocTree,P)">visitOther</a></code> in interface <code><a href="../doctree/doctreevisitor">DocTreeVisitor</a>&lt;<a href="simpledoctreevisitor">R</a>,​<a href="simpledoctreevisitor">P</a>&gt;</code>
+</dd> <dt>Parameters:</dt> <dd>
+<code>node</code> - the node being visited</dd> <dd>
+<code>p</code> - a parameter value</dd> <dt>Returns:</dt> <dd>the result of <code>defaultAction</code>
+</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/jdk.compiler/com/sun/source/util/SimpleDocTreeVisitor.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/jdk.compiler/com/sun/source/util/SimpleDocTreeVisitor.html</a>
+  </p>
+</div>

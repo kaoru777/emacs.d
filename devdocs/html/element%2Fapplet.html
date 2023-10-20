@@ -1,0 +1,331 @@
+<h1>&lt;applet&gt;: The Embed Java Applet element</h1>
+<div class="section-content">
+<div class="notecard deprecated" id="sect1"><p><strong>Deprecated:</strong> This feature is no longer recommended. Though some browsers might still support it, it may have already been removed from the relevant web standards, may be in the process of being dropped, or may only be kept for compatibility purposes. Avoid using it, and update existing code if possible; see the <a href="#browser_compatibility">compatibility table</a> at the bottom of this page to guide your decision. Be aware that this feature may cease to work at any time.</p></div> <p>The obsolete <strong>HTML Applet Element</strong> (<code>&lt;applet&gt;</code>) embeds a Java applet into the document; this element has been deprecated in favor of <a href="object"><code>&lt;object&gt;</code></a>.</p> <p>Use of Java applets on the Web is deprecated; most browsers no longer support use of plug-ins, including the Java plug-in.</p>
+</div>
+<h2 id="attributes">Attributes</h2>
+<div class="section-content"><dl> <dt id="align">
+<code>align</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute is used to position the applet on the page relative to content that might flow around it. The HTML 4.01 specification defines values of <code>bottom</code>, <code>left</code>, <code>middle</code>, <code>right</code>, and <code>top</code>, whereas Microsoft and Netscape also might support <code>absbottom</code>, <code>absmiddle</code>, <code>baseline</code>, <code>center</code>, and <code>texttop</code>.</p> </dd> <dt id="alt">
+<code>alt</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute causes a descriptive text alternate to be displayed on browsers that do not support Java. Page designers should also remember that content enclosed within the <code>&lt;applet&gt;</code> element may also be rendered as alternative text.</p> </dd> <dt id="archive">
+<code>archive</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute refers to an archived or compressed version of the applet and its associated class files, which might help reduce download time.</p> </dd> <dt id="code">
+<code>code</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute specifies the URL of the applet's class file to be loaded and executed. Applet filenames are identified by a .class filename extension. The URL specified by code might be relative to the <code>codebase</code> attribute.</p> </dd> <dt id="codebase">
+<code>codebase</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute gives the absolute or relative URL of the directory where applets' .class files referenced by the code attribute are stored.</p> </dd> <dt id="datafld">
+<code>datafld</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute, supported by Internet Explorer 4 and higher, specifies the column name from the data source object that supplies the bound data. This attribute might be used to specify the various <a href="param"><code>&lt;param&gt;</code></a> elements passed to the Java applet.</p> </dd> <dt id="datasrc">
+<code>datasrc</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>Like <code>datafld</code>, this attribute is used for data binding under Internet Explorer 4. It indicates the id of the data source object that supplies the data that is bound to the <a href="param"><code>&lt;param&gt;</code></a> elements associated with the applet.</p> </dd> <dt id="height">
+<code>height</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute specifies the height, in pixels, that the applet needs.</p> </dd> <dt id="hspace">
+<code>hspace</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute specifies additional horizontal space, in pixels, to be reserved on either side of the applet.</p> </dd> <dt id="mayscript">
+<code>mayscript</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>In the Netscape implementation, this attribute allows access to an applet by programs in a scripting language embedded in the document.</p> </dd> <dt id="name">
+<code>name</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute assigns a name to the applet so that it can be identified by other resources; particularly scripts.</p> </dd> <dt id="object">
+<code>object</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute specifies the URL of a serialized representation of an applet.</p> </dd> <dt id="src">
+<code>src</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>As defined for Internet Explorer 4 and higher, this attribute specifies a URL for an associated file for the applet. The meaning and use is unclear and not part of the HTML standard.</p> </dd> <dt id="vspace">
+<code>vspace</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute specifies additional vertical space, in pixels, to be reserved above and below the applet.</p> </dd> <dt id="width">
+<code>width</code> <abbr class="icon icon-deprecated" title="Deprecated. Not for use in new websites."> <span class="visually-hidden">Deprecated</span> </abbr>
+</dt> <dd> <p>This attribute specifies in pixels the width that the applet needs.</p> </dd> </dl></div>
+<h2 id="example">Example</h2>
+
+<h3 id="html">HTML</h3>
+<div class="section-content">
+<div class="code-example"><pre data-language="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>applet</span>
+  <span class="token attr-name">code</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>game.class<span class="token punctuation">"</span></span>
+  <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span>
+  <span class="token attr-name">archive</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>game.zip<span class="token punctuation">"</span></span>
+  <span class="token attr-name">height</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>250<span class="token punctuation">"</span></span>
+  <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>350<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>difficulty<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>easy<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Sorry, you need Java to play this game.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>applet</span><span class="token punctuation">&gt;</span></span>
+</pre></div>
+<iframe class="sample-code-frame" title="Example sample" id="frame_example" width="100%" height="300" src="https://live-samples.mdn.mozilla.net/en-US/docs/Web/HTML/Element/applet/_sample_.example.html" loading="lazy"></iframe>
+</div>
+<h2 id="technical_summary">Technical summary</h2>
+<div class="section-content"><figure class="table-container"><div class="_table"><table class="properties"> <tbody> <tr> <th scope="row"><a href="../content_categories">Content categories</a></th> <td> <a href="../content_categories#flow_content">Flow content</a>, <a href="../content_categories#phrasing_content">phrasing content</a>, <a href="../content_categories#embedded_content">embedded content</a>, interactive content, palpable content. </td> </tr> <tr> <th scope="row">Permitted content</th> <td> Zero or more <a href="param"><code>&lt;param&gt;</code></a> elements, then <a href="../content_categories#transparent_content_model">transparent</a>. </td> </tr> <tr> <th scope="row">Tag omission</th> <td>None; both the starting and ending tag are mandatory.</td> </tr> <tr> <th scope="row">Permitted parents</th> <td> Any element that accepts <a href="../content_categories#embedded_content">embedded content</a>. </td> </tr> <tr> <th scope="row">DOM interface</th> <td><a class="page-not-created"><code>HTMLAppletElement</code></a></td> </tr> </tbody> </table></div></figure></div>
+<h2 id="specifications">Specifications</h2>
+<div class="_table"><table class="standard-table">
+<thead><tr><th scope="col">Specification</th></tr></thead>
+<tbody><tr><td><a href="https://html.spec.whatwg.org/multipage/obsolete.html#applet">HTML Standard <br><small># applet</small></a></td></tr></tbody>
+</table></div>
+<h2 id="browser_compatibility">Browser compatibility</h2>
+<div class="_table"><table>
+<thead>
+<tr id="bct-browser-type">
+<th></th>
+<th colspan="6">Desktop</th>
+<th colspan="6">Mobile</th>
+</tr>
+<tr id="bct-browsers">
+<th></th>
+<th>Chrome</th>
+<th>Edge</th>
+<th>Firefox</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+<th>WebView Android</th>
+<th>Chrome Android</th>
+<th>Firefox for Android</th>
+<th>Opera Android</th>
+<th>Safari on IOS</th>
+<th>Samsung Internet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><code>applet</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>align</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>alt</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>archive</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>code</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>codebase</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>datafld</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>datasrc</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>height</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>hspace</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>mayscript</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>name</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>object</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>src</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>vspace</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+<tr>
+<th><code>width</code></th>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">12–79</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-yes">Yes</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">Yes–14.1</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–47</td>
+<td class="bc-supports-no">Yes–56</td>
+<td class="bc-supports-no">Yes–34</td>
+<td class="bc-supports-no">No</td>
+<td class="bc-supports-no">Yes–5.0</td>
+</tr>
+</tbody>
+</table></div><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2005&ndash;2023 MDN contributors.<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/applet" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/applet</a>
+  </p>
+</div>

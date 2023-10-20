@@ -1,0 +1,45 @@
+  <main role="main">    <h1>Interface WebSocket.Builder</h1>     <dl> <dt>Enclosing interface:</dt> <dd><a href="websocket">WebSocket</a></dd> </dl>  <pre data-language="java">public static interface WebSocket.Builder</pre> <div>
+<p>A builder of <a href="websocket">WebSocket Clients</a>. </p>
+<p> Builders are created by invoking <a href="httpclient#newWebSocketBuilder()"><code>HttpClient.newWebSocketBuilder</code></a>. The intermediate (setter-like) methods change the state of the builder and return the same builder they have been invoked on. If an intermediate method is not invoked, an appropriate default value (or behavior) will be assumed. A <code>Builder</code> is not safe for use by multiple threads without external synchronization.</p>
+</div> <dl> <dt>Since:</dt> <dd>11</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code><a href="../../../../java.base/java/util/concurrent/completablefuture">CompletableFuture</a>&lt;<a href="websocket">WebSocket</a>&gt;</code></td> <th scope="row"><code><a href="#buildAsync(java.net.URI,java.net.http.WebSocket.Listener)">buildAsync</a>​(<a href="../../../../java.base/java/net/uri">URI</a> uri,
+          <a href="websocket.listener">WebSocket.Listener</a> listener)</code></th> <td> <p>Builds a <a href="websocket"><code>WebSocket</code></a> connected to the given <code>URI</code> and associated with the given <code>Listener</code>.</p> </td> </tr> <tr id="i1"> <td><code><a href="websocket.builder">WebSocket.Builder</a></code></td> <th scope="row"><code><a href="#connectTimeout(java.time.Duration)">connectTimeout</a>​(<a href="../../../../java.base/java/time/duration">Duration</a> timeout)</code></th> <td> <p>Sets a timeout for establishing a WebSocket connection.</p> </td> </tr> <tr id="i2"> <td><code><a href="websocket.builder">WebSocket.Builder</a></code></td> <th scope="row"><code><a href="#header(java.lang.String,java.lang.String)">header</a>​(<a href="../../../../java.base/java/lang/string">String</a> name,
+      <a href="../../../../java.base/java/lang/string">String</a> value)</code></th> <td> <p>Adds the given name-value pair to the list of additional HTTP headers sent during the opening handshake.</p> </td> </tr> <tr id="i3"> <td><code><a href="websocket.builder">WebSocket.Builder</a></code></td> <th scope="row"><code><a href="#subprotocols(java.lang.String,java.lang.String...)">subprotocols</a>​(<a href="../../../../java.base/java/lang/string">String</a> mostPreferred,
+            <a href="../../../../java.base/java/lang/string">String</a>... lesserPreferred)</code></th> <td> <p>Sets a request for the given subprotocols.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="header(java.lang.String,java.lang.String)">header</h3> <pre data-language="java">WebSocket.Builder header(String name,
+                         String value)</pre> <div>
+<p>Adds the given name-value pair to the list of additional HTTP headers sent during the opening handshake. </p>
+<p> Headers defined in the <a href="https://tools.ietf.org/html/rfc6455#section-11.3">WebSocket Protocol</a> are illegal. If this method is not invoked, no additional HTTP headers will be sent.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>name</code> - the header name</dd> <dd>
+<code>value</code> - the header value</dd> <dt>Returns:</dt> <dd>this builder</dd> </dl>    <h3 id="connectTimeout(java.time.Duration)">connectTimeout</h3> <pre data-language="java">WebSocket.Builder connectTimeout(Duration timeout)</pre> <div>
+<p>Sets a timeout for establishing a WebSocket connection. </p>
+<p> If the connection is not established within the specified duration then building of the <code>WebSocket</code> will fail with <a href="httptimeoutexception"><code>HttpTimeoutException</code></a>. If this method is not invoked then the infinite timeout is assumed.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>timeout</code> - the timeout, non-<a href="../../../../java.base/java/time/duration#isNegative()">negative</a>, non-<a href="../../../../java.base/java/time/duration#ZERO">ZERO</a>
+</dd> <dt>Returns:</dt> <dd>this builder</dd> </dl>    <h3 id="subprotocols(java.lang.String,java.lang.String...)">subprotocols</h3> <pre data-language="java">WebSocket.Builder subprotocols(String mostPreferred,
+                               String... lesserPreferred)</pre> <div>
+<p>Sets a request for the given subprotocols. </p>
+<p> After the <code>WebSocket</code> has been built, the actual subprotocol can be queried through <a href="websocket#getSubprotocol()"><code>WebSocket.getSubprotocol()</code></a>. </p>
+<p> Subprotocols are specified in the order of preference. The most preferred subprotocol is specified first. If there are any additional subprotocols they are enumerated from the most preferred to the least preferred. </p>
+<p> Subprotocols not conforming to the syntax of subprotocol identifiers are illegal. If this method is not invoked then no subprotocols will be requested.</p>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>mostPreferred</code> - the most preferred subprotocol</dd> <dd>
+<code>lesserPreferred</code> - the lesser preferred subprotocols</dd> <dt>Returns:</dt> <dd>this builder</dd> </dl>    <h3 id="buildAsync(java.net.URI,java.net.http.WebSocket.Listener)">buildAsync</h3> <pre data-language="java">CompletableFuture&lt;WebSocket&gt; buildAsync(URI uri,
+                                        WebSocket.Listener listener)</pre> <div>
+<p>Builds a <a href="websocket"><code>WebSocket</code></a> connected to the given <code>URI</code> and associated with the given <code>Listener</code>. </p>
+<p> Returns a <code>CompletableFuture</code> which will either complete normally with the resulting <code>WebSocket</code> or complete exceptionally with one of the following errors: </p>
+<ul> <li> <a href="../../../../java.base/java/io/ioexception"><code>IOException</code></a> - if an I/O error occurs </li>
+<li> <a href="websockethandshakeexception"><code>WebSocketHandshakeException</code></a> - if the opening handshake fails </li>
+<li> <a href="httptimeoutexception"><code>HttpTimeoutException</code></a> - if the opening handshake does not complete within the timeout </li>
+<li> <a href="../../../../java.base/java/lang/interruptedexception"><code>InterruptedException</code></a> - if the operation is interrupted </li>
+<li> <a href="../../../../java.base/java/lang/securityexception"><code>SecurityException</code></a> - if a security manager has been installed and it denies <a href="../../../../java.base/java/net/urlpermission"><code>access</code></a> to <code>uri</code>. <a href="httprequest#securitychecks">Security checks</a> contains more information relating to the security context in which the the listener is invoked. </li>
+<li> <a href="../../../../java.base/java/lang/illegalargumentexception"><code>IllegalArgumentException</code></a> - if any of the arguments of this builder's methods are illegal </li>
+</ul>
+</div> <dl> <dt>Parameters:</dt> <dd>
+<code>uri</code> - the WebSocket URI</dd> <dd>
+<code>listener</code> - the listener</dd> <dt>Returns:</dt> <dd>a <code>CompletableFuture</code> with the <code>WebSocket</code>
+</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/WebSocket.Builder.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/WebSocket.Builder.html</a>
+  </p>
+</div>

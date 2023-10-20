@@ -1,0 +1,99 @@
+<h1 title="Enum Class CLinker.TypeKind" class="title">Enum Class CLinker.TypeKind</h1> <div class="inheritance" title="Inheritance Tree">
+<a href="../../../../java.base/java/lang/object" title="class in java.lang">java.lang.Object</a> <div class="inheritance">
+<a href="../../../../java.base/java/lang/enum" title="class in java.lang">java.lang.Enum</a>&lt;<a href="clinker.typekind" title="enum class in jdk.incubator.foreign">CLinker.TypeKind</a>&gt; <div class="inheritance">jdk.incubator.foreign.CLinker.TypeKind</div> </div> </div> <section class="class-description" id="class-description"> <dl class="notes"> <dt>All Implemented Interfaces:</dt> <dd>
+<code><a href="../../../../java.base/java/io/serializable" title="interface in java.io">Serializable</a></code>, <code><a href="../../../../java.base/java/lang/comparable" title="interface in java.lang">Comparable</a>&lt;<a href="clinker.typekind" title="enum class in jdk.incubator.foreign">CLinker.TypeKind</a>&gt;</code>, <code><a href="../../../../java.base/java/lang/constant/constable" title="interface in java.lang.constant">Constable</a></code>
+</dd> </dl> <dl class="notes"> <dt>Enclosing interface:</dt> <dd><a href="clinker" title="interface in jdk.incubator.foreign">CLinker</a></dd> </dl>  <pre class="lang-java" data-language="java">public static enum CLinker.TypeKind extends Enum&lt;CLinker.TypeKind&gt;</pre> <div class="block">A C type kind. Each kind corresponds to a particular C language builtin type, and can be attached to <a href="valuelayout" title="class in jdk.incubator.foreign"><code>ValueLayout</code></a> instances using the <a href="memorylayout#withAttribute(java.lang.String,java.lang.constant.Constable)"><code>MemoryLayout.withAttribute(String, Constable)</code></a> in order to obtain a layout which can be classified accordingly by <a href="clinker#downcallHandle(jdk.incubator.foreign.Addressable,java.lang.invoke.MethodType,jdk.incubator.foreign.FunctionDescriptor)"><code>CLinker.downcallHandle(Addressable, MethodType, FunctionDescriptor)</code></a> and <a href="clinker#upcallStub(java.lang.invoke.MethodHandle,jdk.incubator.foreign.FunctionDescriptor,jdk.incubator.foreign.ResourceScope)"><code>CLinker.upcallStub(MethodHandle, FunctionDescriptor, ResourceScope)</code></a>.</div> </section> <section class="summary"> <section class="nested-class-summary" id="nested-class-summary"> <h2>Nested Class Summary</h2> <div class="inherited-list"> <h2 id="nested-classes-inherited-from-class-java.lang.Enum">Nested classes/interfaces declared in class java.lang.<a href="../../../../java.base/java/lang/enum" title="class in java.lang">Enum</a>
+</h2> <code><a href="../../../../java.base/java/lang/enum.enumdesc" title="class in java.lang">Enum.EnumDesc</a>&lt;<a href="../../../../java.base/java/lang/enum.enumdesc" title="type parameter in Enum.EnumDesc">E</a> extends <a href="../../../../java.base/java/lang/enum" title="class in java.lang">Enum</a>&lt;<a href="../../../../java.base/java/lang/enum.enumdesc" title="type parameter in Enum.EnumDesc">E</a>&gt;&gt;</code>
+</div> </section><section class="constants-summary" id="enum-constant-summary"> <h2>Enum Constant Summary</h2>  <table class="summary-table two-column-summary">                   <tr>
+<th>Enum Constant</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code><a href="#CHAR" class="member-name-link">CHAR</a></code></td>
+<td> <div class="block">A kind corresponding to the <em>integral</em> C <code>char</code> type</div> </td>
+</tr>
+<tr>
+<td><code><a href="#DOUBLE" class="member-name-link">DOUBLE</a></code></td>
+<td> <div class="block">A kind corresponding to the <em>floating-point</em> C <code>double</code> type</div> </td>
+</tr>
+<tr>
+<td><code><a href="#FLOAT" class="member-name-link">FLOAT</a></code></td>
+<td> <div class="block">A kind corresponding to the <em>floating-point</em> C <code>float</code> type</div> </td>
+</tr>
+<tr>
+<td><code><a href="#INT" class="member-name-link">INT</a></code></td>
+<td> <div class="block">A kind corresponding to the <em>integral</em> C <code>int</code> type</div> </td>
+</tr>
+<tr>
+<td><code><a href="#LONG" class="member-name-link">LONG</a></code></td>
+<td> <div class="block">A kind corresponding to the <em>integral</em> C <code>long</code> type</div> </td>
+</tr>
+<tr>
+<td><code><a href="#LONG_LONG" class="member-name-link">LONG_LONG</a></code></td>
+<td> <div class="block">A kind corresponding to the <em>integral</em> C <code>long long</code> type</div> </td>
+</tr>
+<tr>
+<td><code><a href="#POINTER" class="member-name-link">POINTER</a></code></td>
+<td> <div class="block">A kind corresponding to the an <em>integral</em> C pointer type</div> </td>
+</tr>
+<tr>
+<td><code><a href="#SHORT" class="member-name-link">SHORT</a></code></td>
+<td> <div class="block">A kind corresponding to the <em>integral</em> C <code>short</code> type</div> </td>
+</tr>
+</table> </section><section class="field-summary" id="field-summary"> <h2>Field Summary</h2>  <table class="summary-table three-column-summary">       <tr>
+<th>Modifier and Type</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>static final <a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a></code></td>
+<td><code><a href="#ATTR_NAME" class="member-name-link">ATTR_NAME</a></code></td>
+<td> <div class="block">The layout attribute name associated with this classification kind.</div> </td>
+</tr>
+</table> </section><section class="method-summary" id="method-summary"> <h2>Method Summary</h2> <div id="method-summary-table">  <div id="method-summary-table.tabpanel" role="tabpanel"> <table class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">                   <tr>
+<th>Modifier and Type</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isFloat()" class="member-name-link">isFloat</a>()</code></td>
+<td> <div class="block">Is this kind a floating point type?</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isIntegral()" class="member-name-link">isIntegral</a>()</code></td>
+<td> <div class="block">Is this kind integral?</div> </td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code><a href="#isPointer()" class="member-name-link">isPointer</a>()</code></td>
+<td> <div class="block">Is this kind a pointer kind?</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="clinker.typekind" title="enum class in jdk.incubator.foreign">CLinker.TypeKind</a></code></td>
+<td><code><a href="#valueOf(java.lang.String)" class="member-name-link">valueOf</a><wbr>(<a href="../../../../java.base/java/lang/string" title="class in java.lang">String</a> name)</wbr></code></td>
+<td> <div class="block">Returns the enum constant of this class with the specified name.</div> </td>
+</tr>
+<tr>
+<td><code>static <a href="clinker.typekind" title="enum class in jdk.incubator.foreign">CLinker.TypeKind</a>[]</code></td>
+<td><code><a href="#values()" class="member-name-link">values</a>()</code></td>
+<td> <div class="block">Returns an array containing the constants of this enum class, in the order they are declared.</div> </td>
+</tr>
+</table> </div> </div> <div class="inherited-list"> <h3 id="methods-inherited-from-class-java.lang.Enum">Methods declared in class java.lang.<a href="../../../../java.base/java/lang/enum" title="class in java.lang">Enum</a>
+</h3> <code><a href="../../../../java.base/java/lang/enum#clone()">clone</a>, <a href="../../../../java.base/java/lang/enum#compareTo(E)">compareTo</a>, <a href="../../../../java.base/java/lang/enum#describeConstable()">describeConstable</a>, <a href="../../../../java.base/java/lang/enum#equals(java.lang.Object)">equals</a>, <a href="../../../../java.base/java/lang/enum#finalize()">finalize</a>, <a href="../../../../java.base/java/lang/enum#getDeclaringClass()">getDeclaringClass</a>, <a href="../../../../java.base/java/lang/enum#hashCode()">hashCode</a>, <a href="../../../../java.base/java/lang/enum#name()">name</a>, <a href="../../../../java.base/java/lang/enum#ordinal()">ordinal</a>, <a href="../../../../java.base/java/lang/enum#toString()">toString</a>, <a href="../../../../java.base/java/lang/enum#valueOf(java.lang.Class,java.lang.String)">valueOf</a></code>
+</div> <div class="inherited-list"> <h3 id="methods-inherited-from-class-java.lang.Object">Methods declared in class java.lang.<a href="../../../../java.base/java/lang/object" title="class in java.lang">Object</a>
+</h3> <code><a href="../../../../java.base/java/lang/object#getClass()">getClass</a>, <a href="../../../../java.base/java/lang/object#notify()">notify</a>, <a href="../../../../java.base/java/lang/object#notifyAll()">notifyAll</a>, <a href="../../../../java.base/java/lang/object#wait()">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long)">wait</a>, <a href="../../../../java.base/java/lang/object#wait(long,int)">wait</a></code>
+</div> </section> </section> <section class="details"> <section class="constant-details" id="enum-constant-detail"> <h2>Enum Constant Details</h2>  </section><section class="detail" id="CHAR"> <h3>CHAR</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind CHAR</pre> <div class="block">A kind corresponding to the <em>integral</em> C <code>char</code> type</div> </section><section class="detail" id="SHORT"> <h3>SHORT</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind SHORT</pre> <div class="block">A kind corresponding to the <em>integral</em> C <code>short</code> type</div> </section><section class="detail" id="INT"> <h3>INT</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind INT</pre> <div class="block">A kind corresponding to the <em>integral</em> C <code>int</code> type</div> </section><section class="detail" id="LONG"> <h3>LONG</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind LONG</pre> <div class="block">A kind corresponding to the <em>integral</em> C <code>long</code> type</div> </section><section class="detail" id="LONG_LONG"> <h3>LONG_LONG</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind LONG_LONG</pre> <div class="block">A kind corresponding to the <em>integral</em> C <code>long long</code> type</div> </section><section class="detail" id="FLOAT"> <h3>FLOAT</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind FLOAT</pre> <div class="block">A kind corresponding to the <em>floating-point</em> C <code>float</code> type</div> </section><section class="detail" id="DOUBLE"> <h3>DOUBLE</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind DOUBLE</pre> <div class="block">A kind corresponding to the <em>floating-point</em> C <code>double</code> type</div> </section><section class="detail" id="POINTER"> <h3>POINTER</h3> <pre class="lang-java" data-language="java">public static final CLinker.TypeKind POINTER</pre> <div class="block">A kind corresponding to the an <em>integral</em> C pointer type</div> </section><section class="field-details" id="field-detail"> <h2>Field Details</h2>  </section><section class="detail" id="ATTR_NAME"> <h3>ATTR_NAME</h3> <pre class="lang-java" data-language="java">public static final String ATTR_NAME</pre> <div class="block">The layout attribute name associated with this classification kind. Clients can retrieve the type kind of a layout using the following code: <blockquote><pre class="lang-java" data-language="java"><code>
+        ValueLayout layout = ...
+        TypeKind = layout.attribute(TypeKind.ATTR_NAME).orElse(null);
+ </code></pre></blockquote>
+</div> <dl class="notes"> <dt>See Also:</dt> <dd> <ul class="see-list"> <li><a href="https://docs.oracle.com/en/java/javase/17/docs/api/constant-values.html#jdk.incubator.foreign.CLinker.TypeKind.ATTR_NAME">Constant Field Values</a></li> </ul> </dd> </dl> </section><section class="method-details" id="method-detail"> <h2>Method Details</h2>  </section><section class="detail" id="values()"> <h3>values</h3> <pre class="lang-java" data-language="java">public static CLinker.TypeKind[] values()</pre> <div class="block">Returns an array containing the constants of this enum class, in the order they are declared.</div> <dl class="notes"> <dt>Returns:</dt> <dd>an array containing the constants of this enum class, in the order they are declared</dd> </dl> </section><section class="detail" id="valueOf(java.lang.String)"> <h3>valueOf</h3> <pre class="lang-java" data-language="java">public static CLinker.TypeKind valueOf(String name)</pre> <div class="block">Returns the enum constant of this class with the specified name. The string must match <i>exactly</i> an identifier used to declare an enum constant in this class. (Extraneous whitespace characters are not permitted.)</div> <dl class="notes"> <dt>Parameters:</dt> <dd>
+<code>name</code> - the name of the enum constant to be returned.</dd> <dt>Returns:</dt> <dd>the enum constant with the specified name</dd> <dt>Throws:</dt> <dd>
+<code><a href="../../../../java.base/java/lang/illegalargumentexception" title="class in java.lang">IllegalArgumentException</a></code> - if this enum class has no constant with the specified name</dd> <dd>
+<code><a href="../../../../java.base/java/lang/nullpointerexception" title="class in java.lang">NullPointerException</a></code> - if the argument is null</dd> </dl> </section><section class="detail" id="isIntegral()"> <h3>isIntegral</h3> <pre class="lang-java" data-language="java">public boolean isIntegral()</pre> <div class="block">Is this kind integral?</div> <dl class="notes"> <dt>Returns:</dt> <dd>true if this kind is integral</dd> </dl> </section><section class="detail" id="isFloat()"> <h3>isFloat</h3> <pre class="lang-java" data-language="java">public boolean isFloat()</pre> <div class="block">Is this kind a floating point type?</div> <dl class="notes"> <dt>Returns:</dt> <dd>true if this kind is a floating point type</dd> </dl> </section><section class="detail" id="isPointer()"> <h3>isPointer</h3> <pre class="lang-java" data-language="java">public boolean isPointer()</pre> <div class="block">Is this kind a pointer kind?</div> <dl class="notes"> <dt>Returns:</dt> <dd>true if this kind is a pointer kind</dd> </dl> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2021, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.TypeKind.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/CLinker.TypeKind.html</a>
+  </p>
+</div>

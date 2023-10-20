@@ -1,0 +1,81 @@
+  <main role="main">    <h1>Interface Formattable</h1>      <pre data-language="java">public interface Formattable</pre> <div>
+<p>The <code>Formattable</code> interface must be implemented by any class that needs to perform custom formatting using the <code>'s'</code> conversion specifier of <a href="formatter"><code>Formatter</code></a>. This interface allows basic control for formatting arbitrary objects. For example, the following class prints out different representations of a stock's name depending on the flags and length constraints: <pre data-language="java">import java.nio.CharBuffer;
+   import java.util.Formatter;
+   import java.util.Formattable;
+   import java.util.Locale;
+   import static java.util.FormattableFlags.*;
+
+   ...
+
+   public class StockName implements Formattable {
+       private String symbol, companyName, frenchCompanyName;
+       public StockName(String symbol, String companyName,
+                        String frenchCompanyName) {
+           ...
+       }
+
+       ...
+
+       public void formatTo(Formatter fmt, int f, int width, int precision) {
+           StringBuilder sb = new StringBuilder();
+
+           // decide form of name
+           String name = companyName;
+           if (fmt.locale().equals(Locale.FRANCE))
+               name = frenchCompanyName;
+           boolean alternate = (f &amp; ALTERNATE) == ALTERNATE;
+           boolean usesymbol = alternate || (precision != -1 &amp;&amp; precision &lt; 10);
+           String out = (usesymbol ? symbol : name);
+
+           // apply precision
+           if (precision == -1 || out.length() &lt; precision) {
+               // write it all
+               sb.append(out);
+           } else {
+               sb.append(out.substring(0, precision - 1)).append('*');
+           }
+
+           // apply width and justification
+           int len = sb.length();
+           if (len &lt; width)
+               for (int i = 0; i &lt; width - len; i++)
+                   if ((f &amp; LEFT_JUSTIFY) == LEFT_JUSTIFY)
+                       sb.append(' ');
+                   else
+                       sb.insert(0, ' ');
+
+           fmt.format(sb.toString());
+       }
+
+       public String toString() {
+           return String.format("%s - %s", symbol, companyName);
+       }
+   }</pre> </p>
+<p> When used in conjunction with the <a href="formatter"><code>Formatter</code></a>, the above class produces the following output for various format strings. </p>
+<pre data-language="java">Formatter fmt = new Formatter();
+   StockName sn = new StockName("HUGE", "Huge Fruit, Inc.",
+                                "Fruit Titanesque, Inc.");
+   fmt.format("%s", sn);                   //   -&gt; "Huge Fruit, Inc."
+   fmt.format("%s", sn.toString());        //   -&gt; "HUGE - Huge Fruit, Inc."
+   fmt.format("%#s", sn);                  //   -&gt; "HUGE"
+   fmt.format("%-10.8s", sn);              //   -&gt; "HUGE      "
+   fmt.format("%.12s", sn);                //   -&gt; "Huge Fruit,*"
+   fmt.format(Locale.FRANCE, "%25s", sn);  //   -&gt; "   Fruit Titanesque, Inc."</pre> <p> Formattables are not necessarily safe for multithreaded access. Thread safety is optional and may be enforced by classes that extend and implement this interface. </p>
+<p> Unless otherwise specified, passing a <code>null</code> argument to any method in this interface will cause a <a href="../lang/nullpointerexception"><code>NullPointerException</code></a> to be thrown.</p>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd> </dl>      <section role="region">  <h2 id="method.summary">Methods</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Method</th> <th scope="col">Description</th> </tr> <tr id="i0"> <td><code>void</code></td> <th scope="row"><code><a href="#formatTo(java.util.Formatter,int,int,int)">formatTo</a>​(<a href="formatter">Formatter</a> formatter,
+        int flags,
+        int width,
+        int precision)</code></th> <td> <p>Formats the object using the provided <a href="formatter"><code>formatter</code></a>.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="method.detail">Methods</h2>   <h3 id="formatTo(java.util.Formatter,int,int,int)">formatTo</h3> <pre data-language="java">void formatTo(Formatter formatter,
+              int flags,
+              int width,
+              int precision)</pre> <p>Formats the object using the provided <a href="formatter"><code>formatter</code></a>.</p> <dl> <dt>Parameters:</dt> <dd>
+<code>formatter</code> - The <a href="formatter"><code>formatter</code></a>. Implementing classes may call <a href="formatter#out()"><code>formatter.out()</code></a> or <a href="formatter#locale()"><code>formatter.locale()</code></a> to obtain the <a href="../lang/appendable"><code>Appendable</code></a> or <a href="locale"><code>Locale</code></a> used by this <code>formatter</code> respectively.</dd> <dd>
+<code>flags</code> - The flags modify the output format. The value is interpreted as a bitmask. Any combination of the following flags may be set: <a href="formattableflags#LEFT_JUSTIFY"><code>FormattableFlags.LEFT_JUSTIFY</code></a>, <a href="formattableflags#UPPERCASE"><code>FormattableFlags.UPPERCASE</code></a>, and <a href="formattableflags#ALTERNATE"><code>FormattableFlags.ALTERNATE</code></a>. If no flags are set, the default formatting of the implementing class will apply.</dd> <dd>
+<code>width</code> - The minimum number of characters to be written to the output. If the length of the converted value is less than the <code>width</code> then the output will be padded by <code>'  '</code> until the total number of characters equals width. The padding is at the beginning by default. If the <a href="formattableflags#LEFT_JUSTIFY"><code>FormattableFlags.LEFT_JUSTIFY</code></a> flag is set then the padding will be at the end. If <code>width</code> is <code>-1</code> then there is no minimum.</dd> <dd>
+<code>precision</code> - The maximum number of characters to be written to the output. The precision is applied before the width, thus the output will be truncated to <code>precision</code> characters even if the <code>width</code> is greater than the <code>precision</code>. If <code>precision</code> is <code>-1</code> then there is no explicit limit on the number of characters.</dd> <dt>Throws:</dt> <dd>
+<code><a href="illegalformatexception">IllegalFormatException</a></code> - If any of the parameters are invalid. For specification of all possible formatting errors, see the <a href="formatter#detail">Details</a> section of the formatter class specification.</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Formattable.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Formattable.html</a>
+  </p>
+</div>

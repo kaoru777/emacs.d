@@ -1,0 +1,16 @@
+<h1 id="class-AbstractController::ActionNotFound" class="class"> class AbstractController::ActionNotFound </h1>
+<dl class="meta">
+<dt>Parent:</dt>
+<dd class="meta-parent">StandardError</dd>
+</dl> <section class="description"> <p>Raised when a non-existing controller action is triggered.</p> </section> <section id="5Buntitled-5D" class="documentation-section"> <section class="attribute-method-details"> <header> <h3>Attributes</h3> </header> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-action"> <span class="method-name">action</span><span class="attribute-access-type">[R]</span> </div>  </div> <div class="method-detail"> <div class="method-heading attribute-method-heading" id="attribute-i-controller"> <span class="method-name">controller</span><span class="attribute-access-type">[R]</span> </div>  </div> </section> <section id="public-class-5Buntitled-5D-method-details" class="method-section"> <header> <h3>Public Class Methods</h3> </header> <div class="method-detail "> <div class="method-heading" id="method-c-new"> <span class="method-name">new</span><span class="method-args">(message = nil, controller = nil, action = nil)</span> <a class="method-click-advice">Show source</a> </div> <div class="method-description">
+<div class="method-source-code" id="new-source"> <pre class="ruby" data-language="ruby"># File actionpack/lib/abstract_controller/base.rb, line 13
+def initialize(message = nil, controller = nil, action = nil)
+  @controller = controller
+  @action = action
+  super(message)
+end</pre> </div> <div class="method-calls-super"> Calls superclass method </div>  </div> </div> </section> </section><div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 2004&ndash;2020 David Heinemeier Hansson<br>Licensed under the MIT License.<br>
+    
+  </p>
+</div>

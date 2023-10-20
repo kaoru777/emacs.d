@@ -1,0 +1,26 @@
+  <main role="main">    <h1>Interface ShardingKey</h1>      <pre data-language="java">public interface ShardingKey</pre> <div>
+<p>Interface used to indicate that this object represents a Sharding Key. A <code>ShardingKey</code> instance is only guaranteed to be compatible with the data source instance that it was derived from. A <code>ShardingKey</code> is created using <a href="shardingkeybuilder"><code>ShardingKeyBuilder</code></a>. </p>
+<p> The following example illustrates the use of <a href="shardingkeybuilder"><code>ShardingKeyBuilder</code></a> to create a <code>ShardingKey</code>: </p>
+<pre data-language="java">DataSource ds = new MyDataSource();
+     ShardingKey shardingKey = ds.createShardingKeyBuilder()
+                           .subkey("abc", JDBCType.VARCHAR)
+                           .subkey(94002, JDBCType.INTEGER)
+                           .build();</pre> <p> A <code>ShardingKey</code> may also be used for specifying a <code>superShardingKey</code>. Databases that support composite Sharding may use a <code>superShardingKey</code> to specify a additional level of partitioning within the Shard. </p>
+<p> The following example illustrates the use of <a href="shardingkeybuilder"><code>ShardingKeyBuilder</code></a> to create a <code>superShardingKey</code> for an eastern region with a <code>ShardingKey</code> specified for the Pittsburgh branch office: </p>
+<pre data-language="java">DataSource ds = new MyDataSource();
+     ShardingKey superShardingKey = ds.createShardingKeyBuilder()
+                           .subkey("EASTERN_REGION", JDBCType.VARCHAR)
+                           .build();
+     ShardingKey shardingKey = ds.createShardingKeyBuilder()
+                           .subkey("PITTSBURGH_BRANCH", JDBCType.VARCHAR)
+                           .build();
+     Connection con = ds.createConnectionBuilder()
+                           .superShardingKey(superShardingKey)
+                           .shardingKey(shardingKey)
+                           .build();</pre>
+</div> <dl> <dt>Since:</dt> <dd>9</dd> </dl>    </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/java/sql/ShardingKey.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/java/sql/ShardingKey.html</a>
+  </p>
+</div>

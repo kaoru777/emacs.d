@@ -1,0 +1,26 @@
+  <main role="main">    <h1>Annotation Type Target</h1>      <pre data-language="java">@Documented
+@Retention(RUNTIME)
+@Target(ANNOTATION_TYPE)
+public @interface Target</pre> <div>
+<p>Indicates the contexts in which an annotation type is applicable. The declaration contexts and type contexts in which an annotation type may be applicable are specified in JLS 9.6.4.1, and denoted in source code by enum constants of <a href="elementtype"><code>java.lang.annotation.ElementType</code></a>. </p>
+<p>If an <code>@Target</code> meta-annotation is not present on an annotation type <code>T</code> , then an annotation of type <code>T</code> may be written as a modifier for any declaration except a type parameter declaration. </p>
+<p>If an <code>@Target</code> meta-annotation is present, the compiler will enforce the usage restrictions indicated by <code>ElementType</code> enum constants, in line with JLS 9.7.4. </p>
+<p>For example, this <code>@Target</code> meta-annotation indicates that the declared type is itself a meta-annotation type. It can only be used on annotation type declarations: </p>
+<pre data-language="java">@Target(ElementType.ANNOTATION_TYPE)
+    public @interface MetaAnnotationType {
+        ...
+    }</pre> <p>This <code>@Target</code> meta-annotation indicates that the declared type is intended solely for use as a member type in complex annotation type declarations. It cannot be used to annotate anything directly: </p>
+<pre data-language="java">@Target({})
+    public @interface MemberType {
+        ...
+    }</pre> <p>It is a compile-time error for a single <code>ElementType</code> constant to appear more than once in an <code>@Target</code> annotation. For example, the following <code>@Target</code> meta-annotation is illegal: </p>
+<pre data-language="java">@Target({ElementType.FIELD, ElementType.METHOD, ElementType.FIELD})
+    public @interface Bogus {
+        ...
+    }</pre>
+</div> <dl> <dt>Since:</dt> <dd>1.5</dd>   </dl>      <section role="region">  <h2 id="annotation.type.required.element.summary">Required Elements</h2> <table>  <tr> <th scope="col">Modifier and Type</th> <th scope="col">Required Element</th> <th scope="col">Description</th> </tr> <tr> <td><code><a href="elementtype">ElementType</a>[]</code></td> <th scope="row"><code><a href="#value()">value</a></code></th> <td> <p>Returns an array of the kinds of elements an annotation type can be applied to.</p> </td> </tr> </table>  </section>   <div>   <section role="region">  <h2 id="annotation.type.element.detail">Elements</h2>   <h3 id="value()">value</h3> <pre data-language="java">ElementType[] value</pre> <p>Returns an array of the kinds of elements an annotation type can be applied to.</p> <dl> <dt>Returns:</dt> <dd>an array of the kinds of elements an annotation type can be applied to</dd> </dl>   </section>  </div>  </main>  <div class="_attribution">
+  <p class="_attribution-p">
+    &copy; 1993, 2020, Oracle and/or its affiliates. All rights reserved.<br>Documentation extracted from Debian's OpenJDK Development Kit package.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses (see Debian package).<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.<br>
+    <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Target.html" class="_attribution-link">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/annotation/Target.html</a>
+  </p>
+</div>

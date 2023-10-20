@@ -1,0 +1,2 @@
+(1 (name . "Django REST Framework") (slug . "django_rest_framework") (type . "mkdocs") (links (home . "https://www.django-rest-framework.org/") (code . "https://github.com/encode/django-rest-framework")) (release . "3.14.0") (mtime . 1668057638) (db_size . 760555) (attribution . "Copyright &copy; 2011&ndash;present Encode OSS Ltd.<br>
+      Licensed under the BSD License."))
