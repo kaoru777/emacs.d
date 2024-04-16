@@ -15,6 +15,9 @@
 (add-to-list 'auto-mode-alist '("zshrc$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
 
+(load "server")
+(unless (server-running-p) (server-start))
+
 (setq
   inhibit-startup-screen t
   inhibit-startup-message t
