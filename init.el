@@ -90,7 +90,7 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(flycheck dap-mode lsp-treemacs lsp-ivy helm-lsp lsp-ui lsp-mode highlight-indent-guides dashboard devdocs sqlformat ace-window paredit amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify vterm use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
+   '(flycheck dap-mode lsp-treemacs lsp-ivy helm-lsp lsp-ui lsp-mode highlight-indent-guides dashboard devdocs sqlformat ace-window paredit amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
@@ -445,8 +445,7 @@
 
 ;; (use-package bug-hunter)
 
-(use-package vterm)
-
+;; (use-package vterm)
 
 (use-package org
   :ensure org-contrib)
