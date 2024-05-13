@@ -36,7 +36,7 @@
 (setq mouse-wheel-follow-mouse 't)
 (setq scroll-step 1)
 (setq-default line-spacing 0.3)
-(set-frame-font "Comic Code 12" nil t)
+(set-frame-font "Comic Code 12")
 (set-face-attribute 'default nil :height 120)
 (save-place-mode t)
 
@@ -90,7 +90,7 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(yaml-mode inf-ruby flycheck dap-mode lsp-treemacs lsp-ivy helm-lsp lsp-ui lsp-mode highlight-indent-guides dashboard devdocs sqlformat ace-window paredit amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
+   '(yaml-mode inf-ruby flycheck dap-mode highlight-indent-guides dashboard devdocs sqlformat ace-window paredit amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
@@ -636,31 +636,6 @@
         ;; default is \x2502 but it is very slow on Mac
         highlight-indent-guides-character ?\xFFE8
         highlight-indent-guides-responsive 'top))
-
-
-(use-package lsp-mode
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (ruby-mode . lsp)
-         (python-mode . lsp)
-         (sql-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
-
-;; optionally
-(use-package lsp-ui :commands lsp-ui-mode)
-;; if you are helm user
-(use-package helm-lsp :commands helm-lsp-workspace-symbol)
-;; if you are ivy user
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-
-;; optionally if you want to use debugger
-(use-package dap-mode)
-;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 
 (use-package flycheck
   :ensure t
