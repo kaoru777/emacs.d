@@ -90,7 +90,7 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(rubocop robe yaml-mode inf-ruby flycheck dap-mode highlight-indent-guides dashboard devdocs sqlformat ace-window amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
+   '(yasnippet-snippets yasnippet rubocop robe yaml-mode inf-ruby flycheck dap-mode highlight-indent-guides dashboard devdocs sqlformat ace-window amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
@@ -681,3 +681,20 @@
   :init
   (add-hook 'ruby-mode-hook 'rubocop-mode)
   :diminish rubocop-mode)
+
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (validate-setq
+   yas-verbosity 1
+   yas-wrap-around-region t)
+
+  (with-eval-after-load 'yasnippet
+    (validate-setq yas-snippet-dirs '(yasnippet-snippets-dir)))
+
+  (yas-reload-all)
+  (yas-global-mode))
+
+(use-package yasnippet-snippets
+  :ensure t)
