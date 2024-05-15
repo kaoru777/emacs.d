@@ -299,14 +299,14 @@
 
 
 ;; https://github.com/kuanyui/moe-theme.el
-(use-package moe-theme
- :config (load-theme 'moe-light))
+(use-package moe-theme)
+;; :config (load-theme 'moe-light))
 
 ;; https://github.com/bbatsov/solarized-emacs
 ;; (use-package solarized-theme)
 
-(use-package gruvbox-theme)
-;; :config (load-theme 'gruvbox-dark-soft t))
+(use-package gruvbox-theme
+  :config (load-theme 'gruvbox-dark-soft t))
 
 ;; https://github.com/vutran1710/Ayu-Theme-Emacs
 ;;(use-package ayu-theme
