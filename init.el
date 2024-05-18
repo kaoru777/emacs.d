@@ -90,7 +90,7 @@
      ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(yasnippet-snippets yasnippet rubocop robe yaml-mode inf-ruby flycheck dap-mode highlight-indent-guides dashboard devdocs sqlformat ace-window amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
+   '(vterm eat yasnippet-snippets yasnippet rubocop robe yaml-mode inf-ruby flycheck dap-mode highlight-indent-guides dashboard devdocs sqlformat ace-window amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
    '((expand-file-name package-user-dir)
@@ -271,24 +271,22 @@
 
 ;;(use-package magit-todos)
 
+(use-package robe
+  :ensure t
+  :bind ("C-M-." . robe-jump)
+
+  :init
+  (add-hook 'ruby-mode-hook 'robe-mode)
+
+  :config
+  (defadvice inf-ruby-console-auto
+    (before activate-rvm-for-robe activate)
+    (rvm-activate-corresponding-ruby)))
+
 (use-package company
-    :defer t
-    :init (global-company-mode)
-    :bind
-    (:map company-active-map
-    ("C-n" . company-select-next)
-    ("C-p" . company-select-previous)
-    ("<tab>" . company-complete-common-or-cycle)
-    :map company-search-map
-    ("C-p" . company-select-previous)
-    ("C-n" . company-select-next))
-    :config
-    (setq company-tooltip-align-annotations t
-          company-idle-delay 0.1
-          ;; min prefix of 2 chars
-          company-minimum-prefix-length 2
-          company-robe company-backends
-          company-require-match nil))
+  :no-require t
+  :config
+  (push 'company-robe company-backends))
 
 
 ;; https://github.com/tarsius/hl-todo
@@ -446,7 +444,7 @@
 
 ;; (use-package bug-hunter)
 
-;; (use-package vterm)
+(use-package vterm)
 
 (use-package org
   :ensure org-contrib)
@@ -698,3 +696,7 @@
 
 (use-package yasnippet-snippets
   :ensure t)
+
+(use-package eat
+  :ensure t)
+
