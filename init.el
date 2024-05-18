@@ -40,6 +40,9 @@
 (set-face-attribute 'default nil :height 120)
 (save-place-mode t)
 
+(add-to-list 'default-frame-alist '(height . 64))
+(add-to-list 'default-frame-alist '(width . 128))
+
 (setq-default
   indent-tabs-mode nil ;; use space instead of tabs
   tab-width 4 ;; make tabs 4 spaces wide
