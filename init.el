@@ -28,7 +28,7 @@
 (setq package-check-signature nil)
 
 (setq image-use-external-converter t)
-
+(setq confirm-kill-emacs nil)
 (setq large-file-warning-threshold nil)
 
 (setq shell-command-switch "-ic")
@@ -57,6 +57,14 @@
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+(defun save-and-quit ()
+  "Save all buffers and quit Emacs."
+  (interactive)
+  (save-some-buffers t)
+  (kill-emacs))
+
+(global-set-key (kbd "C-x C-s C-c") 'save-and-quit)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
