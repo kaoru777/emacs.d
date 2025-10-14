@@ -1,4 +1,5 @@
 (require 'package)
+(setq url-request-timeout 10)
 
 (setq package-archives (append package-archives
        '(("melpa" . "http://melpa.org/packages/")
@@ -64,7 +65,7 @@
   (save-some-buffers t)
   (kill-emacs))
 
-(global-set-key (kbd "C-x C-s C-c") 'save-and-quit)
+(global-set-key (kbd "C-x C-q") 'save-and-quit)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -314,13 +315,6 @@
 (use-package ruby-mode
   :ensure t
   :config (setq ruby-indent-level 2))
-
-(use-package sql-mode
-  :ensure t
-  :config (setq sql-product-interactive 'postgres))
-
-(use-package sql-up-mode
-  :ensure t)
 
 ;; https://github.com/tarsius/hl-todo
 (use-package hl-todo
