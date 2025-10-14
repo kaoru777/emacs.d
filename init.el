@@ -27,6 +27,8 @@
 
 (setq package-check-signature nil)
 
+(setq image-use-external-converter t)
+
 (setq large-file-warning-threshold nil)
 
 (setq shell-command-switch "-ic")
@@ -35,13 +37,12 @@
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-follow-mouse 't)
 (setq scroll-step 1)
+(global-font-lock-mode 1)
+(electric-pair-mode 1)
 (setq-default line-spacing 0.3)
-(set-frame-font "Comic Code 12")
+(set-frame-font "Comic Code 13")
 (set-face-attribute 'default nil :height 120)
 (save-place-mode t)
-
-(add-to-list 'default-frame-alist '(height . 64))
-(add-to-list 'default-frame-alist '(width . 128))
 
 (setq-default
   indent-tabs-mode nil ;; use space instead of tabs
@@ -63,12 +64,28 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ag-arguments
-   '("--ignore-dir" "test" "--ignore-dir" "*migrations*" "--ignore-dir" "node_modules" "--ignore-dir" "elpa" "--ignore-dir" "lib" "--ignore-dir" "build" "--ignore" "*.min.js" "--ignore" "*.min.css"))
+   '("--ignore-dir" "test" "--ignore-dir" "*migrations*" "--ignore-dir"
+     "node_modules" "--ignore-dir" "elpa" "--ignore-dir" "lib" "--ignore-dir"
+     "build" "--ignore" "*.min.js" "--ignore" "*.min.css"))
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(beacon-color "#cc6666")
  '(custom-safe-themes
-   '("fe6b6d4be494bd23c360115ab703985b6366ab766800c9d9b960b0da113123e9" "09fcace336d09b96ef82209890c4503708c65f9d8ce020617327182ec559e6cd" "b7b9a74d248fdf304bc7207dc78c10b2fd632974e6f2d3d50ea4258859472581" "a53f00556ab4c81a0618ab6589053d9e351312d37d9c9cf544e0c8edac2b63ab" "0feb7052df6cfc1733c1087d3876c26c66410e5f1337b039be44cb406b6187c6" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "7675ffd2f5cb01a7aab53bcdd702fa019b56c764900f2eea0f74ccfc8e854386" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358"))
+   '("fe6b6d4be494bd23c360115ab703985b6366ab766800c9d9b960b0da113123e9"
+     "09fcace336d09b96ef82209890c4503708c65f9d8ce020617327182ec559e6cd"
+     "b7b9a74d248fdf304bc7207dc78c10b2fd632974e6f2d3d50ea4258859472581"
+     "a53f00556ab4c81a0618ab6589053d9e351312d37d9c9cf544e0c8edac2b63ab"
+     "0feb7052df6cfc1733c1087d3876c26c66410e5f1337b039be44cb406b6187c6"
+     "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+     "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa"
+     "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a"
+     "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d"
+     "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e"
+     "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016"
+     "7675ffd2f5cb01a7aab53bcdd702fa019b56c764900f2eea0f74ccfc8e854386"
+     "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58"
+     "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
+     "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358"))
  '(fci-rule-color "#373b41")
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
  '(frame-background-mode 'dark)
@@ -76,50 +93,26 @@
  '(git-gutter:deleted-sign "-")
  '(git-gutter:modified-sign "~")
  '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#3a81c3")
-     ("OKAY" . "#3a81c3")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#42ae2c")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
+   '(("TODO" . "#dc752f") ("NEXT" . "#dc752f") ("THEM" . "#2d9574")
+     ("PROG" . "#3a81c3") ("OKAY" . "#3a81c3") ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f") ("DONE" . "#42ae2c") ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d") ("HACK" . "#b1951d") ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f") ("XXX+" . "#dc752f") ("\\?\\?\\?+" . "#dc752f")))
  '(menu-bar-mode nil)
- '(package-selected-packages
-   '(vterm eat yasnippet-snippets yasnippet rubocop robe yaml-mode inf-ruby flycheck dap-mode highlight-indent-guides dashboard devdocs sqlformat ace-window amx flx counsel-projectile counsel avy ivy helm-swoop helm-ag helm-projectile helm which-key web-mode web-beautify use-package-ensure-system-package ruby-hash-syntax ruby-compilation rspec-mode rainbow-delimiters projectile org-contrib moe-theme markdown-mode magit json-mode indent-guide hl-todo gruvbox-theme gnu-elpa-keyring-update fzf expand-region exec-path-from-shell dockerfile-mode docker-compose-mode csv-mode company ansible ag))
+ '(package-selected-packages nil)
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
  '(recentf-exclude
-   '((expand-file-name package-user-dir)
-     ".cache" "cache" "recentf" "COMMIT_EDITMSG\\'"))
+   '((expand-file-name package-user-dir) ".cache" "cache" "recentf"
+     "COMMIT_EDITMSG\\'"))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
-   '((20 . "#cc6666")
-     (40 . "#de935f")
-     (60 . "#f0c674")
-     (80 . "#b5bd68")
-     (100 . "#8abeb7")
-     (120 . "#81a2be")
-     (140 . "#b294bb")
-     (160 . "#cc6666")
-     (180 . "#de935f")
-     (200 . "#f0c674")
-     (220 . "#b5bd68")
-     (240 . "#8abeb7")
-     (260 . "#81a2be")
-     (280 . "#b294bb")
-     (300 . "#cc6666")
-     (320 . "#de935f")
-     (340 . "#f0c674")
-     (360 . "#b5bd68")))
+   '((20 . "#cc6666") (40 . "#de935f") (60 . "#f0c674") (80 . "#b5bd68")
+     (100 . "#8abeb7") (120 . "#81a2be") (140 . "#b294bb") (160 . "#cc6666")
+     (180 . "#de935f") (200 . "#f0c674") (220 . "#b5bd68") (240 . "#8abeb7")
+     (260 . "#81a2be") (280 . "#b294bb") (300 . "#cc6666") (320 . "#de935f")
+     (340 . "#f0c674") (360 . "#b5bd68")))
  '(vc-annotate-very-old-color nil)
  '(warning-suppress-types '((perspective) (perspective)))
  '(window-divider-mode nil))
@@ -249,7 +242,7 @@
   (setq which-key-prefix-prefix "+")
   :config (which-key-mode))
 
-;; https://magit.vc
+;; https://magit
 ;; https://github.com/magit/magit
 ;; http://whattheemacsd.com/setup-magit.el-01.html
 (use-package magit
@@ -274,30 +267,58 @@
 
 ;;(use-package magit-todos)
 
-(use-package robe
-  :ensure t
-  :bind ("C-M-." . robe-jump)
-
-  :init
-  (add-hook 'ruby-mode-hook 'robe-mode)
-
-  :config
-  (defadvice inf-ruby-console-auto
-    (before activate-rvm-for-robe activate)
-    (rvm-activate-corresponding-ruby)))
-
 (use-package company
-  :no-require t
-  :config
-  (push 'company-robe company-backends))
+    :defer t
+    :init (global-company-mode)
+    :bind
+    (:map company-active-map
+    ("C-n" . company-select-next)
+    ("C-p" . company-select-previous)
+    ("<tab>" . company-complete-common-or-cycle)
+    :map company-search-map
+    ("C-p" . company-select-previous)
+    ("C-n" . company-select-next))
+    :config
+    (setq company-tooltip-align-annotations t
+          company-idle-delay 0.1
+          ;; min prefix of 2 chars
+          company-minimum-prefix-length 2
+          company-robe company-backends
+          company-require-match nil))
 
+(use-package lsp-mode
+  :ensure t
+  :hook ((java-mode . lsp)
+         (ruby-mode . lsp)
+         (sql-mode . lsp))
+  :commands lsp)
+
+(use-package lsp-java
+  :ensure t
+  :after lsp-mode
+  :config
+  (setq lsp-java-server-install-dir
+        (cond
+         ((eq system-type 'gnu/linux) "~/tools/jdtls/") ; Linux path
+         ((eq system-type 'darwin) "/opt/homebrew/opt/jdtls/libexec/") ; macOS path
+         (t (user-error "Unsupported OS for lsp-java")))))
+
+(use-package ruby-mode
+  :ensure t
+  :config (setq ruby-indent-level 2))
+
+(use-package sql-mode
+  :ensure t
+  :config (setq sql-product-interactive 'postgres))
+
+(use-package sql-up-mode
+  :ensure t)
 
 ;; https://github.com/tarsius/hl-todo
 (use-package hl-todo
   :config
   (setq hl-todo-highlight-punctuation ":")
   (global-hl-todo-mode))
-
 
 ;; https://github.com/kuanyui/moe-theme.el
 (use-package moe-theme
@@ -306,7 +327,7 @@
 ;; https://github.com/bbatsov/solarized-emacs
 ;; (use-package solarized-theme)
 
-;; (use-package gruvbox-theme
+(use-package gruvbox-theme)
   ;; :config (load-theme 'gruvbox-dark-soft t))
 
 ;; https://github.com/vutran1710/Ayu-Theme-Emacs
@@ -447,7 +468,7 @@
 
 ;; (use-package bug-hunter)
 
-(use-package vterm)
+;; (use-package vterm)
 
 (use-package org
   :ensure org-contrib)
@@ -485,6 +506,10 @@
 (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 (add-to-list 'org-structure-template-alist '("md" . "src markdown"))
 (add-to-list 'org-structure-template-alist '("gq" . "src graphql"))
+
+(add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+
 
 ;; (use-package pandoc)
 ;; (use-package ox-pandoc
@@ -683,23 +708,4 @@
   (add-hook 'ruby-mode-hook 'rubocop-mode)
   :diminish rubocop-mode)
 
-
-(use-package yasnippet
-  :ensure t
-  :config
-  (validate-setq
-   yas-verbosity 1
-   yas-wrap-around-region t)
-
-  (with-eval-after-load 'yasnippet
-    (validate-setq yas-snippet-dirs '(yasnippet-snippets-dir)))
-
-  (yas-reload-all)
-  (yas-global-mode))
-
-(use-package yasnippet-snippets
-  :ensure t)
-
-(use-package eat
-  :ensure t)
-
+(setq image-types '(svg png gif tiff jpeg xpm xbm pbm))
