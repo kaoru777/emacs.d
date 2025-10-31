@@ -297,10 +297,19 @@
 
 (use-package lsp-mode
   :ensure t
-  :hook ((java-mode . lsp)
-         (ruby-mode . lsp)
-         (sql-mode . lsp))
+  :hook ((ruby-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  ;;:hook ((java-mode . lsp)
+  ;;       (ruby-mode . lsp)
+  ;;       (sql-mode . lsp))
   :commands lsp)
+
+;;(use-package ruby-lsp
+;;  :ensure t
+;;  :after lsp-mode
+;;  :hook (ruby-mode . (lambda ()
+;;                       (require 'ruby-lsp)
+;;                       (lsp-ruby-initialize))))
 
 (use-package lsp-java
   :ensure t
@@ -329,8 +338,8 @@
 ;; https://github.com/bbatsov/solarized-emacs
 ;; (use-package solarized-theme)
 
-(use-package gruvbox-theme)
-  ;; :config (load-theme 'gruvbox-dark-soft t))
+;; (use-package gruvbox-theme
+;;   :config (load-theme 'gruvbox-dark-soft t))
 
 ;; https://github.com/vutran1710/Ayu-Theme-Emacs
 ;;(use-package ayu-theme
